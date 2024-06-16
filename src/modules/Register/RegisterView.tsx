@@ -16,7 +16,6 @@ import {yupResolver} from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import TextInput from '../../assets/components/TextInput';
 import Button from '../../assets/components/Button';
-import Checkbox from '../../assets/components/Checkbox';
 import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
@@ -24,29 +23,33 @@ import {
 import {useNavigation, NavigationProp} from '@react-navigation/native';
 import {RootStackParamList} from '../../navigation/types'; // Adjust the path as necessary
 
-const loginSchema = yup.object().shape({
+const registerSchema = yup.object().shape({
+  name: yup.string().required('Name is required'),
   email: yup.string().email('Invalid email').required('Email is required'),
   password: yup
     .string()
     .min(6, 'Password must be at least 6 characters')
     .required('Password is required'),
+  confirmPassword: yup
+    .string()
+    .oneOf([yup.ref('password'), undefined], 'Passwords must match')
+    .required('Confirm Password is required'),
 });
 
-const LoginScreen: React.FC = () => {
+const RegisterView: React.FC = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const {
     control,
     handleSubmit,
     formState: {errors},
   } = useForm({
-    resolver: yupResolver(loginSchema),
+    resolver: yupResolver(registerSchema),
   });
 
   const [passwordVisible, setPasswordVisible] = useState(false);
-  const [rememberMe, setRememberMe] = useState(false);
+  const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
 
   const onSubmit = (data: any) => {
-    data.rememberMe = rememberMe;
     console.log(data);
   };
 
@@ -66,14 +69,28 @@ const LoginScreen: React.FC = () => {
             style={{flex: 1}}>
             <ScrollView contentContainerStyle={styles.scrollContainer}>
               <View style={styles.loginContainer}>
-                <Text style={styles.title}>Login</Text>
+                <Text style={styles.title}>Register</Text>
                 <View style={styles.subtitleContainer}>
-                  <Text style={styles.subtitle}>Don't have an account?</Text>
+                  <Text style={styles.subtitle}>Already have an account?</Text>
                   <TouchableOpacity
-                    onPress={() => navigation.navigate('RegisterView')}>
-                    <Text style={styles.signUp}>Sign Up</Text>
+                    onPress={() => navigation.navigate('Login')}>
+                    <Text style={styles.signUp}>Login</Text>
                   </TouchableOpacity>
                 </View>
+                <Controller
+                  control={control}
+                  name="name"
+                  render={({field: {onChange, onBlur, value}}) => (
+                    <TextInput
+                      label="First Name"
+                      placeholder="First Name"
+                      onBlur={onBlur}
+                      onChangeText={onChange}
+                      value={value}
+                      error={errors.name?.message}
+                    />
+                  )}
+                />
                 <Controller
                   control={control}
                   name="email"
@@ -105,37 +122,58 @@ const LoginScreen: React.FC = () => {
                     />
                   )}
                 />
-                <View style={styles.rememberContainer}>
-                  <Checkbox
-                    label="Remember me"
-                    checked={rememberMe}
-                    onPress={() => setRememberMe(!rememberMe)}
-                  />
-                  <TouchableOpacity>
-                    <Text style={styles.forgotText}>Forgot Password?</Text>
-                  </TouchableOpacity>
-                </View>
+                <Controller
+                  control={control}
+                  name="confirmPassword"
+                  render={({field: {onChange, onBlur, value}}) => (
+                    <TextInput
+                      label="Confirm Password"
+                      placeholder="Confirm Password"
+                      secureTextEntry={!confirmPasswordVisible}
+                      onBlur={onBlur}
+                      onChangeText={onChange}
+                      value={value}
+                      error={errors.confirmPassword?.message}
+                      icon={confirmPasswordVisible ? 'eye-off' : 'eye'}
+                      iconOnPress={() =>
+                        setConfirmPasswordVisible(!confirmPasswordVisible)
+                      }
+                    />
+                  )}
+                />
                 <Button
-                  title="Log In"
+                  title="Register"
                   onPress={handleSubmit(onSubmit)}
                   buttonStyle={styles.loginButton}
                   textStyle={styles.loginButtonText}
                 />
-                <Text style={styles.orText}>Or</Text>
-                <Button
-                  title="Continue with Google"
-                  onPress={() => console.log('Continue with Google')}
-                  buttonStyle={styles.socialButton}
-                  textStyle={styles.socialButtonText}
-                  icon={require('../../assets/Images/google.png')}
-                />
-                <Button
-                  title="Continue with Facebook"
-                  onPress={() => console.log('Continue with Facebook')}
-                  buttonStyle={styles.socialButton}
-                  textStyle={styles.socialButtonText}
-                  icon={require('../../assets/Images/facebooks.png')}
-                />
+                <Text style={styles.orText}>Or Register with</Text>
+                <View style={styles.socialButtonsContainer}>
+                  <TouchableOpacity
+                    style={styles.socialButton}
+                    onPress={() => console.log('Continue with Google')}>
+                    <Image
+                      source={require('../../assets/Images/google.png')}
+                      style={styles.socialIcon}
+                    />
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={styles.socialButton}
+                    onPress={() => console.log('Continue with Facebook')}>
+                    <Image
+                      source={require('../../assets/Images/facebooks.png')}
+                      style={styles.socialIcon}
+                    />
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={styles.socialButton}
+                    onPress={() => console.log('Continue with Apple')}>
+                    <Image
+                      source={require('../../assets/Images/apple.png')}
+                      style={styles.socialIcon}
+                    />
+                  </TouchableOpacity>
+                </View>
               </View>
             </ScrollView>
           </KeyboardAvoidingView>
@@ -188,25 +226,10 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginLeft: 4,
   },
-  rememberContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    width: '100%',
-    marginBottom: hp('2%'),
-  },
-  rememberText: {
-    fontSize: hp('1.8%'),
-  },
-  forgotText: {
-    fontSize: hp('1.8%'),
-    color: '#000',
-    fontWeight: 'bold',
-  },
   loginButton: {
     backgroundColor: '#000',
-    paddingVertical: hp('1.5%'),
-    paddingHorizontal: wp('28%'),
+    paddingVertical: hp('1.8%'),
+    paddingHorizontal: wp('27.9%'),
     borderRadius: 25,
     marginBottom: hp('1%'),
   },
@@ -217,15 +240,21 @@ const styles = StyleSheet.create({
   },
   orText: {
     fontSize: hp('2%'),
-    marginVertical: hp('1.5%'),
+    marginVertical: hp('1%'),
+  },
+  socialButtonsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
+    marginTop: hp('1%'),
   },
   socialButton: {
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: '#fff',
     paddingVertical: hp('1.5%'),
-    paddingHorizontal: wp('10%'),
-    borderRadius: 25,
+    paddingHorizontal: wp('3%'),
+    borderRadius: 15,
     borderWidth: 1,
     borderColor: '#fff',
     marginBottom: hp('2%'),
@@ -237,9 +266,9 @@ const styles = StyleSheet.create({
     marginLeft: wp('2%'),
   },
   socialIcon: {
-    width: hp('3%'),
-    height: hp('3%'),
+    width: hp('4%'),
+    height: hp('4%'),
   },
 });
 
-export default LoginScreen;
+export default RegisterView;
