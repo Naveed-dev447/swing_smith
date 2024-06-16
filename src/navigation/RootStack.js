@@ -7,22 +7,28 @@ import { navigationRef } from '../shared/Utils/navigationRef';
 // RootNavigation.tsx
 import LogInView from '../modules/Login/LoginView';
 import SplashView from '../modules/Splash/SplashView';
+// All Components 
+import OnboardStack from './OnboardStack';
 import RegisterView from '../modules/Register/RegisterView';
 
 
 const Stack = createStackNavigator();
 
-const RootNavigation= () => {
+const RootNavigation = () => {
   LogBox.ignoreAllLogs();
   return (
     <NavigationContainer ref={navigationRef}>
-      <Stack.Navigator headerMode="none" initialRouteName="Splash">
+      <Stack.Navigator initialRouteName="Splash">
         <Stack.Screen
+          options={{ headerShown: false }}
           name="Splash"
           component={SplashView}
         />
         <Stack.Screen name="Login" component={LogInView} />
         <Stack.Screen name="RegisterView" component={RegisterView} />
+        <Stack.Screen name="Onboard"
+          options={{ headerShown: false }}
+          component={OnboardStack} />
       </Stack.Navigator>
     </NavigationContainer>
   );
