@@ -11,7 +11,7 @@ const SplashScreen = (props: any) => {
 
   return (
     <ImageBackground
-      source={require('../../assets/Images/splash_background.png')}
+      source={require('../../assets/Images/onBoarding.jpg')}
       style={styles.backgroundImage}
     >
       <StatusBar barStyle="light-content" translucent backgroundColor="transparent" />
