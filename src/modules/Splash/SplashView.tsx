@@ -6,7 +6,7 @@ const SplashScreen = (props: any) => {
   const {route, navigation} = props
 
   const handleGetStarted = () => {
-    navigation.navigate('Login'); 
+    navigation.navigate('Onboard'); 
   };
 
   return (
