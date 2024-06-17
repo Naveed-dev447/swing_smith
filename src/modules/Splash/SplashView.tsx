@@ -6,12 +6,12 @@ const SplashScreen = (props: any) => {
   const {route, navigation} = props
 
   const handleGetStarted = () => {
-    navigation.navigate('Onboard'); 
+    navigation.navigate('Login'); 
   };
 
   return (
     <ImageBackground
-      source={require('../../assets/Images/splash_background.png')}
+      source={require('../../assets/Images/onBoarding.jpg')}
       style={styles.backgroundImage}
     >
       <StatusBar barStyle="light-content" translucent backgroundColor="transparent" />

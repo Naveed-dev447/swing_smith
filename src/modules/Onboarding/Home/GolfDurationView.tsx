@@ -14,7 +14,7 @@ const GolfDurationView: React.FC = (props: any) => {
 
     return (
         <View style={globalStyles.container}>
-            <CustomHeader onBackPress={() => goBack()} />
+            <CustomHeader onBackPress={goBack} />
             <View style={globalStyles.contentContainer}>
                 <Text style={globalStyles.title}>How often do you practise your golf swing?</Text>
                 <Text style={globalStyles.subTitle}>

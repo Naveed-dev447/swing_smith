@@ -14,7 +14,7 @@ const ScoringView: React.FC = (props: any) => {
 
     return (
         <View style={globalStyles.container}>
-            <CustomHeader onBackPress={() => goBack()} />
+            <CustomHeader onBackPress={goBack} />
             <View style={globalStyles.contentContainer}>
                 <Text style={globalStyles.title}>What's your scoring average?</Text>
                 <Text style={globalStyles.subTitle}>
