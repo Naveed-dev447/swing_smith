@@ -7,7 +7,6 @@ import { navigationRef } from '../shared/Utils/navigationRef';
 // RootNavigation.tsx
 import LogInView from '../modules/Login/LoginView';
 import SplashView from '../modules/Splash/SplashView';
-// All Components 
 import OnboardStack from './OnboardStack';
 import RegisterView from '../modules/Register/RegisterView';
 

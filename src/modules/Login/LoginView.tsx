@@ -45,6 +45,7 @@ const LoginScreen: React.FC = () => {
   const onSubmit = (data: any) => {
     data.rememberMe = rememberMe;
     console.log(data);
+    navigation.navigate('Onboard')
   };
 
   return (
