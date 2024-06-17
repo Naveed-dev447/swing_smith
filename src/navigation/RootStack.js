@@ -24,8 +24,8 @@ const RootNavigation = () => {
           name="Splash"
           component={SplashView}
         />
-        <Stack.Screen name="Login" component={LogInView} />
-        <Stack.Screen name="RegisterView" component={RegisterView} />
+        <Stack.Screen name="Login"  options={{ headerShown: false }} component={LogInView} />
+        <Stack.Screen name="RegisterView"  options={{ headerShown: false }} component={RegisterView} />
         <Stack.Screen name="Onboard"
           options={{ headerShown: false }}
           component={OnboardStack} />
