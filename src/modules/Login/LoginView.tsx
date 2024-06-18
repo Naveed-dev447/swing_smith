@@ -17,8 +17,8 @@ import * as yup from 'yup';
 import TextInput from '../../assets/components/TextInput';
 import Button from '../../assets/components/Button';
 import Checkbox from '../../assets/components/Checkbox';
-import {useNavigation, NavigationProp} from '@react-navigation/native';
-import {RootStackParamList} from '../../navigation/types'; 
+// import {useNavigation, NavigationProp} from '@react-navigation/native';
+// import {RootStackParamList} from '../../navigation/types'; 
 import styles from './styles'
 
 const loginSchema = yup.object().shape({
@@ -29,8 +29,9 @@ const loginSchema = yup.object().shape({
     .required('Password is required'),
 });
 
-const LoginScreen: React.FC = () => {
-  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+const LoginScreen: React.FC = (props: any) => {
+  const {route, navigation} = props
+  // const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const {
     control,
     handleSubmit,
@@ -44,6 +45,7 @@ const LoginScreen: React.FC = () => {
 
   const onSubmit = (data: any) => {
     data.rememberMe = rememberMe;
+     navigation.navigate('Onboard')
     console.log(data);
   };
 

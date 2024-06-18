@@ -10,6 +10,7 @@ import SplashView from '../modules/Splash/SplashView';
 // All Components 
 import OnboardStack from './OnboardStack';
 import RegisterView from '../modules/Register/RegisterView';
+import BottomTabNavigator from './BottomTabStack';
 
 
 const Stack = createStackNavigator();
@@ -29,6 +30,9 @@ const RootNavigation = () => {
         <Stack.Screen name="Onboard"
           options={{ headerShown: false }}
           component={OnboardStack} />
+             <Stack.Screen name="BottomTabStack"
+          options={{ headerShown: false }}
+          component={BottomTabNavigator} />
       </Stack.Navigator>
     </NavigationContainer>
   );

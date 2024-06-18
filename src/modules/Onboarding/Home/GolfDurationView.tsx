@@ -35,7 +35,7 @@ const GolfDurationView: React.FC = (props: any) => {
                 </View>
             </View>
             <View style={globalStyles.buttonContainer}>
-                <CustomButton title="Next" onPress={() => console.log('Next pressed')} />
+                <CustomButton title="Next" onPress={() => navigation.navigate('BottomTabStack')} />
                   </View>
               </View>
     );
