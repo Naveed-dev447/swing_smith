@@ -1,4 +1,3 @@
-// styles/globalStyles.ts
 import { StyleSheet } from 'react-native';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
@@ -11,7 +10,6 @@ const globalStyles = StyleSheet.create({
         flex: 1,
         paddingHorizontal: wp('5%'),
         marginTop: hp('5%')
-        // justifyContent: 'center',
     },
     title: {
         color:'#000',
@@ -102,6 +100,25 @@ const globalStyles = StyleSheet.create({
       },
       selectedEquipmentText: {
         color: '#000',
+      },
+      dtlOptionContainer: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        marginVertical: hp('2%'),
+        backgroundColor: '#E8E8E8',
+        borderRadius:30,
+        paddingVertical: hp('.5%'),
+
+      },
+      dtlOptionButton: {
+        paddingVertical: hp('2%'),
+        paddingHorizontal: wp('10%'),
+        borderRadius: 30,
+        marginHorizontal: wp('.5%'),
+        alignItems: 'center',
+      },
+      dtlSelectedOptionText: {
+        fontWeight: 'bold',
       },
       golferImage: {
         width: wp('60%'),

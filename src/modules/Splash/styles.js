@@ -33,7 +33,7 @@ export default StyleSheet.create({
     backgroundColor: '#B3D234',
     borderRadius: 25,
     paddingVertical: hp('1.5%'),
-    paddingHorizontal: wp('10%'),
+    paddingHorizontal: wp('28%'),
   },
   buttonText: {
     fontSize: wp('4.5%'),

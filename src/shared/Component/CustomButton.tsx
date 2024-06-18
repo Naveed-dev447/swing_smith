@@ -2,7 +2,6 @@ import React from 'react';
 import { TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
-
 type CustomButtonProps = {
     title: string;
     onPress: () => void;
@@ -20,7 +19,7 @@ const styles = StyleSheet.create({
     button: {
         backgroundColor: '#000',
         padding: hp('2%'),
-        borderRadius: wp('2%'),
+        borderRadius: wp('20%'),
         alignItems: 'center',
     },
     buttonText: {

@@ -21,12 +21,12 @@ const DTLView: React.FC = (props: any) => {
         <Text style={globalStyles.subTitle}>
           Analyzing video recorder diagonally or from the back may result in lower accuracy
         </Text>
-        <View style={globalStyles.optionContainer}>
+        <View style={globalStyles.dtlOptionContainer}>
           {options.map((option, index) => (
             <TouchableOpacity
               key={index}
               style={[
-                globalStyles.optionButton,
+                globalStyles.dtlOptionButton,
                 selectedOption === option && globalStyles.selectedOptionButton
               ]}
               onPress={() => setSelectedOption(option)}
@@ -34,7 +34,7 @@ const DTLView: React.FC = (props: any) => {
               <Text
                 style={[
                   globalStyles.optionText,
-                  selectedOption === option && globalStyles.selectedOptionText
+                  selectedOption === option && globalStyles.dtlSelectedOptionText
                 ]}
               >
                 {option}
@@ -43,7 +43,7 @@ const DTLView: React.FC = (props: any) => {
           ))}
         </View>
         <Image
-          source={require('../../../assets/Images/golfer.jpg')}
+          source={require('../../../assets/Images/figma.png')}
           style={globalStyles.golferImage}
         />
       </View>
