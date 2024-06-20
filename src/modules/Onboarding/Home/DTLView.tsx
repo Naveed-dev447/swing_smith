@@ -50,7 +50,7 @@ const DTLView: React.FC = (props: any) => {
       <View style={globalStyles.buttonContainer}>
         <CustomButton
           title="Next"
-          onPress={() => navigation.navigate('OnboardHome7')}
+          onPress={() => navigation.navigate('BottomTabStack')}
         />
       </View>
     </View>
