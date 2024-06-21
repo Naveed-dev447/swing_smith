@@ -1,14 +1,21 @@
-// HomeView.js
-import React from 'react';
-import { View, Text, Image, ScrollView, TouchableOpacity, ImageBackground } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
+import Modal from 'react-native-modal';
 import globalStyles from './styles';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { ChallengeCard, DrillCard, HorizontalScroll, Section, TutorialCard, WorkoutCard, Header, Banner, RecentAnalysis, UploadSwing, AnalysisCard } from './Common/Common';
+import FilterModal from '../Home/Common/FilterModal';
 
 const HomeView = () => {
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const toggleModal = () => {
+    setModalVisible(!modalVisible);
+  };
+
   return (
     <ScrollView style={globalStyles.container}>
-      <Header />
+      <Header toggleModal={toggleModal} />
       <Banner />
       <View>
         <Text style={[globalStyles.sectionTitle, { marginTop: hp('2%') }]}>Recent Analysis</Text>
@@ -49,6 +56,16 @@ const HomeView = () => {
           <ChallengeCard title="Challenge" icon="bag-suitcase" />
         </HorizontalScroll>
       </Section>
+
+      <Modal
+        isVisible={modalVisible}
+        onBackdropPress={toggleModal}
+        swipeDirection="down"
+        onSwipeComplete={toggleModal}
+        style={globalStyles.modal}
+      >
+        <FilterModal closeModal={toggleModal} />
+      </Modal>
     </ScrollView>
   );
 };

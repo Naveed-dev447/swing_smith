@@ -1,6 +1,9 @@
 // styles.js
-import { StyleSheet } from 'react-native';
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import {StyleSheet} from 'react-native';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 
 const globalStyles = StyleSheet.create({
   container: {
@@ -8,6 +11,7 @@ const globalStyles = StyleSheet.create({
     padding: wp('4%'),
   },
   headerContainer: {
+    marginTop: 40,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -75,17 +79,17 @@ const globalStyles = StyleSheet.create({
     paddingVertical: hp('0.8%'),
     width: wp('40%'),
     margin: wp('3%'),
-    alignSelf:'center',
-    alignItems:'center',
+    alignSelf: 'center',
+    alignItems: 'center',
     paddingHorizontal: wp('6%'),
     borderRadius: wp('4%'),
   },
   uploadButtonText: {
     fontSize: wp('4.5%'),
   },
-  swingDesText:{
+  swingDesText: {
     color: '#FFFFFF',
-    paddingLeft: wp('4%')
+    paddingLeft: wp('4%'),
   },
   recommendedSection: {
     marginVertical: hp('2%'),
@@ -129,6 +133,70 @@ const globalStyles = StyleSheet.create({
   },
   markAsDoneText: {
     color: 'white',
+  },
+  modal: {
+    justifyContent: 'flex-end',
+    margin: 0,
+  },
+  modalContent: {
+    width: '100%',
+    height: hp('75%'),
+    padding: wp('4%'),
+    backgroundColor: 'white',
+    borderTopLeftRadius: wp('4%'),
+    borderTopRightRadius: wp('4%'),
+  },
+  modalTitle: {
+    fontSize: wp('6%'),
+    fontWeight: 'bold',
+    marginBottom: hp('2%'),
+    color: 'black',
+  },
+  modalDateLabel: {
+    color: 'black',
+
+    fontSize: wp('4%'),
+    marginBottom: hp('1%'),
+  },
+  datePickerContainer: {
+    marginBottom: hp('2%'),
+  },
+  datePicker: {
+    padding: wp('3%'),
+    borderColor: '#ccc',
+    borderWidth: 1,
+    borderRadius: wp('2%'),
+    marginBottom: hp('2%'),
+  },
+  dateText: {
+    fontSize: wp('4%'),
+  },
+  modalClubLabel: {
+    color: 'black',
+
+    fontSize: wp('4%'),
+    marginBottom: hp('1%'),
+  },
+  clubOptions: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    marginBottom: hp('2%'),
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  clubOption: {
+    padding: wp('3%'),
+    backgroundColor: '#f0f0f0',
+    borderRadius: wp('2%'),
+    margin: wp('1%'),
+  },
+  clubText: {
+    fontSize: wp('4%'),
+  },
+  modalButtonText: {
+    color: 'white',
+    fontSize: wp('4%'),
+    borderRadius: 25,
   },
 });
 

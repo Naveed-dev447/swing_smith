@@ -4,12 +4,12 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import globalStyles from '../styles';
 
-
-
-export const Header: React.FC = () => (
+export const Header: React.FC<{ toggleModal: () => void }> = ({ toggleModal }) => (
     <View>
         <View style={globalStyles.headerContainer}>
-            <Icon name="menu" style={globalStyles.headerIcon} />
+        <TouchableOpacity onPress={toggleModal}>
+        <Icon name="menu" style={globalStyles.headerIcon} />
+      </TouchableOpacity>
             <Icon name="account-circle" style={globalStyles.headerIcon} />
         </View>
         <Text style={globalStyles.headerText}>Hello, Dilshan</Text>
@@ -79,7 +79,6 @@ export const AnalysisCard: React.FC<{ score: string; postureScore: string; swing
         </ImageBackground>
     </View>
 );
-//TODO:  We will pass props a method to handle TouchableOpacity 
 
 export const UploadSwing: React.FC = () => (
     <View style={globalStyles.uploadSwingContainer}>
