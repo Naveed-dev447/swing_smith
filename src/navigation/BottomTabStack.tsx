@@ -91,6 +91,7 @@ const styles = StyleSheet.create({
         color: '#000',
         fontSize: wp('3.5%'),
         marginLeft: wp('1%'),
+        marginRight: wp('1%'),
     },
 });
 
