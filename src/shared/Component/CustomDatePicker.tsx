@@ -44,9 +44,11 @@ const styles = StyleSheet.create({
     marginTop: 10, // Added margin for spacing
   },
   dateText: {
-    fontSize: wp('4%'),
+    color:'black',
+    fontSize: wp('3.5%'),
     marginLeft: wp('2%'),
   },
 });
 
 export default CustomDatePicker;
+ 
