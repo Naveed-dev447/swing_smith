@@ -64,7 +64,6 @@ const globalStyles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     marginVertical: hp('2%'),
-    // padding: wp('4%'),
     borderRadius: wp('2%'),
     backgroundColor: 'white',
     elevation: 2,
@@ -146,6 +145,18 @@ const globalStyles = StyleSheet.create({
     borderTopLeftRadius: wp('4%'),
     borderTopRightRadius: wp('4%'),
   },
+  handle: {
+    width: wp('20%'),
+    height: hp('0.5%'),
+    backgroundColor: '#888',
+    borderRadius: wp('1%'),
+    alignSelf: 'center',
+    marginTop: hp('1%'),
+    marginBottom: hp('2%'),
+  },
+  scrollViewContent: {
+    flexGrow: 1,
+  },
   modalTitle: {
     fontSize: wp('6%'),
     fontWeight: 'bold',
@@ -153,8 +164,6 @@ const globalStyles = StyleSheet.create({
     color: 'black',
   },
   modalDateLabel: {
-    color: 'black',
-
     fontSize: wp('4%'),
     marginBottom: hp('1%'),
   },
@@ -173,7 +182,7 @@ const globalStyles = StyleSheet.create({
   },
   modalClubLabel: {
     color: 'black',
-
+    fontWeight: 'bold',
     fontSize: wp('4%'),
     marginBottom: hp('1%'),
   },
