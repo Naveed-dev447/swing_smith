@@ -43,7 +43,7 @@ const DTLView: React.FC = (props: any) => {
           ))}
         </View>
         <Image
-          source={require('../../../assets/Images/figma.png')}
+          source={require('../../../assets/Images/DTL.png')}
           style={globalStyles.golferImage}
         />
       </View>

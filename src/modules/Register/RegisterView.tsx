@@ -21,12 +21,16 @@ import {
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
 import {useNavigation, NavigationProp} from '@react-navigation/native';
-import {RootStackParamList} from '../../navigation/types'; // Adjust the path as necessary
+import {RootStackParamList} from '../../navigation/types';
+
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 const registerSchema = yup.object().shape({
   name: yup.string().required('Name is required'),
-  email: yup.string().email('Invalid email').required('Email is required'),
-  password: yup
+  email: yup
+  .string()
+  .matches(emailRegex, 'Invalid email')
+  .required('Email is required'),  password: yup
     .string()
     .min(6, 'Password must be at least 6 characters')
     .required('Password is required'),
@@ -149,19 +153,19 @@ const RegisterView: React.FC = () => {
                 />
                 <Text style={styles.orText}>Or Register with</Text>
                 <View style={styles.socialButtonsContainer}>
-                  <TouchableOpacity
+                <TouchableOpacity
                     style={styles.socialButton}
-                    onPress={() => console.log('Continue with Google')}>
+                    onPress={() => console.log('Continue with Facebook')}>
                     <Image
-                      source={require('../../assets/Images/google.png')}
+                      source={require('../../assets/Images/facebook4.png')}
                       style={styles.socialIcon}
                     />
                   </TouchableOpacity>
                   <TouchableOpacity
                     style={styles.socialButton}
-                    onPress={() => console.log('Continue with Facebook')}>
+                    onPress={() => console.log('Continue with Google')}>
                     <Image
-                      source={require('../../assets/Images/facebooks.png')}
+                      source={require('../../assets/Images/google_ic.png')}
                       style={styles.socialIcon}
                     />
                   </TouchableOpacity>
@@ -169,7 +173,7 @@ const RegisterView: React.FC = () => {
                     style={styles.socialButton}
                     onPress={() => console.log('Continue with Apple')}>
                     <Image
-                      source={require('../../assets/Images/apple.png')}
+                      source={require('../../assets/Images/apple_ic.png')}
                       style={styles.socialIcon}
                     />
                   </TouchableOpacity>
@@ -229,8 +233,9 @@ const styles = StyleSheet.create({
   loginButton: {
     backgroundColor: '#000',
     paddingVertical: hp('1.8%'),
-    paddingHorizontal: wp('27.9%'),
+    paddingHorizontal: wp('28%'),
     borderRadius: 25,
+    marginTop:hp('1%'),
     marginBottom: hp('1%'),
   },
   loginButtonText: {
@@ -253,7 +258,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#fff',
     paddingVertical: hp('1.5%'),
-    paddingHorizontal: wp('3%'),
+    paddingHorizontal: wp('7%'),
     borderRadius: 15,
     borderWidth: 1,
     borderColor: '#fff',
@@ -266,8 +271,8 @@ const styles = StyleSheet.create({
     marginLeft: wp('2%'),
   },
   socialIcon: {
-    width: hp('4%'),
-    height: hp('4%'),
+    width: hp('3%'),
+    height: hp('3%'),
   },
 });
 

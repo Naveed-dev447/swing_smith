@@ -1,4 +1,3 @@
-// styles.js
 import {StyleSheet} from 'react-native';
 import {
   widthPercentageToDP as wp,
@@ -16,6 +15,12 @@ const globalStyles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
+  tiles: {
+    width: wp('7%'),
+    height: hp('4%'), 
+    resizeMode: 'contain',
+  },
+
   headerIcon: {
     fontSize: wp('8%'),
     color: 'black',
