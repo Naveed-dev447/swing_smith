@@ -17,12 +17,16 @@ import * as yup from 'yup';
 import TextInput from '../../assets/components/TextInput';
 import Button from '../../assets/components/Button';
 import Checkbox from '../../assets/components/Checkbox';
-// import {useNavigation, NavigationProp} from '@react-navigation/native';
-// import {RootStackParamList} from '../../navigation/types'; 
+ 
 import styles from './styles'
 
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 const loginSchema = yup.object().shape({
-  email: yup.string().email('Invalid email').required('Email is required'),
+  email: yup
+  .string()
+  .matches(emailRegex, 'Invalid email')
+  .required('Email is required'),
   password: yup
     .string()
     .min(6, 'Password must be at least 6 characters')
@@ -31,7 +35,6 @@ const loginSchema = yup.object().shape({
 
 const LoginScreen: React.FC = (props: any) => {
   const {route, navigation} = props
-  // const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const {
     control,
     handleSubmit,
@@ -81,6 +84,7 @@ const LoginScreen: React.FC = (props: any) => {
                     <TextInput
                       label="Email"
                       placeholder="Email"
+                      keyboardType='email-address'
                       onBlur={onBlur}
                       onChangeText={onChange}
                       value={value}
@@ -124,17 +128,16 @@ const LoginScreen: React.FC = (props: any) => {
                 <Text style={styles.orText}>Or</Text>
                 <Button
                   title="Continue with Google"
-                  onPress={() => console.log('Continue with Google')}
-                  buttonStyle={styles.socialButton}
+                  onPress={() => navigation.navigate('BottomTabStack')}                  buttonStyle={styles.socialButton}
                   textStyle={styles.socialButtonText}
-                  icon={require('../../assets/Images/google.png')}
+                  icon={require('../../assets/Images/google_ic.png')}
                 />
                 <Button
                   title="Continue with Facebook"
                   onPress={() => console.log('Continue with Facebook')}
                   buttonStyle={styles.socialButton}
                   textStyle={styles.socialButtonText}
-                  icon={require('../../assets/Images/facebooks.png')}
+                  icon={require('../../assets/Images/facebok3.png')}
                 />
               </View>
             </ScrollView>

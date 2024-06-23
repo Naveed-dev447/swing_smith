@@ -19,7 +19,7 @@ const Button: React.FC<ButtonProps> = ({ title, onPress, buttonStyle, textStyle,
       disabled={disabled}
     >
       {icon && <Image source={icon} style={styles.icon} />}
-      <Text style={[styles.text, textStyle, disabled && styles.disabledText]}>{title}</Text>
+      <Text style={[styles.text, textStyle, disabled && styles.disabledText]} numberOfLines={1} adjustsFontSizeToFit>{title}</Text>
     </TouchableOpacity>
   );
 };
@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
   },
   text: {
     color: '#fff',
-    fontSize: 16,
+    fontSize: 14,
   },
   disabledButton: {
     backgroundColor: '#cccccc',
