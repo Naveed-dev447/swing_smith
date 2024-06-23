@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
+import React, {useState} from 'react';
+import {View, Text, ScrollView} from 'react-native';
 import globalStyles from '../styles';
 import CustomDatePicker from '../../../../shared/Component/CustomDatePicker';
 import SelectedTouchableButton from '../../../../assets/components/SelectedTouchableButton';
 import CustomButton from '../../../../shared/Component/CustomButton';
 
-const FilterModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
+const FilterModal: React.FC<{closeModal: () => void}> = ({closeModal}) => {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [selectedOption, setSelectedOption] = useState('Driver');
   const handlePress = (option: string) => {
@@ -28,31 +28,36 @@ const FilterModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
         <View style={globalStyles.clubOptions}>
           <SelectedTouchableButton
             text="Driver"
-            iconName="golf"
+            imageSource={require('../../../../assets/Images/Driver.png')} // Adjust the path to your image
+            iconPosition="left"
             isSelected={selectedOption === 'Driver'}
             onPress={() => handlePress('Driver')}
           />
           <SelectedTouchableButton
             text="Woods"
-            iconName="golf"
+            imageSource={require('../../../../assets/Images/Woods.png')} // Adjust the path to your image
+            iconPosition="left"
             isSelected={selectedOption === 'Woods'}
             onPress={() => handlePress('Woods')}
           />
           <SelectedTouchableButton
             text="Irons"
-            iconName="golf"
+            imageSource={require('../../../../assets/Images/Irons.png')} // Adjust the path to your image
+            iconPosition="left"
             isSelected={selectedOption === 'Irons'}
             onPress={() => handlePress('Irons')}
           />
           <SelectedTouchableButton
             text="Wedges"
-            iconName="golf"
+            imageSource={require('../../../../assets/Images/Wedges.png')} // Adjust the path to your image
+            iconPosition="left"
             isSelected={selectedOption === 'Wedges'}
             onPress={() => handlePress('Wedges')}
           />
           <SelectedTouchableButton
             text="Drivers"
-            iconName="golf"
+            imageSource={require('../../../../assets/Images/Driver.png')} // Adjust the path to your image
+            iconPosition="left"
             isSelected={selectedOption === 'Drivers'}
             onPress={() => handlePress('Drivers')}
           />
