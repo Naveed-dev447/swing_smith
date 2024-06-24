@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 
 export default StyleSheet.create({
@@ -33,7 +33,7 @@ export default StyleSheet.create({
     backgroundColor: '#B3D234',
     borderRadius: 25,
     paddingVertical: hp('1.5%'),
-    paddingHorizontal: wp('28%'),
+    paddingHorizontal: Platform.OS === 'ios' ? wp('25%') : wp('28%'),
   },
   buttonText: {
     fontSize: wp('4.5%'),
