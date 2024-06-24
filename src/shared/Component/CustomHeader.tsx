@@ -1,52 +1,54 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Platform } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import {
+  View,
+  TouchableOpacity,
+  StyleSheet,
+  Image,
+} from 'react-native';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
+
+const goBackIcon = require('../../assets/Images/goBackIcon.png');
 
 type CustomHeaderProps = {
-    title?: string;
-    onBackPress: () => void;
+  onBackPress: () => void;
 };
 
-const CustomHeader: React.FC<CustomHeaderProps> = ({ title, onBackPress }) => {
-    return (
-        <View style={styles.headerContainer}>
-            <TouchableOpacity onPress={onBackPress}>
-                <Icon name='arrow-back-ios' size={24} style={styles.headerIcon}/>
-            </TouchableOpacity>
-            {title && <Text style={styles.headerText}>{title}</Text>}
+const CustomHeader: React.FC<CustomHeaderProps> = ({onBackPress}) => {
+  return (
+    <View style={styles.headerContainer}>
+      <TouchableOpacity onPress={onBackPress} style={styles.backButton}>
+        <View style={styles.iconContainer}>
+          <Image source={goBackIcon} style={styles.headerIcon} />
         </View>
-    );
+      </TouchableOpacity>
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({
-    headerContainer: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginTop: hp('2%'),
-        padding: wp('5%'),
-        backgroundColor: '#fff',
-        ...Platform.select({
-            ios: {
-                shadowColor: '#000',
-                shadowOffset: { width: 0, height: 2 },
-                shadowOpacity: 0.2,
-                shadowRadius: 2,
-            },
-            android: {
-                elevation: 5,
-            },
-        }),
-    },
-    headerIcon: {
-        width: wp('6%'),
-        height: wp('6%'),
-    },
-    headerText: {
-        fontSize: 20,
-        fontWeight: 'bold',
-        marginLeft: wp('2%'),
-    },
+  headerContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: hp('5%'),
+    paddingHorizontal: wp('5%'),
+  },
+  backButton: {
+    padding: wp('1%'),
+  },
+  iconContainer: {
+    width: wp('5%'),
+    height: wp('10%'),
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  headerIcon: {
+    width: wp('10%'),
+    height: wp('10%'),
+    resizeMode: 'contain',
+  },
 });
 
 export default CustomHeader;
