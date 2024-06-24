@@ -9,6 +9,10 @@ import GameImproveView from '../modules/Onboarding/Home/GameImproveView'
 import CoachingLessonView from '../modules/Onboarding/Home/CoachingLessonView'
 import EquipmentsView from '../modules/Onboarding/Home/EquipmentsView'
 import DTLView from '../modules/Onboarding/Home/DTLView'
+import videoUpload1 from '../modules/VideoUpload/videoUpload1'
+import VideoUpload2 from './../modules/VideoUpload/videoUpload2';
+import VideoUpload3 from './../modules/VideoUpload/videoUpload3';
+import VideoUpload4 from './../modules/VideoUpload/videoUpload4';
 
 const Stack = createStackNavigator();
 
@@ -50,6 +54,26 @@ const RootNavigation= () => {
           options={{ headerShown: false }}
           name="OnboardHome7"
           component={DTLView}
+        />
+         <Stack.Screen
+          options={{ headerShown: false }}
+          name="OnboardHome8"
+          component={videoUpload1}
+        />
+         <Stack.Screen
+          options={{ headerShown: false }}
+          name="OnboardHome9"
+          component={VideoUpload2}
+        />
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name="OnboardHome10"
+          component={VideoUpload3}
+        />
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name="OnboardHome11"
+          component={VideoUpload4}
         />
 
       </Stack.Navigator>

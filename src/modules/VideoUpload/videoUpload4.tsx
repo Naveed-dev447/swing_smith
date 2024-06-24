@@ -1,20 +1,21 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import CustomHeader from '../../../shared/Component/CustomHeader';
-import CustomButton from '../../../shared/Component/CustomButton';
-import globalStyles from '../styles';
-import { goBack } from '../../../shared/Utils/navigationRef';
-import SelectedTouchableButton from '../../../assets/components/SelectedTouchableButton';
+import globalStyles from '../Onboarding/styles';
+import CustomHeader from '../../shared/Component/CustomHeader';
+import CustomButton from '../../shared/Component/CustomButton';
+import { goBack } from '../../shared/Utils/navigationRef';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import SelectedTouchableButton from '../../assets/components/SelectedTouchableButton';
 
-const EquipmentsView: React.FC = (props: any) => {
+const videoUpload4: React.FC = (props: any) => {
   const { route, navigation } = props;
   const [selectedEquipment, setSelectedEquipment] = useState<string | null>(null);
 
   const equipmentOptions = [
-    'Standard clubs',
-    'Custom-fitted clubs',
-    'Advanced technology clubs (e.g., smart clubs)'
+    { text: 'Full swing', backgroundImage: require('../../assets/Images/Chip.png') },
+    { text: 'Pitch', backgroundImage: require('../../assets/Images/Chip.png') },
+    { text: 'Chip', backgroundImage: require('../../assets/Images/Chip.png') },
+    { text: 'Putt', backgroundImage: require('../../assets/Images/Chip.png') },
   ];
 
   return (
@@ -22,20 +23,19 @@ const EquipmentsView: React.FC = (props: any) => {
       <CustomHeader onBackPress={goBack} />
       <View style={globalStyles.contentContainer}>
         <Text style={globalStyles.title}>
-          What type of golf equipment do you primarily use?
+          What type of swing is in the video?
         </Text>
         <Text style={globalStyles.subTitle}>
-          Analyzing video recorded diagonally or from the back may result in
-          lower accuracy
+          Analyzing video recorded diagonally or from the back may result in lower accuracy
         </Text>
         <View style={styles.equipmentContainer}>
           {equipmentOptions.map((option, index) => (
             <SelectedTouchableButton
               key={index}
-              text={option}
-              isSelected={selectedEquipment === option}
-              onPress={() => setSelectedEquipment(option)}
-              fullWidth={index === 2}
+              text={option.text}
+              backgroundImage={option.backgroundImage}
+              isSelected={selectedEquipment === option.text}
+              onPress={() => setSelectedEquipment(option.text)}
             />
           ))}
         </View>
@@ -43,14 +43,14 @@ const EquipmentsView: React.FC = (props: any) => {
       <View style={globalStyles.buttonContainer}>
         <CustomButton
           title="Next"
-          onPress={() => navigation.navigate('OnboardHome7')}
+          onPress={() => navigation.navigate('OnboardHome11')}
         />
       </View>
     </View>
   );
 };
 
-export default EquipmentsView;
+export default videoUpload4;
 
 const styles = StyleSheet.create({
   equipmentContainer: {
@@ -60,4 +60,3 @@ const styles = StyleSheet.create({
     marginTop: hp('5%'),
   },
 });
-

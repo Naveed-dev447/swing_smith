@@ -1,12 +1,14 @@
-import React, {useState} from 'react';
-import {View, Text, TouchableOpacity} from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, StyleSheet } from 'react-native';
 import CustomHeader from '../../../shared/Component/CustomHeader';
 import CustomButton from '../../../shared/Component/CustomButton';
 import globalStyles from '../styles';
-import {goBack} from '../../../shared/Utils/navigationRef';
+import { goBack } from '../../../shared/Utils/navigationRef';
+import SelectedTouchableButton from '../../../assets/components/SelectedTouchableButton';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 const GameImproveView: React.FC = (props: any) => {
-  const {route, navigation} = props;
+  const { route, navigation } = props;
   const [selectedAspect, setSelectedAspect] = useState<string | null>(null);
 
   const aspects = ['Driving', 'Iron play', 'Putting', 'Short game', 'Course management'];
@@ -19,28 +21,18 @@ const GameImproveView: React.FC = (props: any) => {
           What aspect of your game do you want to improve the most?
         </Text>
         <Text style={globalStyles.subTitle}>
-          Analyzing video recorder diagonally or from the back may result in
+          Analyzing video recorded diagonally or from the back may result in
           lower accuracy
         </Text>
-        <View style={globalStyles.levelContainer}>
+        <View style={styles.aspectContainer}>
           {aspects.map((aspect, index) => (
-            <TouchableOpacity
+            <SelectedTouchableButton
               key={index}
-              style={[
-                globalStyles.levelButton,
-                selectedAspect === aspect && globalStyles.selectedLevelButton
-              ]}
+              text={aspect}
+              isSelected={selectedAspect === aspect}
               onPress={() => setSelectedAspect(aspect)}
-            >
-              <Text
-                style={[
-                  globalStyles.levelText,
-                  selectedAspect === aspect && globalStyles.selectedLevelText
-                ]}
-              >
-                {aspect}
-              </Text>
-            </TouchableOpacity>
+              fullWidth={index === aspects.length - 1} 
+            />
           ))}
         </View>
       </View>
@@ -55,3 +47,12 @@ const GameImproveView: React.FC = (props: any) => {
 };
 
 export default GameImproveView;
+
+const styles = StyleSheet.create({
+  aspectContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
+    marginTop: hp('5%'),
+  },
+});

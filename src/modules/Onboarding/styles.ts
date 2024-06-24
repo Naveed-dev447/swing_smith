@@ -9,18 +9,19 @@ const globalStyles = StyleSheet.create({
     contentContainer: {
         flex: 1,
         paddingHorizontal: wp('5%'),
-        marginTop: hp('5%')
+        marginTop: hp('3%')
     },
     title: {
         color:'#000',
-        fontSize: wp('6%'),
-        fontWeight: 'bold',
+        fontSize: wp('7%'),
+        fontWeight: '600',
         textAlign: 'center',
         marginVertical: hp('2%'),
     },
     subTitle: {
-        color:'#000',
-        fontSize: wp('4%'),
+        color:'#192126',
+        fontSize: wp('4.5%'),
+        fontWeight:'400',
         alignSelf:'center',
         marginTop: hp('1%'),
         marginBottom: hp('3%'),
