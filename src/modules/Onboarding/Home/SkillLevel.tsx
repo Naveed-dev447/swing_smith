@@ -1,15 +1,17 @@
-import React, {useState} from 'react';
-import {View, Text, TouchableOpacity} from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, StyleSheet } from 'react-native';
 import CustomHeader from '../../../shared/Component/CustomHeader';
-import {goBack} from '../../../shared/Utils/navigationRef';
+import { goBack } from '../../../shared/Utils/navigationRef';
 import globalStyles from '../styles';
 import CustomButton from '../../../shared/Component/CustomButton';
+import SelectedTouchableButton from '../../../assets/components/SelectedTouchableButton';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 interface SkillLevelProps {
   navigation: any;
 }
 
-const SkillLevel: React.FC<SkillLevelProps> = ({navigation}) => {
+const SkillLevel: React.FC<SkillLevelProps> = ({ navigation }) => {
   const [selectedLevel, setSelectedLevel] = useState<string | null>(null);
   const levels = ['Beginner', 'Intermediate', 'Advanced', 'Professional'];
 
@@ -21,26 +23,17 @@ const SkillLevel: React.FC<SkillLevelProps> = ({navigation}) => {
           What is your current handicap or skill level?
         </Text>
         <Text style={globalStyles.subTitle}>
-          Analyzing video recorder diagonally or from the back may result in
+          Analyzing video recorded diagonally or from the back may result in
           lower accuracy
         </Text>
-        <View style={globalStyles.levelContainer}>
+        <View style={styles.levelContainer}>
           {levels.map((level, index) => (
-            <TouchableOpacity
+            <SelectedTouchableButton
               key={index}
-              style={[
-                globalStyles.levelButton,
-                selectedLevel === level && globalStyles.selectedLevelButton,
-              ]}
-              onPress={() => setSelectedLevel(level)}>
-              <Text
-                style={[
-                  globalStyles.levelText,
-                  selectedLevel === level && globalStyles.selectedLevelText,
-                ]}>
-                {level}
-              </Text>
-            </TouchableOpacity>
+              text={level}
+              isSelected={selectedLevel === level}
+              onPress={() => setSelectedLevel(level)}
+            />
           ))}
         </View>
       </View>
@@ -55,3 +48,12 @@ const SkillLevel: React.FC<SkillLevelProps> = ({navigation}) => {
 };
 
 export default SkillLevel;
+
+const styles = StyleSheet.create({
+  levelContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
+    marginTop: hp('5%'),
+  },
+});

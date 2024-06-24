@@ -1,6 +1,6 @@
 import React from 'react';
-import {TouchableOpacity, Text, StyleSheet,Image, ImageSourcePropType} from 'react-native';
-import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import { TouchableOpacity, Text, StyleSheet, ImageBackground, ImageSourcePropType, Image } from 'react-native';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 interface SelectedTouchableButtonProps {
   text: string;
@@ -8,6 +8,8 @@ interface SelectedTouchableButtonProps {
   iconPosition?: 'left' | 'right';
   isSelected?: boolean;
   onPress: () => void;
+  fullWidth?: boolean;
+  backgroundImage?: ImageSourcePropType;
 }
 
 const SelectedTouchableButton: React.FC<SelectedTouchableButtonProps> = ({
@@ -16,17 +18,32 @@ const SelectedTouchableButton: React.FC<SelectedTouchableButtonProps> = ({
   iconPosition = 'left',
   isSelected = false,
   onPress,
+  fullWidth = false, 
+  backgroundImage,
 }) => {
   return (
     <TouchableOpacity
-      style={[styles.button, isSelected ? styles.selectedButton : null]}
-      onPress={onPress}>
-       {imageSource && iconPosition === 'left' && (
-        <Image source={imageSource} style={styles.iconLeft} />
-      )}
-      <Text style={styles.text}>{text}</Text>
-      {imageSource && iconPosition === 'right' && (
-        <Image source={imageSource} style={styles.iconRight} />
+      style={[
+        styles.button,
+        isSelected ? styles.selectedButton : null,
+        fullWidth ? styles.fullWidthButton : null,
+      ]}
+      onPress={onPress}
+    >
+      {backgroundImage ? (
+        <ImageBackground source={backgroundImage} style={styles.backgroundImage} imageStyle={styles.imageStyle}>
+          <Text style={styles.text}>{text}</Text>
+        </ImageBackground>
+      ) : (
+        <>
+          {imageSource && iconPosition === 'left' && (
+            <Image source={imageSource} style={styles.iconTop} />
+          )}
+          <Text style={styles.text}>{text}</Text>
+          {imageSource && iconPosition === 'right' && (
+            <Image source={imageSource} style={styles.iconBottom} />
+          )}
+        </>
       )}
     </TouchableOpacity>
   );
@@ -36,30 +53,47 @@ const styles = StyleSheet.create({
   button: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: wp('6%'),
-    paddingHorizontal: hp('5.8%'),
+    justifyContent: 'center',
+    paddingVertical: wp('5%'),
+    paddingHorizontal: wp('5%'),
     backgroundColor: '#f0f0f0',
-    borderRadius: wp('2%'),
-    margin: wp('1%'),
+    borderRadius: wp('3%'),
+    margin: wp('2%'),
+    width: wp('40%'),
+    height: hp('12%'),
   },
   selectedButton: {
-    backgroundColor: '#BBF246', 
+    backgroundColor: '#BBF246',
+  },
+  fullWidthButton: {
+    width: '95%',
   },
   text: {
     fontSize: wp('4%'),
-    color:'#192126',
+    color: '#192126',
+    textAlign: 'center',
   },
-  iconLeft: {
-    width: wp('5%'), 
-    height: hp('4%'),
-    marginRight: wp('2%'),
+  iconTop: {
+    width: wp('7%'),
+    height: hp('7%'),
+    marginBottom: wp('2%'),
     resizeMode: 'contain',
   },
-  iconRight: {
-    width: wp('5%'),
-    height: hp('5%'),
-    marginLeft: wp('2%'),
+  iconBottom: {
+    width: wp('7%'),
+    height: hp('7%'),
+    marginTop: wp('2%'),
     resizeMode: 'contain',
+  },
+  backgroundImage: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
+    height: '100%',
+  },
+  imageStyle: {
+    borderRadius: wp('3%'), // Ensure the background image has rounded corners
   },
 });
 
