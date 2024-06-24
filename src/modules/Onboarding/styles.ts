@@ -13,9 +13,9 @@ const globalStyles = StyleSheet.create({
     },
     title: {
         color:'#000',
-        fontSize: wp('7%'),
-        fontWeight: '600',
-        textAlign: 'center',
+        fontSize: wp('6%'),
+        fontWeight: 'bold',
+        alignSelf:'center',
         marginVertical: hp('2%'),
     },
     subTitle: {
