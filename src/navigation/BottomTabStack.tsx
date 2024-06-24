@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View, Text, Platform } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import HomeView from '../modules/Dashboard/Home/HomeView';
@@ -31,7 +31,7 @@ const BottomTabNavigator = () => {
                                 <View style={styles.focusedContainer}>
                                     <Icon
                                         name={iconName}
-                                        size={wp('6%')}
+                                        size={wp('5%')}
                                         color="#000"
                                     />
                                     <Text style={styles.focusedLabel}>{route.name}</Text>
@@ -47,7 +47,7 @@ const BottomTabNavigator = () => {
                     );
                 },
                 tabBarShowLabel: false,
-                tabBarStyle: styles.tabBar,
+                tabBarStyle: Platform.OS === 'ios' ? styles.tabBarIOS : styles.tabBar,
                 headerShown: false,
             })}
         >
@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
     tabBar: {
         height: hp('7.5%'),
         backgroundColor: '#000',
-        paddingHorizontal:wp('2%'),
+        paddingHorizontal:  wp('2%'),
         borderRadius: wp('9%'),
         position: 'absolute',
         left: wp('2%'),
@@ -75,7 +75,24 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.3,
         shadowRadius: hp('1%'),
     },
+    tabBarIOS: {
+        height: hp('7%'), 
+        backgroundColor: '#000',
+        paddingHorizontal: wp('2%'),
+        borderRadius: wp('9%'),
+        position: 'absolute',
+        left: wp('2%'),
+        right: wp('2%'),
+        bottom: hp('1%'), 
+        elevation: 5,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: hp('0.5%') },
+        shadowOpacity: 0.3,
+        shadowRadius: hp('1%'),
+        paddingBottom: hp('0.5%'), 
+    },
     iconContainer: {
+  
         alignItems: 'center',
         justifyContent: 'center',
     },
