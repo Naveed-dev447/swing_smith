@@ -7,7 +7,7 @@ import { goBack } from '../../shared/Utils/navigationRef';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import SelectedTouchableButton from '../../assets/components/SelectedTouchableButton';
 
-const videoUpload3: React.FC = (props: any) => {
+const VideoUpload3: React.FC = (props: any) => {
   const { route, navigation } = props;
   const [selectedEquipment, setSelectedEquipment] = useState<string | null>(null);
 
@@ -50,7 +50,7 @@ const videoUpload3: React.FC = (props: any) => {
   );
 };
 
-export default videoUpload3;
+export default VideoUpload3;
 
 const styles = StyleSheet.create({
   equipmentContainer: {

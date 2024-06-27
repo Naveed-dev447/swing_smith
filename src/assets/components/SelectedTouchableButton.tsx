@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
     height: '100%',
   },
   imageStyle: {
-    borderRadius: wp('3%'), // Ensure the background image has rounded corners
+    borderRadius: wp('1%'), // Ensure the background image has rounded corners
   },
 });
 

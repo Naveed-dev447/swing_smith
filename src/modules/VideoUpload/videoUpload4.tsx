@@ -1,21 +1,20 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ImageBackground } from 'react-native';
 import globalStyles from '../Onboarding/styles';
 import CustomHeader from '../../shared/Component/CustomHeader';
 import CustomButton from '../../shared/Component/CustomButton';
 import { goBack } from '../../shared/Utils/navigationRef';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-import SelectedTouchableButton from '../../assets/components/SelectedTouchableButton';
 
-const videoUpload4: React.FC = (props: any) => {
+const VideoUpload4: React.FC = (props: any) => {
   const { route, navigation } = props;
   const [selectedEquipment, setSelectedEquipment] = useState<string | null>(null);
 
   const equipmentOptions = [
     { text: 'Full swing', backgroundImage: require('../../assets/Images/Chip.png') },
-    { text: 'Pitch', backgroundImage: require('../../assets/Images/Chip.png') },
+    { text: 'Pitch', backgroundImage: require('../../assets/Images/pitch.png') },
     { text: 'Chip', backgroundImage: require('../../assets/Images/Chip.png') },
-    { text: 'Putt', backgroundImage: require('../../assets/Images/Chip.png') },
+    { text: 'Putt', backgroundImage: require('../../assets/Images/putt.png') },
   ];
 
   return (
@@ -30,13 +29,29 @@ const videoUpload4: React.FC = (props: any) => {
         </Text>
         <View style={styles.equipmentContainer}>
           {equipmentOptions.map((option, index) => (
-            <SelectedTouchableButton
+            <TouchableOpacity
               key={index}
-              text={option.text}
-              backgroundImage={option.backgroundImage}
-              isSelected={selectedEquipment === option.text}
+              style={[
+                styles.equipmentButton,
+                selectedEquipment === option.text && styles.selectedEquipmentButton
+              ]}
               onPress={() => setSelectedEquipment(option.text)}
-            />
+            >
+              {selectedEquipment === option.text ? (
+                <View style={styles.selectedBackground}>
+                  <Text style={styles.selectedEquipmentText}>
+                    {option.text}
+                  </Text>
+                </View>
+              ) : (
+                <ImageBackground
+                  source={option.backgroundImage}
+                  style={styles.backgroundImage}
+                  imageStyle={{ borderRadius: wp('3%') }}
+                >
+                </ImageBackground>
+              )}
+            </TouchableOpacity>
           ))}
         </View>
       </View>
@@ -50,7 +65,7 @@ const videoUpload4: React.FC = (props: any) => {
   );
 };
 
-export default videoUpload4;
+export default VideoUpload4;
 
 const styles = StyleSheet.create({
   equipmentContainer: {
@@ -58,5 +73,42 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     justifyContent: 'space-between',
     marginTop: hp('5%'),
+  },
+  equipmentButton: {
+    width: wp('43%'),
+    height: hp('15%'),
+    borderRadius: wp('3%'),
+    overflow: 'hidden',
+    marginVertical: hp('1%'),
+  },
+  selectedEquipmentButton: {
+    backgroundColor: '#BBF246',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  selectedBackground: {
+    width: '100%',
+    height: '100%',
+    backgroundColor: '#BBF246',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: wp('3%'),
+  },
+  backgroundImage: {
+    width: '100%',
+    height: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  equipmentText: {
+    fontSize: wp('4%'),
+    color: '#FFF',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  selectedEquipmentText: {
+    fontSize: wp('4%'),
+    color: '#000',
+    textAlign: 'center',
   },
 });

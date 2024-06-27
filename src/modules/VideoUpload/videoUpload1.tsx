@@ -10,7 +10,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import CustomButton from '../../shared/Component/CustomButton';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
-const videoUpload1: React.FC = (props: any) => {
+const VideoUpload1: React.FC = (props: any) => {
   const { route, navigation } = props;
   return (
     <ImageBackground
@@ -21,7 +21,8 @@ const videoUpload1: React.FC = (props: any) => {
         locations={[0.4, 1]}
         style={styles.gradient}>
         <View style={styles.container}>
-          <TouchableOpacity onPress={() => navigation.navigate('OnboardHome')}>
+          <TouchableOpacity onPress={() => console.log("skip pressed")
+          }>
             <Text style={styles.skipText}>Skip</Text>
           </TouchableOpacity>
           <Text style={styles.centerText}>
@@ -40,7 +41,7 @@ const videoUpload1: React.FC = (props: any) => {
   );
 };
 
-export default videoUpload1;
+export default VideoUpload1;
 
 const styles = StyleSheet.create({
   backgroundImage: {

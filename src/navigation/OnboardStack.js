@@ -9,10 +9,11 @@ import GameImproveView from '../modules/Onboarding/Home/GameImproveView'
 import CoachingLessonView from '../modules/Onboarding/Home/CoachingLessonView'
 import EquipmentsView from '../modules/Onboarding/Home/EquipmentsView'
 import DTLView from '../modules/Onboarding/Home/DTLView'
-import videoUpload1 from '../modules/VideoUpload/videoUpload1'
+import VideoUpload1 from '../modules/VideoUpload/videoUpload1'
 import VideoUpload2 from './../modules/VideoUpload/videoUpload2';
 import VideoUpload3 from './../modules/VideoUpload/videoUpload3';
 import VideoUpload4 from './../modules/VideoUpload/videoUpload4';
+import UploadGolfVideoScreen from './../modules/Onboarding/Home/UploadGolfVideo';
 
 const Stack = createStackNavigator();
 
@@ -58,7 +59,7 @@ const RootNavigation= () => {
          <Stack.Screen
           options={{ headerShown: false }}
           name="OnboardHome8"
-          component={videoUpload1}
+          component={VideoUpload1}
         />
          <Stack.Screen
           options={{ headerShown: false }}
@@ -75,6 +76,12 @@ const RootNavigation= () => {
           name="OnboardHome11"
           component={VideoUpload4}
         />
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name="OnboardHome12"
+          component={UploadGolfVideoScreen}
+        />
+
 
       </Stack.Navigator>
   );
