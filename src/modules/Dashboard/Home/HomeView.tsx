@@ -6,7 +6,8 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 import { ChallengeCard, DrillCard, HorizontalScroll, Section, TutorialCard, WorkoutCard, Header, Banner, RecentAnalysis, UploadSwing, AnalysisCard } from './Common/Common';
 import FilterModal from '../Home/Common/FilterModal';
 
-const HomeView = () => {
+const HomeView = (props: any) => {
+  const { route, navigation } = props;
   const [modalVisible, setModalVisible] = useState(false);
 
   const toggleModal = () => {
@@ -15,12 +16,12 @@ const HomeView = () => {
 
   return (
     <ScrollView style={globalStyles.container}>
-      <Header toggleModal={toggleModal} />
+      <Header toggleModal={toggleModal} name={'Hello, Dilshan'} address={'Kandy, Sri Lanka'}/>
       <Banner />
       <View>
         <Text style={[globalStyles.sectionTitle, { marginTop: hp('2%') }]}>Recent Analysis</Text>
         <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginVertical: hp('2%') }}>
-          <AnalysisCard score="7.2" postureScore="8.4" swingRhythm="6.0" imageUri="https://images.unsplash.com/photo-1570129477492-45c003edd2be" />
+          <AnalysisCard score="7.2" postureScore="8.4" swingRhythm="6.0" imageUri="https://images.unsplash.com/photo-1570129477492-45c003edd2be" onPress={() => navigation.navigate('SwingLog')}/>
           <AnalysisCard score="6.2" postureScore="7.5" swingRhythm="5.0" imageUri="https://images.unsplash.com/photo-1580587771525-78b9dba3b914" />
         </ScrollView>
       </View>

@@ -10,18 +10,21 @@ import {
   ScrollView,
   KeyboardAvoidingView,
   Platform,
+  Keyboard
 } from 'react-native';
 import {useForm, Controller} from 'react-hook-form';
+import * as EmailValidator from 'email-validator';
 import {yupResolver} from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import TextInput from '../../assets/components/TextInput';
-import Button from '../../assets/components/Button';
+import TextInput from '../../components/TextInput';
+import Button from '../../components/Button';
 import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
 import {useNavigation, NavigationProp} from '@react-navigation/native';
 import {RootStackParamList} from '../../navigation/types';
+import { RegisterAPICall } from './RegisterAPI';
 
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -29,18 +32,19 @@ const registerSchema = yup.object().shape({
   name: yup.string().required('Name is required'),
   email: yup
   .string()
-  .matches(emailRegex, 'Invalid email')
-  .required('Email is required'),  password: yup
+  .required('Email is required')
+  .test('is-valid-email', 'Invalid email', value => EmailValidator.validate(value)),
+    password: yup
     .string()
     .min(6, 'Password must be at least 6 characters')
     .required('Password is required'),
-  confirmPassword: yup
+    password_confirmation: yup
     .string()
     .oneOf([yup.ref('password'), undefined], 'Passwords must match')
     .required('Confirm Password is required'),
 });
 
-const RegisterView: React.FC = () => {
+const RegisterView: React.FC = (props: any) => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const {
     control,
@@ -54,7 +58,13 @@ const RegisterView: React.FC = () => {
   const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
 
   const onSubmit = (data: any) => {
-    console.log(data);
+    Keyboard.dismiss()
+  RegisterAPICall(data)
+   .then(res => {
+    if(res.status === 200){ 
+      navigation.navigate('Login')
+    }
+   })
   };
 
   return (
@@ -128,7 +138,7 @@ const RegisterView: React.FC = () => {
                 />
                 <Controller
                   control={control}
-                  name="confirmPassword"
+                  name="password_confirmation"
                   render={({field: {onChange, onBlur, value}}) => (
                     <TextInput
                       label="Confirm Password"
@@ -137,7 +147,7 @@ const RegisterView: React.FC = () => {
                       onBlur={onBlur}
                       onChangeText={onChange}
                       value={value}
-                      error={errors.confirmPassword?.message}
+                      error={errors.password_confirmation?.message}
                       icon={confirmPasswordVisible ? 'eye-off' : 'eye'}
                       iconOnPress={() =>
                         setConfirmPasswordVisible(!confirmPasswordVisible)
