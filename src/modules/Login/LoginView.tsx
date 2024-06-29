@@ -10,23 +10,26 @@ import {
   ScrollView,
   KeyboardAvoidingView,
   Platform,
+  Keyboard,
 } from 'react-native';
+import * as EmailValidator from 'email-validator';
 import {useForm, Controller} from 'react-hook-form';
 import {yupResolver} from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import TextInput from '../../assets/components/TextInput';
-import Button from '../../assets/components/Button';
-import Checkbox from '../../assets/components/Checkbox';
+import TextInput from '../../components/TextInput';
+import Button from '../../components/Button';
+import Checkbox from '../../components/Checkbox';
  
 import styles from './styles'
+import LoginAPICall from './LoginAPI';
 
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 const loginSchema = yup.object().shape({
   email: yup
   .string()
-  .matches(emailRegex, 'Invalid email')
-  .required('Email is required'),
+  .required('Email is required')
+  .test('is-valid-email', 'Invalid email', value => EmailValidator.validate(value)),
   password: yup
     .string()
     .min(6, 'Password must be at least 6 characters')
@@ -47,10 +50,14 @@ const LoginScreen: React.FC = (props: any) => {
   const [rememberMe, setRememberMe] = useState(false);
 
   const onSubmit = (data: any) => {
+    Keyboard.dismiss();
     data.rememberMe = rememberMe;
-     navigation.navigate('Onboard')
-    console.log(data);
-    navigation.navigate('Onboard')
+    LoginAPICall(data)
+    .then(res => {
+      if(res.status === 200){
+        navigation.navigate('Onboard')
+      }
+     })
   };
 
   return (

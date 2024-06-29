@@ -4,7 +4,7 @@ import CustomHeader from '../../../shared/Component/CustomHeader';
 import CustomButton from '../../../shared/Component/CustomButton';
 import globalStyles from '../styles';
 import { goBack } from '../../../shared/Utils/navigationRef';
-import SelectedTouchableButton from '../../../assets/components/SelectedTouchableButton';
+import SelectedTouchableButton from '../../../components/SelectedTouchableButton';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 const GameImproveView: React.FC = (props: any) => {

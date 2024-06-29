@@ -26,12 +26,17 @@
 // export default SwingLogView;
 
 
-import React from 'react';
+import React,{useState} from 'react';
 import { View, Text, ScrollView } from 'react-native';
 import { SwingCard } from './Common/Common';
 import globalStyles from './styles';
-
+import { Header } from './Common/Common';
 const SwingLogView: React.FC = () => {
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const toggleModal = () => {
+    setModalVisible(!modalVisible);
+  };
   const data = [
     {
       score: 7.2,
@@ -52,6 +57,7 @@ const SwingLogView: React.FC = () => {
   return (
     
     <ScrollView style={globalStyles.container}>
+    <Header toggleModal={toggleModal}/>
       <Text style={globalStyles.header}>Your Swing Log</Text>
       {data.map((item, index) => (
         <SwingCard

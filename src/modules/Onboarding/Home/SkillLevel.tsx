@@ -4,7 +4,7 @@ import CustomHeader from '../../../shared/Component/CustomHeader';
 import { goBack } from '../../../shared/Utils/navigationRef';
 import globalStyles from '../styles';
 import CustomButton from '../../../shared/Component/CustomButton';
-import SelectedTouchableButton from '../../../assets/components/SelectedTouchableButton';
+import SelectedTouchableButton from '../../../components/SelectedTouchableButton';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 interface SkillLevelProps {
