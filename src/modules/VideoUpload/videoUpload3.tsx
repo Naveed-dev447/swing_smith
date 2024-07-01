@@ -19,13 +19,13 @@ const videoUpload3: React.FC = (props: any) => {
   ];
 
   return (
-    <View style={globalStyles.container}>
+    <View style={styles.container}>
       <CustomHeader onBackPress={goBack} />
-      <View style={globalStyles.contentContainer}>
-        <Text style={globalStyles.title}>
+      <View style={styles.contentContainer}>
+        <Text style={styles.title}>
           Which club were you using during the video?
         </Text>
-        <Text style={globalStyles.subTitle}>
+        <Text style={styles.subTitle}>
           Analyzing video recorded diagonally or from the back may result in lower accuracy
         </Text>
         <View style={styles.equipmentContainer}>
@@ -53,6 +53,27 @@ const videoUpload3: React.FC = (props: any) => {
 export default videoUpload3;
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+  },
+  contentContainer: {
+    flex: 1,
+    paddingHorizontal: wp('5%'),
+    marginTop: hp('3%'),
+  },
+  title: {
+    color: '#000',
+    fontSize: wp('6%'),
+    fontWeight: 'bold',
+  },
+  subTitle: {
+    color: '#192126',
+    fontSize: wp('4.2%'),
+    fontWeight: '400',
+    marginTop: hp('1%'),
+    marginBottom: hp('3%'),
+  },
   equipmentContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
