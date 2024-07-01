@@ -2,11 +2,11 @@ import React from 'react';
 import { StyleSheet, View, Text, Platform } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import HomeView from '../modules/Dashboard/Home/HomeView';
 import AnalysisView from '../modules/Dashboard/AnalysisView';
 import WorkoutView from '../modules/Dashboard/WorkoutView';
 import ProfileView from '../modules/Dashboard/ProfileView';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import HomeStack from './HomeStack';
 
 const Tab = createBottomTabNavigator();
 
@@ -34,7 +34,6 @@ const BottomTabNavigator = () => {
                                         size={wp('5%')}
                                         color="#000"
                                     />
-                                    <Text style={styles.focusedLabel}>{route.name}</Text>
                                 </View>
                             ) : (
                                 <Icon
@@ -51,7 +50,7 @@ const BottomTabNavigator = () => {
                 headerShown: false,
             })}
         >
-            <Tab.Screen name="Home" component={HomeView} />
+            <Tab.Screen name="Home" component={HomeStack} />
             <Tab.Screen name="Analysis" component={AnalysisView} />
             <Tab.Screen name="Workouts" component={WorkoutView} />
             <Tab.Screen name="Profile" component={ProfileView} />
@@ -101,8 +100,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#b5e61d',
         borderRadius: wp('5%'),
-        paddingVertical: hp('0.8%'),
-        paddingHorizontal: wp('2.5%'),
+        paddingVertical: hp('0.9%'),
+        paddingHorizontal: wp('2.%'),
     },
     focusedLabel: {
         color: '#000',

@@ -5,7 +5,7 @@ import CustomHeader from '../../shared/Component/CustomHeader';
 import CustomButton from '../../shared/Component/CustomButton';
 import { goBack } from '../../shared/Utils/navigationRef';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-import SelectedTouchableButton from '../../assets/components/SelectedTouchableButton';
+import SelectedTouchableButton from '../../components/SelectedTouchableButton';
 
 const videoUpload3: React.FC = (props: any) => {
   const { route, navigation } = props;

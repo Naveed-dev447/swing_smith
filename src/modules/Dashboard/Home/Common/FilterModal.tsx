@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {View, Text, ScrollView} from 'react-native';
 import globalStyles from '../styles';
 import CustomDatePicker from '../../../../shared/Component/CustomDatePicker';
-import SelectedTouchableButton from '../../../../assets/components/SelectedTouchableButton';
+import SelectedTouchableButton from '../../../../components/SelectedTouchableButton';
 import CustomButton from '../../../../shared/Component/CustomButton';
 
 const FilterModal: React.FC<{closeModal: () => void}> = ({closeModal}) => {

@@ -8,6 +8,7 @@ const globalStyles = StyleSheet.create({
   container: {
     flex: 1,
     padding: wp('4%'),
+    backgroundColor: '#fff'
   },
   headerContainer: {
     marginTop: 40,
@@ -16,7 +17,7 @@ const globalStyles = StyleSheet.create({
     alignItems: 'center',
   },
   tiles: {
-    width: wp('7%'),
+    width: wp('4%'),
     height: hp('4%'), 
     resizeMode: 'contain',
   },
@@ -211,6 +212,89 @@ const globalStyles = StyleSheet.create({
     color: 'white',
     fontSize: wp('4%'),
     borderRadius: 25,
+  },
+
+
+  //  Swing log screen styling
+  header: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginVertical: 10,
+  },
+  cardContainer: {
+    borderRadius: 10,
+    backgroundColor: '#fff',
+    marginBottom: 10,
+    overflow: 'hidden',
+    elevation: 3,
+  },
+  image: {
+    height: 150,
+    width: '100%',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    flexDirection: 'row',
+    padding: 10,
+  },
+  imageStyle: {
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
+  },
+  score: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#fff',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    padding: 5,
+    borderRadius: 5,
+  },
+  iconHeart: {
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    padding: 5,
+    borderRadius: 5,
+    fontSize: 20,
+  },
+  description: {
+    fontSize: 14,
+    color: '#555',
+    margin: 10,
+  },
+  detailsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginHorizontal: 10,
+    marginBottom: 10,
+  },
+  detailItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  detailText: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    marginLeft: 5,
+  },
+  dateText: {
+    fontSize: 14,
+    color: '#999',
+  },
+  button: {
+    flexDirection: 'row',
+    backgroundColor: '#00C851',
+    borderRadius: 5,
+    margin: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 10,
+  },
+  buttonIcon: {
+    fontSize: 18,
+    marginRight: 5,
+  },
+  buttonText: {
+    fontSize: 16,
+    color: '#fff',
+    fontWeight: 'bold',
   },
 });
 
