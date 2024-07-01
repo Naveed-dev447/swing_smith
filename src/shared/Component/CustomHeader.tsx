@@ -4,6 +4,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   Image,
+  Text,
 } from 'react-native';
 import {
   widthPercentageToDP as wp,
@@ -14,9 +15,10 @@ const goBackIcon = require('../../assets/Images/goBackIcon.png');
 
 type CustomHeaderProps = {
   onBackPress: () => void;
+  title?: string;
 };
 
-const CustomHeader: React.FC<CustomHeaderProps> = ({onBackPress}) => {
+const CustomHeader: React.FC<CustomHeaderProps> = ({onBackPress, title}) => {
   return (
     <View style={styles.headerContainer}>
       <TouchableOpacity onPress={onBackPress} style={styles.backButton}>
@@ -24,6 +26,9 @@ const CustomHeader: React.FC<CustomHeaderProps> = ({onBackPress}) => {
           <Image source={goBackIcon} style={styles.headerIcon} />
         </View>
       </TouchableOpacity>
+      {title && <Text style={styles.headerTitle}>{title}</Text>}
+      <View style={styles.rightSpacer} />
+
     </View>
   );
 };
@@ -32,8 +37,10 @@ const styles = StyleSheet.create({
   headerContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: hp('5%'),
+    marginTop: hp('7%'),
     paddingHorizontal: wp('5%'),
+    justifyContent: 'space-between', 
+
   },
   backButton: {
     padding: wp('1%'),
@@ -48,6 +55,17 @@ const styles = StyleSheet.create({
     width: wp('10%'),
     height: wp('10%'),
     resizeMode: 'contain',
+  },
+  headerTitle: {
+    fontSize: wp('5%'),
+    fontWeight: 'bold',
+    marginLeft: wp('3%'),
+    color: '#000',
+    textAlign: 'center',
+    flex: 1,
+  },
+  rightSpacer: { 
+    width: wp('10%'),
   },
 });
 

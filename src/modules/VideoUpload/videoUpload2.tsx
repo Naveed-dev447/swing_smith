@@ -4,6 +4,7 @@ import globalStyles from '../Onboarding/styles';
 import CustomHeader from '../../shared/Component/CustomHeader';
 import CustomButton from '../../shared/Component/CustomButton';
 import {goBack} from '../../shared/Utils/navigationRef';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 const VideoUpload2: React.FC = (props: any) => {
   const {route, navigation} = props;
@@ -12,13 +13,13 @@ const VideoUpload2: React.FC = (props: any) => {
   const options = ['Right Handed', 'Left Handed'];
 
   return (
-    <View style={globalStyles.container}>
+    <View style={styles.container}>
       <CustomHeader onBackPress={goBack} />
-      <View style={globalStyles.contentContainer}>
-        <Text style={globalStyles.title}>
+      <View style={styles.contentContainer}>
+        <Text style={styles.title}>
           Make sure your swing angle and Headedness is in correct position{' '}
         </Text>
-        <Text style={globalStyles.subTitle}>
+        <Text style={styles.subTitle}>
           Check out the example image below on how to set your camera ( Set up
           using me the back camera ){' '}
         </Text>
@@ -60,6 +61,27 @@ const VideoUpload2: React.FC = (props: any) => {
 export default VideoUpload2;
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+  },
+  contentContainer: {
+    flex: 1,
+    paddingHorizontal: wp('5%'),
+    marginTop: hp('3%'),
+  },
+  title: {
+    color: '#000',
+    fontSize: wp('6%'),
+    fontWeight: 'bold',
+  },
+  subTitle: {
+    color: '#192126',
+    fontSize: wp('4.2%'),
+    fontWeight: '400',
+    marginTop: hp('1%'),
+    marginBottom: hp('3%'),
+  },
     selectedEquipmentButton: {
         backgroundColor: '#192126',
       },
