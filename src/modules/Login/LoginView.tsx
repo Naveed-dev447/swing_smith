@@ -52,12 +52,13 @@ const LoginScreen: React.FC = (props: any) => {
   const onSubmit = (data: any) => {
     Keyboard.dismiss();
     data.rememberMe = rememberMe;
-    LoginAPICall(data)
-    .then(res => {
-      if(res.status === 200){
-        navigation.navigate('Onboard')
-      }
-     })
+    // LoginAPICall(data)
+    // .then(res => {
+    //   if(res.status === 200){
+    //     navigation.navigate('Onboard')
+    //   }
+    //  })
+    navigation.navigate('Onboard')
   };
 
   return (
