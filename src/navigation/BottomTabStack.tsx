@@ -2,9 +2,9 @@ import React from 'react';
 import { StyleSheet, View, Text, Platform } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import AnalysisView from '../modules/Dashboard/AnalysisView';
-import WorkoutView from '../modules/Dashboard/WorkoutView';
-import ProfileView from '../modules/Dashboard/ProfileView';
+import AnalysisView from '../modules/Dashboard/Recommended/RecommendedView';
+import WorkoutView from '../modules/Dashboard/Workout/WorkoutView';
+import ProfileView from '../modules/Dashboard/Profile/ProfileView';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import HomeStack from './HomeStack';
 

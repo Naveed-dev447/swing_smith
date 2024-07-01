@@ -33,7 +33,10 @@ import globalStyles from './styles';
 import { Header } from './Common/Common';
 const SwingLogView: React.FC = () => {
   const [modalVisible, setModalVisible] = useState(false);
-
+  const [favourite, setFavourite] = useState(false);
+  const checkFavourite = () => {
+    setFavourite(!favourite)
+  }
   const toggleModal = () => {
     setModalVisible(!modalVisible);
   };
@@ -67,6 +70,8 @@ const SwingLogView: React.FC = () => {
           description={item.description}
           type={item.type}
           shot={item.shot}
+          favourite={favourite}
+          onPress={checkFavourite}
         />
       ))}
     </ScrollView>
