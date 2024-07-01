@@ -6,6 +6,9 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import recommandedStyles from './styles';
+import { goBack } from '../../../shared/Utils/navigationRef';
+import CustomHeader from '../../../shared/Component/CustomHeader';
+import VideoCardComponent from './VideoCardComponent';
 
 
 const RecommendedView: React.FC = () => {
@@ -15,15 +18,7 @@ const RecommendedView: React.FC = () => {
     <ScrollView contentContainerStyle={recommandedStyles.scrollViewContent}>
       <View style={recommandedStyles.container}>
         {/* Header */}
-        <View style={recommandedStyles.headerContainer}>
-          <TouchableOpacity>
-            <Icon name="arrow-left" style={recommandedStyles.headerIcon} />
-          </TouchableOpacity>
-          <Text style={recommandedStyles.headerText}>Recommended</Text>
-          <TouchableOpacity>
-            <Icon name="ellipsis-h" style={recommandedStyles.headerIcon} />
-          </TouchableOpacity>
-        </View>
+        <CustomHeader onBackPress={goBack} title='Recommanded'/>
 
         {/* Tabs */}
         <View style={recommandedStyles.tabContainer}>
@@ -32,14 +27,15 @@ const RecommendedView: React.FC = () => {
               key={tab}
               style={[
                 recommandedStyles.tab,
-                { backgroundColor: selectedTab === tab ? 'limegreen' : 'white' }
+                { backgroundColor: selectedTab === tab ? '#BBF246' : 'white' },
+                {borderColor : selectedTab !== tab ? "#192126" : 'white' }
               ]}
               onPress={() => setSelectedTab(tab)}
             >
               <Text
                 style={[
                   recommandedStyles.tabText,
-                  { color: selectedTab === tab ? 'black' : 'gray' }
+                  { color: selectedTab === tab ? '#192126' : '#192126' }
                 ]}
               >
                 {tab}
@@ -57,7 +53,7 @@ const RecommendedView: React.FC = () => {
                 .fill(0)
                 .map((_, index) => (
                   <View key={index} style={recommandedStyles.cardContainer}>
-                    <Icon name="heartbeat" style={recommandedStyles.cardIcon} />
+                    <Icon name="hand-heart-outline" style={recommandedStyles.cardIcon} />
                     <View style={recommandedStyles.cardContent}>
                       <Text style={recommandedStyles.progressText}>02/10</Text>
                       <Text style={recommandedStyles.boldText}>Core Strength</Text>
@@ -109,17 +105,13 @@ const RecommendedView: React.FC = () => {
             <Text style={recommandedStyles.sectionTitle}>Recommended Tutorials</Text>
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
               {Array(3).fill(0).map((_, index) => (
-                <View key={index} style={recommandedStyles.cardContainer}>
-                  <Image source={{ uri: 'https://via.placeholder.com/150' }} style={recommandedStyles.cardImage} />
-                  <View style={recommandedStyles.cardContent}>
-                    <Text style={recommandedStyles.cardText}>Why you lose Balance in Golf?</Text>
-                    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
-                      <Icon name="play-circle" style={{ ...recommandedStyles.headerIcon, color: 'limegreen' }} />
-                      <Text style={recommandedStyles.cardText}>Raymond Reddington</Text>
-                      <Text style={recommandedStyles.cardText}>4 Min</Text>
-                    </View>
-                  </View>
-                </View>
+            <VideoCardComponent
+            imageUri="https://example.com/image.jpg"
+            title="Why you lose Balance in Golf?"
+            author="Raymond Reddington"
+            duration="4 Min"
+            index={index}
+          />
               ))}
             </ScrollView>
           </>
