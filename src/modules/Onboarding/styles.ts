@@ -22,7 +22,7 @@ const globalStyles = StyleSheet.create({
         color:'#192126',
         fontSize: wp('4.5%'),
         fontWeight:'400',
-        alignSelf:'center',
+        alignSelf:'center',   
         marginTop: hp('1%'),
         marginBottom: hp('3%'),
     },
