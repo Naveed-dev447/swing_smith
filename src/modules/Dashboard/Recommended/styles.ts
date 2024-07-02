@@ -135,13 +135,18 @@ const recommandedStyles = StyleSheet.create({
     fontWeight: 'bold',
   },
   tabContainer: {
+    paddingTop: wp('1%'),
     flexDirection: 'row',
     justifyContent: 'space-around',
     marginVertical: hp('2%'),
   },
   tab: {
+    width: wp('25%'),
     padding: wp('2%'),
-    borderRadius: wp('2%'),
+    justifyContent:'center',
+    alignItems:'center',
+    borderRadius: wp('4%'),
+    borderWidth:1
   },
   tabText: {
     fontSize: wp('4%'),
@@ -159,6 +164,7 @@ const recommandedStyles = StyleSheet.create({
     overflow: 'hidden',
     marginRight: wp('2%'),
     width: wp('40%'),
+    height: hp('30%'),
     alignItems: 'center',
     padding: wp('2%'),
     borderColor: '#ddd',
@@ -197,8 +203,9 @@ const recommandedStyles = StyleSheet.create({
     alignItems: 'center',
   },
   cardText: {
-    fontSize: wp('4%'),
-    color: '#555',
+    fontSize: wp('3.5%'),
+    fontWeight: '600',
+    color: '#192126',
     textAlign: 'center',
   },
   cardIcon: {
