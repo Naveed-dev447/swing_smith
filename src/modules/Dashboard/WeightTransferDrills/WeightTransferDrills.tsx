@@ -33,8 +33,10 @@ const WeightTransferDrill: React.FC = (props: any) => {
     }
   };
 
+  
+
   const handleNextPress = () => {
-    navigation.navigate('OnboardHome8');
+    // navigation.navigate('OnboardHome8');
   };
 
   const renderTutorialCard = (video: { uri: string, title: string, duration: string }, index: number) => (
@@ -116,10 +118,10 @@ const WeightTransferDrill: React.FC = (props: any) => {
         <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.horizontalScroll}>
           {recommendedVideos.map((video, index) => renderTutorialCard(video, index))}
         </ScrollView>
-      </ScrollView>
       <View style={globalStyles.buttonContainer}>
-        <CustomButton title="Completed" onPress={handleNextPress} />
+        <CustomButton title="Completed" onPress={handleNextPress}  />
       </View>
+      </ScrollView>
     </View>
   );
 };

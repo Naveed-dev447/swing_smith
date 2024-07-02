@@ -15,9 +15,9 @@ const FilterModal: React.FC<{closeModal: () => void}> = ({closeModal}) => {
   return (
     <View style={globalStyles.modalContent}>
       <View style={globalStyles.handle} />
-      <ScrollView contentContainerStyle={globalStyles.scrollViewContent}>
+      <ScrollView >
         <Text style={globalStyles.modalTitle}>Filters</Text>
-        <Text style={globalStyles.modalDateLabel}>Date</Text>
+        {/* <Text style={globalStyles.modalDateLabel}>Date</Text> */}
         <View style={globalStyles.datePickerContainer}>
           <CustomDatePicker
             date={selectedDate}

@@ -31,10 +31,10 @@ const SwingLogView: React.FC = () => {
   ];
 
   return (
-    
-    <ScrollView style={globalStyles.container}>
-    <Header toggleModal={toggleModal}/>
-      <Text style={globalStyles.header}>Your Swing Log</Text>
+    <View style={globalStyles.container}>
+    <Header toggleModal={toggleModal} name={''} address={''}/>
+    <Text style={globalStyles.header}>Your Swing Log</Text>
+    <ScrollView >
       {data.map((item, index) => (
         <SwingCard
           key={index}
@@ -48,6 +48,7 @@ const SwingLogView: React.FC = () => {
         />
       ))}
     </ScrollView>
+    </View>
   );
 };
 

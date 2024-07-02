@@ -15,12 +15,10 @@ const RecommendedView: React.FC = () => {
   const [selectedTab, setSelectedTab] = useState('All');
 
   return (
-    <ScrollView contentContainerStyle={recommandedStyles.scrollViewContent}>
       <View style={recommandedStyles.container}>
-        {/* Header */}
-        <CustomHeader onBackPress={goBack} title='Recommanded'/>
+                <CustomHeader onBackPress={goBack} title='Recommanded'/>
+      <ScrollView contentContainerStyle={recommandedStyles.scrollViewContent}>
 
-        {/* Tabs */}
         <View style={recommandedStyles.tabContainer}>
           {['All', 'Workouts', 'Drills'].map(tab => (
             <TouchableOpacity
@@ -116,8 +114,8 @@ const RecommendedView: React.FC = () => {
             </ScrollView>
           </>
         ) : null}
+        </ScrollView>
       </View>
-    </ScrollView>
   );
 };
 

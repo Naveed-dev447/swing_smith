@@ -24,11 +24,12 @@ const VideoUpload4: React.FC = (props: any) => {
   const equipmentOptions = [
     {
       text: 'Full swing',
-      backgroundImage: require('../../assets/Images/Chip.png'),
+      backgroundImage: require('../../assets/Images/fullSwing.png'),
     },
     {text: 'Pitch', backgroundImage: require('../../assets/Images/pitch.png')},
     {text: 'Chip', backgroundImage: require('../../assets/Images/Chip.png')},
     {text: 'Putt', backgroundImage: require('../../assets/Images/putt.png')},
+    
   ];
 
   return (
@@ -69,7 +70,7 @@ const VideoUpload4: React.FC = (props: any) => {
       <View style={globalStyles.buttonContainer}>
         <CustomButton
           title="Next"
-          onPress={() => navigation.navigate('Onboard')}
+          onPress={() => navigation.navigate('BottomTabStack')}
         />
       </View>
     </View>

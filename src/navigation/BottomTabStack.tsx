@@ -56,7 +56,7 @@ const BottomTabNavigator = () => {
             <Tab.Screen name="Analysis" component={AnalysisView} />
             <Tab.Screen name="Workouts" component={WorkoutView} />
             {/* <Tab.Screen name="Workouts" component={WeightTransferDrill} />  */}
-            <Tab.Screen name="Profile" component={ProfileView} />
+            <Tab.Screen name="Profile" component={WeightTransferDrill} />
         </Tab.Navigator>
     );
 };

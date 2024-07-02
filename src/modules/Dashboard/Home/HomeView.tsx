@@ -15,8 +15,9 @@ const HomeView = (props: any) => {
   };
 
   return (
-    <ScrollView style={globalStyles.container}>
-      <Header toggleModal={toggleModal} name={'Hello, Dilshan'} address={'Kandy, Sri Lanka'}/>
+    <View style={globalStyles.container}>
+    <Header toggleModal={toggleModal} name={'Hello, Dilshan'} address={'Kandy, Sri Lanka'}/>
+    <ScrollView >
       <Banner />
       <View>
         <Text style={[globalStyles.sectionTitle, { marginTop: hp('2%') }]}>Recent Analysis</Text>
@@ -68,6 +69,7 @@ const HomeView = (props: any) => {
         <FilterModal closeModal={toggleModal} />
       </Modal>
     </ScrollView>
+    </View>
   );
 };
 

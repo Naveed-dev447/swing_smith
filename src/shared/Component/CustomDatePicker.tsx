@@ -7,7 +7,7 @@ import HapticFeedback from 'react-native-haptic-feedback';
 import Sound from 'react-native-sound';
 import { format } from 'date-fns';
 
-let tickSound: Sound;
+// let tickSound: Sound;
 
 const CustomDatePicker: React.FC<{
   date: Date;
@@ -15,26 +15,26 @@ const CustomDatePicker: React.FC<{
 }> = ({ date, onConfirm }) => {
   const [open, setOpen] = useState(false);
 
-  useEffect(() => {
-    if (Platform.OS === 'android') {
-      tickSound = new Sound(require('../../assets/Sound/tick.mp3'), Sound.MAIN_BUNDLE, (error) => {
-        if (error) {
-          console.log('failed to load the sound', error);
-          return;
-        }
-        console.log('Sound loaded successfully');
-      });
-    } else if (Platform.OS === 'ios') {
-      tickSound = new Sound(require('../../assets/Sound/tick.mp3'), Sound.MAIN_BUNDLE, (error) => {
-        if (error) {
-          console.log('failed to load the sound', error);
-          return;
-        }
-        tickSound.setCategory('Playback');
-        console.log('Sound loaded successfully');
-      });
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (Platform.OS === 'android') {
+  //     tickSound = new Sound(require('../../assets/Sound/tick.mp3'), Sound.MAIN_BUNDLE, (error) => {
+  //       if (error) {
+  //         console.log('failed to load the sound', error);
+  //         return;
+  //       }
+  //       console.log('Sound loaded successfully');
+  //     });
+  //   } else if (Platform.OS === 'ios') {
+  //     tickSound = new Sound(require('../../assets/Sound/tick.mp3'), Sound.MAIN_BUNDLE, (error) => {
+  //       if (error) {
+  //         console.log('failed to load the sound', error);
+  //         return;
+  //       }
+  //       tickSound.setCategory('Playback');
+  //       console.log('Sound loaded successfully');
+  //     });
+  //   }
+  // }, []);
   const handleConfirm = (selectedDate: Date) => {
     HapticFeedback.trigger('impactLight');
     setOpen(false);
@@ -44,13 +44,13 @@ const CustomDatePicker: React.FC<{
   const handleDateChange = () => {
     console.log('Date changed');
     HapticFeedback.trigger('impactLight');
-    tickSound.play((success) => {
-      if (!success) {
-        console.log('Sound playback failed');
-      } else {
-        console.log('Sound played successfully');
-      }
-    });
+    // tickSound.play((success) => {
+    //   if (!success) {
+    //     console.log('Sound playback failed');
+    //   } else {
+    //     console.log('Sound played successfully');
+    //   }
+    // });
   };
 
   return (
