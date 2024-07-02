@@ -105,7 +105,6 @@ const styles = StyleSheet.create({
   },
   detail: {
     fontSize: wp('4%'),
-    textAlign: 'center',
     marginBottom: hp('4%'),
     color: 'black',
   },

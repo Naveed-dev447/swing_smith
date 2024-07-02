@@ -34,7 +34,7 @@ const recommandedStyles = StyleSheet.create({
     cardContainer: {
         borderRadius: wp('2%'),
         backgroundColor: '#fff',
-        marginBottom: hp('2%'),
+        marginBottom: hp('6%'),
         overflow: 'hidden',
         width: wp('90%'),
         alignSelf: 'center',

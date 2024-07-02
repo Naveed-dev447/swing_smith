@@ -233,7 +233,7 @@ const recommandedStyles = StyleSheet.create({
     padding: wp('2%'),
   },
   scrollViewContent: {
-    flexGrow: 1,
+    // flexGrow: 1,
     paddingBottom: hp('2%'),
   },
 });

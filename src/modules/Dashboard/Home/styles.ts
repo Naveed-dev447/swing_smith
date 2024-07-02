@@ -314,10 +314,11 @@ import {
 const globalStyles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: wp('4%'),
+    padding: wp('3%'),
     backgroundColor: '#fff',
   },
   headerContainer: {
+    padding:wp('3%'),
     marginTop: hp('5%'),
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -479,7 +480,7 @@ const globalStyles = StyleSheet.create({
   modalTitle: {
     fontSize: wp('6%'),
     fontWeight: 'bold',
-    marginBottom: hp('2%'),
+    marginBottom: hp('0.5%'),
     color: 'black',
   },
   modalDateLabel: {
@@ -528,9 +529,10 @@ const globalStyles = StyleSheet.create({
   },
   // Swing log screen styling
   header: {
+    paddingBottom: wp('3%'),
     fontSize: wp('5%'),
     fontWeight: 'bold',
-    marginVertical: hp('1%'),
+ 
   },
   cardContainer: {
     borderColor: '#F0F0F0',

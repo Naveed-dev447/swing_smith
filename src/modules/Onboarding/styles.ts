@@ -105,7 +105,7 @@ const globalStyles = StyleSheet.create({
         marginVertical: hp('2%'),
         backgroundColor: '#E8E8E8',
         borderRadius:30,
-        paddingVertical: hp('.5%'),
+        paddingVertical: hp('.3%'),
 
       },
       dtlOptionButton: {
@@ -116,7 +116,7 @@ const globalStyles = StyleSheet.create({
         alignItems: 'center',
       },
       dtlSelectedOptionText: {
-        fontWeight: 'bold',
+        fontWeight: '400',
       },
       golferImage: {
         width: wp('60%'),
@@ -141,6 +141,7 @@ const globalStyles = StyleSheet.create({
         marginVertical: hp('2%'),
     },
     buttonContainer: {
+      bottom: wp('4%'),
         padding: wp('6%'),
     },
     
