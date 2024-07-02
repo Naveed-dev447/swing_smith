@@ -17,7 +17,7 @@ const HomeView = (props: any) => {
   return (
     <View style={globalStyles.container}>
     <Header toggleModal={toggleModal} name={'Hello, Dilshan'} address={'Kandy, Sri Lanka'}/>
-    <ScrollView >
+    <ScrollView contentContainerStyle={{paddingVertical: 50}}>
       <Banner />
       <View>
         <Text style={[globalStyles.sectionTitle, { marginTop: hp('2%') }]}>Recent Analysis</Text>
