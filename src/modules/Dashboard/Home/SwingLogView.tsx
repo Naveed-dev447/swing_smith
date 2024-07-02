@@ -4,7 +4,8 @@ import { SwingCard } from './Common/Common';
 import globalStyles from './styles';
 import { Header } from './Common/Common';
 
-const SwingLogView: React.FC = () => {
+const SwingLogView: React.FC = (props : any) => {
+  const {routes, navigation} = props
   const [modalVisible, setModalVisible] = useState(false);
   const [favourite, setFavourite] = useState(false);
   const checkFavourite = () => {
@@ -34,7 +35,7 @@ const SwingLogView: React.FC = () => {
     <View style={globalStyles.container}>
     <Header toggleModal={toggleModal} name={''} address={''}/>
     <Text style={globalStyles.header}>Your Swing Log</Text>
-    <ScrollView >
+    <ScrollView contentContainerStyle={{paddingVertical: 50}}>
       {data.map((item, index) => (
         <SwingCard
           key={index}
@@ -45,6 +46,7 @@ const SwingLogView: React.FC = () => {
           shot={item.shot}
           favourite={favourite}
           onPress={checkFavourite}
+          navigate = {() => navigation.navigate('AnalysisView')}
         />
       ))}
     </ScrollView>

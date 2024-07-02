@@ -233,9 +233,10 @@ export interface SwingCardProps {
   type: string;
   shot: string;
   onPress: () => void,
-  favourite: boolean
+  favourite: boolean,
+  navigate: () => void,
 }
-export const SwingCard: React.FC<SwingCardProps> = ({ score, date, description, type, shot, onPress, favourite }) => {
+export const SwingCard: React.FC<SwingCardProps> = ({ score, date, description, type, shot, onPress, favourite, navigate }) => {
   return (
     <View style={globalStyles.cardContainer}>
       <ImageBackground
@@ -259,7 +260,7 @@ export const SwingCard: React.FC<SwingCardProps> = ({ score, date, description, 
           <Text style={globalStyles.detailText}>{type}</Text>
           <MaterialCommunityIcons name="golf" size={18} style={{ marginLeft: '10%' }} />
           <Text style={globalStyles.detailText}>{shot}</Text>
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity style={styles.button} onPress={navigate}>
             <Text style={styles.buttonText}>View Analysis</Text>
           </TouchableOpacity>
         </View>

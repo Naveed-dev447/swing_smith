@@ -5,6 +5,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 // `HomeNavigation.tsx
 import HomeView from '../modules/Dashboard/Home/HomeView';
 import SwingLogView from '../modules/Dashboard/Home/SwingLogView';
+import AnalysisView from '../modules/Dashboard/Analysis/AnalysisView';
 const Stack = createStackNavigator();
 
 const HomeStack= () => {
@@ -19,6 +20,11 @@ const HomeStack= () => {
           options={{ headerShown: false }}
           name="SwingLog"
           component={SwingLogView}
+        />
+            <Stack.Screen
+          options={{ headerShown: false }}
+          name="AnalysisView"
+          component={AnalysisView}
         />
       </Stack.Navigator>
   );

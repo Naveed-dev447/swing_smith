@@ -234,7 +234,7 @@ const recommandedStyles = StyleSheet.create({
   },
   scrollViewContent: {
     // flexGrow: 1,
-    paddingBottom: hp('2%'),
+    paddingVertical: hp('2%'),
   },
 });
 
