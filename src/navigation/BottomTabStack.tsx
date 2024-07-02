@@ -7,6 +7,8 @@ import WorkoutView from '../modules/Dashboard/Workout/WorkoutView';
 import ProfileView from '../modules/Dashboard/Profile/ProfileView';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import HomeStack from './HomeStack';
+import SwingAnalysis from '../modules/Dashboard/Analysis/SwingAnalysis';
+import WeightTransferDrill from '../modules/Dashboard/WeightTransferDrills/WeightTransferDrills';
 
 const Tab = createBottomTabNavigator();
 
@@ -53,6 +55,7 @@ const BottomTabNavigator = () => {
             <Tab.Screen name="Home" component={HomeStack} />
             <Tab.Screen name="Analysis" component={AnalysisView} />
             <Tab.Screen name="Workouts" component={WorkoutView} />
+            {/* <Tab.Screen name="Workouts" component={WeightTransferDrill} />  */}
             <Tab.Screen name="Profile" component={ProfileView} />
         </Tab.Navigator>
     );
