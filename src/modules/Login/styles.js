@@ -1,7 +1,9 @@
 import { StyleSheet } from 'react-native';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
-
-export default StyleSheet.create({
+import { useTheme } from '../../theme/theme';
+export default function useLoginStyles() {
+  const { colors } = useTheme();
+  return StyleSheet.create({
     background: {
       flex: 1,
       width: '100%',
@@ -38,6 +40,7 @@ export default StyleSheet.create({
     },
     subtitle: {
       fontSize: hp('2%'),
+      color:colors.text
     },
     signUp: {
       color: '#000',
@@ -74,6 +77,7 @@ export default StyleSheet.create({
     orText: {
       fontSize: hp('2%'),
       marginVertical: hp('1.5%'),
+      color:colors.text
     },
     socialButton: {
       flexDirection: 'row',
@@ -97,5 +101,4 @@ export default StyleSheet.create({
       height: hp('3%'),
     },
   });
-  
-  
+}

@@ -8,6 +8,7 @@ import {
   TextStyle,
 } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import { useTheme } from '../theme/theme';
 
 interface CheckboxProps {
   label: string;
@@ -24,16 +25,18 @@ const Checkbox: React.FC<CheckboxProps> = ({
   containerStyle,
   labelStyle,
 }) => {
+  const { colors } = useTheme();
+
   return (
     <View style={[styles.container, containerStyle]}>
       <TouchableOpacity onPress={onPress}>
         <MaterialIcons
           name={checked ? 'check-box' : 'check-box-outline-blank'}
           size={24}
-          color="#000"
+          color={colors.text}
         />
       </TouchableOpacity>
-      <Text style={[styles.label, labelStyle]}>{label}</Text>
+      <Text style={[styles.label, { color: colors.text }, labelStyle]}>{label}</Text>
     </View>
   );
 };
