@@ -13,13 +13,13 @@ interface ButtonProps {
 const Button: React.FC<ButtonProps> = ({ title, onPress, buttonStyle, textStyle, disabled = false, icon }) => {
   return (
     <TouchableOpacity
-      style={[styles.button, buttonStyle, disabled && styles.disabledButton]}
+      style={[buttonStyle, disabled && styles.disabledButton]}
       onPress={disabled ? undefined : onPress}
       activeOpacity={disabled ? 1 : 0.7}
       disabled={disabled}
     >
       {icon && <Image source={icon} style={styles.icon} />}
-      <Text style={[styles.text, textStyle, disabled && styles.disabledText]} numberOfLines={1} adjustsFontSizeToFit>{title}</Text>
+      <Text style={[textStyle, disabled && styles.disabledText]} numberOfLines={1} adjustsFontSizeToFit>{title}</Text>
     </TouchableOpacity>
   );
 };
@@ -46,6 +46,7 @@ const styles = StyleSheet.create({
   icon: {
     width: 20,
     height: 20,
+    alignSelf:'center',
     marginRight: 10,
   },
 });

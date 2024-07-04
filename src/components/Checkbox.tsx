@@ -45,6 +45,9 @@ const styles = StyleSheet.create({
   },
   label: {
     marginLeft: 6,
+    fontFamily: 'Outfit',
+    fontWeight: '500',
+    color: '#6C7278',
     fontSize: 14,
   },
 });
