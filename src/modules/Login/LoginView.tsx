@@ -138,13 +138,15 @@ const LoginScreen: React.FC = (props: any) => {
                 <Text style={styles.orText}>Or</Text>
                 <Button
                   title="Continue with Google"
-                  onPress={() => navigation.navigate('BottomTabStack')}                  buttonStyle={styles.socialButton}
+                  onPress={() => navigation.navigate('BottomTabStack')}  
+                   buttonStyle={styles.socialButton}               
                   textStyle={styles.socialButtonText}
                   icon={require('../../assets/Images/google_ic.png')}
                 />
                 <Button
                   title="Continue with Facebook"
                   onPress={() => console.log('Continue with Facebook')}
+       
                   buttonStyle={styles.socialButton}
                   textStyle={styles.socialButtonText}
                   icon={require('../../assets/Images/facebok3.png')}

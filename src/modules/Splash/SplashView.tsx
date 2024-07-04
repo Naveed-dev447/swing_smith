@@ -1,12 +1,13 @@
 import React from 'react';
 import { View, Text, ImageBackground, TouchableOpacity, StatusBar } from 'react-native';
 import styles from './styles';
+import Button from '../../components/Button';
 
 const SplashScreen = (props: any) => {
-  const {route, navigation} = props
+  const { route, navigation } = props
 
   const handleGetStarted = () => {
-    navigation.navigate('Login'); 
+    navigation.navigate('Login');
   };
 
   return (
@@ -18,9 +19,12 @@ const SplashScreen = (props: any) => {
       <View style={styles.container}>
         <Text style={styles.title}>Welcome to your Swing Coach!</Text>
         <Text style={styles.subtitle}>Get started with us and improve your game with personalized swing analysis.</Text>
-        <TouchableOpacity style={styles.button} onPress={handleGetStarted}>
-          <Text style={styles.buttonText}>Get Started</Text>
-        </TouchableOpacity>
+        <Button
+          title="Get Started"
+          onPress={handleGetStarted}
+          buttonStyle={styles.button}
+          textStyle={styles.buttonText}
+        />
       </View>
     </ImageBackground>
   );
