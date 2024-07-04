@@ -16,11 +16,12 @@ import * as EmailValidator from 'email-validator';
 import {useForm, Controller} from 'react-hook-form';
 import {yupResolver} from '@hookform/resolvers/yup';
 import * as yup from 'yup';
+import { useTheme } from '@react-navigation/native';
 import TextInput from '../../components/TextInput';
 import Button from '../../components/Button';
 import Checkbox from '../../components/Checkbox';
- 
-import styles from './styles'
+  
+import useLoginStyles from './styles';
 import LoginAPICall from './LoginAPI';
 
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -45,7 +46,8 @@ const LoginScreen: React.FC = (props: any) => {
   } = useForm({
     resolver: yupResolver(loginSchema),
   });
-
+  const { colors } = useTheme();
+  const styles = useLoginStyles();
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
 
@@ -79,8 +81,8 @@ const LoginScreen: React.FC = (props: any) => {
               <View style={styles.loginContainer}>
                 <Text style={styles.title}>Login</Text>
                 <View style={styles.subtitleContainer}>
-                  <Text style={styles.subtitle}>Don't have an account?</Text>
-                  <TouchableOpacity
+                <Text style={styles.subtitle}>Don't have an account?</Text>
+                <TouchableOpacity
                     onPress={() => navigation.navigate('RegisterView')}>
                     <Text style={styles.signUp}>Sign Up</Text>
                   </TouchableOpacity>
