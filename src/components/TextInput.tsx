@@ -1,7 +1,8 @@
 import React from 'react';
 import { View, TextInput as RNTextInput, StyleSheet, Text, TextInputProps, ViewStyle, TextStyle } from 'react-native';
-import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
+import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { useTheme } from '../theme/theme';
 
 interface InputProps extends TextInputProps {
   containerStyle?: ViewStyle;
@@ -13,22 +14,28 @@ interface InputProps extends TextInputProps {
 }
 
 const TextInput: React.FC<InputProps> = ({ containerStyle, inputStyle, label, error, icon, iconOnPress, ...props }) => {
+  const { colors } = useTheme();
+
   return (
     <View style={[styles.container, containerStyle]}>
-      {label && <Text style={styles.label}>{label}</Text>}
-      <View style={styles.inputContainer}>
-        <RNTextInput style={[styles.input, inputStyle]} {...props} />
+      {label && <Text style={[styles.label, { color:colors.textSecondary}]}>{label}</Text>}
+      <View style={[styles.inputContainer, { borderColor: colors.border, backgroundColor: colors.background }]}>
+        <RNTextInput 
+          style={[styles.input, { color: colors.text }, inputStyle]}
+          placeholderTextColor={colors.placeholder}
+          {...props} 
+        />
         {icon && (
           <Icon
             name={icon}
             size={20}
-            color="#666"
+            color={colors.text}
             onPress={iconOnPress}
             style={styles.icon}
           />
         )}
       </View>
-      {error && <Text style={styles.error}>{error}</Text>}
+      {error && <Text style={[styles.error, { color: colors.error }]}>{error}</Text>}
     </View>
   );
 };
@@ -58,8 +65,8 @@ const styles = StyleSheet.create({
   input: {
     fontFamily: 'Inter',
     flex: 1,
-    height: 40,
-    paddingHorizontal: 10,
+    height: hp('5.1%'),
+    paddingHorizontal: wp('2%'),
     borderRadius: 20,
   },
   icon: {

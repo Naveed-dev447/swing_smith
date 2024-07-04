@@ -1,7 +1,10 @@
 import { StyleSheet } from 'react-native';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
+import { useTheme } from '../../theme/theme';
 
-export default StyleSheet.create({
+ export default function useLoginStyles() {
+   const { colors } = useTheme();
+   return StyleSheet.create({
   background: {
     flex: 1,
     width: '100%',
@@ -123,4 +126,5 @@ export default StyleSheet.create({
     fontWeight: '600',
   },
 });
-
+ }
+ 
