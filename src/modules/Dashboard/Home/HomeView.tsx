@@ -17,13 +17,13 @@ const HomeView = (props: any) => {
   return (
     <View style={globalStyles.container}>
     <Header toggleModal={toggleModal} name={'Hello, Dilshan'} address={'Kandy, Sri Lanka'}/>
-    <ScrollView contentContainerStyle={{paddingVertical: 50}}>
+    <ScrollView contentContainerStyle={globalStyles.SwingLogScrollView}>
       <Banner />
       <View>
         <Text style={[globalStyles.sectionTitle, { marginTop: hp('2%') }]}>Recent Analysis</Text>
         <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginVertical: hp('2%') }}>
           <AnalysisCard score="7.2" postureScore="8.4" swingRhythm="6.0" imageUri="https://images.unsplash.com/photo-1570129477492-45c003edd2be" onPress={() => navigation.navigate('SwingLog')}/>
-          <AnalysisCard score="6.2" postureScore="7.5" swingRhythm="5.0" imageUri="https://images.unsplash.com/photo-1580587771525-78b9dba3b914" />
+          <AnalysisCard score="6.2" postureScore="7.5" swingRhythm="5.0" imageUri="https://images.unsplash.com/photo-1580587771525-78b9dba3b914" onPress={() => console.log('pressed dashbord')}/>
         </ScrollView>
       </View>
       <UploadSwing />
@@ -58,16 +58,6 @@ const HomeView = (props: any) => {
           <ChallengeCard title="Challenge" icon="bag-suitcase" />
         </HorizontalScroll>
       </Section>
-
-      <Modal
-        isVisible={modalVisible}
-        onBackdropPress={toggleModal}
-        swipeDirection="down"
-        onSwipeComplete={toggleModal}
-        style={globalStyles.modal}
-      >
-        <FilterModal closeModal={toggleModal} />
-      </Modal>
     </ScrollView>
     </View>
   );
