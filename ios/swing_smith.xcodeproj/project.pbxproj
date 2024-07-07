@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* swing_smithTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* swing_smithTests.m */; };
 		0C80B921A6F3F58F76C31292 /* libPods-swing_smith.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DCACB8F33CDC322A6C60F78 /* libPods-swing_smith.a */; };
+		0F1706C0097C45818650484F /* Outfit-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 247496992DE9467EA0E20E4E /* Outfit-ExtraLight.ttf */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
@@ -31,38 +32,37 @@
 		1D10D6272C29D202000960D0 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1D10D6142C29D202000960D0 /* SimpleLineIcons.ttf */; };
 		1D10D6282C29D202000960D0 /* FontAwesome6_Brands.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1D10D6152C29D202000960D0 /* FontAwesome6_Brands.ttf */; };
 		1D10D6292C29D202000960D0 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1D10D6162C29D202000960D0 /* MaterialIcons.ttf */; };
+		24922B51EB0E4F06AED458CD /* Overpass-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A4FA01337E7C43279F2E7A1A /* Overpass-Medium.ttf */; };
+		2797528CEDD24FE0A7738C11 /* Overpass-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 171AF37864244E0A97757DA0 /* Overpass-Light.ttf */; };
+		2DCEAD63F2584DAE9C73BE7D /* Outfit-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C5E29059B0244714A66A468F /* Outfit-Regular.ttf */; };
+		3209970E804A47FD9C3B33A7 /* InriaSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B34AAFAEE4C844EF984E5E6E /* InriaSans-Bold.ttf */; };
+		418A5111627D42589644F045 /* Poppins-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4B790F94D67647698E666837 /* Poppins-Light.ttf */; };
+		4519E60E945848AFA86C14F0 /* PlusJakartaSans-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 834A90DC57BC46A5A66CD500 /* PlusJakartaSans-VariableFont_wght.ttf */; };
+		4A4A56D2A47B47FA862DC470 /* Poppins-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 84D0DE0EB6E9466187A5D532 /* Poppins-Medium.ttf */; };
+		4AC1D53CEA144756B15533F2 /* Overpass-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BC261AAA621B4B37B5D973EA /* Overpass-ExtraBold.ttf */; };
+		4D789496783847E18C301511 /* Overpass-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4B4B7796FCB54778A6E1A1E3 /* Overpass-Bold.ttf */; };
+		5DB0272E93F8415BA2CF3943 /* Overpass-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A1B8DAD3AFFA462CAEA1A56F /* Overpass-Thin.ttf */; };
+		614ADEB3F3014DFA8B6617D1 /* PlusJakartaSans-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 79A170744A1A45F5AB848AB4 /* PlusJakartaSans-Medium.ttf */; };
+		6922F74D0FDD42E1B9C5CC2B /* Poppins-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7F412F155497453BB0E8C9DD /* Poppins-ExtraBold.ttf */; };
+		6FD3DF8BE97E423C8BA17216 /* Poppins-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1F4DE0C9CDD14E308FAB5025 /* Poppins-Regular.ttf */; };
 		7699B88040F8A987B510C191 /* libPods-swing_smith-swing_smithTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-swing_smith-swing_smithTests.a */; };
 		77F3F7613EDFACC506D266BC /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 10948881C01C9E505EA3572D /* PrivacyInfo.xcprivacy */; };
+		7DB848D1E9004A9F81830546 /* Overpass-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 29EE79C075D940808451AE09 /* Overpass-ExtraLight.ttf */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		3209970E804A47FD9C3B33A7 /* InriaSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B34AAFAEE4C844EF984E5E6E /* InriaSans-Bold.ttf */; };
+		839C7F25BBF7480289E1041C /* Outfit-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C330DEF097674287A8AAEBA8 /* Outfit-Light.ttf */; };
+		8B82D7657B224916A1D19FC4 /* Inter-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DC0F8C6495704D218FDEF4CB /* Inter-Regular.ttf */; };
+		94202A9E84B142A8B35D0A52 /* Outfit-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BA3B398562DD47639DB7D9A4 /* Outfit-Bold.ttf */; };
+		9A9BE2109A20413DAA44AAA3 /* Outfit-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 23B1FF96207C483B8E7258BA /* Outfit-SemiBold.ttf */; };
+		A5D356C2538B49E194AA6A2D /* Inter-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E55D11987EC643DB9E7F17B4 /* Inter-SemiBold.ttf */; };
+		ACC10ACBCBAE40B98A80D117 /* PlusJakartaSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = ECC20D429F9C4CB384744825 /* PlusJakartaSans-Bold.ttf */; };
+		C0DE6468CEC6487F980188DD /* PlusJakartaSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B2821CB8C38343F89CA955A1 /* PlusJakartaSans-Regular.ttf */; };
+		CAF17DCE82BC4FCBB0D748FA /* Outfit-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4426BF0D757C4D41A3878E0C /* Outfit-Medium.ttf */; };
 		CC46EA8C0CCE4237B208A41B /* InriaSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 991B9B246AB64036BF6BBB31 /* InriaSans-Light.ttf */; };
 		D5D55D9663714874B78F739B /* InriaSans-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5B6323620CFF4972A316F813 /* InriaSans-LightItalic.ttf */; };
-		F97AB1E1A3B74A709AA9EBB1 /* InriaSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F53886CF0D43492186ABD1AC /* InriaSans-Regular.ttf */; };
-		8B82D7657B224916A1D19FC4 /* Inter-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DC0F8C6495704D218FDEF4CB /* Inter-Regular.ttf */; };
-		A5D356C2538B49E194AA6A2D /* Inter-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E55D11987EC643DB9E7F17B4 /* Inter-SemiBold.ttf */; };
-		94202A9E84B142A8B35D0A52 /* Outfit-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BA3B398562DD47639DB7D9A4 /* Outfit-Bold.ttf */; };
-		0F1706C0097C45818650484F /* Outfit-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 247496992DE9467EA0E20E4E /* Outfit-ExtraLight.ttf */; };
-		839C7F25BBF7480289E1041C /* Outfit-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C330DEF097674287A8AAEBA8 /* Outfit-Light.ttf */; };
-		CAF17DCE82BC4FCBB0D748FA /* Outfit-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4426BF0D757C4D41A3878E0C /* Outfit-Medium.ttf */; };
-		2DCEAD63F2584DAE9C73BE7D /* Outfit-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C5E29059B0244714A66A468F /* Outfit-Regular.ttf */; };
-		9A9BE2109A20413DAA44AAA3 /* Outfit-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 23B1FF96207C483B8E7258BA /* Outfit-SemiBold.ttf */; };
-		FF8AF6CBA56148AFA322CF01 /* Outfit-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8B1D9E1651A94EB586363E63 /* Outfit-Thin.ttf */; };
-		4D789496783847E18C301511 /* Overpass-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4B4B7796FCB54778A6E1A1E3 /* Overpass-Bold.ttf */; };
-		4AC1D53CEA144756B15533F2 /* Overpass-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BC261AAA621B4B37B5D973EA /* Overpass-ExtraBold.ttf */; };
-		7DB848D1E9004A9F81830546 /* Overpass-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 29EE79C075D940808451AE09 /* Overpass-ExtraLight.ttf */; };
-		2797528CEDD24FE0A7738C11 /* Overpass-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 171AF37864244E0A97757DA0 /* Overpass-Light.ttf */; };
-		24922B51EB0E4F06AED458CD /* Overpass-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A4FA01337E7C43279F2E7A1A /* Overpass-Medium.ttf */; };
 		F2801A1F4A8045AA8456A768 /* Overpass-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6CFF1E91965B4EDCBAA00693 /* Overpass-Regular.ttf */; };
-		5DB0272E93F8415BA2CF3943 /* Overpass-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A1B8DAD3AFFA462CAEA1A56F /* Overpass-Thin.ttf */; };
-		ACC10ACBCBAE40B98A80D117 /* PlusJakartaSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = ECC20D429F9C4CB384744825 /* PlusJakartaSans-Bold.ttf */; };
-		614ADEB3F3014DFA8B6617D1 /* PlusJakartaSans-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 79A170744A1A45F5AB848AB4 /* PlusJakartaSans-Medium.ttf */; };
-		C0DE6468CEC6487F980188DD /* PlusJakartaSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B2821CB8C38343F89CA955A1 /* PlusJakartaSans-Regular.ttf */; };
-		4519E60E945848AFA86C14F0 /* PlusJakartaSans-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 834A90DC57BC46A5A66CD500 /* PlusJakartaSans-VariableFont_wght.ttf */; };
 		F289776FAFCC4673AA060D43 /* Poppins-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 580CA4255B294A7E9DFB82D4 /* Poppins-Bold.ttf */; };
-		6922F74D0FDD42E1B9C5CC2B /* Poppins-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7F412F155497453BB0E8C9DD /* Poppins-ExtraBold.ttf */; };
-		418A5111627D42589644F045 /* Poppins-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4B790F94D67647698E666837 /* Poppins-Light.ttf */; };
-		4A4A56D2A47B47FA862DC470 /* Poppins-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 84D0DE0EB6E9466187A5D532 /* Poppins-Medium.ttf */; };
-		6FD3DF8BE97E423C8BA17216 /* Poppins-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1F4DE0C9CDD14E308FAB5025 /* Poppins-Regular.ttf */; };
+		F97AB1E1A3B74A709AA9EBB1 /* InriaSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F53886CF0D43492186ABD1AC /* InriaSans-Regular.ttf */; };
+		FF8AF6CBA56148AFA322CF01 /* Outfit-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8B1D9E1651A94EB586363E63 /* Outfit-Thin.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -87,6 +87,7 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = swing_smith/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = swing_smith/main.m; sourceTree = "<group>"; };
 		13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PrivacyInfo.xcprivacy; path = swing_smith/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		171AF37864244E0A97757DA0 /* Overpass-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Overpass-Light.ttf"; path = "../src/assets/fonts/Overpass-Light.ttf"; sourceTree = "<group>"; };
 		19F6CBCC0A4E27FBF8BF4A61 /* libPods-swing_smith-swing_smithTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-swing_smith-swing_smithTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1D10D6042C29D202000960D0 /* Fontisto.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Fontisto.ttf; sourceTree = "<group>"; };
 		1D10D6052C29D202000960D0 /* Octicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Octicons.ttf; sourceTree = "<group>"; };
@@ -107,42 +108,41 @@
 		1D10D6142C29D202000960D0 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SimpleLineIcons.ttf; sourceTree = "<group>"; };
 		1D10D6152C29D202000960D0 /* FontAwesome6_Brands.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome6_Brands.ttf; sourceTree = "<group>"; };
 		1D10D6162C29D202000960D0 /* MaterialIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = MaterialIcons.ttf; sourceTree = "<group>"; };
+		1F4DE0C9CDD14E308FAB5025 /* Poppins-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-Regular.ttf"; path = "../src/assets/fonts/Poppins-Regular.ttf"; sourceTree = "<group>"; };
+		23B1FF96207C483B8E7258BA /* Outfit-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Outfit-SemiBold.ttf"; path = "../src/assets/fonts/Outfit-SemiBold.ttf"; sourceTree = "<group>"; };
+		247496992DE9467EA0E20E4E /* Outfit-ExtraLight.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Outfit-ExtraLight.ttf"; path = "../src/assets/fonts/Outfit-ExtraLight.ttf"; sourceTree = "<group>"; };
+		29EE79C075D940808451AE09 /* Overpass-ExtraLight.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Overpass-ExtraLight.ttf"; path = "../src/assets/fonts/Overpass-ExtraLight.ttf"; sourceTree = "<group>"; };
 		3B4392A12AC88292D35C810B /* Pods-swing_smith.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-swing_smith.debug.xcconfig"; path = "Target Support Files/Pods-swing_smith/Pods-swing_smith.debug.xcconfig"; sourceTree = "<group>"; };
+		4426BF0D757C4D41A3878E0C /* Outfit-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Outfit-Medium.ttf"; path = "../src/assets/fonts/Outfit-Medium.ttf"; sourceTree = "<group>"; };
+		4B4B7796FCB54778A6E1A1E3 /* Overpass-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Overpass-Bold.ttf"; path = "../src/assets/fonts/Overpass-Bold.ttf"; sourceTree = "<group>"; };
+		4B790F94D67647698E666837 /* Poppins-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-Light.ttf"; path = "../src/assets/fonts/Poppins-Light.ttf"; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-swing_smith.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-swing_smith.release.xcconfig"; path = "Target Support Files/Pods-swing_smith/Pods-swing_smith.release.xcconfig"; sourceTree = "<group>"; };
+		580CA4255B294A7E9DFB82D4 /* Poppins-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-Bold.ttf"; path = "../src/assets/fonts/Poppins-Bold.ttf"; sourceTree = "<group>"; };
+		5B6323620CFF4972A316F813 /* InriaSans-LightItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "InriaSans-LightItalic.ttf"; path = "../src/assets/fonts/InriaSans-LightItalic.ttf"; sourceTree = "<group>"; };
 		5B7EB9410499542E8C5724F5 /* Pods-swing_smith-swing_smithTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-swing_smith-swing_smithTests.debug.xcconfig"; path = "Target Support Files/Pods-swing_smith-swing_smithTests/Pods-swing_smith-swing_smithTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5DCACB8F33CDC322A6C60F78 /* libPods-swing_smith.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-swing_smith.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6CFF1E91965B4EDCBAA00693 /* Overpass-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Overpass-Regular.ttf"; path = "../src/assets/fonts/Overpass-Regular.ttf"; sourceTree = "<group>"; };
+		79A170744A1A45F5AB848AB4 /* PlusJakartaSans-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "PlusJakartaSans-Medium.ttf"; path = "../src/assets/fonts/PlusJakartaSans-Medium.ttf"; sourceTree = "<group>"; };
+		7F412F155497453BB0E8C9DD /* Poppins-ExtraBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-ExtraBold.ttf"; path = "../src/assets/fonts/Poppins-ExtraBold.ttf"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = swing_smith/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		834A90DC57BC46A5A66CD500 /* PlusJakartaSans-VariableFont_wght.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "PlusJakartaSans-VariableFont_wght.ttf"; path = "../src/assets/fonts/PlusJakartaSans-VariableFont_wght.ttf"; sourceTree = "<group>"; };
+		84D0DE0EB6E9466187A5D532 /* Poppins-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-Medium.ttf"; path = "../src/assets/fonts/Poppins-Medium.ttf"; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-swing_smith-swing_smithTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-swing_smith-swing_smithTests.release.xcconfig"; path = "Target Support Files/Pods-swing_smith-swing_smithTests/Pods-swing_smith-swing_smithTests.release.xcconfig"; sourceTree = "<group>"; };
+		8B1D9E1651A94EB586363E63 /* Outfit-Thin.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Outfit-Thin.ttf"; path = "../src/assets/fonts/Outfit-Thin.ttf"; sourceTree = "<group>"; };
+		991B9B246AB64036BF6BBB31 /* InriaSans-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "InriaSans-Light.ttf"; path = "../src/assets/fonts/InriaSans-Light.ttf"; sourceTree = "<group>"; };
+		A1B8DAD3AFFA462CAEA1A56F /* Overpass-Thin.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Overpass-Thin.ttf"; path = "../src/assets/fonts/Overpass-Thin.ttf"; sourceTree = "<group>"; };
+		A4FA01337E7C43279F2E7A1A /* Overpass-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Overpass-Medium.ttf"; path = "../src/assets/fonts/Overpass-Medium.ttf"; sourceTree = "<group>"; };
+		B2821CB8C38343F89CA955A1 /* PlusJakartaSans-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "PlusJakartaSans-Regular.ttf"; path = "../src/assets/fonts/PlusJakartaSans-Regular.ttf"; sourceTree = "<group>"; };
+		B34AAFAEE4C844EF984E5E6E /* InriaSans-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "InriaSans-Bold.ttf"; path = "../src/assets/fonts/InriaSans-Bold.ttf"; sourceTree = "<group>"; };
+		BA3B398562DD47639DB7D9A4 /* Outfit-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Outfit-Bold.ttf"; path = "../src/assets/fonts/Outfit-Bold.ttf"; sourceTree = "<group>"; };
+		BC261AAA621B4B37B5D973EA /* Overpass-ExtraBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Overpass-ExtraBold.ttf"; path = "../src/assets/fonts/Overpass-ExtraBold.ttf"; sourceTree = "<group>"; };
+		C330DEF097674287A8AAEBA8 /* Outfit-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Outfit-Light.ttf"; path = "../src/assets/fonts/Outfit-Light.ttf"; sourceTree = "<group>"; };
+		C5E29059B0244714A66A468F /* Outfit-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Outfit-Regular.ttf"; path = "../src/assets/fonts/Outfit-Regular.ttf"; sourceTree = "<group>"; };
+		DC0F8C6495704D218FDEF4CB /* Inter-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter-Regular.ttf"; path = "../src/assets/fonts/Inter-Regular.ttf"; sourceTree = "<group>"; };
+		E55D11987EC643DB9E7F17B4 /* Inter-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter-SemiBold.ttf"; path = "../src/assets/fonts/Inter-SemiBold.ttf"; sourceTree = "<group>"; };
+		ECC20D429F9C4CB384744825 /* PlusJakartaSans-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "PlusJakartaSans-Bold.ttf"; path = "../src/assets/fonts/PlusJakartaSans-Bold.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		B34AAFAEE4C844EF984E5E6E /* InriaSans-Bold.ttf */ = {isa = PBXFileReference; name = "InriaSans-Bold.ttf"; path = "../src/assets/fonts/InriaSans-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		991B9B246AB64036BF6BBB31 /* InriaSans-Light.ttf */ = {isa = PBXFileReference; name = "InriaSans-Light.ttf"; path = "../src/assets/fonts/InriaSans-Light.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		5B6323620CFF4972A316F813 /* InriaSans-LightItalic.ttf */ = {isa = PBXFileReference; name = "InriaSans-LightItalic.ttf"; path = "../src/assets/fonts/InriaSans-LightItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		F53886CF0D43492186ABD1AC /* InriaSans-Regular.ttf */ = {isa = PBXFileReference; name = "InriaSans-Regular.ttf"; path = "../src/assets/fonts/InriaSans-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		DC0F8C6495704D218FDEF4CB /* Inter-Regular.ttf */ = {isa = PBXFileReference; name = "Inter-Regular.ttf"; path = "../src/assets/fonts/Inter-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		E55D11987EC643DB9E7F17B4 /* Inter-SemiBold.ttf */ = {isa = PBXFileReference; name = "Inter-SemiBold.ttf"; path = "../src/assets/fonts/Inter-SemiBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		BA3B398562DD47639DB7D9A4 /* Outfit-Bold.ttf */ = {isa = PBXFileReference; name = "Outfit-Bold.ttf"; path = "../src/assets/fonts/Outfit-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		247496992DE9467EA0E20E4E /* Outfit-ExtraLight.ttf */ = {isa = PBXFileReference; name = "Outfit-ExtraLight.ttf"; path = "../src/assets/fonts/Outfit-ExtraLight.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		C330DEF097674287A8AAEBA8 /* Outfit-Light.ttf */ = {isa = PBXFileReference; name = "Outfit-Light.ttf"; path = "../src/assets/fonts/Outfit-Light.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		4426BF0D757C4D41A3878E0C /* Outfit-Medium.ttf */ = {isa = PBXFileReference; name = "Outfit-Medium.ttf"; path = "../src/assets/fonts/Outfit-Medium.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		C5E29059B0244714A66A468F /* Outfit-Regular.ttf */ = {isa = PBXFileReference; name = "Outfit-Regular.ttf"; path = "../src/assets/fonts/Outfit-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		23B1FF96207C483B8E7258BA /* Outfit-SemiBold.ttf */ = {isa = PBXFileReference; name = "Outfit-SemiBold.ttf"; path = "../src/assets/fonts/Outfit-SemiBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		8B1D9E1651A94EB586363E63 /* Outfit-Thin.ttf */ = {isa = PBXFileReference; name = "Outfit-Thin.ttf"; path = "../src/assets/fonts/Outfit-Thin.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		4B4B7796FCB54778A6E1A1E3 /* Overpass-Bold.ttf */ = {isa = PBXFileReference; name = "Overpass-Bold.ttf"; path = "../src/assets/fonts/Overpass-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		BC261AAA621B4B37B5D973EA /* Overpass-ExtraBold.ttf */ = {isa = PBXFileReference; name = "Overpass-ExtraBold.ttf"; path = "../src/assets/fonts/Overpass-ExtraBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		29EE79C075D940808451AE09 /* Overpass-ExtraLight.ttf */ = {isa = PBXFileReference; name = "Overpass-ExtraLight.ttf"; path = "../src/assets/fonts/Overpass-ExtraLight.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		171AF37864244E0A97757DA0 /* Overpass-Light.ttf */ = {isa = PBXFileReference; name = "Overpass-Light.ttf"; path = "../src/assets/fonts/Overpass-Light.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		A4FA01337E7C43279F2E7A1A /* Overpass-Medium.ttf */ = {isa = PBXFileReference; name = "Overpass-Medium.ttf"; path = "../src/assets/fonts/Overpass-Medium.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		6CFF1E91965B4EDCBAA00693 /* Overpass-Regular.ttf */ = {isa = PBXFileReference; name = "Overpass-Regular.ttf"; path = "../src/assets/fonts/Overpass-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		A1B8DAD3AFFA462CAEA1A56F /* Overpass-Thin.ttf */ = {isa = PBXFileReference; name = "Overpass-Thin.ttf"; path = "../src/assets/fonts/Overpass-Thin.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		ECC20D429F9C4CB384744825 /* PlusJakartaSans-Bold.ttf */ = {isa = PBXFileReference; name = "PlusJakartaSans-Bold.ttf"; path = "../src/assets/fonts/PlusJakartaSans-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		79A170744A1A45F5AB848AB4 /* PlusJakartaSans-Medium.ttf */ = {isa = PBXFileReference; name = "PlusJakartaSans-Medium.ttf"; path = "../src/assets/fonts/PlusJakartaSans-Medium.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		B2821CB8C38343F89CA955A1 /* PlusJakartaSans-Regular.ttf */ = {isa = PBXFileReference; name = "PlusJakartaSans-Regular.ttf"; path = "../src/assets/fonts/PlusJakartaSans-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		834A90DC57BC46A5A66CD500 /* PlusJakartaSans-VariableFont_wght.ttf */ = {isa = PBXFileReference; name = "PlusJakartaSans-VariableFont_wght.ttf"; path = "../src/assets/fonts/PlusJakartaSans-VariableFont_wght.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		580CA4255B294A7E9DFB82D4 /* Poppins-Bold.ttf */ = {isa = PBXFileReference; name = "Poppins-Bold.ttf"; path = "../src/assets/fonts/Poppins-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		7F412F155497453BB0E8C9DD /* Poppins-ExtraBold.ttf */ = {isa = PBXFileReference; name = "Poppins-ExtraBold.ttf"; path = "../src/assets/fonts/Poppins-ExtraBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		4B790F94D67647698E666837 /* Poppins-Light.ttf */ = {isa = PBXFileReference; name = "Poppins-Light.ttf"; path = "../src/assets/fonts/Poppins-Light.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		84D0DE0EB6E9466187A5D532 /* Poppins-Medium.ttf */ = {isa = PBXFileReference; name = "Poppins-Medium.ttf"; path = "../src/assets/fonts/Poppins-Medium.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		1F4DE0C9CDD14E308FAB5025 /* Poppins-Regular.ttf */ = {isa = PBXFileReference; name = "Poppins-Regular.ttf"; path = "../src/assets/fonts/Poppins-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		F53886CF0D43492186ABD1AC /* InriaSans-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "InriaSans-Regular.ttf"; path = "../src/assets/fonts/InriaSans-Regular.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -234,6 +234,42 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		7BD17360E75D482987F22600 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				B34AAFAEE4C844EF984E5E6E /* InriaSans-Bold.ttf */,
+				991B9B246AB64036BF6BBB31 /* InriaSans-Light.ttf */,
+				5B6323620CFF4972A316F813 /* InriaSans-LightItalic.ttf */,
+				F53886CF0D43492186ABD1AC /* InriaSans-Regular.ttf */,
+				DC0F8C6495704D218FDEF4CB /* Inter-Regular.ttf */,
+				E55D11987EC643DB9E7F17B4 /* Inter-SemiBold.ttf */,
+				BA3B398562DD47639DB7D9A4 /* Outfit-Bold.ttf */,
+				247496992DE9467EA0E20E4E /* Outfit-ExtraLight.ttf */,
+				C330DEF097674287A8AAEBA8 /* Outfit-Light.ttf */,
+				4426BF0D757C4D41A3878E0C /* Outfit-Medium.ttf */,
+				C5E29059B0244714A66A468F /* Outfit-Regular.ttf */,
+				23B1FF96207C483B8E7258BA /* Outfit-SemiBold.ttf */,
+				8B1D9E1651A94EB586363E63 /* Outfit-Thin.ttf */,
+				4B4B7796FCB54778A6E1A1E3 /* Overpass-Bold.ttf */,
+				BC261AAA621B4B37B5D973EA /* Overpass-ExtraBold.ttf */,
+				29EE79C075D940808451AE09 /* Overpass-ExtraLight.ttf */,
+				171AF37864244E0A97757DA0 /* Overpass-Light.ttf */,
+				A4FA01337E7C43279F2E7A1A /* Overpass-Medium.ttf */,
+				6CFF1E91965B4EDCBAA00693 /* Overpass-Regular.ttf */,
+				A1B8DAD3AFFA462CAEA1A56F /* Overpass-Thin.ttf */,
+				ECC20D429F9C4CB384744825 /* PlusJakartaSans-Bold.ttf */,
+				79A170744A1A45F5AB848AB4 /* PlusJakartaSans-Medium.ttf */,
+				B2821CB8C38343F89CA955A1 /* PlusJakartaSans-Regular.ttf */,
+				834A90DC57BC46A5A66CD500 /* PlusJakartaSans-VariableFont_wght.ttf */,
+				580CA4255B294A7E9DFB82D4 /* Poppins-Bold.ttf */,
+				7F412F155497453BB0E8C9DD /* Poppins-ExtraBold.ttf */,
+				4B790F94D67647698E666837 /* Poppins-Light.ttf */,
+				84D0DE0EB6E9466187A5D532 /* Poppins-Medium.ttf */,
+				1F4DE0C9CDD14E308FAB5025 /* Poppins-Regular.ttf */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
@@ -277,43 +313,6 @@
 			);
 			path = Pods;
 			sourceTree = "<group>";
-		};
-		7BD17360E75D482987F22600 /* Resources */ = {
-			isa = "PBXGroup";
-			children = (
-				B34AAFAEE4C844EF984E5E6E /* InriaSans-Bold.ttf */,
-				991B9B246AB64036BF6BBB31 /* InriaSans-Light.ttf */,
-				5B6323620CFF4972A316F813 /* InriaSans-LightItalic.ttf */,
-				F53886CF0D43492186ABD1AC /* InriaSans-Regular.ttf */,
-				DC0F8C6495704D218FDEF4CB /* Inter-Regular.ttf */,
-				E55D11987EC643DB9E7F17B4 /* Inter-SemiBold.ttf */,
-				BA3B398562DD47639DB7D9A4 /* Outfit-Bold.ttf */,
-				247496992DE9467EA0E20E4E /* Outfit-ExtraLight.ttf */,
-				C330DEF097674287A8AAEBA8 /* Outfit-Light.ttf */,
-				4426BF0D757C4D41A3878E0C /* Outfit-Medium.ttf */,
-				C5E29059B0244714A66A468F /* Outfit-Regular.ttf */,
-				23B1FF96207C483B8E7258BA /* Outfit-SemiBold.ttf */,
-				8B1D9E1651A94EB586363E63 /* Outfit-Thin.ttf */,
-				4B4B7796FCB54778A6E1A1E3 /* Overpass-Bold.ttf */,
-				BC261AAA621B4B37B5D973EA /* Overpass-ExtraBold.ttf */,
-				29EE79C075D940808451AE09 /* Overpass-ExtraLight.ttf */,
-				171AF37864244E0A97757DA0 /* Overpass-Light.ttf */,
-				A4FA01337E7C43279F2E7A1A /* Overpass-Medium.ttf */,
-				6CFF1E91965B4EDCBAA00693 /* Overpass-Regular.ttf */,
-				A1B8DAD3AFFA462CAEA1A56F /* Overpass-Thin.ttf */,
-				ECC20D429F9C4CB384744825 /* PlusJakartaSans-Bold.ttf */,
-				79A170744A1A45F5AB848AB4 /* PlusJakartaSans-Medium.ttf */,
-				B2821CB8C38343F89CA955A1 /* PlusJakartaSans-Regular.ttf */,
-				834A90DC57BC46A5A66CD500 /* PlusJakartaSans-VariableFont_wght.ttf */,
-				580CA4255B294A7E9DFB82D4 /* Poppins-Bold.ttf */,
-				7F412F155497453BB0E8C9DD /* Poppins-ExtraBold.ttf */,
-				4B790F94D67647698E666837 /* Poppins-Light.ttf */,
-				84D0DE0EB6E9466187A5D532 /* Poppins-Medium.ttf */,
-				1F4DE0C9CDD14E308FAB5025 /* Poppins-Regular.ttf */,
-			);
-			name = Resources;
-			sourceTree = "<group>";
-			path = "";
 		};
 /* End PBXGroup section */
 
@@ -682,6 +681,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = JXT88WUHUZ;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = swing_smith/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -694,7 +694,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.swingsmith.app;
 				PRODUCT_NAME = swing_smith;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -709,6 +709,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = JXT88WUHUZ;
 				INFOPLIST_FILE = swing_smith/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -720,7 +721,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.swingsmith.app;
 				PRODUCT_NAME = swing_smith;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -800,10 +801,7 @@
 					"-DFOLLY_CFG_NO_COROUTINES=1",
 					"-DFOLLY_HAVE_CLOCK_GETTIME=1",
 				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					" ",
-				);
+				OTHER_LDFLAGS = "$(inherited)  ";
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				USE_HERMES = true;
@@ -875,10 +873,7 @@
 					"-DFOLLY_CFG_NO_COROUTINES=1",
 					"-DFOLLY_HAVE_CLOCK_GETTIME=1",
 				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					" ",
-				);
+				OTHER_LDFLAGS = "$(inherited)  ";
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				USE_HERMES = true;
