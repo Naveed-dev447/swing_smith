@@ -63,14 +63,15 @@ const styles = StyleSheet.create({
     marginTop: hp('3%'),
   },
   title: {
-    color: '#000',
+    color: '#192126',
+    fontFamily: 'Outfit-Bold',
     fontSize: wp('6%'),
-    fontWeight: 'bold',
+    marginVertical: hp('2%'),
   },
   subTitle: {
     color: '#192126',
+    fontFamily: 'Outfit-Regular',
     fontSize: wp('4.2%'),
-    fontWeight: '400',
     marginTop: hp('1%'),
     marginBottom: hp('3%'),
   },

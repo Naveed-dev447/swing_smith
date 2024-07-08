@@ -96,7 +96,8 @@ const styles = StyleSheet.create({
   },
   uploadText: {
     fontSize: wp('4%'),
-    color: '#666666',
+    fontFamily:'Outfit-Regular',
+    color: '#9E9E9E',
   },
   videoPlayer: {
     width: '100%',
