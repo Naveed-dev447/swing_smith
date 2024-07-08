@@ -7,7 +7,7 @@ import CustomButton from '../../../shared/Component/CustomButton';
 import CustomHeader from '../../../shared/Component/CustomHeader';
 import globalStyles from '../styles';
 
-const uploadVideo: React.FC = (props: any) => {
+const UploadVideo: React.FC = (props: any) => {
   const { route, navigation } = props;
   const [videoUri, setVideoUri] = useState<string | null>(null);
 
@@ -104,4 +104,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default uploadVideo;
+export default UploadVideo;

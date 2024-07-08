@@ -36,7 +36,7 @@ const Checkbox: React.FC<CheckboxProps> = ({
           color={colors.text}
         />
       </TouchableOpacity>
-      <Text style={[styles.label, { color: colors.text }, labelStyle]}>{label}</Text>
+      <Text style={[styles.label, labelStyle]}>{label}</Text>
     </View>
   );
 };
@@ -48,8 +48,8 @@ const styles = StyleSheet.create({
   },
   label: {
     marginLeft: 6,
-    fontFamily: 'Outfit',
-    fontWeight: '500',
+    fontFamily: 'Outfit-Regular',
+    // fontWeight: '500',
     color: '#6C7278',
     fontSize: 14,
   },

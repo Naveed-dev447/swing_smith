@@ -13,7 +13,7 @@ import videoUpload1 from '../modules/VideoUpload/videoUpload1';
 import VideoUpload2 from './../modules/VideoUpload/videoUpload2';
 import VideoUpload3 from './../modules/VideoUpload/videoUpload3';
 import VideoUpload4 from './../modules/VideoUpload/videoUpload4';
-import uploadVideo from './../modules/Onboarding/Home/uploadVideo';
+import UploadVideo from './../modules/Onboarding/Home/uploadVideo.tsx';
 import SwingAnalysis from './../modules/Dashboard/Analysis/SwingAnalysis.tsx';
 
 const Stack = createStackNavigator();
@@ -80,7 +80,7 @@ const RootNavigation = () => {
       <Stack.Screen
         options={{headerShown: false}}
         name="OnboardHome12"
-        component={uploadVideo}
+        component={UploadVideo}
       />
       <Stack.Screen
         options={{headerShown: false}}

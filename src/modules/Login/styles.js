@@ -30,8 +30,7 @@ import { useTheme } from '../../theme/theme';
   },
   title: {
     fontSize: hp('3%'),
-    fontWeight: '700',
-    fontFamily: 'Outfit',
+    fontFamily: 'Outfit-Bold',
     color: '#192126',
     marginBottom: hp('1%'),
   },
@@ -42,15 +41,14 @@ import { useTheme } from '../../theme/theme';
   },
   subtitle: {
     fontSize: hp('1.8%'),
-    fontFamily: 'Outfit',
+    fontFamily: 'Outfit-Regular',
     fontWeight: '500',
     color: "#6C7278"
   },
   signUp: {
     fontSize: hp('1.8%'),
     color: '#192126',
-    fontFamily: 'Outfit',
-    fontWeight: '500',
+    fontFamily: 'Outfit-Bold',
     marginLeft: 4,
   },
   rememberContainer: {
@@ -66,8 +64,8 @@ import { useTheme } from '../../theme/theme';
   forgotText: {
     fontSize: hp('1.8%'),
     color: '#192126',
-    fontFamily: 'Outfit',
-    fontWeight: '600',
+    fontFamily: 'Outfit-SemiBold',
+    // fontWeight: '600',
   },
   loginButton: {
     borderRadius: 25,
