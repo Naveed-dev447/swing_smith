@@ -34,10 +34,10 @@ const globalStyles = StyleSheet.create({
     color: 'black',
   },
   headerText: {
+    fontFamily: 'Outfit-Bold',
     fontSize: wp('8%'),
-    fontWeight: 'bold',
     marginTop: hp('2%'),
-    color:'#333333',
+    color: '#333333',
   },
   addressContainer: {
     flexDirection: 'row',
@@ -56,7 +56,7 @@ const globalStyles = StyleSheet.create({
     height: wp('15%'),
     resizeMode: 'contain',
     marginRight: wp('2%'),
-    marginBottom:wp('2%'),
+    marginBottom: wp('2%'),
   },
   swingLogFIlterIconContainer: {
     flexDirection: 'row',
@@ -64,7 +64,7 @@ const globalStyles = StyleSheet.create({
   },
   SwingLogScrollView: {
     paddingVertical: 10,
-    paddingBottom: hp('10%'), 
+    paddingBottom: hp('10%'),
   },
   swinglogGolfIcon: {
     width: wp('4%'),
@@ -83,22 +83,21 @@ const globalStyles = StyleSheet.create({
   },
   subHeader: {
     fontSize: wp('4%'),
-    color: 'gray',
-    // marginBottom:wp('4%'),
+    color: '#828282',
+    fontFamily: 'Inter-Regular',
   },
   bannerText: {
-    fontSize: wp('5%'),
-    color: 'white',
-    fontWeight: 'bold',
-    paddingLeft: wp('4%'),
-    textAlign: 'center',
+    fontSize: wp('6%'),
+    width: wp('40%'),
+    color: '#FFFFFF',
+    fontFamily: 'Outfit-Bold',
+    textAlign: 'left',
+    lineHeight: hp('3.5%'),
   },
   sectionTitle: {
     fontSize: wp('4%'),
-    fontWeight: 'bold',
-    // marginBottom: hp('1%'),
-    color:'#192126'
-
+    color: '#192126',
+    fontFamily: 'Outfit-Bold',
   },
   analysisCard: {
     width: wp('80%'),
@@ -129,7 +128,7 @@ const globalStyles = StyleSheet.create({
   },
   uploadSwingImage: {
     width: '100%',
-    height: hp('12%'),
+    height: hp('20%'),
     borderRadius: wp('2%'),
   },
   uploadButton: {
@@ -143,14 +142,17 @@ const globalStyles = StyleSheet.create({
     borderRadius: wp('4%'),
   },
   uploadButtonText: {
-    fontSize: wp('4.5%'),
+    color: '#192126',
+    fontFamily: 'Inter-SemiBold',
+    fontSize: wp('3.5%'),
   },
   swingDesText: {
+    fontFamily: 'Outfit-Regular',
     color: '#FFFFFF',
     paddingLeft: wp('4%'),
   },
   recommendedSection: {
-    marginVertical: hp('2%'),
+    marginVertical: hp('1%'),
   },
   recommendedHeader: {
     flexDirection: 'row',
@@ -167,12 +169,13 @@ const globalStyles = StyleSheet.create({
   },
   recommendedTitle: {
     fontSize: wp('4%'),
-    fontWeight: 'bold',
-    color:'#192126'
+    fontFamily: 'Outfit-Bold',
+    color: '#192126',
   },
   seeAll: {
+    fontFamily: 'Outfit-Regular',
     fontSize: wp('4%'),
-    color: 'limegreen',
+    color: '#192126',
   },
   card: {
     backgroundColor: 'white',
@@ -337,7 +340,7 @@ const globalStyles = StyleSheet.create({
     fontSize: wp('4%'),
     // fontWeight: 'bold',
     marginLeft: wp('1.25%'),
-    color:'#192126'
+    color: '#192126',
   },
   dateText: {
     fontSize: wp('3.5%'),

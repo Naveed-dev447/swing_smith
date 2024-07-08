@@ -92,6 +92,5 @@ const styles = StyleSheet.create({
     fontFamily: 'Outfit-Regular',
     color: '#ffff',
     lineHeight: 22,
-    // fontSize: 15,
   },
 });
