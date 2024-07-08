@@ -58,6 +58,13 @@ const globalStyles = StyleSheet.create({
     marginRight: wp('2%'),
     marginBottom: wp('2%'),
   },
+  drillIcon: {
+    width: wp('15%'),
+    height: wp('10%'),
+    resizeMode: 'contain',
+    marginRight: wp('2%'),
+    // marginBottom: wp('2%'),
+  },
   swingLogFIlterIconContainer: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -182,8 +189,18 @@ const globalStyles = StyleSheet.create({
     borderRadius: wp('2%'),
     padding: wp('4%'),
     justifyContent: 'center',
+    marginVertical: wp('4%'),
     alignItems: 'center',
-    elevation: 2,
+    // Shadow for iOS
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    // Shadow for Android
+    elevation: 5,
   },
   cardImage: {
     width: '100%',
@@ -201,7 +218,26 @@ const globalStyles = StyleSheet.create({
     borderRadius: wp('2%'),
   },
   markAsDoneText: {
-    color: 'white',
+    color: '#ffffff',
+    fontFamily:'Outfit-Regular'
+  },
+  challengeCards: {
+    backgroundColor: 'white',
+    borderRadius: wp('2%'),
+    padding: wp('6%'),
+    justifyContent: 'center',
+    marginVertical: wp('4%'),
+    alignItems: 'center',
+    // Shadow for iOS
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    // Shadow for Android
+    elevation: 5,
   },
   modal: {
     justifyContent: 'flex-end',

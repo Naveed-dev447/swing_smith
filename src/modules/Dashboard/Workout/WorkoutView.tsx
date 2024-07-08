@@ -99,15 +99,16 @@ const styles = StyleSheet.create({
   },
   workoutTitle: {
     fontSize: wp('5%'),
-    fontWeight: 'bold',
+    fontFamily:'Outfit-Bold',
     marginBottom: hp('2%'),
-    color: 'black',
+    color: '#192126',
   },
   detail: {
     fontSize: wp('4%'),
+    fontFamily:'Outfit-Regular',
     marginBottom: hp('4%'),
-    color: 'black',
-  },
+    color: '#192126CC',
+  },  
   workoutsContainer: {
     width: '100%',
     marginBottom: hp('4%'),
@@ -133,7 +134,8 @@ const styles = StyleSheet.create({
   },
   workoutText: {
     fontSize: wp('4%'),
-    color: 'black',
+    color: '#232732',
+    fontFamily:'Outfit-SemiBold'
   },
   checkIcon: {
     width: wp('6%'),
@@ -152,8 +154,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: wp('31%'),
   },
   buttonText: {
-    color: 'black',
+    color: '#192126',
+    fontFamily:'Outfit-SemiBold',
     fontSize: wp('4.2%'),
-    fontWeight: '600',
   },
 });

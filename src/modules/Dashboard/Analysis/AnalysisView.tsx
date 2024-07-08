@@ -66,20 +66,24 @@ const AnalysisView: React.FC = (props: any) => {
             improvement.
           </Text>
           <Text style={styles.instructionText}>
-            Set-up: Your setup looks fairly balanced, but you appear to be
-            slightly leaning back, which can affect your weight transfer and
-            power. {'\n\n'}
-            Backswing: Your backswing is a bit too upright, with your arms
-            getting a little close to your body. This can lead to a loss of
-            power and potential for hitting the ball off the toe of the club.
+            <Text style={styles.subTitle}>Set-up:</Text> Your setup looks fairly
+            balanced, but you appear to be slightly leaning back, which can
+            affect your weight transfer and power. {'\n\n'}
+            <Text style={styles.subTitle}>Backswing:</Text> Your backswing is a
+            bit too upright, with your arms getting a little close to your body.
+            This can lead to a loss of power and potential for hitting the ball
+            off the toe of the club.
             {'\n\n'}
-            Downswing: Your downswing starts a bit early, and you're not fully
-            rotating your hips through the shot. This can cause you to hit the
-            ball thin or off-centre. {'\n\n'}
-            Impact: You're not keeping your head still and are looking up too
-            early, which is affecting your consistency. {'\n\n'}
-            Finish: Your finish is upright and not fully extended, which
-            indicates a loss of power and control. {'\n\n'}
+            <Text style={styles.subTitle}> Downswing:</Text> Your downswing
+            starts a bit early, and you're not fully rotating your hips through
+            the shot. This can cause you to hit the ball thin or off-centre.{' '}
+            {'\n\n'}
+            <Text style={styles.subTitle}> Impact:</Text> You're not keeping
+            your head still and are looking up too early, which is affecting
+            your consistency. {'\n\n'}
+            <Text style={styles.subTitle}>Finish:</Text> Your finish is upright
+            and not fully extended, which indicates a loss of power and control.{' '}
+            {'\n\n'}
             Overall Rating:
           </Text>
         </View>
