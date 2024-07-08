@@ -46,7 +46,7 @@ import { useTheme } from '../../theme/theme';
     color: "#6C7278"
   },
   signUp: {
-    fontSize: hp('1.8%'),
+    fontSize: hp('2%'),
     color: '#192126',
     fontFamily: 'Outfit-Bold',
     marginLeft: 4,
@@ -65,27 +65,23 @@ import { useTheme } from '../../theme/theme';
     fontSize: hp('1.8%'),
     color: '#192126',
     fontFamily: 'Outfit-SemiBold',
-    // fontWeight: '600',
   },
   loginButton: {
     borderRadius: 25,
     paddingVertical: hp('1.5%'),
-    width: wp('80%'), // Set a fixed width
+    width: wp('80%'), 
     alignItems: 'center',
     backgroundColor: '#000',
     marginBottom: hp('1%'),
   },
   loginButtonText: {
-    fontFamily: 'Outfit',
-    fontWeight: '600',
+    fontFamily: 'Outfit-Medium',
     color: '#FFFFFF',
     fontSize: hp('2%'),
   },
   orText: {
     color: '#6C7278',
-    fontFamily: 'Inter',
-    fontWeight: '400',
-
+    fontFamily: 'Inter-Regular',
     marginVertical: hp('2%'),
   },
   socialButton: {
@@ -100,9 +96,8 @@ import { useTheme } from '../../theme/theme';
   },
   socialButtonText: {
     color: '#1A1C1E',
-    fontFamily: 'Inter',
-    fontSize: hp('2%'),
-    fontWeight: '600',
+    fontFamily: 'Inter-SemiBold',
+    fontSize: hp('1.8%'),
     marginLeft: wp('2%'),
   },
   socialIcon: {

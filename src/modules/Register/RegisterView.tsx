@@ -223,8 +223,8 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: hp('3%'),
-    fontWeight: 'bold',
-    color: '#000',
+    fontFamily: 'Outfit-Bold',
+    color: '#192126',
     marginBottom: hp('1%'),
   },
   subtitleContainer: {
@@ -233,11 +233,15 @@ const styles = StyleSheet.create({
     marginBottom: hp('2%'),
   },
   subtitle: {
-    fontSize: hp('2%'),
+    fontSize: hp('1.8%'),
+    fontFamily: 'Outfit-Regular',
+    fontWeight: '500',
+    color: "#6C7278"
   },
   signUp: {
-    color: '#000',
-    fontWeight: 'bold',
+    fontSize: hp('2%'),
+    color: '#192126',
+    fontFamily: 'Outfit-Bold',
     marginLeft: 4,
   },
   loginButton: {
@@ -254,8 +258,9 @@ const styles = StyleSheet.create({
     fontFamily: 'Outfit-Regular',
   },
   orText: {
-    fontSize: hp('2%'),
-    marginVertical: hp('1%'),
+    color: '#6C7278',
+    fontFamily: 'Inter-Regular',
+    marginVertical: hp('2%'),
   },
   socialButtonsContainer: {
     flexDirection: 'row',

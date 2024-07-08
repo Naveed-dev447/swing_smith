@@ -4,7 +4,10 @@ import globalStyles from '../Onboarding/styles';
 import CustomHeader from '../../shared/Component/CustomHeader';
 import CustomButton from '../../shared/Component/CustomButton';
 import {goBack} from '../../shared/Utils/navigationRef';
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 
 const VideoUpload2: React.FC = (props: any) => {
   const {route, navigation} = props;
@@ -35,8 +38,7 @@ const VideoUpload2: React.FC = (props: any) => {
               <Text
                 style={[
                   globalStyles.optionText,
-                  selectedOption === option &&
-                  styles.dtlSelectedOptionText,
+                  selectedOption === option && styles.dtlSelectedOptionText,
                 ]}>
                 {option}
               </Text>
@@ -71,24 +73,25 @@ const styles = StyleSheet.create({
     marginTop: hp('3%'),
   },
   title: {
-    color: '#000',
+    color: '#192126',
+    fontFamily: 'Outfit-Bold',
     fontSize: wp('6%'),
-    fontWeight: 'bold',
+    marginVertical: hp('2%'),
   },
   subTitle: {
     color: '#192126',
+    fontFamily: 'Outfit-Regular',
     fontSize: wp('4.2%'),
-    fontWeight: '400',
     marginTop: hp('1%'),
     marginBottom: hp('3%'),
   },
-    selectedEquipmentButton: {
-        backgroundColor: '#192126',
-      },
-      dtlSelectedOptionText: {
-        fontWeight: '400',
-        color:'#ffff',
-        lineHeight:22,
-        fontSize:15,
-      },
-  });
+  selectedEquipmentButton: {
+    backgroundColor: '#192126',
+  },
+  dtlSelectedOptionText: {
+    fontFamily: 'Outfit-Regular',
+    color: '#ffff',
+    lineHeight: 22,
+    // fontSize: 15,
+  },
+});

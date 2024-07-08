@@ -69,7 +69,9 @@ const styles = StyleSheet.create({
     width: '95%',
   },
   text: {
+    fontFamily:'Outfit-Regular',
     fontSize: wp('4%'),
+    marginLeft:'1%',
     color: '#192126',
     textAlign: 'center',
   },
@@ -93,7 +95,7 @@ const styles = StyleSheet.create({
     height: '100%',
   },
   imageStyle: {
-    borderRadius: wp('3%'), // Ensure the background image has rounded corners
+    borderRadius: wp('3%'), 
   },
 });
 
