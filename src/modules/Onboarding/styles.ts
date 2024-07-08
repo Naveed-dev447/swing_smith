@@ -8,10 +8,12 @@ const globalStyles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+    
   },
   contentContainer: {
     flex: 1,
     paddingHorizontal: wp('5%'),
+    // paddingBottom: hp('10%'),
     marginTop: hp('3%'),
   },
   title: {
