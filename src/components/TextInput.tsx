@@ -43,13 +43,11 @@ const TextInput: React.FC<InputProps> = ({ containerStyle, inputStyle, label, er
 const styles = StyleSheet.create({
   container: {
     marginBottom: 15,
-    // width:'100%'
   },
   label: {
     marginBottom: 5,
     color: '#6C7278',
     fontFamily: 'PlusJakartaSans-Regular',
-    // fontWeight: '500',
   },
   inputContainer: {
     flexDirection: 'row',

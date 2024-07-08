@@ -8,10 +8,13 @@ import {
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import CustomButton from '../../shared/Component/CustomButton';
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 
 const videoUpload1: React.FC = (props: any) => {
-  const { route, navigation } = props;
+  const {route, navigation} = props;
   return (
     <ImageBackground
       source={require('../../assets/Images/onBoarding.jpg')}
@@ -46,7 +49,7 @@ const styles = StyleSheet.create({
   backgroundImage: {
     flex: 1,
     width: wp('100%'),
-    height:'100%',
+    height: '100%',
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -64,15 +67,16 @@ const styles = StyleSheet.create({
   },
   skipText: {
     alignSelf: 'flex-end',
-    color: 'white',
-    marginTop: hp('5%'),
+    color: '#FFFFFF',
+    fontFamily:'Outfit-Regular',
+    marginTop: hp('6%'),
     marginRight: wp('2.5%'),
   },
   centerText: {
     textAlign: 'center',
-    color: 'white',
+    color: '#FFFFFF',
+    fontFamily: 'Outfit-Bold',
     fontSize: wp('7.5%'),
-    fontWeight: 'bold',
   },
   nextButton: {
     backgroundColor: 'black',
