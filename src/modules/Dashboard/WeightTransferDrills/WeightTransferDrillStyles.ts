@@ -1,7 +1,15 @@
 import { StyleSheet } from 'react-native';
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 
 const styles = StyleSheet.create({
+  scrollContentContainer: {
+    paddingBottom: hp('14%'), 
+    paddingHorizontal:wp('5%'),
+    marginTop:hp('5%'), 
+  },
   videoContainer: {
     width: wp('90%'),
     height: hp('25%'),
@@ -61,6 +69,10 @@ const styles = StyleSheet.create({
     // Shadow for Android
     elevation: 5,
   },
+  time: {
+    color: '#192126',
+    fontFamily: 'Outfit-Regular',
+  },
   instructionHeader: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -68,7 +80,7 @@ const styles = StyleSheet.create({
   },
   instructionTitle: {
     fontSize: wp('5%'),
-    fontWeight: 'bold',
+    fontFamily: 'Outfit-SemiBold',
     marginRight: wp('1%'),
     color: '#192126',
   },
@@ -79,11 +91,12 @@ const styles = StyleSheet.create({
   },
   instructionText: {
     fontSize: wp('4%'),
+    fontFamily: 'Outfit-Regular',
     color: '#192126',
   },
   recommendedTitle: {
     fontSize: wp('5%'),
-    fontWeight: 'bold',
+    fontFamily: 'Outfit-SemiBold',
     marginBottom: 10,
     color: '#192126',
   },
@@ -92,10 +105,10 @@ const styles = StyleSheet.create({
   },
   tutorialCard: {
     width: wp('80%'),
+    height: wp('40%'),
     borderRadius: wp('3%'),
     overflow: 'hidden',
     marginRight: wp('3%'),
-    backgroundColor: '#FFF',
     elevation: 3,
     shadowColor: '#000',
     shadowOffset: {
@@ -156,12 +169,11 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     padding: wp('2%'),
-    // backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
   tutorialTitleOverlay: {
-    color: '#fff',
+    color: '#ffffff',
     fontSize: wp('4%'),
-    fontWeight: 'bold',
+    fontFamily: 'Outfit-Bold',
   },
   tutorialFooterOverlay: {
     position: 'absolute',
@@ -172,7 +184,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'flex-end',
     alignItems: 'center',
-    // backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  buttonContainer: {
+    paddingHorizontal: wp('4%'),
+    paddingBottom: hp('5%'), // Ensure button is not hidden by navbar
   },
 });
 

@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
   },
   headerTitle: {
     fontSize: wp('5%'),
-    fontWeight: 'bold',
+    fontFamily:'Outfit-SemiBold',
     marginLeft: wp('3%'),
     color: '#000',
     textAlign: 'center',

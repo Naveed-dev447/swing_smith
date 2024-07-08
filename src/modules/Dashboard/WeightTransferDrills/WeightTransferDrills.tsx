@@ -1,32 +1,32 @@
-import React, {useState, useRef} from 'react';
-import {View, Text, TouchableOpacity, Image, ScrollView} from 'react-native';
+import React, { useState, useRef } from 'react';
+import { View, Text, TouchableOpacity, Image, ScrollView } from 'react-native';
 import Video from 'react-native-video';
 import CustomButton from '../../../shared/Component/CustomButton';
 import CustomHeader from '../../../shared/Component/CustomHeader';
 import globalStyles from '../../Onboarding/styles';
 import styles from './WeightTransferDrillStyles';
-import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
+import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 
 const WeightTransferDrill: React.FC = (props: any) => {
-  const {navigation} = props;
-  const videoLink = 'https://www.pexels.com/video/6573522/download/';
+  const { navigation } = props;
+  const videoLink = require('../../../assets/Images/DashBoard/Golf.mp4');
   const recommendedVideos = [
     {
-      uri: 'https://www.pexels.com/video/6573522/download/',
+      uri: require('../../../assets/Images/DashBoard/Golf.mp4'),
       title: 'Why you loose Balance in Golf?',
       duration: '4 Min',
     },
     {
-      uri: 'https://www.pexels.com/video/6573522/download/',
+      uri: require('../../../assets/Images/DashBoard/Golf.mp4'),
       title: 'Perfect your Golf Swing',
       duration: '5 Min',
     },
   ];
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
-  const [playingVideoUri, setPlayingVideoUri] = useState<string>(videoLink);
-  const videoRefs = useRef<{[key: string]: Video}>({});
+  const [playingVideoUri, setPlayingVideoUri] = useState<any>(videoLink);
+  const videoRefs = useRef<{ [key: string]: Video }>({});
 
-  const handlePlayPausePress = (videoUri: string) => {
+  const handlePlayPausePress = (videoUri: any) => {
     if (playingVideoUri === videoUri) {
       setIsPlaying(!isPlaying);
     } else {
@@ -38,7 +38,7 @@ const WeightTransferDrill: React.FC = (props: any) => {
   const handleNextPress = () => {};
 
   const renderTutorialCard = (
-    video: {uri: string; title: string; duration: string},
+    video: { uri: any; title: string; duration: string },
     index: number,
   ) => (
     <View style={styles.tutorialCard} key={index}>
@@ -46,12 +46,12 @@ const WeightTransferDrill: React.FC = (props: any) => {
         onPress={() => handlePlayPausePress(video.uri)}
         style={styles.videoWrapper}>
         <Video
-          ref={ref => {
+          ref={(ref) => {
             if (ref) {
               videoRefs.current[video.uri] = ref;
             }
           }}
-          source={{uri: video.uri}}
+          source={video.uri}
           style={styles.videoPlayer}
           paused={playingVideoUri !== video.uri || !isPlaying}
           resizeMode="cover"
@@ -69,9 +69,9 @@ const WeightTransferDrill: React.FC = (props: any) => {
           <View style={styles.tutorialDuration}>
             <Image
               source={require('../../../assets/Images/clock.png')}
-              style={{width: wp('4%'), height: wp('4%'), marginRight: wp('1%')}}
+              style={{ width: wp('4%'), height: wp('4%'), marginRight: wp('1%') }}
             />
-            <Text>{video.duration}</Text>
+            <Text style={styles.time}>{video.duration}</Text>
           </View>
         </View>
       </TouchableOpacity>
@@ -84,7 +84,7 @@ const WeightTransferDrill: React.FC = (props: any) => {
         onBackPress={navigation.goBack}
         title="Weight Transfer Drill"
       />
-      <ScrollView contentContainerStyle={globalStyles.contentContainer}>
+      <ScrollView contentContainerStyle={styles.scrollContentContainer}>
         <TouchableOpacity
           style={[
             styles.videoContainer,
@@ -95,12 +95,12 @@ const WeightTransferDrill: React.FC = (props: any) => {
             onPress={() => handlePlayPausePress(videoLink)}
             style={styles.videoWrapper}>
             <Video
-              ref={ref => {
+              ref={(ref) => {
                 if (ref) {
                   videoRefs.current[videoLink] = ref;
                 }
               }}
-              source={{uri: videoLink}}
+              source={videoLink}
               style={styles.videoPlayer}
               paused={!isPlaying}
               resizeMode="cover"
@@ -126,7 +126,7 @@ const WeightTransferDrill: React.FC = (props: any) => {
                     marginRight: wp('1%'),
                   }}
                 />
-                <Text>4 Min</Text>
+                <Text style={styles.time}>4 Min</Text>
               </View>
             </View>
           </TouchableOpacity>
@@ -154,7 +154,7 @@ const WeightTransferDrill: React.FC = (props: any) => {
             renderTutorialCard(video, index),
           )}
         </ScrollView>
-        <View style={globalStyles.buttonContainer}>
+        <View style={styles.buttonContainer}>
           <CustomButton title="Completed" onPress={handleNextPress} />
         </View>
       </ScrollView>

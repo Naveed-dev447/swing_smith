@@ -226,7 +226,10 @@ interface DrillCardProps {
 
 export const DrillCard: React.FC<DrillCardProps> = ({title}) => (
   <View style={[globalStyles.card, {width: wp('40%'), marginRight: wp('2%')}]}>
-    <Icon name="golf" size={30} color="#000" />
+    <Image
+      source={require('../../../../assets/Images/DashBoard/golfman.png')}
+      style={globalStyles.drillIcon}
+    />
     <Text>{title}</Text>
     <TouchableOpacity style={globalStyles.markAsDoneButton}>
       <Text style={globalStyles.markAsDoneText}>Mark As Done</Text>
@@ -260,7 +263,11 @@ interface ChallengeCardProps {
 }
 
 export const ChallengeCard: React.FC<ChallengeCardProps> = ({title, icon}) => (
-  <View style={[globalStyles.card, {width: wp('30%'), marginRight: wp('2%')}]}>
+  <View
+    style={[
+      globalStyles.challengeCards,
+      {width: wp('30%'), marginRight: wp('2%')},
+    ]}>
     <Icon name={icon} size={wp('10%')} color="#000" />
     <Text>{title}</Text>
   </View>
