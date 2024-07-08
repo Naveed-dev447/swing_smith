@@ -48,8 +48,8 @@ const styles = StyleSheet.create({
   label: {
     marginBottom: 5,
     color: '#6C7278',
-    fontFamily: 'Plus Jakarta Sans',
-    fontWeight: '500',
+    fontFamily: 'PlusJakartaSans-Regular',
+    // fontWeight: '500',
   },
   inputContainer: {
     flexDirection: 'row',
@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10
   },
   input: {
-    fontFamily: 'Inter',
+    fontFamily: 'Inter-Regular',
     flex: 1,
     height: hp('5.1%'),
     paddingHorizontal: wp('2%'),
