@@ -4,16 +4,8 @@ import {
   View,
   Text,
   Image,
-  TouchableOpacity,
-  ImageBackground,
 } from 'react-native';
 import {styles} from './AnalysingScreenStyle';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
-} from 'react-native-responsive-screen';
 import CustomHeader from '../../../shared/Component/CustomHeader';
 
 const workoutImage = require('../../../assets/Images/swingAnalysis.png');
@@ -27,7 +19,7 @@ const AnalysisView: React.FC = (props: any) => {
   return (
     <View style={styles.container}>
       <CustomHeader onBackPress={navigation.goBack} title="Swing Analysis" />
-      <ScrollView style={{flex: 1}}>
+      <ScrollView style={{flex:1,paddingBottom:70}}>
         <Image source={workoutImage} style={styles.image} />
         <View style={styles.analysisCardContainer}>
           <Image source={profileImage} style={styles.profileImage} />
@@ -84,7 +76,6 @@ const AnalysisView: React.FC = (props: any) => {
             <Text style={styles.subTitle}>Finish:</Text> Your finish is upright
             and not fully extended, which indicates a loss of power and control.{' '}
             {'\n\n'}
-            Overall Rating:
           </Text>
         </View>
       </ScrollView>

@@ -257,7 +257,7 @@ const globalStyles = StyleSheet.create({
     backgroundColor: '#888',
     borderRadius: wp('1%'),
     alignSelf: 'center',
-    marginTop: hp('1%'),
+    marginTop: hp('2%'),
     marginBottom: hp('1.5%'),
   },
   scrollViewContent: {
@@ -265,9 +265,9 @@ const globalStyles = StyleSheet.create({
   },
   modalTitle: {
     fontSize: wp('6%'),
-    fontWeight: 'bold',
-    marginBottom: hp('0.5%'),
-    color: 'black',
+    fontFamily:'Outfit-Bold',
+    marginBottom: hp('1%'),
+    color: '#192126',
   },
   modalOverlay: {
     flex: 1,
@@ -275,7 +275,9 @@ const globalStyles = StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
   modalDateLabel: {
-    fontSize: wp('4%'),
+    fontSize: wp('3.5%'),
+    color:'#192126',
+    fontFamily:'Outfit-Regular'
   },
   datePickerContainer: {
     marginBottom: hp('1.2%'),
@@ -287,12 +289,9 @@ const globalStyles = StyleSheet.create({
     borderRadius: wp('2%'),
     marginBottom: hp('2%'),
   },
-  // dateText: {
-  //   fontSize: wp('4%'),
-  // },
   modalClubLabel: {
-    color: 'black',
-    fontWeight: 'bold',
+    color: '#192126',
+    fontFamily:'Outfit-Bold',
     fontSize: wp('4%'),
     marginBottom: hp('1%'),
   },
@@ -319,9 +318,8 @@ const globalStyles = StyleSheet.create({
   },
   // Swing log screen styling
   header: {
-    paddingBottom: wp('3%'),
     fontSize: wp('6%'),
-    fontWeight: 'bold',
+    fontFamily:'Outfit-Bold',
     color: '#282E34',
   },
   cardContainer: {
@@ -346,10 +344,9 @@ const globalStyles = StyleSheet.create({
   },
   score: {
     fontSize: wp('5%'),
-    fontWeight: 'bold',
-    color: '#fff',
-    padding: wp('1%'),
-    borderRadius: wp('1%'),
+   fontFamily:'Outfit-Bold',
+    color: '#ffffff',
+    padding: wp('3%'),
   },
   iconHeart: {
     padding: wp('3%'),
@@ -357,8 +354,9 @@ const globalStyles = StyleSheet.create({
     fontSize: wp('5%'),
   },
   description: {
-    fontSize: wp('3.5%'),
-    color: '#555',
+    fontSize: wp('3.2%'),
+    color: '#19212680',
+    fontFamily:'Poppins-Regular',
     margin: wp('2.5%'),
   },
   detailsContainer: {
@@ -373,20 +371,21 @@ const globalStyles = StyleSheet.create({
     alignItems: 'center',
   },
   detailText: {
-    fontSize: wp('4%'),
-    // fontWeight: 'bold',
+    fontSize: wp('3.5%'),
+    fontFamily:'Outfit-Regular',
     marginLeft: wp('1.25%'),
     color: '#192126',
   },
   dateText: {
     fontSize: wp('3.5%'),
+    fontFamily:'Outfit-Regular',
     color: '#192126',
   },
   filterIcon: {
-    width: wp('12%'),
+    width: wp('10%'),
     height: hp('7%'),
-    marginLeft: hp('2%'),
-    resizeMode: 'contain',
+    marginLeft: hp('1%'),
+    resizeMode: 'center',
   },
   button: {
     flexDirection: 'row',
