@@ -107,8 +107,7 @@
 
 // export default recommandedStyles;
 
-
-import { StyleSheet } from 'react-native';
+import {StyleSheet} from 'react-native';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -143,14 +142,15 @@ const recommandedStyles = StyleSheet.create({
   tab: {
     width: wp('25%'),
     padding: wp('2%'),
-    justifyContent:'center',
-    alignItems:'center',
+    justifyContent: 'center',
+    alignItems: 'center',
     borderRadius: wp('4%'),
-    borderWidth:1
+    borderWidth: 0.5,
   },
   tabText: {
-    fontSize: wp('4%'),
-    fontWeight: 'bold',
+    fontSize: wp('3.5%'),
+    fontFamily: 'Overpass-Bold',
+    color: '#192126',
   },
   sectionTitle: {
     fontSize: wp('5%'),
@@ -188,7 +188,7 @@ const recommandedStyles = StyleSheet.create({
     position: 'absolute',
     top: '50%',
     left: '50%',
-    transform: [{ translateX: -wp('5%') }, { translateY: -wp('5%') }],
+    transform: [{translateX: -wp('5%')}, {translateY: -wp('5%')}],
   },
   cardTitle: {
     color: 'white',
