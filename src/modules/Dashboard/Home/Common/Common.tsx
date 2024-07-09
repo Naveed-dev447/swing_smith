@@ -304,9 +304,7 @@ export const SwingCard: React.FC<SwingCardProps> = ({
   return (
     <View style={globalStyles.cardContainer}>
       <ImageBackground
-        source={{
-          uri: 'https://images.unsplash.com/photo-1570129477492-45c003edd2be',
-        }}
+        source={require('../../../../assets/Images/DashBoard/swingLog/swingLog1.png')}
         style={globalStyles.image}
         imageStyle={globalStyles.imageStyle}>
         <Text style={globalStyles.score}>
@@ -314,15 +312,15 @@ export const SwingCard: React.FC<SwingCardProps> = ({
         </Text>
         <TouchableOpacity
           style={{
-            backgroundColor: 'rgba(0, 0, 0, 0.3)',
-            borderRadius: 15,
+            backgroundColor: '#FFFFFF4D',
+            borderRadius: 35,
             marginRight: 10,
-            marginBottom: 50,
+            marginBottom: 60,
           }}
           onPress={onPress}>
           <Icon
             name="heart"
-            color={favourite ? '#FF0000' : '#fff'}
+            color={favourite ? '#FF0000' : '#ffff'}
             style={globalStyles.iconHeart}
           />
         </TouchableOpacity>
@@ -400,7 +398,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: '#192126',
-    fontWeight: '600',
+    fontFamily: 'Poppins-Medium',
   },
   analysisCard: {
     width: wp('50%'),
@@ -411,7 +409,6 @@ const styles = StyleSheet.create({
   analysisCardImage: {
     flex: 1,
     width: wp('50%'),
-    // height: hp('20%'),
   },
   overlay: {
     padding: wp('3%'),

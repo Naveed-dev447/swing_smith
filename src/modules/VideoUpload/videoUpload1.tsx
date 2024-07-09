@@ -24,7 +24,7 @@ const videoUpload1: React.FC = (props: any) => {
         locations={[0.4, 1]}
         style={styles.gradient}>
         <View style={styles.container}>
-          <TouchableOpacity onPress={() => navigation.navigate('OnboardHome')}>
+          <TouchableOpacity onPress={() => navigation.navigate('BottomTabStack')}>
             <Text style={styles.skipText}>Skip</Text>
           </TouchableOpacity>
           <Text style={styles.centerText}>

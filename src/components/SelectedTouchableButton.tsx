@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
     borderRadius: wp('3%'),
     margin: wp('2%'),
     width: wp('40%'),
-    height: hp('12%'),
+    height: hp('10%'),
   },
   selectedButton: {
     backgroundColor: '#BBF246',
