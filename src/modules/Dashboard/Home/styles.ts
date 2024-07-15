@@ -382,8 +382,8 @@ const globalStyles = StyleSheet.create({
     color: '#192126',
   },
   filterIcon: {
-    width: wp('10%'),
-    height: hp('7%'),
+    width: wp('9%'),
+    height: hp('6%'),
     marginLeft: hp('1%'),
     resizeMode: 'center',
   },
