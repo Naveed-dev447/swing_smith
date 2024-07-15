@@ -10,7 +10,7 @@ import {
   DrillCard,
   HorizontalScroll,
   Section,
-  TutorialCard,
+  // TutorialCard,
   WorkoutCard,
   Header,
   Banner,
@@ -18,8 +18,32 @@ import {
   UploadSwing,
   AnalysisCard,
 } from './Common/Common';
+import TutorialCard from '../../../shared/Component/TutorialCard/TutorialCard';
 import {ChallengeCard} from './Common/ChallengeCard';
-import FilterModal from '../Home/Common/FilterModal';
+
+const tutorialVideos = [
+  {
+    uri: require('../../../assets/Images/DashBoard/Golf.mp4'),
+    title: 'Why you lose Balance in Golf?',
+    duration: '4 Min',
+    user: 'Raymond Reddington',
+    profileImage: require('../../../assets/Images/profilePicture.png'),
+  },
+  {
+    uri: require('../../../assets/Images/DashBoard/Golf.mp4'),
+    title: 'How to Improve Your Swing',
+    duration: '5 Min',
+    user: 'John Doe',
+    profileImage: require('../../../assets/Images/profilePicture.png'),
+  },
+  {
+    uri: require('../../../assets/Images/DashBoard/Golf.mp4'),
+    title: 'Mastering the Golf Grip',
+    duration: '3 Min',
+    user: 'Jane Smith',
+    profileImage: require('../../../assets/Images/profilePicture.png'),
+  },
+];
 
 const HomeView = (props: any) => {
   const {route, navigation} = props;
@@ -80,7 +104,7 @@ const HomeView = (props: any) => {
           </HorizontalScroll>
         </Section>
 
-        <Section title="Recommended Tutorials">
+        {/* <Section title="Recommended Tutorials">
           <HorizontalScroll>
             <TutorialCard
               title="Why you lose Balance in Golf?"
@@ -91,11 +115,19 @@ const HomeView = (props: any) => {
               duration="4 Min"
             />
           </HorizontalScroll>
+        </Section> */}
+
+        <Section title="Recommended Tutorials">
+          <HorizontalScroll>
+            {tutorialVideos.map((video, index) => (
+              <TutorialCard key={index} video={video} />
+            ))}
+          </HorizontalScroll>
         </Section>
 
         <Section title="Your Challenges (Optional)">
           <HorizontalScroll>
-          <ChallengeCard
+            <ChallengeCard
               title="01 Challenge"
               imageSource={require('../../../assets/Images/DashBoard/Flag.png')}
               backgroundColor="#d0f456"

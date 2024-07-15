@@ -201,22 +201,44 @@ export const Section: React.FC<SectionProps> = ({title, children}) => (
 );
 
 interface WorkoutCardProps {
-  title: string;
-  progress: string;
+  title?: string;
+  progress?: string;
+  icon?: any;
+  description?: string;
+  score?: string;
 }
 
-export const WorkoutCard: React.FC<WorkoutCardProps> = ({title, progress}) => (
-  <View style={[globalStyles.card, {width: wp('40%'), marginRight: wp('2%')}]}>
-    <Image
-      source={require('../../../../assets/Images/GraphPie.png')}
-      style={globalStyles.graphPieIcon}
-    />
-    <Text style={{color: '#192126', fontFamily: 'Outfit-Regular'}}>
-      {progress}
-    </Text>
-    <Text style={{color: '#192126', fontFamily: 'Outfit-SemiBold'}}>
-      {title}
-    </Text>
+export const WorkoutCard: React.FC<WorkoutCardProps> = ({
+  title,
+  progress,
+  icon,
+  description,
+  score,
+}) => (
+  <View style={[globalStyles.card, {width: wp('50%'), marginRight: wp('4%')}]}>
+    <View style={{marginVertical: '2%'}}>
+      <Image
+        source={require('../../../../assets/Images/GraphPie.png')}
+        style={globalStyles.graphPieIcon}
+      />
+    </View>
+    <View style={{marginVertical: '2%'}}>
+      <Text style={{color: '#192126', fontFamily: 'Outfit-Regular'}}>
+        {progress}
+      </Text>
+    </View>
+
+    <View style={{marginVertical: '2%'}}>
+      <Text style={{color: '#192126', fontFamily: 'Outfit-SemiBold'}}>
+        {title}
+      </Text>
+    </View>
+
+    <View style={{marginVertical: '2%'}}>
+      <Text style={{color: '#192126', fontFamily: 'Outfit-Regular'}}>
+        {description}
+      </Text>
+    </View>
   </View>
 );
 
