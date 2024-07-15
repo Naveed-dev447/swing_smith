@@ -8,7 +8,7 @@ export const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'white',
-    alignItems: 'center', // Center the content horizontally
+    alignItems: 'center',
   },
   headerContainer: {
     flexDirection: 'row',
@@ -19,8 +19,8 @@ export const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   image: {
-    width: wp('90%'), // Center the image by reducing its width
-    height: hp('25%'), // Adjusted height to better fit the screen
+    width: wp('90%'), 
+    height: hp('25%'), 
     marginBottom: hp('2%'),
     justifyContent: 'center',
     borderRadius: wp('2%'),
@@ -31,7 +31,7 @@ export const styles = StyleSheet.create({
     padding: wp('4%'),
     flexDirection: 'row',
     alignItems: 'center',
-    width: wp('90%'), // Center the card by reducing its width
+    width: wp('90%'),
     marginBottom: hp('2%'),
   },
   profileImage: {
@@ -148,7 +148,7 @@ export const styles = StyleSheet.create({
     width: wp('6%'),
     height: wp('5%'),
     resizeMode: 'contain',
-  },
+  },  
   instructionText: {
     fontSize: wp('4%'),
     color: '#192126',

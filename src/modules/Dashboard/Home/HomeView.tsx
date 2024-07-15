@@ -7,7 +7,6 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import {
-  ChallengeCard,
   DrillCard,
   HorizontalScroll,
   Section,
@@ -19,6 +18,7 @@ import {
   UploadSwing,
   AnalysisCard,
 } from './Common/Common';
+import {ChallengeCard} from './Common/ChallengeCard';
 import FilterModal from '../Home/Common/FilterModal';
 
 const HomeView = (props: any) => {
@@ -95,9 +95,24 @@ const HomeView = (props: any) => {
 
         <Section title="Your Challenges (Optional)">
           <HorizontalScroll>
-            <ChallengeCard title="Challenge" icon="flag" />
-            <ChallengeCard title="Challenge" icon="golf" />
-            <ChallengeCard title="Challenge" icon="bag-suitcase" />
+          <ChallengeCard
+              title="01 Challenge"
+              imageSource={require('../../../assets/Images/DashBoard/Flag.png')}
+              backgroundColor="#d0f456"
+              textColor="#000"
+            />
+            <ChallengeCard
+              title="02 Challenge"
+              imageSource={require('../../../assets/Images/DashBoard/goldhandle.png')}
+              backgroundColor="#1c1c1c"
+              textColor="#fff"
+            />
+            <ChallengeCard
+              title="03 Challenge"
+              imageSource={require('../../../assets/Images/DashBoard/challenge3.png')}
+              backgroundColor="#ffffff"
+              textColor="#000"
+            />
           </HorizontalScroll>
         </Section>
       </ScrollView>

@@ -257,22 +257,6 @@ export const TutorialCard: React.FC<TutorialCardProps> = ({
   </View>
 );
 
-interface ChallengeCardProps {
-  title: string;
-  icon: string;
-}
-
-export const ChallengeCard: React.FC<ChallengeCardProps> = ({title, icon}) => (
-  <View
-    style={[
-      globalStyles.challengeCards,
-      {width: wp('30%'), marginRight: wp('2%')},
-    ]}>
-    <Icon name={icon} size={wp('10%')} color="#000" />
-    <Text>{title}</Text>
-  </View>
-);
-
 export const HorizontalScroll: React.FC<{children: React.ReactNode}> = ({
   children,
 }) => (
