@@ -13,7 +13,7 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 
-const videoUpload1: React.FC = (props: any) => {
+const VideoUpload1: React.FC = (props: any) => {
   const {route, navigation} = props;
   return (
     <ImageBackground
@@ -43,7 +43,7 @@ const videoUpload1: React.FC = (props: any) => {
   );
 };
 
-export default videoUpload1;
+export default VideoUpload1;
 
 const styles = StyleSheet.create({
   backgroundImage: {
