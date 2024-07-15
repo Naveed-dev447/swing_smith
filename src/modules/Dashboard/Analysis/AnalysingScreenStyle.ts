@@ -9,6 +9,7 @@ export const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'white',
     alignItems: 'center',
+    marginBottom:'20%'
   },
   headerContainer: {
     flexDirection: 'row',
@@ -153,6 +154,8 @@ export const styles = StyleSheet.create({
     fontSize: wp('4%'),
     color: '#192126',
     fontFamily:'Outfit-Regular',
-
   },
+  workOutContainer:{
+    width: wp('90%'),
+  }
 });

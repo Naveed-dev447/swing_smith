@@ -1,25 +1,56 @@
 import React from 'react';
-import {
-  ScrollView,
-  View,
-  Text,
-  Image,
-} from 'react-native';
+import {ScrollView, View, Text, Image} from 'react-native';
 import {styles} from './AnalysingScreenStyle';
 import CustomHeader from '../../../shared/Component/CustomHeader';
-
+import {
+  DrillCard,
+  HorizontalScroll,
+  Section,
+  // TutorialCard,
+  WorkoutCard,
+  Header,
+  Banner,
+  RecentAnalysis,
+  UploadSwing,
+  AnalysisCard,
+} from '../../Dashboard/Home/Common/Common';
+import TutorialCard from '../../../shared/Component/TutorialCard/TutorialCard';
 const workoutImage = require('../../../assets/Images/swingAnalysis.png');
 const profileImage = require('../../../assets/Images/profilePicture.png');
 const flagImage = require('../../../assets/Images/flag.png');
 const ruler = require('../../../assets/Images/ruler.png');
 const wind = require('../../../assets/Images/fast-wind.png');
 
+const tutorialVideos = [
+  {
+    uri: require('../../../assets/Images//DashBoard/Golf.mp4'),
+    title: 'Why you lose Balance in Golf?',
+    duration: '4 Min',
+    user: 'Raymond Reddington',
+    profileImage: profileImage,
+  },
+  {
+    uri: require('../../../assets/Images//DashBoard/Golf.mp4'),
+    title: 'How to Improve Your Swing',
+    duration: '5 Min',
+    user: 'John Doe',
+    profileImage: profileImage,
+  },
+  {
+    uri: require('../../../assets/Images//DashBoard/Golf.mp4'),
+    title: 'Mastering the Golf Grip',
+    duration: '3 Min',
+    user: 'Jane Smith',
+    profileImage: profileImage,
+  },
+];
+
 const AnalysisView: React.FC = (props: any) => {
   const {navigation} = props;
   return (
     <View style={styles.container}>
       <CustomHeader onBackPress={navigation.goBack} title="Swing Analysis" />
-      <ScrollView style={{flex:1,paddingBottom:70}}>
+      <ScrollView style={{flex: 1, paddingBottom: 70}}>
         <Image source={workoutImage} style={styles.image} />
         <View style={styles.analysisCardContainer}>
           <Image source={profileImage} style={styles.profileImage} />
@@ -77,6 +108,48 @@ const AnalysisView: React.FC = (props: any) => {
             and not fully extended, which indicates a loss of power and control.{' '}
             {'\n\n'}
           </Text>
+        </View>
+        <View style={styles.workOutContainer}>
+          <Section title="Recommended Workouts">
+            <HorizontalScroll>
+              <WorkoutCard
+                title="Core Strength"
+                progress="02/10"
+                description="Plank Variations, Side Planks, Russian Twists, and Medicine Ball Throws can i."
+                score="7.2/10"
+              />
+              <WorkoutCard
+                title="Core Strength"
+                progress="02/10"
+                description="Plank Variations, Side Planks, Russian Twists, and Medicine Ball Throws can i."
+                score="7.2/10"
+              />
+              <WorkoutCard
+                title="Core Strength"
+                progress="02/10"
+                description="Plank Variations, Side Planks, Russian Twists, and Medicine Ball Throws can i."
+                score="7.2/10"
+              />
+            </HorizontalScroll>
+          </Section>
+        </View>
+        <View style={styles.workOutContainer}>
+          <Section title="Recommended Drills">
+            <HorizontalScroll>
+              <DrillCard title="Core Strength" />
+              <DrillCard title="Core Strength" />
+              <DrillCard title="Core Strength" />
+            </HorizontalScroll>
+          </Section>
+        </View>
+        <View style={styles.workOutContainer}>
+          <Section title="Recommended Tutorials">
+            <HorizontalScroll>
+              {tutorialVideos.map((video, index) => (
+                <TutorialCard key={index} video={video} />
+              ))}
+            </HorizontalScroll>
+          </Section>
         </View>
       </ScrollView>
     </View>

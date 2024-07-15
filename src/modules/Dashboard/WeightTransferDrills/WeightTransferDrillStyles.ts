@@ -69,6 +69,10 @@ const styles = StyleSheet.create({
     // Shadow for Android
     elevation: 5,
   },
+  featuredVideoContainer: {
+    marginBottom: wp('5%'),
+  },
+
   time: {
     color: '#192126',
     fontFamily: 'Outfit-Regular',
