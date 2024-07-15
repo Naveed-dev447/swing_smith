@@ -104,19 +104,6 @@ const HomeView = (props: any) => {
           </HorizontalScroll>
         </Section>
 
-        {/* <Section title="Recommended Tutorials">
-          <HorizontalScroll>
-            <TutorialCard
-              title="Why you lose Balance in Golf?"
-              duration="4 Min"
-            />
-            <TutorialCard
-              title="Why you lose Balance in Golf?"
-              duration="4 Min"
-            />
-          </HorizontalScroll>
-        </Section> */}
-
         <Section title="Recommended Tutorials">
           <HorizontalScroll>
             {tutorialVideos.map((video, index) => (
