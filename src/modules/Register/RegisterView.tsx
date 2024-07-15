@@ -25,6 +25,8 @@ import {
 import {useNavigation, NavigationProp} from '@react-navigation/native';
 import {RootStackParamList} from '../../navigation/types';
 import { RegisterAPICall } from './RegisterAPI';
+import { useLoader } from '../../config/LoaderContext';
+import Loader from '../../components/Loader';
 
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -53,18 +55,29 @@ const RegisterView: React.FC = (props: any) => {
   } = useForm({
     resolver: yupResolver(registerSchema),
   });
+  const { loading, setLoading } = useLoader(); 
 
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
 
   const onSubmit = (data: any) => {
     Keyboard.dismiss()
-  RegisterAPICall(data)
+    setLoading(true);
+
+   RegisterAPICall(data)
    .then(res => {
-    if(res.status === 200){ 
-      navigation.navigate('Login')
-    }
+     if (res.status === 201) {
+       setLoading(false); 
+       navigation.navigate('Login');
+     }
    })
+   .catch(error => {
+     setLoading(false); 
+     console.error(error);
+   })
+   .finally(() => {
+     setLoading(false); // Hide loader
+   });
   };
 
   return (
@@ -193,6 +206,7 @@ const RegisterView: React.FC = (props: any) => {
           </KeyboardAvoidingView>
         </View>
       </ImageBackground>
+      {loading && <Loader />} 
     </>
   );
 };

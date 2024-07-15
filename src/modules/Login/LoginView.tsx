@@ -23,6 +23,8 @@ import Checkbox from '../../components/Checkbox';
   
 import useLoginStyles from './styles';
 import LoginAPICall from './LoginAPI';
+import { useLoader } from '../../config/LoaderContext';
+import Loader from '../../components/Loader';
 
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -33,7 +35,7 @@ const loginSchema = yup.object().shape({
   .test('is-valid-email', 'Invalid email', value => EmailValidator.validate(value)),
   password: yup
     .string()
-    .min(6, 'Password must be at least 6 characters')
+    .min(3, 'Password must be at least 6 characters')
     .required('Password is required'),
 });
 
@@ -48,19 +50,28 @@ const LoginScreen: React.FC = (props: any) => {
   });
   const { colors } = useTheme();
   const styles = useLoginStyles();
+  const { loading, setLoading } = useLoader(); 
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
 
   const onSubmit = (data: any) => {
     Keyboard.dismiss();
     data.rememberMe = rememberMe;
-    // LoginAPICall(data)
-    // .then(res => {
-    //   if(res.status === 200){
-    //     navigation.navigate('Onboard')
-    //   }
-    //  })
-    navigation.navigate('Onboard')
+    setLoading(true); // Show loader
+    LoginAPICall(data)
+      .then(res => {
+        if (res.status === 201) {
+          setLoading(false); 
+          navigation.navigate('Onboard');
+        }
+      })
+      .catch(error => {
+        setLoading(false); 
+        console.error(error);
+      })
+      .finally(() => {
+        setLoading(false); // Hide loader
+      });
   };
 
   return (
@@ -156,6 +167,7 @@ const LoginScreen: React.FC = (props: any) => {
           </KeyboardAvoidingView>
         </View>
       </ImageBackground>
+      {loading && <Loader />} 
     </>
   );
 };

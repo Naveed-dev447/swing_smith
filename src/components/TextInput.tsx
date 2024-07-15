@@ -19,7 +19,7 @@ const TextInput: React.FC<InputProps> = ({ containerStyle, inputStyle, label, er
   return (
     <View style={[styles.container, containerStyle]}>
       {label && <Text style={[styles.label, { color:colors.textSecondary}]}>{label}</Text>}
-      <View style={[styles.inputContainer, { borderColor: colors.border, backgroundColor: colors.background }]}>
+      <View style={[styles.inputContainer, { backgroundColor: colors.background }]}>
         <RNTextInput 
           style={[styles.input, { color: colors.text }, inputStyle]}
           placeholderTextColor={colors.placeholder}
@@ -53,12 +53,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     alignSelf: 'center',
-    borderColor: '#fff',
     borderWidth: 1,
     borderRadius: 20,
     backgroundColor: '#fff',
     width: wp('80%'),
-    paddingHorizontal: 10
+    paddingHorizontal: 10,
+    borderColor: '#fff'
   },
   input: {
     fontFamily: 'Inter-Regular',

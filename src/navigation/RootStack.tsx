@@ -11,6 +11,7 @@ import SplashView from '../modules/Splash/SplashView';
 import OnboardStack from './OnboardStack';
 import RegisterView from '../modules/Register/RegisterView';
 import BottomTabNavigator from './BottomTabStack';
+import { LoaderProvider } from '../config/LoaderContext';
 
 
 const Stack = createStackNavigator();
@@ -19,6 +20,7 @@ const RootNavigation = () => {
   const colorScheme = useColorScheme();
   LogBox.ignoreAllLogs();
   return (
+    <LoaderProvider>
     <NavigationContainer ref={navigationRef} theme={colorScheme === 'dark' ? darkTheme : lightTheme}>
       <Stack.Navigator initialRouteName="Splash">
         <Stack.Screen
@@ -36,6 +38,7 @@ const RootNavigation = () => {
           component={BottomTabNavigator} />
       </Stack.Navigator>
     </NavigationContainer>
+    </LoaderProvider>
   );
 };
 

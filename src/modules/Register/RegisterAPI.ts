@@ -1,20 +1,16 @@
 import apiClient from "../../config/client";
+import { IRegister, IRegisterResponse } from "../../types/Register";
 
 
 
 // Interface
-interface IRegister {
-    name: string;
-    email: string;
-    password: string;
-    password_confirmation: string;
-  }
+
 
 
 // API call
 
 export const RegisterAPICall = async (payload: IRegister) => {
-    const response = await apiClient.post<IRegister>(`register`, payload);
+    const response = await apiClient.post<IRegisterResponse>(`register`, payload);
     return response.data;
 }
 
