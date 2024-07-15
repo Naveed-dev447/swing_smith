@@ -15,8 +15,31 @@ import {
 import recommandedStyles from './styles';
 import {goBack} from '../../../shared/Utils/navigationRef';
 import CustomHeader from '../../../shared/Component/CustomHeader';
-import VideoCardComponent from './VideoCardComponent';
-
+import { HorizontalScroll, Section, WorkoutCard } from '../Home/Common/Common';
+import TutorialCard from '../../../shared/Component/TutorialCard/TutorialCard';
+const tutorialVideos = [
+  {
+    uri: require('../../../assets/Images/DashBoard/Golf.mp4'),
+    title: 'Why you lose Balance in Golf?',
+    duration: '4 Min',
+    user: 'Raymond Reddington',
+    profileImage: require('../../../assets/Images/profilePicture.png'),
+  },
+  {
+    uri: require('../../../assets/Images/DashBoard/Golf.mp4'),
+    title: 'How to Improve Your Swing',
+    duration: '5 Min',
+    user: 'John Doe',
+    profileImage: require('../../../assets/Images/profilePicture.png'),
+  },
+  {
+    uri: require('../../../assets/Images/DashBoard/Golf.mp4'),
+    title: 'Mastering the Golf Grip',
+    duration: '3 Min',
+    user: 'Jane Smith',
+    profileImage: require('../../../assets/Images/profilePicture.png'),
+  },
+];
 const RecommendedView: React.FC = () => {
   const [selectedTab, setSelectedTab] = useState('All');
 
@@ -48,31 +71,28 @@ const RecommendedView: React.FC = () => {
         {/* Recommended Workouts */}
         {selectedTab === 'All' || selectedTab === 'Workouts' ? (
           <>
-            <Text style={recommandedStyles.sectionTitle}>
-              Recommended Workouts
-            </Text>
-            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-              {Array(4)
-                .fill(0)
-                .map((_, index) => (
-                  <View key={index} style={recommandedStyles.cardContainer}>
-                    <Icon
-                      name="hand-heart-outline"
-                      style={recommandedStyles.cardIcon}
-                    />
-                    <View style={recommandedStyles.cardContent}>
-                      <Text style={recommandedStyles.progressText}>02/10</Text>
-                      <Text style={recommandedStyles.boldText}>
-                        Core Strength
-                      </Text>
-                      <Text style={recommandedStyles.smallText}>
-                        Plank Variations, Side Planks, Russian Twists, And
-                        Medicine Ball Throws Can I...
-                      </Text>
-                    </View>
-                  </View>
-                ))}
-            </ScrollView>
+            <Section title="Recommended Workouts">
+              <HorizontalScroll>
+                <WorkoutCard
+                  title="Core Strength"
+                  progress="02/10"
+                  description="Plank Variations, Side Planks, Russian Twists, and Medicine Ball Throws can i."
+                  score="7.2/10"
+                />
+                <WorkoutCard
+                  title="Core Strength"
+                  progress="02/10"
+                  description="Plank Variations, Side Planks, Russian Twists, and Medicine Ball Throws can i."
+                  score="7.2/10"
+                />
+                <WorkoutCard
+                  title="Core Strength"
+                  progress="02/10"
+                  description="Plank Variations, Side Planks, Russian Twists, and Medicine Ball Throws can i."
+                  score="7.2/10"
+                />
+              </HorizontalScroll>
+            </Section>
           </>
         ) : null}
 
@@ -139,22 +159,13 @@ const RecommendedView: React.FC = () => {
         {/* Recommended Tutorials */}
         {selectedTab === 'All' ? (
           <>
-            <Text style={recommandedStyles.sectionTitle}>
-              Recommended Tutorials
-            </Text>
-            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-              {Array(3)
-                .fill(0)
-                .map((_, index) => (
-                  <VideoCardComponent
-                    imageUri="https://example.com/image.jpg"
-                    title="Why you lose Balance in Golf?"
-                    author="Raymond Reddington"
-                    duration="4 Min"
-                    index={index}
-                  />
-                ))}
-            </ScrollView>
+            <Section title="Recommended Tutorials">
+            <HorizontalScroll>
+              {tutorialVideos.map((video, index) => (
+                <TutorialCard key={index} video={video} />
+              ))}
+            </HorizontalScroll>
+          </Section>
           </>
         ) : null}
       </ScrollView>
