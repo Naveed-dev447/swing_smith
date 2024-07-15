@@ -21,15 +21,18 @@ const workoutImage = require('../../../assets/Images/workout.png');
 
 const WorkoutView = (props: any) => {
   const { route, navigation } = props;
-  const [selectedWorkout, setSelectedWorkout] = useState<string | null>(null);
+  const [selectedWorkouts, setSelectedWorkouts] = useState<string[]>([]);
 
   const toggleWorkoutSelection = (workout: string) => {
-    setSelectedWorkout((prevSelected) =>
-      prevSelected === workout ? null : workout
+    setSelectedWorkouts((prevSelected) =>
+      prevSelected.includes(workout)
+        ? prevSelected.filter((item) => item !== workout)
+        : [...prevSelected, workout]
     );
   };
+
   const handleMarkAsDone = () => {
-    console.log('Selected Workout:', selectedWorkout);
+    console.log('Selected Workouts:', selectedWorkouts);
     navigation.navigate('OnboardHome8');
   };
 
@@ -59,7 +62,7 @@ const WorkoutView = (props: any) => {
                 </View>
                 <Image
                   source={
-                    selectedWorkout === workout
+                    selectedWorkouts.includes(workout)
                       ? checkIconSelected
                       : checkIcon
                   }
