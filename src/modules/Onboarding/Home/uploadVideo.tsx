@@ -16,7 +16,6 @@ const schema = yup.object().shape({
 import { useLoader } from '../../../config/LoaderContext';
 import UploadVideoAPICall from './APICalls/UploadVideoAPI';
 import Progress from 'react-native-progress/Bar';
-import Loader from '../../../components/Loader';
 
 const UploadVideo: React.FC = (props: any) => {
   const { route, navigation } = props;
@@ -60,12 +59,14 @@ const UploadVideo: React.FC = (props: any) => {
 
       UploadVideoAPICall(formData)
         .then(res => {
-          console.log("Response", res.data);
 
           if (res.status === 200) {
             setLoading(false);
-            navigation.navigate('OnboardHome8');
-            // Handle success (e.g., navigate to the next screen)
+            if (route?.params === 'HomeUpload') {
+              navigation.goBack();
+            } else {
+              navigation.navigate('OnboardHome8');
+            }
           }
         })
         .catch(error => {
@@ -159,7 +160,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Outfit-Regular',
     color: '#9E9E9E',
   },
-  
+
   videoPlayer: {
     width: '100%',
     height: '100%',
@@ -168,7 +169,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins-Regular',
     color: 'red',
     fontSize: wp('3%'),
-    textAlign: 'center', 
+    textAlign: 'center',
     marginTop: hp('1%'),
   },
 });
