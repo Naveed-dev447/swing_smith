@@ -11,10 +11,9 @@ const apiClient: AxiosInstance = axios.create({
 });
 
 apiClient.interceptors.request.use(
-  async config => {
-    const token = await AsyncStorage.getItem('userToken');
+  async (config) => {
+    const token = await AsyncStorage.getItem('Token');
     if (token) {
-      // config.headers.Authorization = `Bearer ${token}`;
       config.headers.Authorization = `${token}`;
     }
     return config;
