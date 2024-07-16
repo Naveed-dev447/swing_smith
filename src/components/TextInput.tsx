@@ -71,6 +71,7 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   error: {
+    fontFamily: 'Inter-Regular',
     color: 'red',
     marginTop: 5,
     fontSize: 12

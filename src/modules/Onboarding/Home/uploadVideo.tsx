@@ -6,6 +6,13 @@ import Video from 'react-native-video';
 import CustomButton from '../../../shared/Component/CustomButton';
 import CustomHeader from '../../../shared/Component/CustomHeader';
 import globalStyles from '../styles';
+import { useForm, Controller } from 'react-hook-form';
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
+
+const schema = yup.object().shape({
+  video: yup.string().required('Please upload a video'),
+});
 import { useLoader } from '../../../config/LoaderContext';
 import UploadVideoAPICall from './APICalls/UploadVideoAPI';
 import Progress from 'react-native-progress/Bar';
@@ -13,6 +20,9 @@ import Loader from '../../../components/Loader';
 
 const UploadVideo: React.FC = (props: any) => {
   const { route, navigation } = props;
+  const { control, handleSubmit, formState: { errors }, setValue } = useForm({
+    resolver: yupResolver(schema),
+  });
   const [videoUri, setVideoUri] = useState<string | null>(null);
 
   const { loading, setLoading } = useLoader();
@@ -32,6 +42,7 @@ const UploadVideo: React.FC = (props: any) => {
       } else {
         const uri = response.assets[0].uri;
         setVideoUri(uri);
+        setValue('video', uri); // Set the video URI in form state
         console.log('Video URI: ', uri);
       }
     });
@@ -86,29 +97,36 @@ const UploadVideo: React.FC = (props: any) => {
         <Text style={globalStyles.subTitle}>
           Regulations require you to upload a high-quality video of you playing golf to get an instant analysis. Don't worry, we will guide you through it to show you improvements in game.
         </Text>
-        <TouchableOpacity
-          style={[
-            styles.uploadContainer,
-            videoUri && styles.uploadContainerWithoutBorder
-          ]}
-          onPress={handleUploadPress}
-        >
-          {videoUri ? (
-            <Video
-              source={{ uri: videoUri }}
-              style={styles.videoPlayer}
-              controls={true}
-            />
-          ) : (
-            <>
-              <Image source={require('../../../assets/Images/uploadVideo.png')} style={styles.uploadIcon} />
-              <Text style={styles.uploadText}>Browse Gallery</Text>
-            </>
+        <Controller
+          control={control}
+          name="video"
+          render={({ field: { onChange } }) => (
+            <TouchableOpacity
+              style={[
+                styles.uploadContainer,
+                videoUri && styles.uploadContainerWithoutBorder
+              ]}
+              onPress={handleUploadPress}
+            >
+              {videoUri ? (
+                <Video
+                  source={{ uri: videoUri }}
+                  style={styles.videoPlayer}
+                  controls={true}
+                />
+              ) : (
+                <>
+                  <Image source={require('../../../assets/Images/uploadVideo.png')} style={styles.uploadIcon} />
+                  <Text style={styles.uploadText}>Browse Gallery</Text>
+                </>
+              )}
+            </TouchableOpacity>
           )}
-        </TouchableOpacity>
+        />
+        {errors.video && <Text style={styles.errorText}>{errors.video.message}</Text>}
       </View>
       <View style={route?.params === 'HomeUpload' ? globalStyles.buttonContainerHome : globalStyles.buttonContainer}>
-        <CustomButton title="Next" onPress={handleNextPress} />
+        <CustomButton title="Next" onPress={handleSubmit(handleNextPress)} />
       </View>
     </View>
   );
@@ -141,9 +159,17 @@ const styles = StyleSheet.create({
     fontFamily: 'Outfit-Regular',
     color: '#9E9E9E',
   },
+  
   videoPlayer: {
     width: '100%',
     height: '100%',
+  },
+  errorText: {
+    fontFamily: 'Poppins-Regular',
+    color: 'red',
+    fontSize: wp('3%'),
+    textAlign: 'center', 
+    marginTop: hp('1%'),
   },
 });
 
