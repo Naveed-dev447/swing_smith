@@ -1,4 +1,4 @@
-import axios, { AxiosInstance } from 'axios';
+import axios, {AxiosInstance} from 'axios';
 import * as api from './API';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -11,23 +11,24 @@ const apiClient: AxiosInstance = axios.create({
 });
 
 apiClient.interceptors.request.use(
-  async (config) => {
+  async config => {
     const token = await AsyncStorage.getItem('userToken');
     if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
+      // config.headers.Authorization = `Bearer ${token}`;
+      config.headers.Authorization = `${token}`;
     }
     return config;
   },
-  (error) => {
+  error => {
     return Promise.reject(error);
   },
 );
 
 apiClient.interceptors.response.use(
-  (response) => {
+  response => {
     return response;
   },
-  (error) => {
+  error => {
     return Promise.reject(error);
   },
 );

@@ -60,7 +60,7 @@ const UploadVideo: React.FC = (props: any) => {
 
       UploadVideoAPICall(formData)
         .then(res => {
-          console.log("Response", res.data);
+          console.log("Response", res);
 
           if (res.status === 200) {
             setLoading(false);
