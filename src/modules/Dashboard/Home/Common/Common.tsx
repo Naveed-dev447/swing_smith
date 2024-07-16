@@ -294,8 +294,6 @@ export interface SwingCardProps {
   description: string;
   type: string;
   shot: string;
-  onPress: () => void;
-  favourite: boolean;
   navigate: () => void;
 }
 export const SwingCard: React.FC<SwingCardProps> = ({
@@ -304,8 +302,6 @@ export const SwingCard: React.FC<SwingCardProps> = ({
   description,
   type,
   shot,
-  onPress,
-  favourite,
   navigate,
 }) => {
   return (
@@ -323,13 +319,7 @@ export const SwingCard: React.FC<SwingCardProps> = ({
             borderRadius: 35,
             marginRight: 10,
             marginBottom: 60,
-          }}
-          onPress={onPress}>
-          <Icon
-            name="heart"
-            color={favourite ? '#FF0000' : '#ffff'}
-            style={globalStyles.iconHeart}
-          />
+          }}>
         </TouchableOpacity>
       </ImageBackground>
       <View style={globalStyles.analysisView}>
