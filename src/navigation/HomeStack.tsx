@@ -6,6 +6,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import HomeView from '../modules/Dashboard/Home/HomeView';
 import SwingLogView from '../modules/Dashboard/Home/SwingLogView';
 import AnalysisView from '../modules/Dashboard/Analysis/AnalysisView';
+import UploadVideo from '../modules/Onboarding/Home/uploadVideo';
 const Stack = createStackNavigator();
 
 const HomeStack= () => {
@@ -16,6 +17,11 @@ const HomeStack= () => {
           name="HomeScreen"
           component={HomeView}
         />
+           <Stack.Screen
+        options={{headerShown: false}}
+        name="OnboardHome12"
+        component={UploadVideo}
+      />
           <Stack.Screen
           options={{ headerShown: false }}
           name="SwingLog"

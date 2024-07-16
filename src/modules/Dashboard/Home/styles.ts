@@ -159,6 +159,7 @@ const globalStyles = StyleSheet.create({
     paddingLeft: wp('4%'),
   },
   recommendedSection: {
+    marginHorizontal: wp('2%'),
     marginVertical: hp('1%'),
   },
   recommendedHeader: {
@@ -175,7 +176,7 @@ const globalStyles = StyleSheet.create({
     padding: wp('3%'),
   },
   recommendedTitle: {
-    fontSize: wp('4%'),
+    fontSize: wp('4.5%'),
     fontFamily: 'Outfit-Bold',
     color: '#192126',
   },
@@ -385,7 +386,7 @@ const globalStyles = StyleSheet.create({
     width: wp('9%'),
     height: hp('6%'),
     marginLeft: hp('1%'),
-    resizeMode: 'center',
+    resizeMode: 'contain',
   },
   button: {
     flexDirection: 'row',

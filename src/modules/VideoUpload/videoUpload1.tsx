@@ -12,9 +12,20 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
+import { CommonActions } from '@react-navigation/native';
 
 const VideoUpload1: React.FC = (props: any) => {
   const {route, navigation} = props;
+   
+  const handleSkip = () => {
+    navigation.dispatch(
+      CommonActions.reset({
+        index: 0,
+        routes: [{ name: 'BottomTabStack' }],
+      })
+    );
+  };
+
   return (
     <ImageBackground
       source={require('../../assets/Images/onBoarding.jpg')}
@@ -24,7 +35,7 @@ const VideoUpload1: React.FC = (props: any) => {
         locations={[0.4, 1]}
         style={styles.gradient}>
         <View style={styles.container}>
-          <TouchableOpacity onPress={() => navigation.navigate('BottomTabStack')}>
+          <TouchableOpacity onPress={handleSkip}>
             <Text style={styles.skipText}>Skip</Text>
           </TouchableOpacity>
           <Text style={styles.centerText}>
