@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import { useForm, Controller } from 'react-hook-form';
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
 import CustomHeader from '../../../shared/Component/CustomHeader';
 import CustomButton from '../../../shared/Component/CustomButton';
 import globalStyles from '../styles';
@@ -7,11 +10,22 @@ import { goBack } from '../../../shared/Utils/navigationRef';
 import SelectedTouchableButton from '../../../components/SelectedTouchableButton';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
+const schema = yup.object().shape({
+  aspect: yup.string().required('Please select an aspect to improve'),
+});
+
 const GameImproveView: React.FC = (props: any) => {
   const { route, navigation } = props;
+  const { control, handleSubmit, formState: { errors } } = useForm({
+    resolver: yupResolver(schema),
+  });
   const [selectedAspect, setSelectedAspect] = useState<string | null>(null);
 
   const aspects = ['Driving', 'Iron play', 'Putting', 'Short game', 'Course management'];
+
+  const onSubmit = (data: { aspect: string }) => {
+    navigation.navigate('OnboardHome5');
+  };
 
   return (
     <View style={globalStyles.container}>
@@ -24,22 +38,32 @@ const GameImproveView: React.FC = (props: any) => {
           Analyzing video recorded diagonally or from the back may result in
           lower accuracy
         </Text>
-        <View style={styles.aspectContainer}>
-          {aspects.map((aspect, index) => (
-            <SelectedTouchableButton
-              key={index}
-              text={aspect}
-              isSelected={selectedAspect === aspect}
-              onPress={() => setSelectedAspect(aspect)}
-              fullWidth={index === aspects.length - 1} 
-            />
-          ))}
-        </View>
+        <Controller
+          control={control}
+          name="aspect"
+          render={({ field: { onChange } }) => (
+            <View style={styles.aspectContainer}>
+              {aspects.map((aspect, index) => (
+                <SelectedTouchableButton
+                  key={index}
+                  text={aspect}
+                  isSelected={selectedAspect === aspect}
+                  onPress={() => {
+                    setSelectedAspect(aspect);
+                    onChange(aspect);
+                  }}
+                  fullWidth={index === aspects.length - 1} 
+                />
+              ))}
+            </View>
+          )}
+        />
+        {errors.aspect && <Text style={styles.errorText}>{errors.aspect.message}</Text>}
       </View>
       <View style={globalStyles.buttonContainer}>
         <CustomButton
           title="Next"
-          onPress={() => navigation.navigate('OnboardHome5')}
+          onPress={handleSubmit(onSubmit)}
         />
       </View>
     </View>
@@ -54,5 +78,12 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     justifyContent: 'space-between',
     marginTop: hp('5%'),
+  },
+  errorText: {
+    fontFamily: 'Poppins-Regular',
+    color: 'red',
+    fontSize: wp('3%'),
+    marginLeft:10,
+    marginTop: hp('1%'),
   },
 });

@@ -8,7 +8,6 @@ const globalStyles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    
   },
   contentContainer: {
     flex: 1,
@@ -77,6 +76,13 @@ const globalStyles = StyleSheet.create({
   selectedOptionText: {
     fontFamily: 'Outfit-Regular',
     color: '#192126',
+  },
+  errorText: {
+    fontFamily: 'Poppins-Regular',
+    color: 'red',
+    fontSize: wp('3%'),
+    marginLeft:10,
+    marginTop: hp('1%'),
   },
   optionIcon: {
     marginRight: wp('2%'),

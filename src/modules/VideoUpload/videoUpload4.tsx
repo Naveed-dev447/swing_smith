@@ -1,36 +1,38 @@
-import React, {useState} from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  ImageBackground,
-} from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, ImageBackground } from 'react-native';
 import globalStyles from '../Onboarding/styles';
 import CustomHeader from '../../shared/Component/CustomHeader';
 import CustomButton from '../../shared/Component/CustomButton';
-import {goBack} from '../../shared/Utils/navigationRef';
+import { goBack } from '../../shared/Utils/navigationRef';
+import { useForm, Controller } from 'react-hook-form';
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 
+const schema = yup.object().shape({
+  equipment: yup.string().required('Please select a type of swing'),
+});
+
 const VideoUpload4: React.FC = (props: any) => {
-  const {route, navigation} = props;
-  const [selectedEquipment, setSelectedEquipment] = useState<string | null>(
-    null,
-  );
+  const { route, navigation } = props;
+  const { control, handleSubmit, formState: { errors } } = useForm({
+    resolver: yupResolver(schema),
+  });
+  const [selectedEquipment, setSelectedEquipment] = useState<string | null>(null);
 
   const equipmentOptions = [
-    {
-      text: 'Full swing',
-      backgroundImage: require('../../assets/Images/fullSwing.png'),
-    },
-    {text: 'Pitch', backgroundImage: require('../../assets/Images/pitch.png')},
-    {text: 'Chip', backgroundImage: require('../../assets/Images/Chip.png')},
-    {text: 'Putt', backgroundImage: require('../../assets/Images/putt.png')},
-    
+    { text: 'Full swing', backgroundImage: require('../../assets/Images/fullSwing.png') },
+    { text: 'Pitch', backgroundImage: require('../../assets/Images/pitch.png') },
+    { text: 'Chip', backgroundImage: require('../../assets/Images/Chip.png') },
+    { text: 'Putt', backgroundImage: require('../../assets/Images/putt.png') },
   ];
+
+  const onSubmit = (data: { equipment: string }) => {
+    navigation.navigate('BottomTabStack');
+  };
 
   return (
     <View style={styles.container}>
@@ -38,39 +40,47 @@ const VideoUpload4: React.FC = (props: any) => {
       <View style={styles.contentContainer}>
         <Text style={styles.title}>What type of swing is in the video?</Text>
         <Text style={styles.subTitle}>
-          Analyzing video recorded diagonally or from the back may result in
-          lower accuracy
+          Analyzing video recorded diagonally or from the back may result in lower accuracy
         </Text>
         <View style={styles.equipmentContainer}>
           {equipmentOptions.map((option, index) => (
-            <TouchableOpacity
+            <Controller
               key={index}
-              style={[
-                styles.equipmentButton,
-                selectedEquipment === option.text &&
-                  styles.selectedEquipmentButton,
-              ]}
-              onPress={() => setSelectedEquipment(option.text)}>
-              {selectedEquipment === option.text ? (
-                <View style={styles.selectedBackground}>
-                  <Text style={styles.selectedEquipmentText}>
-                    {option.text}
-                  </Text>
-                </View>
-              ) : (
-                <ImageBackground
-                  source={option.backgroundImage}
-                  style={styles.backgroundImage}
-                  imageStyle={{borderRadius: wp('3%')}}></ImageBackground>
+              control={control}
+              name="equipment"
+              render={({ field: { onChange } }) => (
+                <TouchableOpacity
+                  style={[
+                    styles.equipmentButton,
+                    selectedEquipment === option.text && styles.selectedEquipmentButton,
+                  ]}
+                  onPress={() => {
+                    setSelectedEquipment(option.text);
+                    onChange(option.text); // Update form value
+                  }}
+                >
+                  {selectedEquipment === option.text ? (
+                    <View style={styles.selectedBackground}>
+                      <Text style={styles.selectedEquipmentText}>{option.text}</Text>
+                    </View>
+                  ) : (
+                    <ImageBackground
+                      source={option.backgroundImage}
+                      style={styles.backgroundImage}
+                      imageStyle={{ borderRadius: wp('3%') }}
+                    />
+                  )}
+                </TouchableOpacity>
               )}
-            </TouchableOpacity>
+            />
           ))}
         </View>
+        {errors.equipment && <Text style={styles.errorText}>{errors.equipment.message}</Text>}
       </View>
       <View style={globalStyles.buttonContainer}>
         <CustomButton
           title="Next"
-          onPress={() => navigation.navigate('BottomTabStack')}
+          onPress={handleSubmit(onSubmit)}
         />
       </View>
     </View>
@@ -143,8 +153,15 @@ const styles = StyleSheet.create({
   selectedEquipmentText: {
     fontSize: wp('4%'),
     textAlign: 'center',
-    fontFamily:'Outfit-Regular',
-    marginLeft:'1%',
+    fontFamily: 'Outfit-Regular',
+    marginLeft: '1%',
     color: '#192126',
+  },
+  errorText: {
+    fontFamily: 'Poppins-Regular',
+    color: 'red',
+    fontSize: wp('3%'),
+    textAlign: 'center',
+    marginTop: hp('1%'),
   },
 });

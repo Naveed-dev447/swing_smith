@@ -5,10 +5,20 @@ import CustomButton from '../../../shared/Component/CustomButton';
 import globalStyles from '../styles';
 import { goBack } from '../../../shared/Utils/navigationRef';
 import SelectedTouchableButton from '../../../components/SelectedTouchableButton';
+import { useForm, Controller } from 'react-hook-form';
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+
+const schema = yup.object().shape({
+  equipment: yup.string().required('Please select an equipment type'),
+});
 
 const EquipmentsView: React.FC = (props: any) => {
   const { route, navigation } = props;
+  const { control, handleSubmit, formState: { errors } } = useForm({
+    resolver: yupResolver(schema),
+  });
   const [selectedEquipment, setSelectedEquipment] = useState<string | null>(null);
 
   const equipmentOptions = [
@@ -16,6 +26,13 @@ const EquipmentsView: React.FC = (props: any) => {
     'Custom-fitted clubs',
     'Advanced technology clubs (e.g., smart clubs)'
   ];
+
+  const onSubmit = (data: { equipment: string }) => {
+    // navigation.navigate('OnboardHome7');
+    navigation.navigate('OnboardHome12');
+
+    
+  };
 
   return (
     <View style={globalStyles.container}>
@@ -28,22 +45,32 @@ const EquipmentsView: React.FC = (props: any) => {
           Analyzing video recorded diagonally or from the back may result in
           lower accuracy
         </Text>
-        <View style={styles.equipmentContainer}>
-          {equipmentOptions.map((option, index) => (
-            <SelectedTouchableButton
-              key={index}
-              text={option}
-              isSelected={selectedEquipment === option}
-              onPress={() => setSelectedEquipment(option)}
-              fullWidth={index === 2}
-            />
-          ))}
-        </View>
+        <Controller
+          control={control}
+          name="equipment"
+          render={({ field: { onChange } }) => (
+            <View style={styles.equipmentContainer}>
+              {equipmentOptions.map((option, index) => (
+                <SelectedTouchableButton
+                  key={index}
+                  text={option}
+                  isSelected={selectedEquipment === option}
+                  onPress={() => {
+                    setSelectedEquipment(option);
+                    onChange(option);
+                  }}
+                  fullWidth={index === 2}
+                />
+              ))}
+            </View>
+          )}
+        />
+        {errors.equipment && <Text style={globalStyles.errorText}>{errors.equipment.message}</Text>}
       </View>
       <View style={globalStyles.buttonContainer}>
         <CustomButton
           title="Next"
-          onPress={() => navigation.navigate('OnboardHome7')}
+          onPress={handleSubmit(onSubmit)}
         />
       </View>
     </View>
@@ -60,4 +87,3 @@ const styles = StyleSheet.create({
     marginTop: hp('5%'),
   },
 });
-
