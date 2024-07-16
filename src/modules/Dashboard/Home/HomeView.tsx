@@ -86,7 +86,7 @@ const HomeView = (props: any) => {
             />
           </ScrollView>
         </View>
-        <UploadSwing />
+        <UploadSwing onClick={() => navigation.navigate('OnboardHome12', 'HomeUpload')}/>
 
         <Section title="Recommended Workouts">
           <HorizontalScroll>

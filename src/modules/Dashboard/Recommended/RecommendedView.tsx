@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -13,7 +13,7 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import recommandedStyles from './styles';
-import {goBack} from '../../../shared/Utils/navigationRef';
+import { goBack } from '../../../shared/Utils/navigationRef';
 import CustomHeader from '../../../shared/Component/CustomHeader';
 import { HorizontalScroll, Section, WorkoutCard } from '../Home/Common/Common';
 import TutorialCard from '../../../shared/Component/TutorialCard/TutorialCard';
@@ -45,7 +45,7 @@ const RecommendedView: React.FC = () => {
 
   return (
     <View style={recommandedStyles.container}>
-      <CustomHeader onBackPress={goBack} title="Recommanded" />
+      <CustomHeader onBackPress={goBack} title="Recommended" />
       <ScrollView contentContainerStyle={recommandedStyles.scrollViewContent}>
         <View style={recommandedStyles.tabContainer}>
           {['All', 'Workouts', 'Drills'].map(tab => (
@@ -53,14 +53,14 @@ const RecommendedView: React.FC = () => {
               key={tab}
               style={[
                 recommandedStyles.tab,
-                {backgroundColor: selectedTab === tab ? '#BBF246' : 'white'},
-                {borderColor: selectedTab !== tab ? '#192126' : 'white'},
+                { backgroundColor: selectedTab === tab ? '#BBF246' : 'white' },
+                { borderColor: selectedTab !== tab ? '#192126' : 'white' },
               ]}
               onPress={() => setSelectedTab(tab)}>
               <Text
                 style={[
                   recommandedStyles.tabText,
-                  {color: selectedTab === tab ? '#192126' : '#192126'},
+                  { color: selectedTab === tab ? '#192126' : '#192126' },
                 ]}>
                 {tab}
               </Text>
@@ -99,60 +99,59 @@ const RecommendedView: React.FC = () => {
         {/* Recommended Drills */}
         {selectedTab === 'All' || selectedTab === 'Drills' ? (
           <>
-            <Text style={recommandedStyles.sectionTitle}>
-              Recommended Drills
-            </Text>
-            <View
-              style={{
-                flexDirection: 'row',
-                flexWrap: 'wrap',
-                justifyContent: 'space-around',
-              }}>
-              <View style={recommandedStyles.cardContainer}>
-                <ImageBackground
-                  source={{
-                    uri: 'https://images.unsplash.com/photo-1570129477492-45c003edd2be',
-                  }}
-                  style={recommandedStyles.cardImage}
-                  imageStyle={{borderRadius: 10}}>
-                  <Icon
-                    name="play-circle"
-                    size={wp('10%')}
-                    color="white"
-                    style={recommandedStyles.playIcon}
-                  />
-                  <Text style={recommandedStyles.cardTitle}>
-                    Weight Transfer Drill
-                  </Text>
-                </ImageBackground>
-                <View style={recommandedStyles.cardContent}>
-                  <Text style={recommandedStyles.smallText}>
-                    Watch video to get it fixed
-                  </Text>
-                </View>
-              </View>
-              {Array(3)
-                .fill(0)
-                .map((_, index) => (
-                  <View key={index} style={recommandedStyles.cardContainer}>
+            <Section title="Recommended Drills">
+              <View
+                style={{
+                  flexDirection: 'row',
+                  flexWrap: 'wrap',
+                  justifyContent: 'space-around',
+                }}>
+                <View style={recommandedStyles.cardContainer}>
+                  <ImageBackground
+                    source={{
+                      uri: 'https://images.unsplash.com/photo-1570129477492-45c003edd2be',
+                    }}
+                    style={recommandedStyles.cardImage}
+                    imageStyle={{ borderRadius: 10 }}>
                     <Icon
-                      name="golf"
+                      name="play-circle"
                       size={wp('10%')}
-                      color="black"
-                      style={recommandedStyles.cardIcon}
+                      color="white"
+                      style={recommandedStyles.playIcon}
                     />
-                    <View style={recommandedStyles.cardContent}>
-                      <Text style={recommandedStyles.cardText}>
-                        Weight Transfer Drill
-                      </Text>
-                      <Text style={recommandedStyles.smallText}>
-                        Place a tee behind your left heel (for a right-handed
-                        golfer)...
-                      </Text>
-                    </View>
+                    <Text style={recommandedStyles.cardTitle}>
+                      Weight Transfer Drill
+                    </Text>
+                  </ImageBackground>
+                  <View style={recommandedStyles.cardContent}>
+                    <Text style={recommandedStyles.smallText}>
+                      Watch video to get it fixed
+                    </Text>
                   </View>
-                ))}
-            </View>
+                </View>
+                {Array(3)
+                  .fill(0)
+                  .map((_, index) => (
+                    <View key={index} style={recommandedStyles.cardContainer}>
+                      <Icon
+                        name="golf"
+                        size={wp('10%')}
+                        color="black"
+                        style={recommandedStyles.cardIcon}
+                      />
+                      <View style={recommandedStyles.cardContent}>
+                        <Text style={recommandedStyles.cardText}>
+                          Weight Transfer Drill
+                        </Text>
+                        <Text style={recommandedStyles.smallText}>
+                          Place a tee behind your left heel (for a right-handed
+                          golfer)...
+                        </Text>
+                      </View>
+                    </View>
+                  ))}
+              </View>
+            </Section>
           </>
         ) : null}
 
@@ -160,12 +159,12 @@ const RecommendedView: React.FC = () => {
         {selectedTab === 'All' ? (
           <>
             <Section title="Recommended Tutorials">
-            <HorizontalScroll>
-              {tutorialVideos.map((video, index) => (
-                <TutorialCard key={index} video={video} />
-              ))}
-            </HorizontalScroll>
-          </Section>
+              <HorizontalScroll>
+                {tutorialVideos.map((video, index) => (
+                  <TutorialCard key={index} video={video} />
+                ))}
+              </HorizontalScroll>
+            </Section>
           </>
         ) : null}
       </ScrollView>

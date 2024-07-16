@@ -163,7 +163,8 @@ export const AnalysisCard: React.FC<{
   </TouchableOpacity>
 );
 
-export const UploadSwing: React.FC = () => (
+export const UploadSwing: React.FC <{onClick: () => void}> = ({onClick}) =>  (
+  
   <View style={globalStyles.uploadSwingContainer}>
     <ImageBackground
       source={require('../../../../assets/Images/DashBoard/swingsImage.png')}
@@ -175,7 +176,7 @@ export const UploadSwing: React.FC = () => (
         <Text style={globalStyles.swingDesText}>
           Record your Swing and receive analysis.
         </Text>
-        <TouchableOpacity style={globalStyles.uploadButton}>
+        <TouchableOpacity style={globalStyles.uploadButton} onPress={onClick}>
           <Text style={globalStyles.uploadButtonText}>Upload</Text>
         </TouchableOpacity>
       </View>
