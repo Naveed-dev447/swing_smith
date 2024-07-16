@@ -1,6 +1,6 @@
 import React from 'react';
-import {ScrollView, View, Text, Image} from 'react-native';
-import {styles} from './AnalysingScreenStyle';
+import { ScrollView, View, Text, Image } from 'react-native';
+import { styles } from './AnalysingScreenStyle';
 import CustomHeader from '../../../shared/Component/CustomHeader';
 import {
   DrillCard,
@@ -46,11 +46,11 @@ const tutorialVideos = [
 ];
 
 const AnalysisView: React.FC = (props: any) => {
-  const {navigation} = props;
+  const { navigation } = props;
   return (
     <View style={styles.container}>
       <CustomHeader onBackPress={navigation.goBack} title="Swing Analysis" />
-      <ScrollView style={{flex: 1, paddingBottom: 70}}>
+      <ScrollView style={{ flex: 1, paddingBottom: 70, marginTop: 30 }}>
         <Image source={workoutImage} style={styles.image} />
         <View style={styles.analysisCardContainer}>
           <Image source={profileImage} style={styles.profileImage} />

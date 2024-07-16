@@ -19,21 +19,25 @@ const checkIcon = require('../../../assets/Images/checkIcon.png');
 const checkIconSelected = require('../../../assets/Images/selectedCheckIcon.png'); 
 const workoutImage = require('../../../assets/Images/workout.png'); 
 
+const workouts = ['Side Plank', 'Russian Twists', 'Plank', 'Crunches'];
+
 const WorkoutView = (props: any) => {
   const { route, navigation } = props;
   const [selectedWorkouts, setSelectedWorkouts] = useState<string[]>([]);
 
   const toggleWorkoutSelection = (workout: string) => {
-    setSelectedWorkouts((prevSelected) =>
-      prevSelected.includes(workout)
-        ? prevSelected.filter((item) => item !== workout)
-        : [...prevSelected, workout]
-    );
+    setSelectedWorkouts((prevSelected) => {
+      if (!prevSelected.includes(workout)) {
+        return [...prevSelected, workout];
+      }
+      return prevSelected; // Return the same array if the item is already selected
+    });
   };
 
   const handleMarkAsDone = () => {
-    console.log('Selected Workouts:', selectedWorkouts);
-    navigation.navigate('OnboardHome8');
+    setSelectedWorkouts(workouts); // Mark all workouts as selected
+    console.log('Selected Workouts:', workouts);
+    // navigation.navigate('OnboardHome8');
   };
 
   return (
@@ -49,28 +53,26 @@ const WorkoutView = (props: any) => {
           legs as a whole, you can reduce weight even if you don’t use tools.
         </Text>
         <View style={styles.workoutsContainer}>
-          {['Side Plank', 'Russian Twists', 'Plank', 'Crunches'].map(
-            (workout, index) => (
-              <TouchableOpacity
-                key={index}
-                style={styles.workoutItem}
-                onPress={() => toggleWorkoutSelection(workout)}
-              >
-                <View style={styles.workoutLeft}>
-                  <Image source={workoutIcon} style={styles.workoutIcon} />
-                  <Text style={styles.workoutText}>{workout}</Text>
-                </View>
-                <Image
-                  source={
-                    selectedWorkouts.includes(workout)
-                      ? checkIconSelected
-                      : checkIcon
-                  }
-                  style={styles.checkIcon}
-                />
-              </TouchableOpacity>
-            ),
-          )}
+          {workouts.map((workout, index) => (
+            <TouchableOpacity
+              key={index}
+              style={styles.workoutItem}
+              onPress={() => toggleWorkoutSelection(workout)}
+            >
+              <View style={styles.workoutLeft}>
+                <Image source={workoutIcon} style={styles.workoutIcon} />
+                <Text style={styles.workoutText}>{workout}</Text>
+              </View>
+              <Image
+                source={
+                  selectedWorkouts.includes(workout)
+                    ? checkIconSelected
+                    : checkIcon
+                }
+                style={styles.checkIcon}
+              />
+            </TouchableOpacity>
+          ))}
         </View>
         <View style={styles.buttonContainer}>
           <TouchableOpacity

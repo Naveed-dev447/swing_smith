@@ -7,7 +7,8 @@ import {
 const recommandedStyles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: wp('4%'),
+    // padding: wp('4%'),
+    alignItems: 'center',
     backgroundColor: '#fff',
     marginBottom:wp('20%')
   },

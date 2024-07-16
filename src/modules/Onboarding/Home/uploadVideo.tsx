@@ -1,15 +1,22 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image, Platform } from 'react-native';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { launchImageLibrary } from 'react-native-image-picker';
 import Video from 'react-native-video';
 import CustomButton from '../../../shared/Component/CustomButton';
 import CustomHeader from '../../../shared/Component/CustomHeader';
 import globalStyles from '../styles';
+import { useLoader } from '../../../config/LoaderContext';
+import UploadVideoAPICall from './APICalls/UploadVideoAPI';
+import Progress from 'react-native-progress/Bar';
+import Loader from '../../../components/Loader';
 
 const UploadVideo: React.FC = (props: any) => {
   const { route, navigation } = props;
   const [videoUri, setVideoUri] = useState<string | null>(null);
+
+  const { loading, setLoading } = useLoader();
+
 
   const handleUploadPress = () => {
     const options = {
@@ -31,12 +38,47 @@ const UploadVideo: React.FC = (props: any) => {
   };
 
   const handleNextPress = () => {
-    navigation.navigate('OnboardHome8');
+    if (videoUri) {
+      setLoading(true);
+      const formData = new FormData();
+      formData.append('fileName', {
+        uri: Platform.OS === 'android' ? videoUri : videoUri.replace('file://', ''),
+        name: 'video.mp4',
+        type: 'video/mp4'
+      });
+
+      UploadVideoAPICall(formData)
+        .then(res => {
+          console.log("Response", res.data);
+
+          if (res.status === 200) {
+            setLoading(false);
+            navigation.navigate('OnboardHome8');
+            // Handle success (e.g., navigate to the next screen)
+          }
+        })
+        .catch(error => {
+          console.error(error);
+          setLoading(false);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    }
   };
+
 
   return (
     <View style={globalStyles.container}>
       <CustomHeader onBackPress={navigation.goBack} />
+      {loading && (
+        <View style={{ alignSelf: 'center', marginTop: hp('1%') }}>
+          <Progress
+            width={200}
+            indeterminate={true}
+          />
+        </View>
+      )}
       <View style={globalStyles.contentContainer}>
         <Text style={globalStyles.title}>
           Upload your golf video to get an analysis 🪪
@@ -65,7 +107,7 @@ const UploadVideo: React.FC = (props: any) => {
           )}
         </TouchableOpacity>
       </View>
-      <View style={globalStyles.buttonContainer}>
+      <View style={route?.params === 'HomeUpload' ? globalStyles.buttonContainerHome : globalStyles.buttonContainer}>
         <CustomButton title="Next" onPress={handleNextPress} />
       </View>
     </View>
@@ -86,7 +128,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 2,
   },
   uploadContainerWithoutBorder: {
-    borderWidth: 0, 
+    borderWidth: 0,
   },
   uploadIcon: {
     width: wp('10%'),
@@ -96,7 +138,7 @@ const styles = StyleSheet.create({
   },
   uploadText: {
     fontSize: wp('4%'),
-    fontFamily:'Outfit-Regular',
+    fontFamily: 'Outfit-Regular',
     color: '#9E9E9E',
   },
   videoPlayer: {

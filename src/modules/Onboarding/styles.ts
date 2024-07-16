@@ -153,6 +153,10 @@ const globalStyles = StyleSheet.create({
     bottom: wp('4%'),
     padding: wp('6%'),
   },
+  buttonContainerHome:{
+    bottom: wp('15%'),
+    padding: wp('6%'),
+  }
 });
 
 export default globalStyles;
