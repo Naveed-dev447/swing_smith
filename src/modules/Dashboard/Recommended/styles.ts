@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -10,7 +10,7 @@ const recommandedStyles = StyleSheet.create({
     // padding: wp('4%'),
     alignItems: 'center',
     backgroundColor: '#fff',
-    marginBottom:wp('20%')
+    marginBottom: wp('20%')
   },
   headerContainer: {
     marginTop: hp('5%'),
@@ -50,66 +50,69 @@ const recommandedStyles = StyleSheet.create({
     fontWeight: 'bold',
     marginVertical: hp('1%'),
   },
+  maincontainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-around',
+  },
   cardContainer: {
+    width: wp('45%'),
+    // padding: wp('3%'),
+    height: hp('20%'),
+    marginBottom: wp('5%'),
     borderRadius: wp('2%'),
     backgroundColor: '#fff',
-    marginBottom: hp('2%'),
-    overflow: 'hidden',
-    marginRight: wp('2%'),
-    width: wp('40%'),
-    height: hp('30%'),
-    alignItems: 'center',
-    padding: wp('2%'),
-    borderColor: '#ddd',
-    borderWidth: 0.5,
     shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
+    shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
   },
   cardImage: {
     width: '100%',
-    height: hp('20%'),
-    justifyContent: 'center',
-    alignItems: 'center',
+    height: wp('45%'),
+    justifyContent: 'flex-end',
+    borderRadius: 10,
   },
   playIcon: {
     position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: [{translateX: -wp('5%')}, {translateY: -wp('5%')}],
+    top: '10%',
+    right: '10%',
   },
   cardTitle: {
     color: 'white',
-    fontSize: wp('5%'),
+    fontSize: wp('4%'),
     fontWeight: 'bold',
-    position: 'absolute',
-    bottom: hp('2%'),
-    left: wp('2%'),
+    fontFamily: 'Outfit-Regular',
+    textAlign: 'center',
+    marginBottom: wp('2%'),
+  },
+  cardDescription: {
+    color: 'white',
+    fontSize: wp('3%'),
+    textAlign: 'center',
+    fontFamily: 'Outfit-Regular',
+    marginBottom: wp('7%'),
   },
   cardContent: {
     padding: wp('2%'),
-    alignItems: 'center',
-  },
-  cardText: {
-    fontSize: wp('3.5%'),
-    fontWeight: '600',
-    color: '#192126',
-    textAlign: 'center',
   },
   cardIcon: {
-    fontSize: wp('10%'),
-    color: 'limegreen',
-    marginBottom: hp('1%'),
+    alignSelf: 'center',
+    marginTop: wp('7%'),
+    width: wp('15%'),
+    height: wp('10%'),
+    resizeMode: 'contain',
+
   },
-  smallText: {
-    fontSize: wp('3.5%'),
-    color: '#192126',
-    lineHeight: wp('5%'),
+  cardText: {
+    fontSize: wp('4%'),
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginVertical: wp('2%'),
+  },
+  cardSmallText: {
+    fontSize: wp('3%'),
     textAlign: 'center',
   },
   progressText: {

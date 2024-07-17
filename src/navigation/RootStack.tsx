@@ -12,7 +12,8 @@ import OnboardStack from './OnboardStack';
 import RegisterView from '../modules/Register/RegisterView';
 import BottomTabNavigator from './BottomTabStack';
 import { LoaderProvider } from '../config/LoaderContext';
-
+import Toast from 'react-native-toast-message'
+import { toastConfig } from '../config/ToastConfig'
 
 const Stack = createStackNavigator();
 
@@ -37,6 +38,8 @@ const RootNavigation = () => {
           options={{ headerShown: false }}
           component={BottomTabNavigator} />
       </Stack.Navigator>
+      <Toast config={toastConfig} />
+
     </NavigationContainer>
     </LoaderProvider>
   );

@@ -1,15 +1,16 @@
-import React, {useState} from 'react';
-import {View, Text, ScrollView, TouchableOpacity} from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
 import globalStyles from './styles';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import {
-  DrillCard, HorizontalScroll, Section,  WorkoutCard, Header,
-  Banner, UploadSwing, AnalysisCard } from './Common/Common';
+  DrillCard, HorizontalScroll, Section, WorkoutCard, Header,
+  Banner, UploadSwing, AnalysisCard
+} from './Common/Common';
 import TutorialCard from '../../../shared/Component/TutorialCard/TutorialCard';
-import {ChallengeCard} from './Common/ChallengeCard';
+import { ChallengeCard } from './Common/ChallengeCard';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../redux/Store';
 
@@ -39,11 +40,11 @@ const tutorialVideos = [
 ];
 
 const HomeView = (props: any) => {
-  const {route, navigation} = props;
+  const { route, navigation } = props;
   const [modalVisible, setModalVisible] = useState(false);
   const { tutorials, loading, error } = useSelector((state: RootState) => state.tutorials);
-   console.log("Videos ", tutorials);
-   
+  console.log("Videos ", tutorials);
+
 
   const toggleModal = () => {
     setModalVisible(!modalVisible);
@@ -59,13 +60,13 @@ const HomeView = (props: any) => {
       <ScrollView contentContainerStyle={globalStyles.SwingLogScrollView}>
         <Banner />
         <View>
-          <Text style={[globalStyles.sectionTitle, {marginTop: hp('2%')}]}>
+          <Text style={[globalStyles.sectionTitle, { marginTop: hp('2%') }]}>
             Recent Analysis
           </Text>
           <ScrollView
             horizontal
             showsHorizontalScrollIndicator={false}
-            style={{marginVertical: hp('2%')}}>
+            style={{ marginVertical: hp('2%') }}>
             <AnalysisCard
               score="7.2"
               postureScore="8.4"
@@ -82,7 +83,7 @@ const HomeView = (props: any) => {
             />
           </ScrollView>
         </View>
-        <UploadSwing onClick={() => navigation.navigate('OnboardHome12', 'HomeUpload')}/>
+        <UploadSwing onClick={() => navigation.navigate('Onboard', { screen: 'OnboardHome12' }, 'HomeUpload')} />
 
         <Section title="Recommended Workouts">
           <HorizontalScroll>
