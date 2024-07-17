@@ -100,17 +100,10 @@ const RecommendedView: React.FC = () => {
         {selectedTab === 'All' || selectedTab === 'Drills' ? (
           <>
             <Section title="Recommended Drills">
-              <View
-                style={{
-                  flexDirection: 'row',
-                  flexWrap: 'wrap',
-                  justifyContent: 'space-around',
-                }}>
+              <View style={recommandedStyles.maincontainer}>
                 <View style={recommandedStyles.cardContainer}>
                   <ImageBackground
-                    source={{
-                      uri: 'https://images.unsplash.com/photo-1570129477492-45c003edd2be',
-                    }}
+                    source={require('../../../assets/Images/recommendedVideoIcon.png')}
                     style={recommandedStyles.cardImage}
                     imageStyle={{ borderRadius: 10 }}>
                     <Icon
@@ -119,33 +112,22 @@ const RecommendedView: React.FC = () => {
                       color="white"
                       style={recommandedStyles.playIcon}
                     />
-                    <Text style={recommandedStyles.cardTitle}>
-                      Weight Transfer Drill
-                    </Text>
+                    <Text style={recommandedStyles.cardTitle}>Weight Transfer Drill</Text>
+                    <Text style={recommandedStyles.cardDescription}>Watch video to get it fixed</Text>
                   </ImageBackground>
-                  <View style={recommandedStyles.cardContent}>
-                    <Text style={recommandedStyles.smallText}>
-                      Watch video to get it fixed
-                    </Text>
-                  </View>
                 </View>
                 {Array(3)
                   .fill(0)
                   .map((_, index) => (
                     <View key={index} style={recommandedStyles.cardContainer}>
-                      <Icon
-                        name="golf"
-                        size={wp('10%')}
-                        color="black"
+                      <Image
+                        source={require('../../../assets/Images/DashBoard/golfman.png')}
                         style={recommandedStyles.cardIcon}
                       />
                       <View style={recommandedStyles.cardContent}>
-                        <Text style={recommandedStyles.cardText}>
-                          Weight Transfer Drill
-                        </Text>
-                        <Text style={recommandedStyles.smallText}>
-                          Place a tee behind your left heel (for a right-handed
-                          golfer)...
+                        <Text style={recommandedStyles.cardText}>Weight Transfer Drill</Text>
+                        <Text style={recommandedStyles.cardSmallText}>
+                          Place a tee behind your left heel (for a right-handed golfer)...
                         </Text>
                       </View>
                     </View>

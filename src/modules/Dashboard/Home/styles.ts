@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -52,8 +52,8 @@ const globalStyles = StyleSheet.create({
     marginRight: wp('2%'),
   },
   graphPieIcon: {
-    width: wp('15%'),
-    height: wp('15%'),
+    width: wp('13%'),
+    height: wp('13%'),
     resizeMode: 'contain',
     marginRight: wp('2%'),
     marginBottom: wp('2%'),
@@ -63,7 +63,7 @@ const globalStyles = StyleSheet.create({
     height: wp('10%'),
     resizeMode: 'contain',
     marginRight: wp('2%'),
-    // marginBottom: wp('2%'),
+    marginBottom: wp('2%'),
   },
   swingLogFIlterIconContainer: {
     flexDirection: 'row',
@@ -186,17 +186,19 @@ const globalStyles = StyleSheet.create({
     color: '#192126',
   },
   card: {
+    marginLeft: wp('1%'),
     backgroundColor: 'white',
     borderRadius: wp('2%'),
-    padding: wp('4%'),
+    padding: wp('3%'),
     justifyContent: 'center',
-    marginVertical: wp('4%'),
+    marginVertical: wp('2%'),
     alignItems: 'center',
-    // Shadow for iOS
+    // borderColor:'#000',
+    // borderWidth:1,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
-      height: 2,
+      height: 1,
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
@@ -217,10 +219,11 @@ const globalStyles = StyleSheet.create({
     paddingVertical: hp('0.5%'),
     paddingHorizontal: wp('4%'),
     borderRadius: wp('2%'),
+    marginBottom: hp('0.5%'),
   },
   markAsDoneText: {
     color: '#ffffff',
-    fontFamily:'Outfit-Regular'
+    fontFamily: 'Outfit-Regular'
   },
   challengeCards: {
     backgroundColor: 'white',
@@ -266,7 +269,7 @@ const globalStyles = StyleSheet.create({
   },
   modalTitle: {
     fontSize: wp('6%'),
-    fontFamily:'Outfit-Bold',
+    fontFamily: 'Outfit-Bold',
     marginBottom: hp('1%'),
     color: '#192126',
   },
@@ -277,8 +280,8 @@ const globalStyles = StyleSheet.create({
   },
   modalDateLabel: {
     fontSize: wp('3.5%'),
-    color:'#192126',
-    fontFamily:'Outfit-Regular'
+    color: '#192126',
+    fontFamily: 'Outfit-Regular'
   },
   datePickerContainer: {
     marginBottom: hp('1.2%'),
@@ -292,7 +295,7 @@ const globalStyles = StyleSheet.create({
   },
   modalClubLabel: {
     color: '#192126',
-    fontFamily:'Outfit-Bold',
+    fontFamily: 'Outfit-Bold',
     fontSize: wp('4%'),
     marginBottom: hp('1%'),
   },
@@ -320,7 +323,7 @@ const globalStyles = StyleSheet.create({
   // Swing log screen styling
   header: {
     fontSize: wp('6%'),
-    fontFamily:'Outfit-Bold',
+    fontFamily: 'Outfit-Bold',
     color: '#282E34',
   },
   cardContainer: {
@@ -345,7 +348,7 @@ const globalStyles = StyleSheet.create({
   },
   score: {
     fontSize: wp('5%'),
-   fontFamily:'Outfit-Bold',
+    fontFamily: 'Outfit-Bold',
     color: '#ffffff',
     padding: wp('3%'),
   },
@@ -357,7 +360,7 @@ const globalStyles = StyleSheet.create({
   description: {
     fontSize: wp('3.2%'),
     color: '#19212680',
-    fontFamily:'Poppins-Regular',
+    fontFamily: 'Poppins-Regular',
     margin: wp('2.5%'),
   },
   detailsContainer: {
@@ -373,13 +376,13 @@ const globalStyles = StyleSheet.create({
   },
   detailText: {
     fontSize: wp('3.5%'),
-    fontFamily:'Outfit-Regular',
+    fontFamily: 'Outfit-Regular',
     marginLeft: wp('1.25%'),
     color: '#192126',
   },
   dateText: {
     fontSize: wp('3.5%'),
-    fontFamily:'Outfit-Regular',
+    fontFamily: 'Outfit-Regular',
     color: '#192126',
   },
   filterIcon: {

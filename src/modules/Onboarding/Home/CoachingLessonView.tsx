@@ -10,19 +10,15 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 const schema = yup.object().shape({
-  aspect: yup.array().min(1, 'Please select at least one option').required('Please select an option'),
+  aspect: yup.string().required('Please select an option'),
 });
 
 const CoachingLessonView: React.FC = (props: any) => {
   const { route, navigation } = props;
-  const { control, handleSubmit, formState: { errors }, setValue } = useForm({
+  const { control, handleSubmit, formState: { errors } } = useForm({
     resolver: yupResolver(schema),
-    defaultValues: {
-      aspect: [],
-    }
   });
-
-  const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
+  const [selectedOption, setSelectedOption] = useState<string | null>(null);
 
   const options = [
     'Yes, regularly',
@@ -30,20 +26,8 @@ const CoachingLessonView: React.FC = (props: any) => {
     'No, but I have in the past',
     'No, never'
   ];
-
-  const onSubmit = (data: { aspect: string[] }) => {
+  const onSubmit = (data: { aspect: string }) => {
     navigation.navigate('OnboardHome6');
-  };
-
-  const handleOptionChange = (option: string) => {
-    setSelectedOptions(prev => {
-      if (!prev.includes(option)) {
-        const newSelection = [...prev, option];
-        setValue('aspect', newSelection);
-        return newSelection;
-      }
-      return prev; // If already selected, return previous state
-    });
   };
 
   return (
@@ -66,20 +50,23 @@ const CoachingLessonView: React.FC = (props: any) => {
                   key={index}
                   style={[
                     globalStyles.optionButton,
-                    selectedOptions.includes(option) && globalStyles.selectedOptionButton
+                    selectedOption === option && globalStyles.selectedOptionButton
                   ]}
-                  onPress={() => handleOptionChange(option)}
+                  onPress={() => {
+                    setSelectedOption(option);
+                    onChange(option);
+                  }}
                 >
                   <Icon 
                     name="check-circle" 
                     size={24} 
-                    color={selectedOptions.includes(option) ? 'black' : 'white'} 
+                    color={selectedOption === option ? 'black' : 'white'} 
                     style={globalStyles.optionIcon} 
                   />
                   <Text
                     style={[
                       globalStyles.optionText,
-                      selectedOptions.includes(option) && globalStyles.selectedOptionText
+                      selectedOption === option && globalStyles.selectedOptionText
                     ]}
                   >
                     {option}
