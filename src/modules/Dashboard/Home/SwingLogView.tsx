@@ -65,8 +65,6 @@ const SwingLogView: React.FC = (props: any) => {
             description={item.description}
             type={item.type}
             shot={item.shot}
-            favourite={favourite}
-            onPress={checkFavourite}
             navigate={() => navigation.navigate('AnalysisView')}
           />
         ))}

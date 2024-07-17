@@ -1,25 +1,18 @@
 import React, {useState} from 'react';
 import {View, Text, ScrollView, TouchableOpacity} from 'react-native';
-import Modal from 'react-native-modal';
 import globalStyles from './styles';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import {
-  DrillCard,
-  HorizontalScroll,
-  Section,
-  // TutorialCard,
-  WorkoutCard,
-  Header,
-  Banner,
-  RecentAnalysis,
-  UploadSwing,
-  AnalysisCard,
-} from './Common/Common';
+  DrillCard, HorizontalScroll, Section,  WorkoutCard, Header,
+  Banner, UploadSwing, AnalysisCard } from './Common/Common';
 import TutorialCard from '../../../shared/Component/TutorialCard/TutorialCard';
 import {ChallengeCard} from './Common/ChallengeCard';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../../redux/Store';
+
 
 const tutorialVideos = [
   {
@@ -48,6 +41,9 @@ const tutorialVideos = [
 const HomeView = (props: any) => {
   const {route, navigation} = props;
   const [modalVisible, setModalVisible] = useState(false);
+  const { tutorials, loading, error } = useSelector((state: RootState) => state.tutorials);
+   console.log("Videos ", tutorials);
+   
 
   const toggleModal = () => {
     setModalVisible(!modalVisible);
