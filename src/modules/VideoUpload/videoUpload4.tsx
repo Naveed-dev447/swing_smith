@@ -31,7 +31,10 @@ const VideoUpload4: React.FC = (props: any) => {
   ];
 
   const onSubmit = (data: { equipment: string }) => {
-    navigation.navigate('BottomTabStack');
+    // navigation.navigate('BottomTabStack');
+    navigation.navigate('OnboardHome13');
+
+    
   };
 
   return (

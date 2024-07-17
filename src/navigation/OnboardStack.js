@@ -13,6 +13,7 @@ import VideoUpload1 from '../modules/VideoUpload/videoUpload1.tsx';
 import VideoUpload2 from './../modules/VideoUpload/videoUpload2';
 import VideoUpload3 from './../modules/VideoUpload/videoUpload3';
 import VideoUpload4 from './../modules/VideoUpload/videoUpload4';
+import VideoUpload5 from './../modules/VideoUpload/VideoUpload5'
 import UploadVideo from './../modules/Onboarding/Home/uploadVideo.tsx';
 import SwingAnalysis from './../modules/Dashboard/Analysis/SwingAnalysis.tsx';
 
@@ -82,6 +83,12 @@ const RootNavigation = () => {
         name="OnboardHome12"
         component={UploadVideo}
       />
+      <Stack.Screen
+        options={{headerShown: false}}
+        name="OnboardHome13"
+        component={VideoUpload5}
+      />
+      
       <Stack.Screen
         options={{headerShown: false}}
         name="SwingAnalysis"
