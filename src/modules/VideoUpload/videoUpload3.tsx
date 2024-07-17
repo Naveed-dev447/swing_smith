@@ -9,13 +9,16 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import SelectedTouchableButton from '../../components/SelectedTouchableButton';
-
+import { useDispatch } from 'react-redux';
+import { setCLubEquipment } from '../../redux/Slices/OnboardingSlice';
 const schema = yup.object().shape({
   equipment: yup.string().required('Please select an equipment'),
 });
 
 const VideoUpload3: React.FC = (props: any) => {
   const { route, navigation } = props;
+  const dispatch = useDispatch();
+
   const { control, handleSubmit, formState: { errors } } = useForm({
     resolver: yupResolver(schema),
   });
@@ -29,6 +32,8 @@ const VideoUpload3: React.FC = (props: any) => {
   ];
 
   const onSubmit = (data: { equipment: string }) => {
+    dispatch(setCLubEquipment(data.equipment));
+    console.log("Club Equipment selection dispatched:",data.equipment)
     navigation.navigate('OnboardHome11');
   };
 
@@ -85,7 +90,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: wp('5%'),
     marginTop: hp('3%'),
-  },
+  },  
   title: {
     color: '#192126',
     fontFamily: 'Outfit-Bold',

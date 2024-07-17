@@ -8,7 +8,8 @@ import { useForm, Controller } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-
+import { useDispatch } from 'react-redux';
+import { setDtlSelectedOption } from '../../../redux/Slices/OnboardingSlice';
 const schema = yup.object().shape({
   option: yup.string().required('Please select an option'),
 });
@@ -18,11 +19,15 @@ const DTLView: React.FC = (props: any) => {
   const { control, handleSubmit, formState: { errors }, setValue, clearErrors } = useForm({
     resolver: yupResolver(schema),
   });
+
+  const dispatch = useDispatch();
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
 
   const options = ['Down the Line', 'Face On'];
 
   const onSubmit = (data: { option: string }) => {
+    dispatch(setDtlSelectedOption(data.option));
+    console.log("Dtl selection dispatched:",data.option)
     navigation.navigate('OnboardHome9');   
   };
 

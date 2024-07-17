@@ -22,7 +22,7 @@ const VideoUpload1: React.FC = (props: any) => {
     navigation.dispatch(
       CommonActions.reset({
         index: 0,
-        routes: [{ name: 'BottomTabStack' }],
+        routes: [{ name: 'OnboardHome13' }],
       })
     );
   };

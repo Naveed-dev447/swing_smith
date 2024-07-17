@@ -1,4 +1,3 @@
-// src/redux/slices/tutorialsSlice.ts
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import apiClient from '../../config/client';
 import { ITutorialResponse } from '../../types/Tutorial';

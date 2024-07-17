@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import CustomHeader from '../../../shared/Component/CustomHeader';
 import CustomButton from '../../../shared/Component/CustomButton';
@@ -9,6 +9,8 @@ import { useForm, Controller } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import { useDispatch } from 'react-redux';
+import { setEquipmentType } from '../../../redux/Slices/OnboardingSlice';
 
 const schema = yup.object().shape({
   equipment: yup.string().required('Please select an equipment type'),
@@ -19,7 +21,9 @@ const EquipmentsView: React.FC = (props: any) => {
   const { control, handleSubmit, formState: { errors } } = useForm({
     resolver: yupResolver(schema),
   });
+  const dispatch = useDispatch();
   const [selectedEquipment, setSelectedEquipment] = useState<string | null>(null);
+  const [dispatchSuccessful, setDispatchSuccessful] = useState(false);
 
   const equipmentOptions = [
     'Standard clubs',
@@ -27,12 +31,22 @@ const EquipmentsView: React.FC = (props: any) => {
     'Advanced technology clubs (e.g., smart clubs)'
   ];
 
-  const onSubmit = (data: { equipment: string }) => {
-    // navigation.navigate('OnboardHome7');
-    navigation.navigate('OnboardHome12');
+  // const onSubmit = (data: { equipment: string }) => {
+  //   // navigation.navigate('OnboardHome7');
+  //   navigation.navigate('OnboardHome12');
+  // };
 
-    
+  const onSubmit = (data: {equipment: string}) => {
+    dispatch(setEquipmentType(data.equipment));
+    console.log('Equipment type dispatched:', data.equipment);
+    setDispatchSuccessful(true);
   };
+
+  useEffect(() => {
+    if (dispatchSuccessful) {
+      navigation.navigate('OnboardHome12');
+    }
+  }, [dispatchSuccessful, navigation]);
 
   return (
     <View style={globalStyles.container}>

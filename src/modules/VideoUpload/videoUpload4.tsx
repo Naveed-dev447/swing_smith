@@ -11,6 +11,8 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
+import { useDispatch } from 'react-redux';
+import { setCLubEquipment2 } from '../../redux/Slices/OnboardingSlice';
 
 const schema = yup.object().shape({
   equipment: yup.string().required('Please select a type of swing'),
@@ -18,6 +20,7 @@ const schema = yup.object().shape({
 
 const VideoUpload4: React.FC = (props: any) => {
   const { route, navigation } = props;
+  const dispatch = useDispatch();
   const { control, handleSubmit, formState: { errors } } = useForm({
     resolver: yupResolver(schema),
   });
@@ -31,10 +34,9 @@ const VideoUpload4: React.FC = (props: any) => {
   ];
 
   const onSubmit = (data: { equipment: string }) => {
-    // navigation.navigate('BottomTabStack');
+    dispatch(setCLubEquipment2(data.equipment));
+    console.log("Club Equipment2 selection dispatched:",data.equipment)
     navigation.navigate('OnboardHome13');
-
-    
   };
 
   return (
