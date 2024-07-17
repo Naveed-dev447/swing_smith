@@ -27,6 +27,8 @@ import {RootStackParamList} from '../../navigation/types';
 import { RegisterAPICall } from './RegisterAPI';
 import { useLoader } from '../../config/LoaderContext';
 import Loader from '../../components/Loader';
+import {ShowToast} from '../../components/ShowToast'
+
 
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -68,11 +70,13 @@ const RegisterView: React.FC = (props: any) => {
    .then(res => {
      if (res.status === 201) {
        setLoading(false); 
+       ShowToast('success', res.message)
        navigation.navigate('Login');
      }
    })
    .catch(error => {
      setLoading(false); 
+     ShowToast('success', "You're not registered, Please try again")
      console.error(error);
    })
    .finally(() => {

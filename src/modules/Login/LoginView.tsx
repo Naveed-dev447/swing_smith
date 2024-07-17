@@ -27,6 +27,8 @@ import useLoginStyles from './styles';
 import LoginAPICall from './LoginAPI';
 import { fetchTutorials } from '../../redux/Slices/TutorialSlice';
 import { useLoader } from '../../config/LoaderContext';
+import { CommonActions } from '@react-navigation/native';
+
 
 const loginSchema = yup.object().shape({
   email: yup
@@ -70,6 +72,14 @@ const LoginScreen: React.FC = (props: any) => {
     } finally {
       setLoading(false);
     }
+  };
+ const handleNavigation = () => {
+    navigation.dispatch(
+      CommonActions.reset({
+        index: 0,
+        routes: [{ name: 'BottomTabStack' }],
+      })
+    );
   };
 
   return (
@@ -138,7 +148,7 @@ const LoginScreen: React.FC = (props: any) => {
                 <Text style={styles.orText}>Or</Text>
                 <Button
                   title="Continue with Google"
-                  onPress={() => navigation.navigate('BottomTabStack')}
+                  onPress={handleNavigation}
                   buttonStyle={styles.socialButton}
                   textStyle={styles.socialButtonText}
                   icon={require('../../assets/Images/google_ic.png')}

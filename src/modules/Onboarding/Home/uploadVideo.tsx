@@ -16,6 +16,7 @@ const schema = yup.object().shape({
 import { useLoader } from '../../../config/LoaderContext';
 import UploadVideoAPICall from './APICalls/UploadVideoAPI';
 import Progress from 'react-native-progress/Bar';
+import { ShowToast } from '../../../components/ShowToast';
 
 const UploadVideo: React.FC = (props: any) => {
   const { route, navigation } = props;
@@ -59,17 +60,14 @@ const UploadVideo: React.FC = (props: any) => {
 
       UploadVideoAPICall(formData)
         .then(res => {
-
           if (res.status === 200) {
             setLoading(false);
-            if (route?.params === 'HomeUpload') {
-              navigation.goBack();
-            } else {
-              navigation.navigate('OnboardHome8');
-            }
+            ShowToast('success', res.message);
+            navigation.navigate('OnboardHome8');
           }
         })
         .catch(error => {
+          ShowToast('error', 'Request is not Completed, Please try again');
           console.error(error);
           setLoading(false);
         })

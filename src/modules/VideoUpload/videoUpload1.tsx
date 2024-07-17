@@ -16,7 +16,8 @@ import { CommonActions } from '@react-navigation/native';
 
 const VideoUpload1: React.FC = (props: any) => {
   const {route, navigation} = props;
-   
+
+
   const handleSkip = () => {
     navigation.dispatch(
       CommonActions.reset({

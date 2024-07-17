@@ -216,7 +216,7 @@ export const WorkoutCard: React.FC<WorkoutCardProps> = ({
   description,
   score,
 }) => (
-  <View style={[globalStyles.card, {width: wp('50%'), marginRight: wp('4%')}]}>
+  <View style={[globalStyles.card, {width: wp('40%'), marginRight: wp('4%')}]}>
     <View style={{marginVertical: '2%'}}>
       <Image
         source={require('../../../../assets/Images/GraphPie.png')}
@@ -229,13 +229,13 @@ export const WorkoutCard: React.FC<WorkoutCardProps> = ({
       </Text>
     </View>
 
-    <View style={{marginVertical: '2%'}}>
+    <View style={{marginVertical: '1%'}}>
       <Text style={{color: '#192126', fontFamily: 'Outfit-SemiBold'}}>
         {title}
       </Text>
     </View>
 
-    <View style={{marginVertical: '2%'}}>
+    <View style={{marginVertical: '1%'}}>
       <Text style={{color: '#192126', fontFamily: 'Outfit-Regular'}}>
         {description}
       </Text>
@@ -248,7 +248,7 @@ interface DrillCardProps {
 }
 
 export const DrillCard: React.FC<DrillCardProps> = ({title}) => (
-  <View style={[globalStyles.card, {width: wp('40%'), marginRight: wp('2%')}]}>
+  <View style={[globalStyles.card, {width: wp('40%'), marginRight: wp('4%')}]}>
     <Image
       source={require('../../../../assets/Images/DashBoard/golfman.png')}
       style={globalStyles.drillIcon}

@@ -18,9 +18,9 @@ export const ChallengeCard: React.FC<ChallengeCardProps> = ({title, imageSource,
 
 const styles = StyleSheet.create({
   challengeCard: {
-    width: wp('30%'),
-    height:wp('35%'),
-    marginRight: wp('2%'),
+    width: wp('32%'),
+    height:wp('32%'),
+    marginRight: wp('4%'),
     borderRadius: wp('3%'),
     padding: wp('6%'),
     justifyContent: 'center',
@@ -37,13 +37,14 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   image: {
-    width: wp('15%'),
-    height: wp('15%'),
+    width: wp('13%'),
+    height: wp('14%'),
     marginLeft:hp('5%')
   },
   text: {
     fontSize: wp('4%'),
     lineHeight:25,
-    fontFamily:'Outfit-Regular'
+    fontFamily:'Outfit-Regular',
+    // marginBottom:  hp('1%')
   },
 });
