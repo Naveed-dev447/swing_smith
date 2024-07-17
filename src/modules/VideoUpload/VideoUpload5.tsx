@@ -6,11 +6,28 @@ import {goBack} from '../../shared/Utils/navigationRef';
 import CustomButton from '../../shared/Component/CustomButton';
 import globalStyles from '../Onboarding/styles';
 import {
-    widthPercentageToDP as wp,
-    heightPercentageToDP as hp,
-  } from 'react-native-responsive-screen';
-const VideoUpload5 : React.FC = (props: any) => {
-    const { navigation } = props;
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
+import {useSelector} from 'react-redux';
+import { RootState } from '../../redux/store';
+
+const VideoUpload5: React.FC = (props: any) => {
+  const {navigation} = props;
+  const {
+    skillLevel,
+    aspectToImprove,
+    coachingLesson,
+    equipmentType,
+    practiceDuration,
+    scoringAverage,
+    uploadedVideo,
+    dtlSelectedOption,
+    videoHandedness,
+    selectedEquipment,
+    selectedEquipment2,
+  } = useSelector((state: RootState) => state.onboarding);
+
   return (
     <View style={styles.container}>
       <CustomHeader onBackPress={goBack} title="Analysing" />
@@ -46,6 +63,19 @@ const VideoUpload5 : React.FC = (props: any) => {
           onPress={() => navigation.navigate('BottomTabStack')}
         />
       </View>
+       {/* <View style={styles.onboardingDataContainer}>
+       <Text style={styles.onboardingDataText}>Scoring Average: {scoringAverage}</Text>
+       <Text style={styles.onboardingDataText}>Practice Duration: {practiceDuration}</Text>
+        <Text style={styles.onboardingDataText}>Skill Level: {skillLevel}</Text>
+        <Text style={styles.onboardingDataText}>Aspect to Improve: {aspectToImprove}</Text>
+        <Text style={styles.onboardingDataText}>Coaching Lesson: {coachingLesson}</Text>
+        <Text style={styles.onboardingDataText}>Equipment Type: {equipmentType}</Text>
+        <Text style={styles.onboardingDataText}>Uploaded Video: {uploadedVideo}</Text>
+        <Text style={styles.onboardingDataText}>DTL Selected Option: {dtlSelectedOption}</Text>
+        <Text style={styles.onboardingDataText}>Video Handedness: {videoHandedness}</Text>
+        <Text style={styles.onboardingDataText}>Selected Equipment: {selectedEquipment}</Text>
+        <Text style={styles.onboardingDataText}>Selected Equipment 2: {selectedEquipment2}</Text>
+      </View> */}
     </View>
   );
 };
@@ -108,5 +138,14 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     bottom: wp('4%'),
+  },
+  onboardingDataContainer: {
+    marginVertical: 20,
+  },
+  onboardingDataText: {
+    fontSize: 16,
+    color: '#192126',
+    marginBottom: 5,
+    fontFamily: 'Outfit-Regular',
   },
 });

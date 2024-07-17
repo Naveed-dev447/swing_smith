@@ -1,15 +1,19 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { useForm, Controller } from 'react-hook-form';
+import React, {useEffect, useState} from 'react';
+import {View, Text, StyleSheet} from 'react-native';
+import {useForm, Controller} from 'react-hook-form';
 import * as yup from 'yup';
-import { yupResolver } from '@hookform/resolvers/yup';
+import {yupResolver} from '@hookform/resolvers/yup';
 import CustomHeader from '../../../shared/Component/CustomHeader';
-import { goBack } from '../../../shared/Utils/navigationRef';
+import {goBack} from '../../../shared/Utils/navigationRef';
 import globalStyles from '../styles';
 import CustomButton from '../../../shared/Component/CustomButton';
 import SelectedTouchableButton from '../../../components/SelectedTouchableButton';
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
+import {useDispatch} from 'react-redux';
+import {setSkillLevel} from '../../../redux/Slices/OnboardingSlice';
 interface SkillLevelProps {
   navigation: any;
 }
@@ -18,18 +22,37 @@ const schema = yup.object().shape({
   skillLevel: yup.string().required('Please select a skill level'),
 });
 
-const SkillLevel: React.FC<SkillLevelProps> = ({ navigation }) => {
-  const { control, handleSubmit, formState: { errors } } = useForm({
+const SkillLevel: React.FC<SkillLevelProps> = ({navigation}) => {
+  const {
+    control,
+    handleSubmit,
+    formState: {errors},
+  } = useForm({
     resolver: yupResolver(schema),
   });
-
+  const dispatch = useDispatch();
   const [selectedLevel, setSelectedLevel] = useState<string | null>(null);
+  const [dispatchSuccessful, setDispatchSuccessful] = useState(false);
   const levels = ['Beginner', 'Intermediate', 'Advanced', 'Professional'];
 
+  // const onSubmit = (data: {skillLevel: string}) => {
+  //   console.log('skill level:', data);
+  //   dispatch(setSkillLevel(data.skillLevel));
+  //   console.log('Skill level dispatched successfully:', data.skillLevel);
+  //   navigation.navigate('OnboardHome4');
+  // };
   const onSubmit = (data: { skillLevel: string }) => {
-    console.log("skill level:",data)
-    navigation.navigate('OnboardHome4');
+    console.log('Submitted skill level:', data.skillLevel);
+    dispatch(setSkillLevel(data.skillLevel));
+    console.log('Skill level dispatched:', data.skillLevel);
+    setDispatchSuccessful(true);
   };
+
+  useEffect(() => {
+    if (dispatchSuccessful) {
+      navigation.navigate('OnboardHome4');
+    }
+  }, [dispatchSuccessful, navigation]);
 
   return (
     <View style={globalStyles.container}>
@@ -45,7 +68,7 @@ const SkillLevel: React.FC<SkillLevelProps> = ({ navigation }) => {
         <Controller
           control={control}
           name="skillLevel"
-          render={({ field: { onChange } }) => (
+          render={({field: {onChange}}) => (
             <View style={styles.levelContainer}>
               {levels.map((level, index) => (
                 <SelectedTouchableButton
@@ -61,13 +84,12 @@ const SkillLevel: React.FC<SkillLevelProps> = ({ navigation }) => {
             </View>
           )}
         />
-        {errors.skillLevel && <Text style={styles.errorText}>{errors.skillLevel.message}</Text>}
+        {errors.skillLevel && (
+          <Text style={styles.errorText}>{errors.skillLevel.message}</Text>
+        )}
       </View>
       <View style={globalStyles.buttonContainer}>
-        <CustomButton
-          title="Next"
-          onPress={handleSubmit(onSubmit)}
-        />
+        <CustomButton title="Next" onPress={handleSubmit(onSubmit)} />
       </View>
     </View>
   );
@@ -84,7 +106,7 @@ const styles = StyleSheet.create({
   },
   errorText: {
     color: 'red',
-    marginLeft:10,
+    marginLeft: 10,
     fontSize: wp('3.5%'),
     marginTop: hp('1%'),
   },

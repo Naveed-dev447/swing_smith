@@ -157,5 +157,26 @@ export const styles = StyleSheet.create({
   },
   workOutContainer:{
     width: wp('90%'),
-  }
+  },
+  tabContainer: {
+    width: '90%',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginVertical: hp('2%'),
+  },
+  tab: {
+    width: wp('25%'),
+    padding: wp('2%'),
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderBottomWidth: 2,
+    borderColor: 'transparent', // Default to transparent
+  },
+  selectedTab: {
+    borderColor: '#232732', // Underline color for selected tab
+  },
+  tabText: {
+    fontSize: wp('3.5%'),
+    fontFamily: 'Overpass-Bold',
+  },
 });

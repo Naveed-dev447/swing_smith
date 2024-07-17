@@ -1,6 +1,6 @@
-import React from 'react';
-import { ScrollView, View, Text, Image } from 'react-native';
-import { styles } from './AnalysingScreenStyle';
+import React, {useState} from 'react';
+import {ScrollView, View, Text, Image, TouchableOpacity} from 'react-native';
+import {styles} from './AnalysingScreenStyle';
 import CustomHeader from '../../../shared/Component/CustomHeader';
 import {
   DrillCard,
@@ -15,6 +15,7 @@ import {
   AnalysisCard,
 } from '../../Dashboard/Home/Common/Common';
 import TutorialCard from '../../../shared/Component/TutorialCard/TutorialCard';
+import recommandedStyles from '../Recommended/styles';
 const workoutImage = require('../../../assets/Images/swingAnalysis.png');
 const profileImage = require('../../../assets/Images/profilePicture.png');
 const flagImage = require('../../../assets/Images/flag.png');
@@ -46,11 +47,13 @@ const tutorialVideos = [
 ];
 
 const AnalysisView: React.FC = (props: any) => {
-  const { navigation } = props;
+  const {navigation} = props;
+  const [selectedTab, setSelectedTab] = useState('Overall');
+
   return (
     <View style={styles.container}>
       <CustomHeader onBackPress={navigation.goBack} title="Swing Analysis" />
-      <ScrollView style={{ flex: 1, paddingBottom: 70, marginTop: 30 }}>
+      <ScrollView style={{flex: 1, paddingBottom: 70, marginTop: 30}}>
         <Image source={workoutImage} style={styles.image} />
         <View style={styles.analysisCardContainer}>
           <Image source={profileImage} style={styles.profileImage} />
@@ -76,81 +79,121 @@ const AnalysisView: React.FC = (props: any) => {
             <Text style={styles.scoreCardValue}>7.2/10</Text>
           </View>
         </View>
-        <View style={styles.instructionContainer}>
-          <View style={styles.instructionHeader}>
-            <Text style={styles.instructionTitle}>Swing Analysis</Text>
-            <Image
-              source={require('../../../assets/Images/info.png')}
-              style={styles.infoIcon}
-            />
-          </View>
-          <Text style={styles.subInstructionText}>
-            There are some good fundamentals, but there's a lot of room for
-            improvement.
-          </Text>
-          <Text style={styles.instructionText}>
-            <Text style={styles.subTitle}>Set-up:</Text> Your setup looks fairly
-            balanced, but you appear to be slightly leaning back, which can
-            affect your weight transfer and power. {'\n\n'}
-            <Text style={styles.subTitle}>Backswing:</Text> Your backswing is a
-            bit too upright, with your arms getting a little close to your body.
-            This can lead to a loss of power and potential for hitting the ball
-            off the toe of the club.
-            {'\n\n'}
-            <Text style={styles.subTitle}> Downswing:</Text> Your downswing
-            starts a bit early, and you're not fully rotating your hips through
-            the shot. This can cause you to hit the ball thin or off-centre.{' '}
-            {'\n\n'}
-            <Text style={styles.subTitle}> Impact:</Text> You're not keeping
-            your head still and are looking up too early, which is affecting
-            your consistency. {'\n\n'}
-            <Text style={styles.subTitle}>Finish:</Text> Your finish is upright
-            and not fully extended, which indicates a loss of power and control.{' '}
-            {'\n\n'}
-          </Text>
+        <View style={styles.tabContainer}>
+          <HorizontalScroll>
+            {['Overall', 'Posture', 'Swing Rythm', 'Workouts', 'Drills'].map(
+              tab => (
+                <TouchableOpacity
+                  key={tab}
+                  style={[
+                    styles.tab,
+                    selectedTab === tab && styles.selectedTab, 
+                  ]}
+                  onPress={() => setSelectedTab(tab)}>
+                  <Text
+                    style={[
+                      styles.tabText,
+                      {color: selectedTab === tab ? '#232732' : '#7E7E7E'},
+                    ]}>
+                    {tab}
+                  </Text>
+                </TouchableOpacity>
+              ),
+            )}
+          </HorizontalScroll>
         </View>
-        <View style={styles.workOutContainer}>
-          <Section title="Recommended Workouts">
-            <HorizontalScroll>
-              <WorkoutCard
-                title="Core Strength"
-                progress="02/10"
-                description="Plank Variations, Side Planks, Russian Twists, and Medicine Ball Throws can i."
-                score="7.2/10"
-              />
-              <WorkoutCard
-                title="Core Strength"
-                progress="02/10"
-                description="Plank Variations, Side Planks, Russian Twists, and Medicine Ball Throws can i."
-                score="7.2/10"
-              />
-              <WorkoutCard
-                title="Core Strength"
-                progress="02/10"
-                description="Plank Variations, Side Planks, Russian Twists, and Medicine Ball Throws can i."
-                score="7.2/10"
-              />
-            </HorizontalScroll>
-          </Section>
-        </View>
-        <View style={styles.workOutContainer}>
-          <Section title="Recommended Drills">
-            <HorizontalScroll>
-              <DrillCard title="Core Strength" />
-              <DrillCard title="Core Strength" />
-              <DrillCard title="Core Strength" />
-            </HorizontalScroll>
-          </Section>
-        </View>
-        <View style={styles.workOutContainer}>
-          <Section title="Recommended Tutorials">
-            <HorizontalScroll>
-              {tutorialVideos.map((video, index) => (
-                <TutorialCard key={index} video={video} />
-              ))}
-            </HorizontalScroll>
-          </Section>
-        </View>
+      
+        {selectedTab === 'Overall' || selectedTab === 'Swing Rythm' ? (
+          <>
+            <View style={styles.instructionContainer}>
+              <View style={styles.instructionHeader}>
+                <Text style={styles.instructionTitle}>Swing Analysis</Text>
+                <Image
+                  source={require('../../../assets/Images/info.png')}
+                  style={styles.infoIcon}
+                />
+              </View>
+              <Text style={styles.subInstructionText}>
+                There are some good fundamentals, but there's a lot of room for
+                improvement.
+              </Text>
+              <Text style={styles.instructionText}>
+                <Text style={styles.subTitle}>Set-up:</Text> Your setup looks
+                fairly balanced, but you appear to be slightly leaning back,
+                which can affect your weight transfer and power. {'\n\n'}
+                <Text style={styles.subTitle}>Backswing:</Text> Your backswing
+                is a bit too upright, with your arms getting a little close to
+                your body. This can lead to a loss of power and potential for
+                hitting the ball off the toe of the club.
+                {'\n\n'}
+                <Text style={styles.subTitle}> Downswing:</Text> Your downswing
+                starts a bit early, and you're not fully rotating your hips
+                through the shot. This can cause you to hit the ball thin or
+                off-centre. {'\n\n'}
+                <Text style={styles.subTitle}> Impact:</Text> You're not keeping
+                your head still and are looking up too early, which is affecting
+                your consistency. {'\n\n'}
+                <Text style={styles.subTitle}>Finish:</Text> Your finish is
+                upright and not fully extended, which indicates a loss of power
+                and control. {'\n\n'}
+              </Text>
+            </View>
+          </>
+        ) : null}
+        {selectedTab === 'Overall' || selectedTab === 'Workouts' ? (
+          <>
+            <View style={styles.workOutContainer}>
+              <Section title="Recommended Workouts">
+                <HorizontalScroll>
+                  <WorkoutCard
+                    title="Core Strength"
+                    progress="02/10"
+                    description="Plank Variations, Side Planks, Russian Twists, and Medicine Ball Throws can i."
+                    score="7.2/10"
+                  />
+                  <WorkoutCard
+                    title="Core Strength"
+                    progress="02/10"
+                    description="Plank Variations, Side Planks, Russian Twists, and Medicine Ball Throws can i."
+                    score="7.2/10"
+                  />
+                  <WorkoutCard
+                    title="Core Strength"
+                    progress="02/10"
+                    description="Plank Variations, Side Planks, Russian Twists, and Medicine Ball Throws can i."
+                    score="7.2/10"
+                  />
+                </HorizontalScroll>
+              </Section>
+            </View>
+          </>
+        ) : null}
+        {selectedTab === 'Overall' || selectedTab === 'Drills' ? (
+          <>
+            <View style={styles.workOutContainer}>
+              <Section title="Recommended Drills">
+                <HorizontalScroll>
+                  <DrillCard title="Core Strength" />
+                  <DrillCard title="Core Strength" />
+                  <DrillCard title="Core Strength" />
+                </HorizontalScroll>
+              </Section>
+            </View>
+          </>
+        ) : null}
+        {selectedTab === 'Overall' || selectedTab === 'Posture' ? (
+          <>
+            <View style={styles.workOutContainer}>
+              <Section title="Recommended Tutorials">
+                <HorizontalScroll>
+                  {tutorialVideos.map((video, index) => (
+                    <TutorialCard key={index} video={video} />
+                  ))}
+                </HorizontalScroll>
+              </Section>
+            </View>
+          </>
+        ) : null}
       </ScrollView>
     </View>
   );

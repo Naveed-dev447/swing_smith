@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import CustomHeader from '../../../shared/Component/CustomHeader';
@@ -8,6 +8,8 @@ import { goBack } from '../../../shared/Utils/navigationRef';
 import { useForm, Controller } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useDispatch } from 'react-redux';
+import { setCoachingLesson } from '../../../redux/Slices/OnboardingSlice';
 
 const schema = yup.object().shape({
   aspect: yup.string().required('Please select an option'),
@@ -18,8 +20,9 @@ const CoachingLessonView: React.FC = (props: any) => {
   const { control, handleSubmit, formState: { errors } } = useForm({
     resolver: yupResolver(schema),
   });
+  const dispatch = useDispatch();
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
-
+  const [dispatchSuccessful, setDispatchSuccessful] = useState(false);
   const options = [
     'Yes, regularly',
     'Yes, occasionally',
@@ -27,8 +30,16 @@ const CoachingLessonView: React.FC = (props: any) => {
     'No, never'
   ];
   const onSubmit = (data: { aspect: string }) => {
-    navigation.navigate('OnboardHome6');
+    dispatch(setCoachingLesson(data.aspect));
+    console.log('Coaching lesson dispatched:', data.aspect);
+    setDispatchSuccessful(true);
   };
+
+  useEffect(() => {
+    if (dispatchSuccessful) {
+      navigation.navigate('OnboardHome6');
+    }
+  }, [dispatchSuccessful, navigation]);
 
   return (
     <View style={globalStyles.container}>

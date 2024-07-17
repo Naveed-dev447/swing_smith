@@ -3,13 +3,23 @@ import {View, Text} from 'react-native';
 import Slider from '@react-native-community/slider';
 import CustomHeader from '../../../shared/Component/CustomHeader';
 import CustomButton from '../../../shared/Component/CustomButton';
-
+import { useDispatch } from 'react-redux';
+import { setPracticeDuration } from '../../../redux/Slices/OnboardingSlice';
 import globalStyles from '../styles';
 import {goBack} from '../../../shared/Utils/navigationRef';
 
 const GolfDurationView: React.FC = (props: any) => {
   const {route, navigation} = props;
+
+  const dispatch = useDispatch();
   const [score, setScore] = useState(80);
+
+  const handleSliderChange = (value: number) => {
+    setScore(value);
+    dispatch(setPracticeDuration(value));
+    console.log('Golf duration value dispatched:',value);
+
+  };
     return (
         <View style={globalStyles.container}>
             <CustomHeader onBackPress={goBack} />
@@ -24,7 +34,7 @@ const GolfDurationView: React.FC = (props: any) => {
                         minimumValue={0}
                         maximumValue={100}
                         value={score}
-                        onValueChange={(value) => setScore(value)}
+                        onValueChange={handleSliderChange}
                         minimumTrackTintColor="#00FF00"
                         maximumTrackTintColor="#000000"
                         thumbTintColor="#FFFFFF"

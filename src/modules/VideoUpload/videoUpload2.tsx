@@ -8,13 +8,16 @@ import { useForm, Controller } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-
+import { useDispatch } from 'react-redux';
+import { setVideoHandedness } from '../../redux/Slices/OnboardingSlice';
 const schema = yup.object().shape({
   option: yup.string().required('Please select an option'),
 });
 
 const VideoUpload2: React.FC = (props: any) => {
   const { route, navigation } = props;
+  const dispatch = useDispatch();
+
   const { control, handleSubmit, formState: { errors } } = useForm({
     resolver: yupResolver(schema),
   });
@@ -23,6 +26,8 @@ const VideoUpload2: React.FC = (props: any) => {
   const options = ['Right Handed', 'Left Handed'];
 
   const onSubmit = (data: { option: string }) => {
+    dispatch(setVideoHandedness(data.option)); 
+    console.log("Postion selection dispatched:",data.option)
     navigation.navigate('OnboardHome10');
   };
 
@@ -51,7 +56,7 @@ const VideoUpload2: React.FC = (props: any) => {
                   ]}
                   onPress={() => {
                     setSelectedOption(option);
-                    onChange(option); // Update form value
+                    onChange(option); 
                   }}>
                   <Text
                     style={[
