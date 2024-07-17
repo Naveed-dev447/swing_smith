@@ -28,6 +28,7 @@ import LoginAPICall from './LoginAPI';
 import { fetchTutorials } from '../../redux/Slices/TutorialSlice';
 import { useLoader } from '../../config/LoaderContext';
 import { CommonActions } from '@react-navigation/native';
+import { ShowToast } from '../../components/ShowToast';
 
 
 const loginSchema = yup.object().shape({
@@ -63,11 +64,13 @@ const LoginScreen: React.FC = (props: any) => {
     setLoading(true);
     try {
       const res = await LoginAPICall(data);
+      
       if (res.status === 201) {
         await dispatch(fetchTutorials()).unwrap();
         navigation.navigate('Onboard');
       }
     } catch (error) {
+      ShowToast('error', 'Login failed, Please try again');
       console.error(error);
     } finally {
       setLoading(false);

@@ -10,7 +10,7 @@ import { goBack } from '../../../shared/Utils/navigationRef';
 
 const ScoringView: React.FC = (props: any) => {
     const {route, navigation} = props
-    const [score, setScore] = useState(80);
+    const [score, setScore] = useState(70);
 
     return (
         <View style={globalStyles.container}>

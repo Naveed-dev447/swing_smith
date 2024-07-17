@@ -4,6 +4,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 
 import ScoringView from '../modules/Onboarding/Home/ScoringView';
 import GolfDurationView from '../modules/Onboarding/Home/GolfDurationView';
+import SwingTimeDuration from '../modules/Onboarding/Home/SwingTimeDuration';
 import SkillLevel from '../modules/Onboarding/Home/SkillLevel';
 import GameImproveView from '../modules/Onboarding/Home/GameImproveView';
 import CoachingLessonView from '../modules/Onboarding/Home/CoachingLessonView';
@@ -32,6 +33,11 @@ const RootNavigation = () => {
         options={{headerShown: false}}
         name="OnboardHome2"
         component={GolfDurationView}
+      />
+       <Stack.Screen
+        options={{headerShown: false}}
+        name="SwingTimeScreen"
+        component={SwingTimeDuration}
       />
       <Stack.Screen
         options={{headerShown: false}}
