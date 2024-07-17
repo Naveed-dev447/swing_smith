@@ -1,8 +1,8 @@
 import React from 'react';
-import {StyleSheet, Text, View, Image, ImageBackground} from 'react-native';
+import { StyleSheet, Text, View, Image, ImageBackground } from 'react-native';
 import * as Progress from 'react-native-progress';
 import CustomHeader from '../../shared/Component/CustomHeader';
-import {goBack} from '../../shared/Utils/navigationRef';
+import { goBack } from '../../shared/Utils/navigationRef';
 import CustomButton from '../../shared/Component/CustomButton';
 import globalStyles from '../Onboarding/styles';
 import {
@@ -11,6 +11,10 @@ import {
 } from 'react-native-responsive-screen';
 import {useSelector} from 'react-redux';
 import { RootState } from '../../redux/store';
+import { CommonActions } from '@react-navigation/native';
+
+
+
 
 const VideoUpload5: React.FC = (props: any) => {
   const {navigation} = props;
@@ -27,18 +31,42 @@ const VideoUpload5: React.FC = (props: any) => {
     selectedEquipment,
     selectedEquipment2,
   } = useSelector((state: RootState) => state.onboarding);
+  const handleNavigation = () => {
+    navigation.dispatch(
+      CommonActions.reset({
+        index: 0,
+        routes: [
+          {
+            name: 'BottomTabStack',
+            state: {
+              routes: [{
+                name: 'Home',
+                state: {
+                  routes: [
+                    { name: 'HomeScreen' },
+                    { name: 'AnalysisView' },
+                  ]
+                }
+              }]
+            }
+          }],
+      })
+    );
+    navigation.navigate('Home', { screen: 'AnalysisView' });
+  };
 
   return (
     <View style={styles.container}>
       <CustomHeader onBackPress={goBack} title="Analysing" />
       <View style={styles.progressBarContainer}>
-        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
           <Text style={styles.analyzingScore}>38%</Text>
           <Text style={styles.analyzingText}>Analyzing</Text>
         </View>
         <Progress.Bar
           progress={0.38}
           width={null}
+          height={20}
           style={styles.progressBar}
           color="#BBF246"
           unfilledColor="#ffff"
@@ -46,21 +74,20 @@ const VideoUpload5: React.FC = (props: any) => {
         />
       </View>
       <View style={styles.imageContainer}>
-        <ImageBackground
+        <Image
           source={require('../../assets/Images/importSwing.png')}
           style={styles.image}
-          resizeMode="stretch"></ImageBackground>
+        ></Image>
       </View>
       <View style={styles.tipContainer}>
-        <ImageBackground
+        <Image
           source={require('../../assets/Images/AnalyzingTip.png')}
-          style={styles.tipImage}
-          resizeMode="center"></ImageBackground>
+          style={styles.tipImage} />
       </View>
       <View style={styles.buttonContainer}>
         <CustomButton
           title="Next"
-          onPress={() => navigation.navigate('BottomTabStack')}
+          onPress={handleNavigation}
         />
       </View>
        {/* <View style={styles.onboardingDataContainer}>
@@ -94,7 +121,7 @@ const styles = StyleSheet.create({
   analyzingScore: {
     fontSize: 20,
     color: 'black',
-    fontWeight: 'bold',
+    fontFamily: 'Outfit-Regular',
     marginBottom: 10,
   },
   analyzingText: {
@@ -102,6 +129,7 @@ const styles = StyleSheet.create({
     color: 'black',
   },
   progressBar: {
+    borderRadius: wp('5%'),
     marginBottom: 20,
   },
   imageContainer: {
@@ -109,17 +137,20 @@ const styles = StyleSheet.create({
     // marginBottom: 10,
   },
   image: {
-    width: '100%',
-    height: 200,
-    justifyContent: 'flex-end',
+    width: wp('90%'),
+    height: hp('23%'),
+    borderRadius: wp('2%')
   },
   tipContainer: {
-    marginBottom: 10,
-    marginLeft: 15,
+    marginBottom: wp('10%'),
+    marginTop: wp('5%'),
+    alignItems: 'center',
+    marginLeft: wp('3%')
   },
   tipImage: {
-    width: '100%',
-    height: 300,
+    width: wp('93%'),
+    height: hp('23%'),
+    borderRadius: wp('2%')
   },
   tipOverlay: {
     backgroundColor: 'rgba(0, 0, 0, 0.6)',

@@ -43,7 +43,7 @@ const GolfDurationView: React.FC = (props: any) => {
                 </View>
             </View>
             <View style={globalStyles.buttonContainer}>
-                <CustomButton title="Next" onPress={() => navigation.navigate('OnboardHome3')} />
+                <CustomButton title="Next" onPress={() => navigation.navigate('SwingTimeScreen')} />
                   </View>
               </View>
     );
