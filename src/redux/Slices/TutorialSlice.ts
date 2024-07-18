@@ -1,9 +1,9 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import apiClient from '../../config/client';
-import { ITutorialResponse } from '../../types/Tutorial';
+import { ITutorial, ITutorialResponse } from '../../types/Tutorial';
 
 interface TutorialsState {
-  tutorials: ITutorialResponse[];
+  tutorials: ITutorial[];  // Change to ITutorial[] to only store tutorials
   loading: boolean;
   error: string | null;
 }
@@ -15,10 +15,11 @@ const initialState: TutorialsState = {
 };
 
 export const fetchTutorials = createAsyncThunk('tutorials/fetchTutorials', async () => {
-  const response = await apiClient.get<ITutorialResponse[]>('/tutorials');
-  console.log("Tutorial API responsee", response.data);
+  const response = await apiClient.get<ITutorialResponse>('/tutorials');
+  console.log("Tutorial API response", response.data);
   
-  return response.data;
+  // Return only the data field
+  return response.data.data;
 });
 
 const tutorialsSlice = createSlice({
@@ -31,7 +32,7 @@ const tutorialsSlice = createSlice({
         state.loading = true;
         state.error = null;
       })
-      .addCase(fetchTutorials.fulfilled, (state, action: PayloadAction<ITutorialResponse[]>) => {
+      .addCase(fetchTutorials.fulfilled, (state, action: PayloadAction<ITutorial[]>) => {
         state.loading = false;
         state.tutorials = action.payload;
       })

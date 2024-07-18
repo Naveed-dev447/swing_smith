@@ -17,31 +17,13 @@ import { goBack } from '../../../shared/Utils/navigationRef';
 import CustomHeader from '../../../shared/Component/CustomHeader';
 import { HorizontalScroll, Section, WorkoutCard } from '../Home/Common/Common';
 import TutorialCard from '../../../shared/Component/TutorialCard/TutorialCard';
-const tutorialVideos = [
-  {
-    uri: require('../../../assets/Images/DashBoard/Golf.mp4'),
-    title: 'Why you lose Balance in Golf?',
-    duration: '4 Min',
-    user: 'Raymond Reddington',
-    profileImage: require('../../../assets/Images/profilePicture.png'),
-  },
-  {
-    uri: require('../../../assets/Images/DashBoard/Golf.mp4'),
-    title: 'How to Improve Your Swing',
-    duration: '5 Min',
-    user: 'John Doe',
-    profileImage: require('../../../assets/Images/profilePicture.png'),
-  },
-  {
-    uri: require('../../../assets/Images/DashBoard/Golf.mp4'),
-    title: 'Mastering the Golf Grip',
-    duration: '3 Min',
-    user: 'Jane Smith',
-    profileImage: require('../../../assets/Images/profilePicture.png'),
-  },
-];
+import { RootState } from 'redux/store';
+import { useSelector } from 'react-redux';
+
 const RecommendedView: React.FC = () => {
   const [selectedTab, setSelectedTab] = useState('All');
+  const { tutorials, loading, error } = useSelector((state: RootState) => state.tutorials);
+
 
   return (
     <View style={recommandedStyles.container}>
@@ -141,11 +123,13 @@ const RecommendedView: React.FC = () => {
         {selectedTab === 'All' ? (
           <>
             <Section title="Recommended Tutorials">
+              <View style={{marginLeft:wp('5%')}}>
               <HorizontalScroll>
-                {tutorialVideos.map((video, index) => (
-                  <TutorialCard key={index} video={video} />
+                {tutorials?.map((item, index) => (
+                  <TutorialCard key={index} data={item} />
                 ))}
               </HorizontalScroll>
+              </View>
             </Section>
           </>
         ) : null}

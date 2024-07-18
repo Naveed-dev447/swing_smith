@@ -2,20 +2,16 @@ import React, {useState} from 'react';
 import {View, Text, TouchableOpacity, Image, StyleSheet} from 'react-native';
 import Video from 'react-native-video';
 import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
+import { ITutorial } from '../../../types/Tutorial'
 
-type VideoType = {
-  uri: any;
-  title: string;
-  duration: string;
-  user: string;
-  profileImage: any;
-};
+
 
 interface TutorialCardProps {
-  video: VideoType;
+  data: ITutorial;
 }
 
-const TutorialCard: React.FC<TutorialCardProps> = ({video}) => {
+const TutorialCard: React.FC<TutorialCardProps> = ({data}) => {
+  
   const [isPlaying, setIsPlaying] = useState(false);
 
   const handlePlayPausePress = () => {
@@ -23,13 +19,12 @@ const TutorialCard: React.FC<TutorialCardProps> = ({video}) => {
   };
 
   return (
-    <View style={styles.tutorialCard}>
       <TouchableOpacity
         onPress={handlePlayPausePress}
         style={styles.videoWrapper}>
         <View style={styles.videoContainer}>
           <Video
-            source={video.uri}
+            source={{ uri: data?.file_name}}
             style={styles.videoPlayer}
             paused={!isPlaying}
             resizeMode="cover"
@@ -41,20 +36,11 @@ const TutorialCard: React.FC<TutorialCardProps> = ({video}) => {
             />
           )}
           <View style={styles.overlayTop}>
-            <Text style={styles.tutorialTitleOverlay}>{video.title}</Text>
+            <Text style={styles.tutorialTitleOverlay}>{data?.description}</Text>
           </View>
           <View style={styles.tutorialFooterOverlay}>
-            <View
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}>
-              <Image source={video.profileImage} style={styles.profileImage} />
-              <Text style={styles.userName}>{video.user}</Text>
-            </View>
             <View style={styles.tutorialDuration}>
-              <Image
+            <Image
                 source={require('../../../assets/Images/clock.png')}
                 style={{
                   width: wp('4%'),
@@ -62,21 +48,19 @@ const TutorialCard: React.FC<TutorialCardProps> = ({video}) => {
                   marginRight: wp('1%'),
                 }}
               />
-              <Text style={styles.time}>{video.duration}</Text>
+              <Text style={styles.time}>{data?.duration} sec</Text>
             </View>
           </View>
         </View>
       </TouchableOpacity>
-    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  tutorialCard: {
-    marginRight: wp('2%'),
-  },
+
   videoWrapper: {
-    position: 'relative',
+    // marginLeft: wp('2%')
+    // position: 'relative',
   },
   videoContainer: {
     borderRadius: wp('2%'),
@@ -112,7 +96,7 @@ const styles = StyleSheet.create({
     right: 0,
     padding: wp('2%'),
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-end',
     alignItems: 'center',
   },
   profileImage: {
@@ -133,7 +117,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: wp('2%'),
     paddingVertical: wp('1%'),
     borderRadius: wp('3%'),
-    flexDirection: 'row',
+    justifyContent:'flex-end',
+    flexDirection:'row',
     alignItems: 'center',
   },
   time: {

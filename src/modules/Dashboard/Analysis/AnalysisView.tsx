@@ -16,6 +16,8 @@ import {
 } from '../../Dashboard/Home/Common/Common';
 import TutorialCard from '../../../shared/Component/TutorialCard/TutorialCard';
 import recommandedStyles from '../Recommended/styles';
+import { RootState } from 'redux/store';
+import { useSelector } from 'react-redux';
 const workoutImage = require('../../../assets/Images/swingAnalysis.png');
 const profileImage = require('../../../assets/Images/profilePicture.png');
 const flagImage = require('../../../assets/Images/flag.png');
@@ -47,9 +49,12 @@ const tutorialVideos = [
 ];
 
 const AnalysisView: React.FC = (props: any) => {
-  const {navigation} = props;
+  const {navigation, route} = props;
   const [selectedTab, setSelectedTab] = useState('Overall');
-
+  const { tutorials, loading, error } = useSelector((state: RootState) => state.tutorials);
+  console.log("Videos in Analysis", tutorials);
+   console.log("Response", route.params);
+   
   return (
     <View style={styles.container}>
       <CustomHeader onBackPress={navigation.goBack} title="Swing Analysis" />
@@ -186,9 +191,9 @@ const AnalysisView: React.FC = (props: any) => {
             <View style={styles.workOutContainer}>
               <Section title="Recommended Tutorials">
                 <HorizontalScroll>
-                  {tutorialVideos.map((video, index) => (
-                    <TutorialCard key={index} video={video} />
-                  ))}
+                {tutorials.map((item, index) => (
+                <TutorialCard key={index} data={item} />
+              ))}
                 </HorizontalScroll>
               </Section>
             </View>

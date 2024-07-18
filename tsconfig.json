@@ -17,7 +17,8 @@
       "*": ["src/*"],
       "components/*": ["src/components/*"],
       "modules": ["src/modules"],
-      "images": ["src/assets/images"]
+      "images": ["src/assets/images"],
+      "config": ["src/config/*"]
     }
   },
   "exclude": [

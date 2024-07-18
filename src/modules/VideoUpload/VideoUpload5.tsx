@@ -1,10 +1,9 @@
-import React from 'react';
-import { StyleSheet, Text, View, Image, ImageBackground } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, Text, View, Image, ImageBackground, Platform } from 'react-native';
 import * as Progress from 'react-native-progress';
 import CustomHeader from '../../shared/Component/CustomHeader';
 import { goBack } from '../../shared/Utils/navigationRef';
 import CustomButton from '../../shared/Component/CustomButton';
-import globalStyles from '../Onboarding/styles';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -12,6 +11,11 @@ import {
 import {useSelector} from 'react-redux';
 import { RootState } from '../../redux/store';
 import { CommonActions } from '@react-navigation/native';
+ import { useLoader } from '../../config/LoaderContext';
+import UploadVideoAPICall from '../Onboarding/Home/APICalls/UploadVideoAPI'
+import { ShowToast } from '../../components/ShowToast';
+import GetTipAPICall from '../Onboarding/Home/APICalls/TipAPI';
+import { ITipsResponse } from 'types/Tips';
 
 
 
@@ -31,65 +35,104 @@ const VideoUpload5: React.FC = (props: any) => {
     selectedEquipment,
     selectedEquipment2,
   } = useSelector((state: RootState) => state.onboarding);
-  const handleNavigation = () => {
+  const { loading, setLoading } = useLoader();
+  const [getTip, setGetTip] = useState<ITipsResponse | null>(null);  
+
+  
+  const handleNextPress = async () => {
+    if (uploadedVideo) {
+      setLoading(true);
+      const formData = new FormData();
+      formData.append('fileName', {
+        uri: Platform.OS === 'android' ? uploadedVideo : uploadedVideo.replace('file://', ''),
+        name: 'video.mp4',
+        type: 'video/mp4'
+      });
+  
+      try {
+        const tipResponse = await GetTipAPICall();
+        console.log("Tip Response:", tipResponse);  // Check if this logs the expected data
+        setGetTip(tipResponse);
+  
+        const uploadResponse = await UploadVideoAPICall(formData);
+        if (uploadResponse.status === 200) {
+          setLoading(false);
+          ShowToast('success', uploadResponse.message);
+          handleNavigation(tipResponse);  // Ensure data is passed to handleNavigation
+        }
+      } catch (error) {
+        ShowToast('error', 'Request is not Completed, Please try again');
+        setLoading(false)
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
+    }
+  };
+  
+
+  React.useEffect(() => {
+    handleNextPress();
+  }, []);
+
+
+  const handleNavigation = (data: any) => {
+    console.log("Navigating with data:", data);  // Check if data is logged correctly
+    
     navigation.dispatch(
       CommonActions.reset({
         index: 0,
-        routes: [
-          {
-            name: 'BottomTabStack',
-            state: {
-              routes: [{
-                name: 'Home',
-                state: {
-                  routes: [
-                    { name: 'HomeScreen' },
-                    { name: 'AnalysisView' },
-                  ]
-                }
-              }]
-            }
-          }],
+        routes: [{ name: 'BottomTabStack' }],
       })
     );
-    navigation.navigate('Home', { screen: 'AnalysisView' });
+    
+    navigation.navigate('Home', {
+      screen: 'AnalysisView',
+      params: { data }  // Pass the data using params
+    });
   };
+  
+
 
   return (
     <View style={styles.container}>
       <CustomHeader onBackPress={goBack} title="Analysing" />
-      <View style={styles.progressBarContainer}>
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+      {loading && <View style={styles.progressBarContainer}> 
+        {/* <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
           <Text style={styles.analyzingScore}>38%</Text>
           <Text style={styles.analyzingText}>Analyzing</Text>
-        </View>
-        <Progress.Bar
+        </View> */}
+         <Progress.Bar
           progress={0.38}
           width={null}
           height={20}
           style={styles.progressBar}
           color="#BBF246"
+          indeterminate={true}
           unfilledColor="#ffff"
           borderWidth={0.5}
-        />
-      </View>
+        /> 
+      </View> }
       <View style={styles.imageContainer}>
         <Image
           source={require('../../assets/Images/importSwing.png')}
           style={styles.image}
         ></Image>
       </View>
+      // Attay show getTip state messge inside this picture with Text tag
       <View style={styles.tipContainer}>
-        <Image
+        <ImageBackground
           source={require('../../assets/Images/AnalyzingTip.png')}
-          style={styles.tipImage} />
+          style={styles.tipImage} >
+
+          </ImageBackground>
       </View>
-      <View style={styles.buttonContainer}>
+      {/* <View style={styles.buttonContainer}>
         <CustomButton
           title="Next"
           onPress={handleNavigation}
         />
-      </View>
+      </View> */}
        {/* <View style={styles.onboardingDataContainer}>
        <Text style={styles.onboardingDataText}>Scoring Average: {scoringAverage}</Text>
        <Text style={styles.onboardingDataText}>Practice Duration: {practiceDuration}</Text>
