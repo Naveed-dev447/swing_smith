@@ -12,7 +12,8 @@ import {
 import TutorialCard from '../../../shared/Component/TutorialCard/TutorialCard';
 import { ChallengeCard } from './Common/ChallengeCard';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../../redux/Store';
+import { AppDispatch, RootState } from '../../../redux/Store';
+import { fetchTutorials } from '../../../redux/Slices/TutorialSlice';
 
 
 const tutorialVideos = [
@@ -45,6 +46,13 @@ const HomeView = (props: any) => {
   const { tutorials, loading, error } = useSelector((state: RootState) => state.tutorials);
   console.log("Videos ", tutorials);
 
+
+
+  const dispatch = useDispatch<AppDispatch>();
+
+  React.useEffect(() => {
+    dispatch(fetchTutorials()).unwrap();
+  }, [dispatch]);
 
   const toggleModal = () => {
     setModalVisible(!modalVisible);
@@ -103,9 +111,9 @@ const HomeView = (props: any) => {
 
         <Section title="Recommended Tutorials">
           <HorizontalScroll>
-            {tutorialVideos.map((video, index) => (
-              <TutorialCard key={index} video={video} />
-            ))}
+          {tutorials?.map((item, index) => (
+              <TutorialCard key={index} data={item} />
+              ))}
           </HorizontalScroll>
         </Section>
 

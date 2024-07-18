@@ -8,6 +8,8 @@ import styles from './WeightTransferDrillStyles';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import { HorizontalScroll, Section } from '../Home/Common/Common';
 import TutorialCard from '../../../shared/Component/TutorialCard/TutorialCard';
+import { useSelector } from 'react-redux';
+import { RootState } from 'redux/store';
 
 const tutorialVideos = [
   {
@@ -35,6 +37,8 @@ const tutorialVideos = [
 
 const WeightTransferDrill: React.FC = (props: any) => {
   const { navigation } = props;
+  const { tutorials, loading, error } = useSelector((state: RootState) => state.tutorials);
+
   const videoLink = require('../../../assets/Images/DashBoard/Golf.mp4');
   const recommendedVideos = [
     {
@@ -63,46 +67,46 @@ const WeightTransferDrill: React.FC = (props: any) => {
 
   const handleNextPress = () => {};
 
-  const renderTutorialCard = (
-    video: { uri: any; title: string; duration: string },
-    index: number,
-  ) => (
-    <View style={styles.tutorialCard} key={index}>
-      <TouchableOpacity
-        onPress={() => handlePlayPausePress(video.uri)}
-        style={styles.videoWrapper}>
-        <Video
-          ref={(ref) => {
-            if (ref) {
-              videoRefs.current[video.uri] = ref;
-            }
-          }}
-          source={video.uri}
-          style={styles.videoPlayer}
-          paused={playingVideoUri !== video.uri || !isPlaying}
-          resizeMode="cover"
-        />
-        {(playingVideoUri !== video.uri || !isPlaying) && (
-          <Image
-            source={require('../../../assets/Images/play.png')}
-            style={styles.playIcon}
-          />
-        )}
-        <View style={styles.overlayTop}>
-          <Text style={styles.tutorialTitleOverlay}>{video.title}</Text>
-        </View>
-        <View style={styles.tutorialFooterOverlay}>
-          <View style={styles.tutorialDuration}>
-            <Image
-              source={require('../../../assets/Images/clock.png')}
-              style={{ width: wp('4%'), height: wp('4%'), marginRight: wp('1%') }}
-            />
-            <Text style={styles.time}>{video.duration}</Text>
-          </View>
-        </View>
-      </TouchableOpacity>
-    </View>
-  );
+  // const renderTutorialCard = (
+  //   video: { uri: any; title: string; duration: string },
+  //   index: number,
+  // ) => (
+  //   <View style={styles.tutorialCard} key={index}>
+  //     <TouchableOpacity
+  //       onPress={() => handlePlayPausePress(video.uri)}
+  //       style={styles.videoWrapper}>
+  //       <Video
+  //         ref={(ref) => {
+  //           if (ref) {
+  //             videoRefs.current[video.uri] = ref;
+  //           }
+  //         }}
+  //         source={video.uri}
+  //         style={styles.videoPlayer}
+  //         paused={playingVideoUri !== video.uri || !isPlaying}
+  //         resizeMode="cover"
+  //       />
+  //       {(playingVideoUri !== video.uri || !isPlaying) && (
+  //         <Image
+  //           source={require('../../../assets/Images/play.png')}
+  //           style={styles.playIcon}
+  //         />
+  //       )}
+  //       <View style={styles.overlayTop}>
+  //         <Text style={styles.tutorialTitleOverlay}>{video.title}</Text>
+  //       </View>
+  //       <View style={styles.tutorialFooterOverlay}>
+  //         <View style={styles.tutorialDuration}>
+  //           <Image
+  //             source={require('../../../assets/Images/clock.png')}
+  //             style={{ width: wp('4%'), height: wp('4%'), marginRight: wp('1%') }}
+  //           />
+  //           <Text style={styles.time}>{video.duration}</Text>
+  //         </View>
+  //       </View>
+  //     </TouchableOpacity>
+  //   </View>
+  // );
 
   return (
     <View style={globalStyles.container}>
@@ -111,52 +115,15 @@ const WeightTransferDrill: React.FC = (props: any) => {
         title="Weight Transfer Drill"
       />
       <ScrollView contentContainerStyle={styles.scrollContentContainer}>
-        <TouchableOpacity
-          style={[
-            styles.videoContainer,
-            playingVideoUri && styles.videoContainerWithoutBorder,
-          ]}
-          onPress={() => handlePlayPausePress(videoLink)}>
-          <TouchableOpacity
-            onPress={() => handlePlayPausePress(videoLink)}
-            style={styles.videoWrapper}>
-            <Video
-              ref={(ref) => {
-                if (ref) {
-                  videoRefs.current[videoLink] = ref;
-                }
-              }}
-              source={videoLink}
-              style={styles.videoPlayer}
-              paused={!isPlaying}
-              resizeMode="cover"
-            />
-            {!isPlaying && (
-              <Image
-                source={require('../../../assets/Images/play.png')}
-                style={styles.playIcon}
-              />
-            )}
-            <View style={styles.overlayTop}>
-              <Text style={styles.tutorialTitleOverlay}>
-                Why you loose Balance in Golf?
-              </Text>
-            </View>
-            <View style={styles.tutorialFooterOverlay}>
-              <View style={styles.tutorialDuration}>
-                <Image
-                  source={require('../../../assets/Images/clock.png')}
-                  style={{
-                    width: wp('4%'),
-                    height: wp('4%'),
-                    marginRight: wp('1%'),
-                  }}
-                />
-                <Text style={styles.time}>4 Min</Text>
-              </View>
-            </View>
-          </TouchableOpacity>
-        </TouchableOpacity>
+      <>
+            <Section title="Recommended Tutorials">
+              <HorizontalScroll>
+                {tutorials?.map((item, index) => (
+                  <TutorialCard key={index} data={item} />
+                ))}
+              </HorizontalScroll>
+            </Section>
+          </>
         <View style={styles.instructionContainer}>
           <View style={styles.instructionHeader}>
             <Text style={styles.instructionTitle}>Drill Instructions</Text>
@@ -173,8 +140,8 @@ const WeightTransferDrill: React.FC = (props: any) => {
         </View>
        <Section title="Recommended Tutorials">
           <HorizontalScroll>
-            {tutorialVideos.slice(1).map((video, index) => (
-              <TutorialCard key={index} video={video} />
+            {tutorials.map((item, index) => (
+              <TutorialCard key={index} data={item} />
             ))}
           </HorizontalScroll>
         </Section>

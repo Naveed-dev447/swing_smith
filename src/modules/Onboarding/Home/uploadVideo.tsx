@@ -191,11 +191,23 @@ import { goBack } from '../../../shared/Utils/navigationRef';
 import { setUploadedVideo } from '../../../redux/Slices/OnboardingSlice';
 import { useLoader } from '../../../config/LoaderContext';
 import Progress from 'react-native-progress/Bar';
-import { ShowToast } from '../../../components/ShowToast';
 
 const schema = yup.object().shape({
   video: yup.string().required('Please upload a video'),
 });
+// const schema = yup.object().shape({
+//   video: yup.string().test(
+//     'required-if-not-empty',
+//     'Please upload a video',
+//     (value) => {
+//       // Check if the field has a value and ensure it's not empty
+//       if (value && value.length > 0) {
+//         return true; // Field is valid if it has a value
+//       }
+//       return true; // Field is valid if it is empty (not required)
+//     }
+//   ),
+// });
 
 const UploadVideo: React.FC = (props: any) => {
   const { route, navigation } = props;
@@ -228,11 +240,11 @@ const UploadVideo: React.FC = (props: any) => {
 
   const handleNextPress = () => {
     if (videoUri) {
-      dispatch(setUploadedVideo(videoUri)); // Dispatch video URI to Redux
+      dispatch(setUploadedVideo(videoUri)); 
       console.log("video url dispatched:",videoUri)
-      navigation.navigate('OnboardHome8'); // Navigate to the next screen
-    }
+      navigation.navigate('OnboardHome8');
   };
+}
 
   return (
     <View style={globalStyles.container}>

@@ -7,8 +7,7 @@ import {
 const recommandedStyles = StyleSheet.create({
   container: {
     flex: 1,
-    // padding: wp('4%'),
-    alignItems: 'center',
+    padding: wp('1%'),
     backgroundColor: '#fff',
     marginBottom: wp('20%')
   },
@@ -56,9 +55,9 @@ const recommandedStyles = StyleSheet.create({
     justifyContent: 'space-around',
   },
   cardContainer: {
-    width: wp('45%'),
+    width: wp('44%'),
     // padding: wp('3%'),
-    height: hp('20%'),
+    height: hp('22%'),
     marginBottom: wp('5%'),
     borderRadius: wp('2%'),
     backgroundColor: '#fff',

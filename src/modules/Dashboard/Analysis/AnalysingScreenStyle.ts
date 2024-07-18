@@ -165,7 +165,7 @@ export const styles = StyleSheet.create({
     marginVertical: hp('2%'),
   },
   tab: {
-    width: wp('25%'),
+    width: wp('30%'),
     padding: wp('2%'),
     justifyContent: 'center',
     alignItems: 'center',
