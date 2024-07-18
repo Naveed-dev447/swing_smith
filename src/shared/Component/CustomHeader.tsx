@@ -5,6 +5,7 @@ import {
   StyleSheet,
   Image,
   Text,
+  Platform,
 } from 'react-native';
 import {
   widthPercentageToDP as wp,
@@ -28,7 +29,6 @@ const CustomHeader: React.FC<CustomHeaderProps> = ({onBackPress, title}) => {
       </TouchableOpacity>
       {title && <Text style={styles.headerTitle}>{title}</Text>}
       <View style={styles.rightSpacer} />
-
     </View>
   );
 };
@@ -37,10 +37,9 @@ const styles = StyleSheet.create({
   headerContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: hp('7%'),
+    marginTop: Platform.OS === 'android' ? hp('3%') : hp('6%'),
     paddingHorizontal: wp('5%'),
-    justifyContent: 'space-between', 
-
+    justifyContent: 'space-between',
   },
   backButton: {
     padding: wp('1%'),
@@ -58,13 +57,13 @@ const styles = StyleSheet.create({
   },
   headerTitle: {
     fontSize: wp('5%'),
-    fontFamily:'Outfit-SemiBold',
+    fontFamily: 'Outfit-SemiBold',
     marginLeft: wp('3%'),
     color: '#000',
     textAlign: 'center',
     flex: 1,
   },
-  rightSpacer: { 
+  rightSpacer: {
     width: wp('10%'),
   },
 });
