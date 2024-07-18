@@ -14,7 +14,6 @@ import { ChallengeCard } from './Common/ChallengeCard';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../redux/Store';
 
-
 const tutorialVideos = [
   {
     uri: require('../../../assets/Images/DashBoard/Golf.mp4'),
