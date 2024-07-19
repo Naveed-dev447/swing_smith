@@ -18,6 +18,7 @@ const workoutIcon = require('../../../assets/Images/workoutIcon.png');
 const checkIcon = require('../../../assets/Images/checkIcon.png'); 
 const checkIconSelected = require('../../../assets/Images/selectedCheckIcon.png'); 
 const workoutImage = require('../../../assets/Images/workout.png'); 
+import LottieView from 'lottie-react-native';
 
 const workouts = ['Side Plank', 'Russian Twists', 'Plank', 'Crunches'];
 
@@ -30,12 +31,12 @@ const WorkoutView = (props: any) => {
       if (!prevSelected.includes(workout)) {
         return [...prevSelected, workout];
       }
-      return prevSelected; // Return the same array if the item is already selected
+      return prevSelected; 
     });
   };
 
   const handleMarkAsDone = () => {
-    setSelectedWorkouts(workouts); // Mark all workouts as selected
+    setSelectedWorkouts(workouts); 
     console.log('Selected Workouts:', workouts);
     // navigation.navigate('OnboardHome8');
   };
@@ -45,7 +46,9 @@ const WorkoutView = (props: any) => {
       <CustomHeader onBackPress={goBack} title='Core Strength'/>
 
       <ScrollView contentContainerStyle={styles.contentContainer}>
-        <Image source={workoutImage} style={styles.image} />
+        <View style={styles.imageView}>
+      <LottieView style ={styles.image} source={require('../../../assets/animations/Plank.json')} autoPlay loop />
+      </View>
         <Text style={styles.workoutTitle}>Workout Detail</Text>
         <Text style={styles.detail}>
           The lower abdomen and hips are the most difficult areas of the body to
@@ -100,6 +103,11 @@ const styles = StyleSheet.create({
   image: {
     width: wp('90%'),
     height: wp('50%'),
+  },
+  imageView:{
+    width: wp('90%'),
+    height: wp('50%'),
+    backgroundColor:'#F6FFE7',
     marginBottom: hp('2%'),
   },
   workoutTitle: {
