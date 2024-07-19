@@ -10,7 +10,6 @@ import {
 import * as Progress from 'react-native-progress';
 import CustomHeader from '../../shared/Component/CustomHeader';
 import {goBack} from '../../shared/Utils/navigationRef';
-import CustomButton from '../../shared/Component/CustomButton';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -205,14 +204,16 @@ const styles = StyleSheet.create({
   },
   tipTitle: {
     fontSize: 16,
-    fontWeight: 'bold',
+    fontFamily: 'Outfit-Bold',
     marginBottom: 10,
     color: 'black',
   },
   tipText: {
-    fontSize: 14,
+    paddingHorizontal:10,
+    fontSize:  wp('5%'),
     textAlign: 'center',
     color: 'black',
+    fontFamily: 'Outfit-Regular',
   },
   buttonContainer: {
     bottom: wp('4%'),
