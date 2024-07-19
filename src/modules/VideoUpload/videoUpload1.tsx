@@ -19,12 +19,7 @@ const VideoUpload1: React.FC = (props: any) => {
 
 
   const handleSkip = () => {
-    navigation.dispatch(
-      CommonActions.reset({
-        index: 0,
-        routes: [{ name: 'OnboardHome13' }],
-      })
-    );
+    navigation.navigate('OnboardHome13');
   };
 
   return (
