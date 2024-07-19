@@ -44,14 +44,16 @@ const BottomTabNavigator = () => {
           );
         },
         tabBarShowLabel: false,
-        tabBarStyle: Platform.OS === 'ios' ? styles.tabBarIOS : styles.tabBar,
+          tabBarStyle: [
+          Platform.OS === 'ios' ? styles.tabBarIOS : styles.tabBar,
+          route.name === 'UploadVideo' ? { display: 'none' } : null,
+        ],
         headerShown: false,
       })}>
       <Tab.Screen name="Home" component={HomeStack} />
       <Tab.Screen name="Analysis" component={AnalysisView} />
       <Tab.Screen name="UploadVideo" component={UploadVideo} /> 
       <Tab.Screen name="Workouts" component={WorkoutView} />
-      
       <Tab.Screen name="Profile" component={WeightTransferDrill} />
     </Tab.Navigator>
   );
