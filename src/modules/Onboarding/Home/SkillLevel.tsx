@@ -105,6 +105,7 @@ const styles = StyleSheet.create({
     marginTop: hp('5%'),
   },
   errorText: {
+    textAlign: 'center',
     color: 'red',
     marginLeft: 10,
     fontSize: wp('3.5%'),

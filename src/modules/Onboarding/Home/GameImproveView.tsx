@@ -101,6 +101,7 @@ const styles = StyleSheet.create({
   errorText: {
     fontFamily: 'Poppins-Regular',
     color: 'red',
+    textAlign: 'center',
     fontSize: wp('3%'),
     marginLeft:10,
     marginTop: hp('1%'),

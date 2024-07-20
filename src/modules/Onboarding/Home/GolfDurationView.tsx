@@ -37,8 +37,8 @@ const GolfDurationView: React.FC = (props: any) => {
             maximumValue={100}
             value={score}
             onValueChange={handleSliderChange}
-            minimumTrackTintColor="#00FF00"
-            maximumTrackTintColor="#000000"
+            minimumTrackTintColor="#B2FF59"
+            maximumTrackTintColor="#E0E0E0"
             thumbTintColor="#FFFFFF"
             step={10}
           />

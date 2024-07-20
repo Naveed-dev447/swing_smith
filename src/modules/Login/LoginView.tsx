@@ -67,7 +67,7 @@ const LoginScreen: React.FC = (props: any) => {
       
       if (res.status === 201) {
         await dispatch(fetchTutorials()).unwrap();
-        navigation.navigate('Onboard');
+        navigation.replace('Onboard');
       }
     } catch (error) {
       ShowToast('error', 'Login failed, Please try again');
