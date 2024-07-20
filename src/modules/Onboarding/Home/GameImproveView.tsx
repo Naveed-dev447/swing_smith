@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins-Regular',
     color: 'red',
     fontSize: wp('3%'),
-    marginLeft:10,
+    textAlign: 'center',
     marginTop: hp('1%'),
   },
 });

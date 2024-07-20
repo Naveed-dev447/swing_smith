@@ -105,9 +105,10 @@ const styles = StyleSheet.create({
     marginTop: hp('5%'),
   },
   errorText: {
+    fontFamily: 'Poppins-Regular',
     color: 'red',
-    marginLeft: 10,
-    fontSize: wp('3.5%'),
+    fontSize: wp('3%'),
+    textAlign: 'center',
     marginTop: hp('1%'),
   },
 });

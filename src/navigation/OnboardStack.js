@@ -17,6 +17,7 @@ import VideoUpload4 from './../modules/VideoUpload/videoUpload4';
 import VideoUpload5 from './../modules/VideoUpload/VideoUpload5'
 import UploadVideo from './../modules/Onboarding/Home/uploadVideo.tsx';
 import SwingAnalysis from './../modules/Dashboard/Analysis/SwingAnalysis.tsx';
+import WorkoutView from '../modules/Dashboard/Workout/WorkoutView.tsx';
 
 const Stack = createStackNavigator();
 
@@ -94,12 +95,14 @@ const RootNavigation = () => {
         name="OnboardHome13"
         component={VideoUpload5}
       />
-      
+      WorkoutView
       <Stack.Screen
         options={{headerShown: false}}
         name="SwingAnalysis"
         component={SwingAnalysis}
       />
+     
+
     </Stack.Navigator>
   );
 };
