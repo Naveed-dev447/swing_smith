@@ -13,7 +13,6 @@ import RegisterView from '../modules/Register/RegisterView';
 import BottomTabNavigator from './BottomTabStack';
 import { LoaderProvider } from '../config/LoaderContext';
 import Toast from 'react-native-toast-message';
-
 import VideoUpload1 from '../modules/VideoUpload/videoUpload1.tsx';
 import VideoUpload2 from './../modules/VideoUpload/videoUpload2';
 import VideoUpload3 from './../modules/VideoUpload/videoUpload3';
@@ -143,9 +142,7 @@ const RootNavigation = () => {
             name="Congratulation"
             component={CongratulationModal}
           />
-
         </Stack.Navigator>
-
         <Toast config={toastConfig} />
       </NavigationContainer>
     </LoaderProvider>

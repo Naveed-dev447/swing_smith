@@ -6,7 +6,6 @@ import {
   DrillCard,
   HorizontalScroll,
   Section,
-  // TutorialCard,
   WorkoutCard,
   Header,
   Banner,
@@ -22,6 +21,9 @@ import * as Progress from 'react-native-progress';
 
 import { fetchSwingAnalysis, resetSwingAnalysisState } from '../../../redux/Slices/SwingAnalysisSlice';
 import ProgressLoader from '../../../components/ProgressLoader';
+
+import VideoModal from '../../../components/VideoModal';
+
 const workoutImage = require('../../../assets/Images/swingAnalysis.png');
 const profileImage = require('../../../assets/Images/profilePicture.png');
 const flagImage = require('../../../assets/Images/flag.png');
@@ -36,6 +38,11 @@ const AnalysisView: React.FC = (props: any) => {
   console.log("Id id  id id idid id ", params);
 
   const [selectedTab, setSelectedTab] = useState('Overall');
+  const [modalVisible, setModalVisible] = useState(false);
+  const [selectedVideo, setSelectedVideo] = useState<{
+    uri: string;
+    title: string;
+  } | null>(null);
   const dispatch = useDispatch<AppDispatch>();
   const { swingAnalysis, loading, error } = useSelector((state: RootState) => state.swingAnalysis);
   const analysis = swingAnalysis?.analysis;
@@ -80,7 +87,8 @@ const AnalysisView: React.FC = (props: any) => {
             title={drillType}
             progress={progress}
             description={Array.isArray(drillItems) ? drillItems.join(', ') : drillItems}
-            score="7.2/10" // Replace with actual logic to determine score
+            score="7.2/10"
+            navigateTo='' // Replace with actual logic to determine score
           />
         );
       });
@@ -136,6 +144,26 @@ const AnalysisView: React.FC = (props: any) => {
   };
 
   const shuffledFeedbacks = getShuffledFeedbacks();
+
+  // const [modalVisible, setModalVisible] = useState(false);
+  // const [selectedVideo, setSelectedVideo] = useState<{
+  //   uri: string;
+  //   title: string;
+  // } | null>(null);
+   
+
+  //  const handleVideoPress = (uri: string, title: string) => {
+  //   setSelectedVideo({uri, title});
+  //   setModalVisible(true);
+  // };
+  const toggleModal = () => {
+    setModalVisible(!modalVisible);
+  };
+
+  const handleVideoPress = (uri: string, title: string) => {
+    setSelectedVideo({uri, title});
+    setModalVisible(true);
+  };
 
   return (
     <View style={styles.container}>
@@ -243,7 +271,11 @@ const AnalysisView: React.FC = (props: any) => {
               <Section title="Recommended Tutorials">
                 <HorizontalScroll>
                   {swingAnalysis?.recomended_tutorials?.map((item, index) => (
-                    <TutorialCard key={index} data={item} />
+                        <TutorialCard
+                          key={index}
+                          data={item}
+                          onPress={() => handleVideoPress(item.file_name, item.title)}
+                        />
                   ))}
                 </HorizontalScroll>
               </Section>
@@ -251,6 +283,14 @@ const AnalysisView: React.FC = (props: any) => {
           </>
         ) : null}
       </ScrollView>
+      {selectedVideo && (
+        <VideoModal
+          visible={modalVisible}
+          onClose={() => setModalVisible(false)}
+          videoUri={selectedVideo.uri}
+          title={selectedVideo.title}
+        />
+      )}
     </View>
 
   )

@@ -1,50 +1,38 @@
-import React, { useState } from 'react';
-import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
+import React, {useState} from 'react';
+import {View, Text, ScrollView, TouchableOpacity} from 'react-native';
 import globalStyles from './styles';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import {
-  DrillCard, HorizontalScroll, Section, WorkoutCard, Header,
-  Banner, UploadSwing, AnalysisCard
+  DrillCard,
+  HorizontalScroll,
+  Section,
+  WorkoutCard,
+  Header,
+  Banner,
+  UploadSwing,
+  AnalysisCard,
 } from './Common/Common';
 import TutorialCard from '../../../shared/Component/TutorialCard/TutorialCard';
-import { ChallengeCard } from './Common/ChallengeCard';
-import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch, RootState } from '../../../redux/Store';
-import { fetchTutorials } from '../../../redux/Slices/TutorialSlice';
-
-const tutorialVideos = [
-  {
-    uri: require('../../../assets/Images/DashBoard/Golf.mp4'),
-    title: 'Why you lose Balance in Golf?',
-    duration: '4 Min',
-    user: 'Raymond Reddington',
-    profileImage: require('../../../assets/Images/profilePicture.png'),
-  },
-  {
-    uri: require('../../../assets/Images/DashBoard/Golf.mp4'),
-    title: 'How to Improve Your Swing',
-    duration: '5 Min',
-    user: 'John Doe',
-    profileImage: require('../../../assets/Images/profilePicture.png'),
-  },
-  {
-    uri: require('../../../assets/Images/DashBoard/Golf.mp4'),
-    title: 'Mastering the Golf Grip',
-    duration: '3 Min',
-    user: 'Jane Smith',
-    profileImage: require('../../../assets/Images/profilePicture.png'),
-  },
-];
+import {useDispatch, useSelector} from 'react-redux';
+import {AppDispatch, RootState} from '../../../redux/Store';
+import {fetchTutorials} from '../../../redux/Slices/TutorialSlice';
+import VideoModal from '../../../components/VideoModal';
 
 const HomeView = (props: any) => {
-  const { route, navigation } = props;
+  const {route, navigation} = props;
   const [modalVisible, setModalVisible] = useState(false);
   const { tutorials, loading, error } = useSelector((state: RootState) => state.tutorials);
 
 
+  const [selectedVideo, setSelectedVideo] = useState<{
+    uri: string;
+    title: string;
+  } | null>(null);
+
+  console.log('Videos ', tutorials);
 
   const dispatch = useDispatch<AppDispatch>();
 
@@ -54,6 +42,11 @@ const HomeView = (props: any) => {
 
   const toggleModal = () => {
     setModalVisible(!modalVisible);
+  };
+
+  const handleVideoPress = (uri: string, title: string) => {
+    setSelectedVideo({uri, title});
+    setModalVisible(true);
   };
 
   return (
@@ -66,13 +59,13 @@ const HomeView = (props: any) => {
       <ScrollView contentContainerStyle={globalStyles.SwingLogScrollView}>
         <Banner />
         <View>
-          <Text style={[globalStyles.sectionTitle, { marginTop: hp('2%') }]}>
+          <Text style={[globalStyles.sectionTitle, {marginTop: hp('2%')}]}>
             Recent Analysis
           </Text>
           <ScrollView
             horizontal
             showsHorizontalScrollIndicator={false}
-            style={{ marginVertical: hp('2%') }}>
+            style={{marginVertical: hp('2%')}}>
             <AnalysisCard
               score="7.2"
               postureScore="8.4"
@@ -89,7 +82,15 @@ const HomeView = (props: any) => {
             />
           </ScrollView>
         </View>
-        <UploadSwing onClick={() => navigation.navigate('Onboard', { screen: 'OnboardHome12' }, 'HomeUpload')} />
+        <UploadSwing
+          onClick={() =>
+            navigation.navigate(
+              'Onboard',
+              {screen: 'OnboardHome12'},
+              'HomeUpload',
+            )
+          }
+        />
 
         <Section title="Recommended Workouts">
           <HorizontalScroll>
@@ -110,11 +111,23 @@ const HomeView = (props: any) => {
         <Section title="Recommended Tutorials">
           <HorizontalScroll>
             {tutorials?.map((item, index) => (
-              <TutorialCard key={index} data={item} />
+              <TutorialCard
+                key={index}
+                data={item}
+                onPress={() => handleVideoPress(item.file_name, item.description)}
+              />
             ))}
           </HorizontalScroll>
         </Section>
       </ScrollView>
+      {selectedVideo && (
+        <VideoModal
+          visible={modalVisible}
+          onClose={() => setModalVisible(false)}
+          videoUri={selectedVideo.uri}
+          title={selectedVideo.title}
+        />
+      )}
     </View>
   );
 };

@@ -19,12 +19,24 @@ import {HorizontalScroll, Section, WorkoutCard} from '../Home/Common/Common';
 import TutorialCard from '../../../shared/Component/TutorialCard/TutorialCard';
 import {RootState} from 'redux/store';
 import {useSelector} from 'react-redux';
+import VideoModal from '../../../components/VideoModal';
 
 const RecommendedView: React.FC = () => {
   const [selectedTab, setSelectedTab] = useState('All');
-  const {tutorials, loading, error} = useSelector(
+  const { tutorials, loading, error } = useSelector(
     (state: RootState) => state.tutorials,
   );
+
+  const [modalVisible, setModalVisible] = useState(false);
+  const [selectedVideo, setSelectedVideo] = useState<{
+    uri: string;
+    title: string;
+  } | null>(null);
+
+  const handleVideoPress = (uri: string, title: string) => {
+    setSelectedVideo({ uri, title });
+    setModalVisible(true);
+  };
 
   return (
     <View style={recommandedStyles.container}>
@@ -61,21 +73,21 @@ const RecommendedView: React.FC = () => {
                   progress="02/04"
                   description="Planks, Russian twists, Medicine ball rotations"
                   score="7.2/10"
-                  navigateTo="WorkoutView" // Specify the screen name to navigate to
+                  navigateTo="WorkoutView"
                 />
                 <WorkoutCard
                   title="Lower Body Strength"
                   progress="01/03"
                   description="Squats, Lunges, Glute bridges"
                   score="7.2/10"
-                  navigateTo="LowerBodyStrength" // Specify the screen name to navigate to
+                  navigateTo="LowerBodyStrength" 
                 />
                 <WorkoutCard
                   title="Flexibility"
                   progress="01/03"
                   description="Yoga, Pilates"
                   score="7.2/10"
-                  navigateTo="Flexibility" // Specify the screen name to navigate to
+                  navigateTo="Flexibility"
                 />
               </HorizontalScroll>
             </Section>
@@ -130,14 +142,18 @@ const RecommendedView: React.FC = () => {
           </>
         ) : null}
 
-        {/* Recommended Tutorials */}
-        {selectedTab === 'All' ? (
+          {/* Recommended Tutorials */}
+          {selectedTab === 'All' ? (
           <>
             <Section title="Recommended Tutorials">
-              <View style={{marginLeft: wp('5%')}}>
+              <View style={{ marginLeft: wp('5%') }}>
                 <HorizontalScroll>
                   {tutorials?.map((item, index) => (
-                    <TutorialCard key={index} data={item} />
+                    <TutorialCard
+                      key={index}
+                      data={item}
+                      onPress={() => handleVideoPress(item.file_name, item.description)}
+                    />
                   ))}
                 </HorizontalScroll>
               </View>
@@ -145,6 +161,14 @@ const RecommendedView: React.FC = () => {
           </>
         ) : null}
       </ScrollView>
+      {selectedVideo && (
+        <VideoModal
+          visible={modalVisible}
+          onClose={() => setModalVisible(false)}
+          videoUri={selectedVideo.uri}
+          title={selectedVideo.title}
+        />
+      )}
     </View>
   );
 };
