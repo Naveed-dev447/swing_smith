@@ -104,8 +104,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginTop: hp('5%'),
   },
-  errorText: {
-    fontFamily: 'Poppins-Regular',
+  errorText:{
     color: 'red',
     fontSize: wp('3%'),
     textAlign: 'center',

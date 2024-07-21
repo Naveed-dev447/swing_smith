@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
     marginTop: hp('5%'),
   },
   errorText: {
-    fontFamily: 'Poppins-Regular',
+   fontFamily: 'Poppins-Regular',
     color: 'red',
     fontSize: wp('3%'),
     textAlign: 'center',
