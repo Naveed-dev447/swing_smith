@@ -3,7 +3,6 @@ import {StyleSheet, View, Platform} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import AnalysisView from '../modules/Dashboard/Recommended/RecommendedView';
-import WorkoutView from '../modules/Dashboard/Workout/WorkoutView';
 import UploadVideo from '../modules/Onboarding/Home/uploadVideo';
 import {
   widthPercentageToDP as wp,
@@ -59,7 +58,6 @@ const BottomTabNavigator = () => {
       <Tab.Screen name="Home" component={HomeStack} />
       <Tab.Screen name="SwingLog" component={SwingLogView} />
       <Tab.Screen name="UploadVideo" component={UploadVideo} /> 
-      {/* <Tab.Screen name="Workouts" component={WorkoutView} /> */}
       <Tab.Screen name="Workouts" component={AnalysisView} />
       <Tab.Screen name="Profile" component={WeightTransferDrill} />
     </Tab.Navigator>

@@ -6,7 +6,6 @@ import { createStackNavigator } from '@react-navigation/stack';
 import HomeView from '../modules/Dashboard/Home/HomeView';
 import SwingLogView from '../modules/Dashboard/Home/SwingLogView';
 import AnalysisView from '../modules/Dashboard/Analysis/AnalysisView';
-import WorkoutView from '../modules/Dashboard/Workout/WorkoutView';
 const Stack = createStackNavigator();
 
 const HomeStack= () => {

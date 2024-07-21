@@ -61,21 +61,21 @@ const RecommendedView: React.FC = () => {
                   progress="02/04"
                   description="Planks, Russian twists, Medicine ball rotations"
                   score="7.2/10"
-                  navigateTo="WorkoutView" // Specify the screen name to navigate to
+                  navigateTo="WorkoutView"
                 />
                 <WorkoutCard
                   title="Lower Body Strength"
                   progress="01/03"
                   description="Squats, Lunges, Glute bridges"
                   score="7.2/10"
-                  navigateTo="LowerBodyStrength" // Specify the screen name to navigate to
+                  navigateTo="LowerBodyStrength" 
                 />
                 <WorkoutCard
                   title="Flexibility"
                   progress="01/03"
                   description="Yoga, Pilates"
                   score="7.2/10"
-                  navigateTo="Flexibility" // Specify the screen name to navigate to
+                  navigateTo="Flexibility"
                 />
               </HorizontalScroll>
             </Section>

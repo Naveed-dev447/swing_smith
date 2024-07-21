@@ -13,7 +13,6 @@ import RegisterView from '../modules/Register/RegisterView';
 import BottomTabNavigator from './BottomTabStack';
 import {LoaderProvider} from '../config/LoaderContext';
 import Toast from 'react-native-toast-message';
-
 import VideoUpload1 from '../modules/VideoUpload/videoUpload1.tsx';
 import VideoUpload2 from './../modules/VideoUpload/videoUpload2';
 import VideoUpload3 from './../modules/VideoUpload/videoUpload3';
@@ -24,7 +23,6 @@ import SwingAnalysis from './../modules/Dashboard/Analysis/SwingAnalysis.tsx';
 import HomeView from './../modules/Dashboard/Home/HomeView.tsx';
 import SwingLogView from './../modules/Dashboard/Home/SwingLogView.tsx';
 import AnalysisView from './../modules/Dashboard/Analysis/AnalysisView.tsx';
-
 import {toastConfig} from '../config/ToastConfig';
 import WorkoutView from '../modules/Dashboard/Workout/WorkoutView.tsx';
 import LowerBodyStrength from '../modules/Dashboard/Workout/LowerBodyStrength.tsx';
@@ -138,9 +136,7 @@ const RootNavigation = () => {
             name="Congratulation"
             component={CongratulationModal}
           />
-
         </Stack.Navigator>
-
         <Toast config={toastConfig} />
       </NavigationContainer>
     </LoaderProvider>

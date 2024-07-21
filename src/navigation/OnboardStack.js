@@ -95,14 +95,11 @@ const RootNavigation = () => {
         name="OnboardHome13"
         component={VideoUpload5}
       />
-      WorkoutView
       <Stack.Screen
         options={{headerShown: false}}
         name="SwingAnalysis"
         component={SwingAnalysis}
       />
-     
-
     </Stack.Navigator>
   );
 };
