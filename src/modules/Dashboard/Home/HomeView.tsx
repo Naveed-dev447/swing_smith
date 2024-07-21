@@ -94,8 +94,8 @@ const HomeView = (props: any) => {
         <Section title="Recommended Workouts">
           <HorizontalScroll>
             <WorkoutCard title="Core Strength" progress="02/04" navigateTo="WorkoutView" />
-            <WorkoutCard title="Lower Body Strength" progress="01/04"  navigateTo="WorkoutView"/>
-            <WorkoutCard title="Flexibility" progress="03/04"  navigateTo="WorkoutView"/>
+            <WorkoutCard title="Lower Body Strength" progress="01/04" navigateTo="WorkoutView" />
+            <WorkoutCard title="Flexibility" progress="03/04" navigateTo="WorkoutView" />
           </HorizontalScroll>
         </Section>
 
@@ -109,9 +109,9 @@ const HomeView = (props: any) => {
 
         <Section title="Recommended Tutorials">
           <HorizontalScroll>
-          {tutorials?.map((item, index) => (
+            {tutorials?.map((item, index) => (
               <TutorialCard key={index} data={item} />
-              ))}
+            ))}
           </HorizontalScroll>
         </Section>
       </ScrollView>

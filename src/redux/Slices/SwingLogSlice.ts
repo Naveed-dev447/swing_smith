@@ -17,9 +17,7 @@ const initialState: SwingLogsState = {
 
 export const fetchSwingLogs = createAsyncThunk('swingLogs/fetchSwingLogs', async () => {
   const response = await apiClient.get<SwingLogApiResponse>('/video/all');
-  console.log("SwingLog API response", response.data);
 
-  // Return only the data field
   return response.data.data;
 });
 
