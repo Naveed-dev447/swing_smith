@@ -2,16 +2,14 @@ import React, {useState} from 'react';
 import {View, Text, TouchableOpacity, Image, StyleSheet} from 'react-native';
 import Video from 'react-native-video';
 import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
-import { ITutorial } from '../../../types/Tutorial'
-
-
+import {ITutorial} from '../../../types/Tutorial';
 
 interface TutorialCardProps {
   data: ITutorial;
+  onPress: () => void;
 }
 
-const TutorialCard: React.FC<TutorialCardProps> = ({data}) => {
-  
+const TutorialCard: React.FC<TutorialCardProps> = ({data, onPress}) => {
   const [isPlaying, setIsPlaying] = useState(false);
 
   const handlePlayPausePress = () => {
@@ -19,12 +17,11 @@ const TutorialCard: React.FC<TutorialCardProps> = ({data}) => {
   };
 
   return (
-      <TouchableOpacity
-        onPress={handlePlayPausePress}
-        style={styles.videoWrapper}>
+    <View style={styles.mainContainer}>
+      <TouchableOpacity onPress={onPress} style={styles.videoWrapper}>
         <View style={styles.videoContainer}>
           <Video
-            source={{ uri: data?.file_name}}
+            source={{uri: data?.file_name}}
             style={styles.videoPlayer}
             paused={!isPlaying}
             resizeMode="cover"
@@ -40,7 +37,7 @@ const TutorialCard: React.FC<TutorialCardProps> = ({data}) => {
           </View>
           <View style={styles.tutorialFooterOverlay}>
             <View style={styles.tutorialDuration}>
-            <Image
+              <Image
                 source={require('../../../assets/Images/clock.png')}
                 style={{
                   width: wp('4%'),
@@ -53,13 +50,17 @@ const TutorialCard: React.FC<TutorialCardProps> = ({data}) => {
           </View>
         </View>
       </TouchableOpacity>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-
+  mainContainer:{
+    width:wp('85%'),
+   marginRight:20
+  },
   videoWrapper: {
-    // marginLeft: wp('2%')
+    // marginLeft: wp('5%'),
     // position: 'relative',
   },
   videoContainer: {
@@ -117,8 +118,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: wp('2%'),
     paddingVertical: wp('1%'),
     borderRadius: wp('3%'),
-    justifyContent:'flex-end',
-    flexDirection:'row',
+    justifyContent: 'flex-end',
+    flexDirection: 'row',
     alignItems: 'center',
   },
   time: {

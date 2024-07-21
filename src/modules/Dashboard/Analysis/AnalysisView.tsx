@@ -6,7 +6,6 @@ import {
   DrillCard,
   HorizontalScroll,
   Section,
-  // TutorialCard,
   WorkoutCard,
   Header,
   Banner,
@@ -18,6 +17,8 @@ import TutorialCard from '../../../shared/Component/TutorialCard/TutorialCard';
 import recommandedStyles from '../Recommended/styles';
 import { RootState } from 'redux/store';
 import { useSelector } from 'react-redux';
+import VideoModal from '../../../components/VideoModal';
+
 const workoutImage = require('../../../assets/Images/swingAnalysis.png');
 const profileImage = require('../../../assets/Images/profilePicture.png');
 const flagImage = require('../../../assets/Images/flag.png');
@@ -51,10 +52,21 @@ const tutorialVideos = [
 const AnalysisView: React.FC = (props: any) => {
   const {navigation, route} = props;
   const [selectedTab, setSelectedTab] = useState('Overall');
+  const [modalVisible, setModalVisible] = useState(false);
+  const [selectedVideo, setSelectedVideo] = useState<{
+    uri: string;
+    title: string;
+  } | null>(null);
   const { tutorials, loading, error } = useSelector((state: RootState) => state.tutorials);
   console.log("Videos in Analysis", tutorials);
    console.log("Response", route.params);
    
+
+   const handleVideoPress = (uri: string, title: string) => {
+    setSelectedVideo({uri, title});
+    setModalVisible(true);
+  };
+
   return (
     <View style={styles.container}>
       <CustomHeader onBackPress={navigation.goBack} title="Swing Analysis" />
@@ -155,18 +167,24 @@ const AnalysisView: React.FC = (props: any) => {
                     progress="02/10"
                     description="Plank Variations, Side Planks, Russian Twists, and Medicine Ball Throws can i."
                     score="7.2/10"
+                    navigateTo="WorkoutView"
+
                   />
                   <WorkoutCard
                     title="Core Strength"
                     progress="02/10"
                     description="Plank Variations, Side Planks, Russian Twists, and Medicine Ball Throws can i."
                     score="7.2/10"
+                    navigateTo="WorkoutView"
+
                   />
                   <WorkoutCard
                     title="Core Strength"
                     progress="02/10"
                     description="Plank Variations, Side Planks, Russian Twists, and Medicine Ball Throws can i."
                     score="7.2/10"
+                    navigateTo="WorkoutView"
+
                   />
                 </HorizontalScroll>
               </Section>
@@ -188,18 +206,32 @@ const AnalysisView: React.FC = (props: any) => {
         ) : null}
         {selectedTab === 'Overall' || selectedTab === 'Posture' ? (
           <>
-            <View style={styles.workOutContainer}>
-              <Section title="Recommended Tutorials">
-                <HorizontalScroll>
+          <View style={styles.workOutContainer}>
+            <Section title="Recommended Tutorials">
+              <HorizontalScroll>
                 {tutorials.map((item, index) => (
-                <TutorialCard key={index} data={item} />
-              ))}
-                </HorizontalScroll>
-              </Section>
-            </View>
-          </>
-        ) : null}
+                  <TutorialCard
+                    key={index}
+                    data={item}
+                    onPress={() =>
+                      handleVideoPress(item.file_name, item.description)
+                    }
+                  />
+                ))}
+              </HorizontalScroll>
+            </Section>
+          </View>
+        </>
+      ) : null}
       </ScrollView>
+      {selectedVideo && (
+        <VideoModal
+          visible={modalVisible}
+          onClose={() => setModalVisible(false)}
+          videoUri={selectedVideo.uri}
+          title={selectedVideo.title}
+        />
+      )}
     </View>
   );
 };

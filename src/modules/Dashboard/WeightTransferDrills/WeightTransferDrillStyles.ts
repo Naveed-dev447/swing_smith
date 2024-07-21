@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import {StyleSheet} from 'react-native';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -6,9 +6,9 @@ import {
 
 const styles = StyleSheet.create({
   scrollContentContainer: {
-    paddingBottom: hp('14%'), 
-    paddingHorizontal:wp('5%'),
-    marginTop:hp('5%'), 
+    paddingBottom: hp('14%'),
+    paddingHorizontal: wp('5%'),
+    marginTop: hp('5%'),
   },
   videoContainer: {
     width: wp('90%'),
@@ -57,6 +57,7 @@ const styles = StyleSheet.create({
     borderColor: '#F0F0F0',
     borderRadius: wp('3%'),
     padding: wp('4%'),
+    marginTop: hp('3%'),
     marginBottom: hp('3%'),
     // Shadow for iOS
     shadowColor: '#000',
