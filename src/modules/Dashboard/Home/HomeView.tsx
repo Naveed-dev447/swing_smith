@@ -24,13 +24,14 @@ import VideoModal from '../../../components/VideoModal';
 const HomeView = (props: any) => {
   const {route, navigation} = props;
   const [modalVisible, setModalVisible] = useState(false);
+  const { tutorials, loading, error } = useSelector((state: RootState) => state.tutorials);
+
+
   const [selectedVideo, setSelectedVideo] = useState<{
     uri: string;
     title: string;
   } | null>(null);
-  const {tutorials, loading, error} = useSelector(
-    (state: RootState) => state.tutorials,
-  );
+
   console.log('Videos ', tutorials);
 
   const dispatch = useDispatch<AppDispatch>();
@@ -93,21 +94,9 @@ const HomeView = (props: any) => {
 
         <Section title="Recommended Workouts">
           <HorizontalScroll>
-            <WorkoutCard
-              title="Core Strength"
-              progress="02/04"
-              navigateTo="WorkoutView"
-            />
-            <WorkoutCard
-              title="Lower Body Strength"
-              progress="01/04"
-              navigateTo="WorkoutView"
-            />
-            <WorkoutCard
-              title="Flexibility"
-              progress="03/04"
-              navigateTo="WorkoutView"
-            />
+            <WorkoutCard title="Core Strength" progress="02/04" navigateTo="WorkoutView" />
+            <WorkoutCard title="Lower Body Strength" progress="01/04" navigateTo="WorkoutView" />
+            <WorkoutCard title="Flexibility" progress="03/04" navigateTo="WorkoutView" />
           </HorizontalScroll>
         </Section>
 

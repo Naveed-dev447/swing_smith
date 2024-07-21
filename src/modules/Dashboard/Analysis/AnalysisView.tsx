@@ -1,6 +1,6 @@
-import React, {useState} from 'react';
-import {ScrollView, View, Text, Image, TouchableOpacity} from 'react-native';
-import {styles} from './AnalysingScreenStyle';
+import React, { useState } from 'react';
+import { ScrollView, View, Text, Image, TouchableOpacity } from 'react-native';
+import { styles } from './AnalysingScreenStyle';
 import CustomHeader from '../../../shared/Component/CustomHeader';
 import {
   DrillCard,
@@ -15,8 +15,13 @@ import {
 } from '../../Dashboard/Home/Common/Common';
 import TutorialCard from '../../../shared/Component/TutorialCard/TutorialCard';
 import recommandedStyles from '../Recommended/styles';
-import { RootState } from 'redux/store';
-import { useSelector } from 'react-redux';
+import { AppDispatch, RootState } from 'redux/store';
+import { useSelector, useDispatch } from 'react-redux';
+import * as Progress from 'react-native-progress';
+
+import { fetchSwingAnalysis, resetSwingAnalysisState } from '../../../redux/Slices/SwingAnalysisSlice';
+import ProgressLoader from '../../../components/ProgressLoader';
+
 import VideoModal from '../../../components/VideoModal';
 
 const workoutImage = require('../../../assets/Images/swingAnalysis.png');
@@ -25,44 +30,137 @@ const flagImage = require('../../../assets/Images/flag.png');
 const ruler = require('../../../assets/Images/ruler.png');
 const wind = require('../../../assets/Images/fast-wind.png');
 
-const tutorialVideos = [
-  {
-    uri: require('../../../assets/Images//DashBoard/Golf.mp4'),
-    title: 'Why you lose Balance in Golf?',
-    duration: '4 Min',
-    user: 'Raymond Reddington',
-    profileImage: profileImage,
-  },
-  {
-    uri: require('../../../assets/Images//DashBoard/Golf.mp4'),
-    title: 'How to Improve Your Swing',
-    duration: '5 Min',
-    user: 'John Doe',
-    profileImage: profileImage,
-  },
-  {
-    uri: require('../../../assets/Images//DashBoard/Golf.mp4'),
-    title: 'Mastering the Golf Grip',
-    duration: '3 Min',
-    user: 'Jane Smith',
-    profileImage: profileImage,
-  },
-];
+
 
 const AnalysisView: React.FC = (props: any) => {
-  const {navigation, route} = props;
+  const { navigation, route } = props;
+  const { params } = route;
+  console.log("Id id  id id idid id ", params);
+
   const [selectedTab, setSelectedTab] = useState('Overall');
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedVideo, setSelectedVideo] = useState<{
     uri: string;
     title: string;
   } | null>(null);
-  const { tutorials, loading, error } = useSelector((state: RootState) => state.tutorials);
-  console.log("Videos in Analysis", tutorials);
-   console.log("Response", route.params);
+  const dispatch = useDispatch<AppDispatch>();
+  const { swingAnalysis, loading, error } = useSelector((state: RootState) => state.swingAnalysis);
+  const analysis = swingAnalysis?.analysis;
+  console.log("Swing Analysis", swingAnalysis);
+
+
+  React.useEffect(() => {
+    if (params) {
+      dispatch(fetchSwingAnalysis(params));
+    }
+
+    return () => {
+      dispatch(resetSwingAnalysisState());
+    };
+  }, [dispatch, params]);
+
+  if (loading) {
+    return <ProgressLoader />
+  }
+
+  const renderWorkoutCards = (drills: any) => {
+    if (Array.isArray(drills)) {
+      // Handle case where drills is an array
+      return drills.map((drill, index) => (
+        <WorkoutCard
+          key={index}
+          title={'Unknown Title'}  // Use a generic title for array items
+          progress={`0/10`} // Assuming each item has a progress of 1 out of the total number of drills
+          description={drill}
+          score="7.2/10" // Replace with actual logic to determine score
+        />
+      ));
+    } else if (typeof drills === 'object' && drills !== null) {
+      // Handle case where drills is an object
+      return Object.keys(drills).map(drillType => {
+        const drillItems = drills[drillType];
+        const progress = Array.isArray(drillItems) ? `${drillItems.length}/10` : `0/10`;
+
+        return (
+          <WorkoutCard
+            key={drillType}
+            title={drillType}
+            progress={progress}
+            description={Array.isArray(drillItems) ? drillItems.join(', ') : drillItems}
+            score="7.2/10"
+            navigateTo='' // Replace with actual logic to determine score
+          />
+        );
+      });
+    } else {
+      return <Text>No drills available</Text>; // Handle cases where drills data is neither array nor object
+    }
+  };
+
+
+
+  const renderDrillCards = (drills: any) => {
+    if (Array.isArray(drills)) {
+      // Handle case where drills is an array
+      return drills.map((drill, index) => (
+        <DrillCard
+          key={index}
+          title={drill}
+        />
+      ));
+    } else if (typeof drills === 'object' && drills !== null) {
+      // Handle case where drills is an object
+      return Object.keys(drills).map((drillType) => {
+        const drillItems = drills[drillType];
+        return (
+          <View key={drillType} style={{ marginBottom: 20 }}>
+            {/* <Text style={{ fontSize: 18, fontWeight: 'bold' }}>{drillType}</Text> */}
+            {drillItems.map((drill, index) => (
+              <DrillCard
+                key={index}
+                title={drill}
+              />
+            ))}
+          </View>
+        );
+      });
+    } else {
+      return <Text>No drills available</Text>; // Handle cases where drills data is neither array nor object
+    }
+  };
+
+  const getShuffledFeedbacks = () => {
+    if (!analysis) return [];
+
+    const positives = Object.entries(analysis.Positives).map(([title, description]) => ({ title, description }));
+    const negatives = Object.entries(analysis.Negatives).map(([title, description]) => ({ title, description }));
+
+    const allFeedbacks = [...positives, ...negatives];
+    for (let i = allFeedbacks.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [allFeedbacks[i], allFeedbacks[j]] = [allFeedbacks[j], allFeedbacks[i]];
+    }
+    return allFeedbacks;
+  };
+
+  const shuffledFeedbacks = getShuffledFeedbacks();
+
+  // const [modalVisible, setModalVisible] = useState(false);
+  // const [selectedVideo, setSelectedVideo] = useState<{
+  //   uri: string;
+  //   title: string;
+  // } | null>(null);
    
 
-   const handleVideoPress = (uri: string, title: string) => {
+  //  const handleVideoPress = (uri: string, title: string) => {
+  //   setSelectedVideo({uri, title});
+  //   setModalVisible(true);
+  // };
+  const toggleModal = () => {
+    setModalVisible(!modalVisible);
+  };
+
+  const handleVideoPress = (uri: string, title: string) => {
     setSelectedVideo({uri, title});
     setModalVisible(true);
   };
@@ -70,7 +168,7 @@ const AnalysisView: React.FC = (props: any) => {
   return (
     <View style={styles.container}>
       <CustomHeader onBackPress={navigation.goBack} title="Swing Analysis" />
-      <ScrollView style={{flex: 1, paddingBottom: 70, marginTop: 30}}>
+      <ScrollView style={{ flex: 1, paddingBottom: 70, marginTop: 30 }}>
         <Image source={workoutImage} style={styles.image} />
         <View style={styles.analysisCardContainer}>
           <Image source={profileImage} style={styles.profileImage} />
@@ -80,7 +178,7 @@ const AnalysisView: React.FC = (props: any) => {
           </View>
           <View style={styles.scoreContainer}>
             <Image source={flagImage} style={styles.flagImage} />
-            <Text style={styles.scoreText}>06</Text>
+            <Text style={styles.scoreText}>{analysis && analysis['Swing Rating']}</Text>
             <Text style={styles.scoreLabel}>SCORE</Text>
           </View>
         </View>
@@ -88,12 +186,12 @@ const AnalysisView: React.FC = (props: any) => {
           <View style={styles.scoreCard}>
             <Text style={styles.scoreCardText}>Posture Score</Text>
             <Image source={ruler} style={styles.scoreCardIcon} />
-            <Text style={styles.scoreCardValue}>7.2/10</Text>
+            <Text style={styles.scoreCardValue}>{analysis?.Posture}/10</Text>
           </View>
           <View style={styles.scoreCard}>
             <Text style={styles.scoreCardText}>Swing Rhythm</Text>
             <Image source={wind} style={styles.scoreCardIcon} />
-            <Text style={styles.scoreCardValue}>7.2/10</Text>
+            <Text style={styles.scoreCardValue}>{analysis && analysis['Swing Rhythm']}/10</Text>
           </View>
         </View>
         <View style={styles.tabContainer}>
@@ -104,13 +202,13 @@ const AnalysisView: React.FC = (props: any) => {
                   key={tab}
                   style={[
                     styles.tab,
-                    selectedTab === tab && styles.selectedTab, 
+                    selectedTab === tab && styles.selectedTab,
                   ]}
                   onPress={() => setSelectedTab(tab)}>
                   <Text
                     style={[
                       styles.tabText,
-                      {color: selectedTab === tab ? '#232732' : '#7E7E7E'},
+                      { color: selectedTab === tab ? '#232732' : '#7E7E7E' },
                     ]}>
                     {tab}
                   </Text>
@@ -119,7 +217,7 @@ const AnalysisView: React.FC = (props: any) => {
             )}
           </HorizontalScroll>
         </View>
-      
+
         {selectedTab === 'Overall' || selectedTab === 'Swing Rythm' ? (
           <>
             <View style={styles.instructionContainer}>
@@ -135,24 +233,11 @@ const AnalysisView: React.FC = (props: any) => {
                 improvement.
               </Text>
               <Text style={styles.instructionText}>
-                <Text style={styles.subTitle}>Set-up:</Text> Your setup looks
-                fairly balanced, but you appear to be slightly leaning back,
-                which can affect your weight transfer and power. {'\n\n'}
-                <Text style={styles.subTitle}>Backswing:</Text> Your backswing
-                is a bit too upright, with your arms getting a little close to
-                your body. This can lead to a loss of power and potential for
-                hitting the ball off the toe of the club.
-                {'\n\n'}
-                <Text style={styles.subTitle}> Downswing:</Text> Your downswing
-                starts a bit early, and you're not fully rotating your hips
-                through the shot. This can cause you to hit the ball thin or
-                off-centre. {'\n\n'}
-                <Text style={styles.subTitle}> Impact:</Text> You're not keeping
-                your head still and are looking up too early, which is affecting
-                your consistency. {'\n\n'}
-                <Text style={styles.subTitle}>Finish:</Text> Your finish is
-                upright and not fully extended, which indicates a loss of power
-                and control. {'\n\n'}
+                {shuffledFeedbacks.map((feedback, index) => (
+                  <Text key={index}>
+                    <Text style={styles.subTitle}>{feedback.title} : </Text> {feedback.description} {'\n\n'}
+                  </Text>
+                ))}
               </Text>
             </View>
           </>
@@ -162,30 +247,8 @@ const AnalysisView: React.FC = (props: any) => {
             <View style={styles.workOutContainer}>
               <Section title="Recommended Workouts">
                 <HorizontalScroll>
-                  <WorkoutCard
-                    title="Core Strength"
-                    progress="02/10"
-                    description="Plank Variations, Side Planks, Russian Twists, and Medicine Ball Throws can i."
-                    score="7.2/10"
-                    navigateTo="WorkoutView"
+                  {analysis && renderWorkoutCards(analysis["Workout Drills"])}
 
-                  />
-                  <WorkoutCard
-                    title="Core Strength"
-                    progress="02/10"
-                    description="Plank Variations, Side Planks, Russian Twists, and Medicine Ball Throws can i."
-                    score="7.2/10"
-                    navigateTo="WorkoutView"
-
-                  />
-                  <WorkoutCard
-                    title="Core Strength"
-                    progress="02/10"
-                    description="Plank Variations, Side Planks, Russian Twists, and Medicine Ball Throws can i."
-                    score="7.2/10"
-                    navigateTo="WorkoutView"
-
-                  />
                 </HorizontalScroll>
               </Section>
             </View>
@@ -196,9 +259,7 @@ const AnalysisView: React.FC = (props: any) => {
             <View style={styles.workOutContainer}>
               <Section title="Recommended Drills">
                 <HorizontalScroll>
-                  <DrillCard title="Core Strength" />
-                  <DrillCard title="Core Strength" />
-                  <DrillCard title="Core Strength" />
+                  {analysis && renderDrillCards(analysis["Golf Drills"])}
                 </HorizontalScroll>
               </Section>
             </View>
@@ -206,23 +267,21 @@ const AnalysisView: React.FC = (props: any) => {
         ) : null}
         {selectedTab === 'Overall' || selectedTab === 'Posture' ? (
           <>
-          <View style={styles.workOutContainer}>
-            <Section title="Recommended Tutorials">
-              <HorizontalScroll>
-                {tutorials.map((item, index) => (
-                  <TutorialCard
-                    key={index}
-                    data={item}
-                    onPress={() =>
-                      handleVideoPress(item.file_name, item.description)
-                    }
-                  />
-                ))}
-              </HorizontalScroll>
-            </Section>
-          </View>
-        </>
-      ) : null}
+            <View style={styles.workOutContainer}>
+              <Section title="Recommended Tutorials">
+                <HorizontalScroll>
+                  {swingAnalysis?.recomended_tutorials?.map((item, index) => (
+                        <TutorialCard
+                          key={index}
+                          data={item}
+                          onPress={() => handleVideoPress(item.file_name, item.title)}
+                        />
+                  ))}
+                </HorizontalScroll>
+              </Section>
+            </View>
+          </>
+        ) : null}
       </ScrollView>
       {selectedVideo && (
         <VideoModal
@@ -233,7 +292,8 @@ const AnalysisView: React.FC = (props: any) => {
         />
       )}
     </View>
-  );
+
+  )
 };
 
 export default AnalysisView;

@@ -239,13 +239,13 @@ export const WorkoutCard: React.FC<WorkoutCardProps> = ({
       </View>
 
       <View style={{ marginVertical: '1%' }}>
-        <Text style={{ color: '#192126', fontFamily: 'Outfit-SemiBold',textAlign:'center' }}>
+        <Text style={{ color: '#192126', fontFamily: 'Outfit-SemiBold', textAlign: 'center' }}>
           {title}
         </Text>
       </View>
 
       <View style={{ marginVertical: '1%' }}>
-        <Text style={{ color: '#192126', fontFamily: 'Outfit-Regular',textAlign:'center' }}>
+        <Text style={{ color: '#192126', fontFamily: 'Outfit-Regular', textAlign: 'center' }}>
           {description}
         </Text>
       </View>
@@ -263,7 +263,7 @@ export const DrillCard: React.FC<DrillCardProps> = ({ title }) => (
       source={require('../../../../assets/Images/DashBoard/golfman.png')}
       style={globalStyles.drillIcon}
     />
-    <Text>{title}</Text>
+    <Text style={{ textAlign: 'center' }}>{title}</Text>
     <TouchableOpacity style={globalStyles.markAsDoneButton}>
       <Text style={globalStyles.markAsDoneText}>Mark As Done</Text>
     </TouchableOpacity>

@@ -408,7 +408,7 @@ const globalStyles = StyleSheet.create({
     fontSize: wp('4%'),
     color: '#fff',
     fontWeight: 'bold',
-  },
+  }
 });
 
 export default globalStyles;
