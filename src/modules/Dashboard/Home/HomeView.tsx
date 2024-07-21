@@ -43,7 +43,6 @@ const HomeView = (props: any) => {
   const { route, navigation } = props;
   const [modalVisible, setModalVisible] = useState(false);
   const { tutorials, loading, error } = useSelector((state: RootState) => state.tutorials);
-  console.log("Videos ", tutorials);
 
 
 

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   StyleSheet,
   Text,
@@ -9,22 +9,22 @@ import {
 } from 'react-native';
 import * as Progress from 'react-native-progress';
 import CustomHeader from '../../shared/Component/CustomHeader';
-import {goBack} from '../../shared/Utils/navigationRef';
+import { goBack } from '../../shared/Utils/navigationRef';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import {useSelector} from 'react-redux';
-import {RootState} from '../../redux/store';
-import {CommonActions} from '@react-navigation/native';
-import {useLoader} from '../../config/LoaderContext';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../redux/store';
+import { CommonActions } from '@react-navigation/native';
+import { useLoader } from '../../config/LoaderContext';
 import UploadVideoAPICall from '../Onboarding/Home/APICalls/UploadVideoAPI';
-import {ShowToast} from '../../components/ShowToast';
+import { ShowToast } from '../../components/ShowToast';
 import GetTipAPICall from '../Onboarding/Home/APICalls/TipAPI';
-import {ITipsResponse} from 'types/Tips';
+import { ITipsResponse } from 'types/Tips';
 
 const VideoUpload5: React.FC = (props: any) => {
-  const {navigation} = props;
+  const { navigation } = props;
   const {
     skillLevel,
     aspectToImprove,
@@ -38,7 +38,7 @@ const VideoUpload5: React.FC = (props: any) => {
     selectedEquipment,
     selectedEquipment2,
   } = useSelector((state: RootState) => state.onboarding);
-  const {loading, setLoading} = useLoader();
+  const { loading, setLoading } = useLoader();
   const [getTip, setGetTip] = useState<ITipsResponse | null>(null);
 
   const handleNextPress = async () => {
@@ -59,10 +59,11 @@ const VideoUpload5: React.FC = (props: any) => {
         setGetTip(tipResponse);
 
         const uploadResponse = await UploadVideoAPICall(formData);
+
         if (uploadResponse.status === 200) {
           setLoading(false);
           ShowToast('success', uploadResponse.message);
-          handleNavigation(tipResponse);
+          handleNavigation(uploadResponse.data?.id);
         }
       } catch (error) {
         ShowToast('error', 'Request is not Completed, Please try again');
@@ -79,18 +80,18 @@ const VideoUpload5: React.FC = (props: any) => {
   }, []);
 
   const handleNavigation = (data: any) => {
-    console.log('Navigating with data:', data); 
+    console.log('Navigating with data:', data);
 
     navigation.dispatch(
       CommonActions.reset({
         index: 0,
-        routes: [{name: 'BottomTabStack'}],
+        routes: [{ name: 'BottomTabStack' }],
       }),
     );
 
     navigation.navigate('Home', {
       screen: 'AnalysisView',
-      params: {data}, 
+      params: data,
     });
   };
 
@@ -190,10 +191,10 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     padding: 20,
   },
- 
+
   tipImage: {
-    width: wp('90%'), 
-    height: hp('15%'), 
+    width: wp('90%'),
+    height: hp('15%'),
     borderRadius: wp('2%'),
     marginBottom: 10,
   },
@@ -209,8 +210,8 @@ const styles = StyleSheet.create({
     color: 'black',
   },
   tipText: {
-    paddingHorizontal:10,
-    fontSize:  wp('5%'),
+    paddingHorizontal: 10,
+    fontSize: wp('5%'),
     textAlign: 'center',
     color: 'black',
     fontFamily: 'Outfit-Regular',
