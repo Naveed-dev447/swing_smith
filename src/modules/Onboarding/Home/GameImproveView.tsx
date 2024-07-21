@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
     color: 'red',
     textAlign: 'center',
     fontSize: wp('3%'),
-    marginLeft:10,
+    textAlign: 'center',
     marginTop: hp('1%'),
   },
 });

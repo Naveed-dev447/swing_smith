@@ -94,9 +94,9 @@ const HomeView = (props: any) => {
 
         <Section title="Recommended Workouts">
           <HorizontalScroll>
-            <WorkoutCard title="Core Strength" progress="02/10" />
-            <WorkoutCard title="Core Strength" progress="02/10" />
-            <WorkoutCard title="Core Strength" progress="02/10" />
+            <WorkoutCard title="Core Strength" progress="02/04" navigateTo="WorkoutView" />
+            <WorkoutCard title="Lower Body Strength" progress="01/04"  navigateTo="WorkoutView"/>
+            <WorkoutCard title="Flexibility" progress="03/04"  navigateTo="WorkoutView"/>
           </HorizontalScroll>
         </Section>
 
@@ -113,29 +113,6 @@ const HomeView = (props: any) => {
           {tutorials?.map((item, index) => (
               <TutorialCard key={index} data={item} />
               ))}
-          </HorizontalScroll>
-        </Section>
-
-        <Section title="Your Challenges (Optional)">
-          <HorizontalScroll>
-            <ChallengeCard
-              title="01 Challenge"
-              imageSource={require('../../../assets/Images/DashBoard/Flag.png')}
-              backgroundColor="#d0f456"
-              textColor="#000"
-            />
-            <ChallengeCard
-              title="02 Challenge"
-              imageSource={require('../../../assets/Images/DashBoard/goldhandle.png')}
-              backgroundColor="#1c1c1c"
-              textColor="#fff"
-            />
-            <ChallengeCard
-              title="03 Challenge"
-              imageSource={require('../../../assets/Images/DashBoard/challenge3.png')}
-              backgroundColor="#ffffff"
-              textColor="#000"
-            />
           </HorizontalScroll>
         </Section>
       </ScrollView>

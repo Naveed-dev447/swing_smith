@@ -104,11 +104,10 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginTop: hp('5%'),
   },
-  errorText: {
-    textAlign: 'center',
+  errorText:{
     color: 'red',
-    marginLeft: 10,
-    fontSize: wp('3.5%'),
+    fontSize: wp('3%'),
+    textAlign: 'center',
     marginTop: hp('1%'),
   },
 });

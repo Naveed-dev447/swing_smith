@@ -1,14 +1,17 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { useForm, Controller } from 'react-hook-form';
+import React, {useState} from 'react';
+import {View, Text, StyleSheet} from 'react-native';
+import {useForm, Controller} from 'react-hook-form';
 import * as yup from 'yup';
-import { yupResolver } from '@hookform/resolvers/yup';
+import {yupResolver} from '@hookform/resolvers/yup';
 import CustomHeader from '../../../shared/Component/CustomHeader';
-import { goBack } from '../../../shared/Utils/navigationRef';
+import {goBack} from '../../../shared/Utils/navigationRef';
 import globalStyles from '../styles';
 import CustomButton from '../../../shared/Component/CustomButton';
 import SelectedTouchableButton from '../../../components/SelectedTouchableButton';
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 
 interface TimeDurationProps {
   navigation: any;
@@ -18,16 +21,22 @@ const schema = yup.object().shape({
   swingTimeDuration: yup.string().required('Please select a Time Duration'),
 });
 
-const SwingTimeDuration: React.FC<TimeDurationProps> = ({ navigation }) => {
-  const { control, handleSubmit, formState: { errors } } = useForm({
+const SwingTimeDuration: React.FC<TimeDurationProps> = ({navigation}) => {
+  const {
+    control,
+    handleSubmit,
+    formState: {errors},
+  } = useForm({
     resolver: yupResolver(schema),
   });
 
-  const [selectedTimeDuration, setSelectedTimeDuration] = useState<string | null>(null);
+  const [selectedTimeDuration, setSelectedTimeDuration] = useState<
+    string | null
+  >(null);
   const levels = ['Less than a year', '1-3 years', '4-6 years', '7+ years'];
 
-  const onSubmit = (data: { swingTimeDuration: string }) => {
-    console.log("Time Duration:",data)
+  const onSubmit = (data: {swingTimeDuration: string}) => {
+    console.log('Time Duration:', data);
     navigation.navigate('OnboardHome3');
   };
 
@@ -36,7 +45,7 @@ const SwingTimeDuration: React.FC<TimeDurationProps> = ({ navigation }) => {
       <CustomHeader onBackPress={goBack} />
       <View style={globalStyles.contentContainer}>
         <Text style={globalStyles.title}>
-          What is your current handicap or skill level?
+          How long have you been playing golf?
         </Text>
         <Text style={globalStyles.subTitle}>
           Analyzing video recorded diagonally or from the back may result in
@@ -45,7 +54,7 @@ const SwingTimeDuration: React.FC<TimeDurationProps> = ({ navigation }) => {
         <Controller
           control={control}
           name="swingTimeDuration"
-          render={({ field: { onChange } }) => (
+          render={({field: {onChange}}) => (
             <View style={styles.levelContainer}>
               {levels.map((level, index) => (
                 <SelectedTouchableButton
@@ -61,13 +70,14 @@ const SwingTimeDuration: React.FC<TimeDurationProps> = ({ navigation }) => {
             </View>
           )}
         />
-        {errors.swingTimeDuration && <Text style={styles.errorText}>{errors.swingTimeDuration.message}</Text>}
+        {errors.swingTimeDuration && (
+          <Text style={styles.errorText}>
+            {errors.swingTimeDuration.message}
+          </Text>
+        )}
       </View>
       <View style={globalStyles.buttonContainer}>
-        <CustomButton
-          title="Next"
-          onPress={handleSubmit(onSubmit)}
-        />
+        <CustomButton title="Next" onPress={handleSubmit(onSubmit)} />
       </View>
     </View>
   );
@@ -83,10 +93,10 @@ const styles = StyleSheet.create({
     marginTop: hp('5%'),
   },
   errorText: {
-    textAlign: 'center',
+   fontFamily: 'Poppins-Regular',
     color: 'red',
-    marginLeft:10,
-    fontSize: wp('3.5%'),
+    fontSize: wp('3%'),
+    textAlign: 'center',
     marginTop: hp('1%'),
   },
 });

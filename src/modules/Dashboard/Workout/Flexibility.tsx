@@ -22,7 +22,7 @@ import LottieView from 'lottie-react-native';
 
 const workouts = ['Side Plank', 'Russian Twists', 'Plank', 'Crunches'];
 
-const WorkoutView = (props: any) => {
+const Flexibility = (props: any) => {
   const {route, navigation} = props;
   const [selectedWorkouts, setSelectedWorkouts] = useState<string[]>([]);
 
@@ -43,7 +43,7 @@ const WorkoutView = (props: any) => {
 
   return (
     <View style={styles.container}>
-      <CustomHeader onBackPress={goBack} title="Core Strength" />
+      <CustomHeader onBackPress={goBack} title="Flexibilty" />
 
       <ScrollView contentContainerStyle={styles.contentContainer}>
         <View style={styles.imageView}>
@@ -54,7 +54,7 @@ const WorkoutView = (props: any) => {
             loop
           />
         </View>
-        <Text style={styles.workoutTitle}>Workout Detail</Text>
+        <Text style={styles.workoutTitle}>Flexibility Detail</Text>
         <Text style={styles.detail}>
           The lower abdomen and hips are the most difficult areas of the body to
           reduce when we are on a diet. Even so, in this area, especially the
@@ -86,7 +86,7 @@ const WorkoutView = (props: any) => {
   );
 };
 
-export default WorkoutView;
+export default Flexibility;
 
 const styles = StyleSheet.create({
   container: {

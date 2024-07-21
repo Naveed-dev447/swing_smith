@@ -18,6 +18,7 @@ import {
 } from 'react-native-responsive-screen';
 import LinearGradient from 'react-native-linear-gradient';
 import globalStyles from '../styles';
+import { useNavigation } from '@react-navigation/native';
 
 export const Header: React.FC<{
   toggleModal: () => void;
@@ -202,11 +203,12 @@ export const Section: React.FC<SectionProps> = ({ title, children }) => (
 );
 
 interface WorkoutCardProps {
-  title?: string;
-  progress?: string;
-  icon?: any;
+  title: string;
+  progress: string;
+  icon?: string; // You can define the type of icon if needed
   description?: string;
   score?: string;
+  navigateTo: string; // Prop for navigation screen
 }
 
 export const WorkoutCard: React.FC<WorkoutCardProps> = ({
@@ -215,33 +217,41 @@ export const WorkoutCard: React.FC<WorkoutCardProps> = ({
   icon,
   description,
   score,
-}) => (
-  <View style={[globalStyles.card, { width: wp('40%'), marginRight: wp('4%') }]}>
-    <View style={{ marginVertical: '2%' }}>
-      <Image
-        source={require('../../../../assets/Images/GraphPie.png')}
-        style={globalStyles.graphPieIcon}
-      />
-    </View>
-    <View style={{ marginVertical: '2%' }}>
-      <Text style={{ color: '#192126', fontFamily: 'Outfit-Regular' }}>
-        {progress}
-      </Text>
-    </View>
+  navigateTo,
+}) => {
+  const navigation = useNavigation();
 
-    <View style={{ marginVertical: '1%' }}>
-      <Text style={{ color: '#192126', fontFamily: 'Outfit-SemiBold' }}>
-        {title}
-      </Text>
-    </View>
+  return (
+    <TouchableOpacity
+      onPress={() => navigation.navigate(navigateTo)}
+      style={[globalStyles.card, { width: wp('40%'), marginRight: wp('4%') }]}
+    >
+      <View style={{ marginVertical: '2%' }}>
+        <Image
+          source={require('../../../../assets/Images/GraphPie.png')}
+          style={globalStyles.graphPieIcon}
+        />
+      </View>
+      <View style={{ marginVertical: '2%' }}>
+        <Text style={{ color: '#192126', fontFamily: 'Outfit-Regular' }}>
+          {progress}
+        </Text>
+      </View>
 
-    <View style={{ marginVertical: '1%' }}>
-      <Text style={{ color: '#192126', fontFamily: 'Outfit-Regular' }}>
-        {description}
-      </Text>
-    </View>
-  </View>
-);
+      <View style={{ marginVertical: '1%' }}>
+        <Text style={{ color: '#192126', fontFamily: 'Outfit-SemiBold',textAlign:'center' }}>
+          {title}
+        </Text>
+      </View>
+
+      <View style={{ marginVertical: '1%' }}>
+        <Text style={{ color: '#192126', fontFamily: 'Outfit-Regular',textAlign:'center' }}>
+          {description}
+        </Text>
+      </View>
+    </TouchableOpacity>
+  );
+};
 
 interface DrillCardProps {
   title: string;

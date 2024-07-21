@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -13,17 +13,18 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import recommandedStyles from './styles';
-import { goBack } from '../../../shared/Utils/navigationRef';
+import {goBack} from '../../../shared/Utils/navigationRef';
 import CustomHeader from '../../../shared/Component/CustomHeader';
-import { HorizontalScroll, Section, WorkoutCard } from '../Home/Common/Common';
+import {HorizontalScroll, Section, WorkoutCard} from '../Home/Common/Common';
 import TutorialCard from '../../../shared/Component/TutorialCard/TutorialCard';
-import { RootState } from 'redux/store';
-import { useSelector } from 'react-redux';
+import {RootState} from 'redux/store';
+import {useSelector} from 'react-redux';
 
 const RecommendedView: React.FC = () => {
   const [selectedTab, setSelectedTab] = useState('All');
-  const { tutorials, loading, error } = useSelector((state: RootState) => state.tutorials);
-
+  const {tutorials, loading, error} = useSelector(
+    (state: RootState) => state.tutorials,
+  );
 
   return (
     <View style={recommandedStyles.container}>
@@ -35,14 +36,14 @@ const RecommendedView: React.FC = () => {
               key={tab}
               style={[
                 recommandedStyles.tab,
-                { backgroundColor: selectedTab === tab ? '#BBF246' : 'white' },
-                { borderColor: selectedTab !== tab ? '#192126' : 'white' },
+                {backgroundColor: selectedTab === tab ? '#BBF246' : 'white'},
+                {borderColor: selectedTab !== tab ? '#192126' : 'white'},
               ]}
               onPress={() => setSelectedTab(tab)}>
               <Text
                 style={[
                   recommandedStyles.tabText,
-                  { color: selectedTab === tab ? '#192126' : '#192126' },
+                  {color: selectedTab === tab ? '#192126' : '#192126'},
                 ]}>
                 {tab}
               </Text>
@@ -51,32 +52,35 @@ const RecommendedView: React.FC = () => {
         </View>
 
         {/* Recommended Workouts */}
-        {selectedTab === 'All' || selectedTab === 'Workouts' ? (
-          <>
+        <>
+          {selectedTab === 'All' || selectedTab === 'Workouts' ? (
             <Section title="Recommended Workouts">
               <HorizontalScroll>
                 <WorkoutCard
                   title="Core Strength"
-                  progress="02/10"
-                  description="Plank Variations, Side Planks, Russian Twists, and Medicine Ball Throws can i."
+                  progress="02/04"
+                  description="Planks, Russian twists, Medicine ball rotations"
                   score="7.2/10"
+                  navigateTo="WorkoutView" // Specify the screen name to navigate to
                 />
                 <WorkoutCard
-                  title="Core Strength"
-                  progress="02/10"
-                  description="Plank Variations, Side Planks, Russian Twists, and Medicine Ball Throws can i."
+                  title="Lower Body Strength"
+                  progress="01/03"
+                  description="Squats, Lunges, Glute bridges"
                   score="7.2/10"
+                  navigateTo="LowerBodyStrength" // Specify the screen name to navigate to
                 />
                 <WorkoutCard
-                  title="Core Strength"
-                  progress="02/10"
-                  description="Plank Variations, Side Planks, Russian Twists, and Medicine Ball Throws can i."
+                  title="Flexibility"
+                  progress="01/03"
+                  description="Yoga, Pilates"
                   score="7.2/10"
+                  navigateTo="Flexibility" // Specify the screen name to navigate to
                 />
               </HorizontalScroll>
             </Section>
-          </>
-        ) : null}
+          ) : null}
+        </>
 
         {/* Recommended Drills */}
         {selectedTab === 'All' || selectedTab === 'Drills' ? (
@@ -87,15 +91,19 @@ const RecommendedView: React.FC = () => {
                   <ImageBackground
                     source={require('../../../assets/Images/recommendedVideoIcon.png')}
                     style={recommandedStyles.cardImage}
-                    imageStyle={{ borderRadius: 10 }}>
+                    imageStyle={{borderRadius: 10}}>
                     <Icon
                       name="play-circle"
                       size={wp('10%')}
                       color="white"
                       style={recommandedStyles.playIcon}
                     />
-                    <Text style={recommandedStyles.cardTitle}>Weight Transfer Drill</Text>
-                    <Text style={recommandedStyles.cardDescription}>Watch video to get it fixed</Text>
+                    <Text style={recommandedStyles.cardTitle}>
+                      Weight Transfer Drill
+                    </Text>
+                    <Text style={recommandedStyles.cardDescription}>
+                      Watch video to get it fixed
+                    </Text>
                   </ImageBackground>
                 </View>
                 {Array(3)
@@ -107,9 +115,12 @@ const RecommendedView: React.FC = () => {
                         style={recommandedStyles.cardIcon}
                       />
                       <View style={recommandedStyles.cardContent}>
-                        <Text style={recommandedStyles.cardText}>Weight Transfer Drill</Text>
+                        <Text style={recommandedStyles.cardText}>
+                          Weight Transfer Drill
+                        </Text>
                         <Text style={recommandedStyles.cardSmallText}>
-                          Place a tee behind your left heel (for a right-handed golfer)...
+                          Place a tee behind your left heel (for a right-handed
+                          golfer)...
                         </Text>
                       </View>
                     </View>
@@ -123,12 +134,12 @@ const RecommendedView: React.FC = () => {
         {selectedTab === 'All' ? (
           <>
             <Section title="Recommended Tutorials">
-              <View style={{marginLeft:wp('5%')}}>
-              <HorizontalScroll>
-                {tutorials?.map((item, index) => (
-                  <TutorialCard key={index} data={item} />
-                ))}
-              </HorizontalScroll>
+              <View style={{marginLeft: wp('5%')}}>
+                <HorizontalScroll>
+                  {tutorials?.map((item, index) => (
+                    <TutorialCard key={index} data={item} />
+                  ))}
+                </HorizontalScroll>
               </View>
             </Section>
           </>

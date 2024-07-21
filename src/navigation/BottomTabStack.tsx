@@ -11,6 +11,7 @@ import {
 } from 'react-native-responsive-screen';
 import HomeStack from './HomeStack';
 import WeightTransferDrill from '../modules/Dashboard/WeightTransferDrills/WeightTransferDrills';
+import SwingLogView from '../modules/Dashboard/Home/SwingLogView';
 
 const Tab = createBottomTabNavigator();
 
@@ -22,9 +23,14 @@ const BottomTabNavigator = () => {
           let iconName;
           if (route.name === 'Home') {
             iconName = 'home';
-          } else if (route.name === 'Analysis') {
+          } 
+          // else if (route.name === 'Analysis') {
+          //   iconName = 'replay';
+          // }
+          else if (route.name === 'SwingLog') {
             iconName = 'replay';
-          } else if (route.name === 'UploadVideo') {
+          } 
+          else if (route.name === 'UploadVideo') {
             iconName = 'add';
           } else if (route.name === 'Workouts') {
             iconName = 'lightbulb';
@@ -51,11 +57,13 @@ const BottomTabNavigator = () => {
         headerShown: false,
       })}>
       <Tab.Screen name="Home" component={HomeStack} />
-      <Tab.Screen name="Analysis" component={AnalysisView} />
+      <Tab.Screen name="SwingLog" component={SwingLogView} />
       <Tab.Screen name="UploadVideo" component={UploadVideo} /> 
-      <Tab.Screen name="Workouts" component={WorkoutView} />
+      {/* <Tab.Screen name="Workouts" component={WorkoutView} /> */}
+      <Tab.Screen name="Workouts" component={AnalysisView} />
       <Tab.Screen name="Profile" component={WeightTransferDrill} />
     </Tab.Navigator>
+    
   );
 };
 
