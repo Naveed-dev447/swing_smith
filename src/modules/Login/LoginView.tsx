@@ -158,7 +158,7 @@ const LoginScreen: React.FC = (props: any) => {
                 />
                 <Button
                   title="Continue with Facebook"
-                  onPress={() =>navigation.navigate('OnboardHome13')}
+                  onPress={() =>navigation.navigate('Congratulation')}
                   buttonStyle={styles.socialButton}
                   textStyle={styles.socialButtonText}
                   icon={require('../../assets/Images/facebok3.png')}

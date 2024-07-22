@@ -146,17 +146,6 @@ const AnalysisView: React.FC = (props: any) => {
   };
 
   const shuffledFeedbacks = getShuffledFeedbacks();
-
-  // const [modalVisible, setModalVisible] = useState(false);
-  // const [selectedVideo, setSelectedVideo] = useState<{
-  //   uri: string;
-  //   title: string;
-  // } | null>(null);
-
-  //  const handleVideoPress = (uri: string, title: string) => {
-  //   setSelectedVideo({uri, title});
-  //   setModalVisible(true);
-  // };
   const toggleModal = () => {
     setModalVisible(!modalVisible);
   };

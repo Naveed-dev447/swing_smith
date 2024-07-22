@@ -24,10 +24,10 @@ export const login = createAsyncThunk('auth/login', async (payload: ILogin) => {
   return response.data.data;
 });
 
-export const logout = createAsyncThunk('auth/logout', async (_, { dispatch }) => {
-  await AsyncStorage.removeItem('Token');
-  dispatch({ type: 'RESET' });
-});
+// export const logout = createAsyncThunk('auth/logout', async (_, { dispatch }) => {
+//   await AsyncStorage.removeItem('Token');
+//   dispatch({ type: 'RESET' });
+// });
 
 const authSlice = createSlice({
   name: 'auth',
