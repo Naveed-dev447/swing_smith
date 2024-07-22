@@ -54,7 +54,6 @@ const HomeView = (props: any) => {
       <Header
         toggleModal={toggleModal}
         name={'Hello, Dilshan'}
-        address={'Kandy, Sri Lanka'}
       />
       <ScrollView contentContainerStyle={globalStyles.SwingLogScrollView}>
         <Banner />

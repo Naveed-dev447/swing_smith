@@ -33,7 +33,7 @@ const SwingTimeDuration: React.FC<TimeDurationProps> = ({navigation}) => {
   const [selectedTimeDuration, setSelectedTimeDuration] = useState<
     string | null
   >(null);
-  const levels = ['Less than a year', '1-3 years', '4-6 years', '7+ years'];
+  const levels = ['Daily', 'Several times a week', 'Once a week', 'A few times a month'];
 
   const onSubmit = (data: {swingTimeDuration: string}) => {
     console.log('Time Duration:', data);
@@ -45,7 +45,7 @@ const SwingTimeDuration: React.FC<TimeDurationProps> = ({navigation}) => {
       <CustomHeader onBackPress={goBack} />
       <View style={globalStyles.contentContainer}>
         <Text style={globalStyles.title}>
-          How long have you been playing golf?
+        How often do you practice your golf swing?
         </Text>
         <Text style={globalStyles.subTitle}>
           Analyzing video recorded diagonally or from the back may result in

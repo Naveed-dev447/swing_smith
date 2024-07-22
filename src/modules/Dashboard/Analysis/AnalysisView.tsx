@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { ScrollView, View, Text, Image, TouchableOpacity } from 'react-native';
-import { styles } from './AnalysingScreenStyle';
+import React, {useState} from 'react';
+import {ScrollView, View, Text, Image, TouchableOpacity} from 'react-native';
+import {styles} from './AnalysingScreenStyle';
 import CustomHeader from '../../../shared/Component/CustomHeader';
 import {
   DrillCard,
@@ -15,11 +15,14 @@ import {
 } from '../../Dashboard/Home/Common/Common';
 import TutorialCard from '../../../shared/Component/TutorialCard/TutorialCard';
 import recommandedStyles from '../Recommended/styles';
-import { AppDispatch, RootState } from 'redux/store';
-import { useSelector, useDispatch } from 'react-redux';
+import {AppDispatch, RootState} from 'redux/store';
+import {useSelector, useDispatch} from 'react-redux';
 import * as Progress from 'react-native-progress';
 
-import { fetchSwingAnalysis, resetSwingAnalysisState } from '../../../redux/Slices/SwingAnalysisSlice';
+import {
+  fetchSwingAnalysis,
+  resetSwingAnalysisState,
+} from '../../../redux/Slices/SwingAnalysisSlice';
 import ProgressLoader from '../../../components/ProgressLoader';
 
 import VideoModal from '../../../components/VideoModal';
@@ -30,12 +33,10 @@ const flagImage = require('../../../assets/Images/flag.png');
 const ruler = require('../../../assets/Images/ruler.png');
 const wind = require('../../../assets/Images/fast-wind.png');
 
-
-
 const AnalysisView: React.FC = (props: any) => {
-  const { navigation, route } = props;
-  const { params } = route;
-  console.log("Id id  id id idid id ", params);
+  const {navigation, route} = props;
+  const {params} = route;
+  console.log('Id id  id id idid id ', params);
 
   const [selectedTab, setSelectedTab] = useState('Overall');
   const [modalVisible, setModalVisible] = useState(false);
@@ -44,10 +45,11 @@ const AnalysisView: React.FC = (props: any) => {
     title: string;
   } | null>(null);
   const dispatch = useDispatch<AppDispatch>();
-  const { swingAnalysis, loading, error } = useSelector((state: RootState) => state.swingAnalysis);
+  const {swingAnalysis, loading, error} = useSelector(
+    (state: RootState) => state.swingAnalysis,
+  );
   const analysis = swingAnalysis?.analysis;
-  console.log("Swing Analysis", swingAnalysis);
-
+  console.log('Swing Analysis', swingAnalysis);
 
   React.useEffect(() => {
     if (params) {
@@ -60,7 +62,7 @@ const AnalysisView: React.FC = (props: any) => {
   }, [dispatch, params]);
 
   if (loading) {
-    return <ProgressLoader />
+    return <ProgressLoader />;
   }
 
   const renderWorkoutCards = (drills: any) => {
@@ -69,7 +71,7 @@ const AnalysisView: React.FC = (props: any) => {
       return drills.map((drill, index) => (
         <WorkoutCard
           key={index}
-          title={'Unknown Title'}  // Use a generic title for array items
+          title={'Unknown Title'} // Use a generic title for array items
           progress={`0/10`} // Assuming each item has a progress of 1 out of the total number of drills
           description={drill}
           score="7.2/10" // Replace with actual logic to determine score
@@ -79,16 +81,20 @@ const AnalysisView: React.FC = (props: any) => {
       // Handle case where drills is an object
       return Object.keys(drills).map(drillType => {
         const drillItems = drills[drillType];
-        const progress = Array.isArray(drillItems) ? `${drillItems.length}/10` : `0/10`;
+        const progress = Array.isArray(drillItems)
+          ? `${drillItems.length}/10`
+          : `0/10`;
 
         return (
           <WorkoutCard
             key={drillType}
             title={drillType}
             progress={progress}
-            description={Array.isArray(drillItems) ? drillItems.join(', ') : drillItems}
+            description={
+              Array.isArray(drillItems) ? drillItems.join(', ') : drillItems
+            }
             score="7.2/10"
-            navigateTo='' // Replace with actual logic to determine score
+            navigateTo="" // Replace with actual logic to determine score
           />
         );
       });
@@ -97,29 +103,21 @@ const AnalysisView: React.FC = (props: any) => {
     }
   };
 
-
-
   const renderDrillCards = (drills: any) => {
     if (Array.isArray(drills)) {
       // Handle case where drills is an array
       return drills.map((drill, index) => (
-        <DrillCard
-          key={index}
-          title={drill}
-        />
+        <DrillCard key={index} title={drill} />
       ));
     } else if (typeof drills === 'object' && drills !== null) {
       // Handle case where drills is an object
-      return Object.keys(drills).map((drillType) => {
+      return Object.keys(drills).map(drillType => {
         const drillItems = drills[drillType];
         return (
-          <View key={drillType} style={{ marginBottom: 20 }}>
+          <View key={drillType} style={{marginBottom: 20}}>
             {/* <Text style={{ fontSize: 18, fontWeight: 'bold' }}>{drillType}</Text> */}
             {drillItems.map((drill, index) => (
-              <DrillCard
-                key={index}
-                title={drill}
-              />
+              <DrillCard key={index} title={drill} />
             ))}
           </View>
         );
@@ -132,8 +130,12 @@ const AnalysisView: React.FC = (props: any) => {
   const getShuffledFeedbacks = () => {
     if (!analysis) return [];
 
-    const positives = Object.entries(analysis.Positives).map(([title, description]) => ({ title, description }));
-    const negatives = Object.entries(analysis.Negatives).map(([title, description]) => ({ title, description }));
+    const positives = Object.entries(analysis.Positives).map(
+      ([title, description]) => ({title, description}),
+    );
+    const negatives = Object.entries(analysis.Negatives).map(
+      ([title, description]) => ({title, description}),
+    );
 
     const allFeedbacks = [...positives, ...negatives];
     for (let i = allFeedbacks.length - 1; i > 0; i--) {
@@ -150,7 +152,6 @@ const AnalysisView: React.FC = (props: any) => {
   //   uri: string;
   //   title: string;
   // } | null>(null);
-   
 
   //  const handleVideoPress = (uri: string, title: string) => {
   //   setSelectedVideo({uri, title});
@@ -168,121 +169,140 @@ const AnalysisView: React.FC = (props: any) => {
   return (
     <View style={styles.container}>
       <CustomHeader onBackPress={navigation.goBack} title="Swing Analysis" />
-      <ScrollView style={{ flex: 1, paddingBottom: 70, marginTop: 30 }}>
-        <Image source={workoutImage} style={styles.image} />
-        <View style={styles.analysisCardContainer}>
-          <Image source={profileImage} style={styles.profileImage} />
-          <View style={styles.userInfo}>
-            <Text style={styles.userName}>Nora Achoia</Text>
-            <Text style={styles.userSkill}>DTF/Iron/Right Handed</Text>
+      {swingAnalysis?.analysis ? (
+        <ScrollView style={{flex: 1, paddingBottom: 70, marginTop: 30}}>
+          <Image source={workoutImage} style={styles.image} />
+          <View style={styles.analysisCardContainer}>
+            <Image source={profileImage} style={styles.profileImage} />
+            <View style={styles.userInfo}>
+              <Text style={styles.userName}>Nora Achoia</Text>
+              <Text style={styles.userSkill}>DTF/Iron/Right Handed</Text>
+            </View>
+            <View style={styles.scoreContainer}>
+              <Image source={flagImage} style={styles.flagImage} />
+              <Text style={styles.scoreText}>
+                {analysis && analysis['Swing Rating']}
+              </Text>
+              <Text style={styles.scoreLabel}>SCORE</Text>
+            </View>
           </View>
-          <View style={styles.scoreContainer}>
-            <Image source={flagImage} style={styles.flagImage} />
-            <Text style={styles.scoreText}>{analysis && analysis['Swing Rating']}</Text>
-            <Text style={styles.scoreLabel}>SCORE</Text>
+          <View style={styles.scoreCardContainer}>
+            <View style={styles.scoreCard}>
+              <Text style={styles.scoreCardText}>Posture Score</Text>
+              <Image source={ruler} style={styles.scoreCardIcon} />
+              <Text style={styles.scoreCardValue}>{analysis?.Posture}/10</Text>
+            </View>
+            <View style={styles.scoreCard}>
+              <Text style={styles.scoreCardText}>Swing Rhythm</Text>
+              <Image source={wind} style={styles.scoreCardIcon} />
+              <Text style={styles.scoreCardValue}>
+                {analysis && analysis['Swing Rhythm']}/10
+              </Text>
+            </View>
           </View>
-        </View>
-        <View style={styles.scoreCardContainer}>
-          <View style={styles.scoreCard}>
-            <Text style={styles.scoreCardText}>Posture Score</Text>
-            <Image source={ruler} style={styles.scoreCardIcon} />
-            <Text style={styles.scoreCardValue}>{analysis?.Posture}/10</Text>
-          </View>
-          <View style={styles.scoreCard}>
-            <Text style={styles.scoreCardText}>Swing Rhythm</Text>
-            <Image source={wind} style={styles.scoreCardIcon} />
-            <Text style={styles.scoreCardValue}>{analysis && analysis['Swing Rhythm']}/10</Text>
-          </View>
-        </View>
-        <View style={styles.tabContainer}>
-          <HorizontalScroll>
-            {['Overall', 'Posture', 'Swing Rythm', 'Workouts', 'Drills'].map(
-              tab => (
-                <TouchableOpacity
-                  key={tab}
-                  style={[
-                    styles.tab,
-                    selectedTab === tab && styles.selectedTab,
-                  ]}
-                  onPress={() => setSelectedTab(tab)}>
-                  <Text
+          <View style={styles.tabContainer}>
+            <HorizontalScroll>
+              {['Overall', 'Posture', 'Swing Rythm', 'Workouts', 'Drills'].map(
+                tab => (
+                  <TouchableOpacity
+                    key={tab}
                     style={[
-                      styles.tabText,
-                      { color: selectedTab === tab ? '#232732' : '#7E7E7E' },
-                    ]}>
-                    {tab}
-                  </Text>
-                </TouchableOpacity>
-              ),
-            )}
-          </HorizontalScroll>
-        </View>
+                      styles.tab,
+                      selectedTab === tab && styles.selectedTab,
+                    ]}
+                    onPress={() => setSelectedTab(tab)}>
+                    <Text
+                      style={[
+                        styles.tabText,
+                        {color: selectedTab === tab ? '#232732' : '#7E7E7E'},
+                      ]}>
+                      {tab}
+                    </Text>
+                  </TouchableOpacity>
+                ),
+              )}
+            </HorizontalScroll>
+          </View>
 
-        {selectedTab === 'Overall' || selectedTab === 'Swing Rythm' ? (
-          <>
-            <View style={styles.instructionContainer}>
-              <View style={styles.instructionHeader}>
-                <Text style={styles.instructionTitle}>Swing Analysis</Text>
-                <Image
-                  source={require('../../../assets/Images/info.png')}
-                  style={styles.infoIcon}
-                />
-              </View>
-              <Text style={styles.subInstructionText}>
-                There are some good fundamentals, but there's a lot of room for
-                improvement.
-              </Text>
-              <Text style={styles.instructionText}>
-                {shuffledFeedbacks.map((feedback, index) => (
-                  <Text key={index}>
-                    <Text style={styles.subTitle}>{feedback.title} : </Text> {feedback.description} {'\n\n'}
-                  </Text>
-                ))}
-              </Text>
-            </View>
-          </>
-        ) : null}
-        {selectedTab === 'Overall' || selectedTab === 'Workouts' ? (
-          <>
-            <View style={styles.workOutContainer}>
-              <Section title="Recommended Workouts">
-                <HorizontalScroll>
-                  {analysis && renderWorkoutCards(analysis["Workout Drills"])}
-
-                </HorizontalScroll>
-              </Section>
-            </View>
-          </>
-        ) : null}
-        {selectedTab === 'Overall' || selectedTab === 'Drills' ? (
-          <>
-            <View style={styles.workOutContainer}>
-              <Section title="Recommended Drills">
-                <HorizontalScroll>
-                  {analysis && renderDrillCards(analysis["Golf Drills"])}
-                </HorizontalScroll>
-              </Section>
-            </View>
-          </>
-        ) : null}
-        {selectedTab === 'Overall' || selectedTab === 'Posture' ? (
-          <>
-            <View style={styles.workOutContainer}>
-              <Section title="Recommended Tutorials">
-                <HorizontalScroll>
-                  {swingAnalysis?.recomended_tutorials?.map((item, index) => (
-                        <TutorialCard
-                          key={index}
-                          data={item}
-                          onPress={() => handleVideoPress(item.file_name, item.title)}
-                        />
+          {selectedTab === 'Overall' || selectedTab === 'Swing Rythm' ? (
+            <>
+              <View style={styles.instructionContainer}>
+                <View style={styles.instructionHeader}>
+                  <Text style={styles.instructionTitle}>Swing Analysis</Text>
+                  <Image
+                    source={require('../../../assets/Images/info.png')}
+                    style={styles.infoIcon}
+                  />
+                </View>
+                <Text style={styles.subInstructionText}>
+                  There are some good fundamentals, but there's a lot of room
+                  for improvement.
+                </Text>
+                <Text style={styles.instructionText}>
+                  {shuffledFeedbacks.map((feedback, index) => (
+                    <Text key={index}>
+                      <Text style={styles.subTitle}>{feedback.title} : </Text>{' '}
+                      {feedback.description} {'\n\n'}
+                    </Text>
                   ))}
-                </HorizontalScroll>
-              </Section>
-            </View>
-          </>
-        ) : null}
-      </ScrollView>
+                </Text>
+              </View>
+            </>
+          ) : null}
+          {selectedTab === 'Overall' || selectedTab === 'Workouts' ? (
+            <>
+              <View style={styles.workOutContainer}>
+                <Section title="Recommended Workouts">
+                  <HorizontalScroll>
+                    {analysis && renderWorkoutCards(analysis['Workout Drills'])}
+                  </HorizontalScroll>
+                </Section>
+              </View>
+            </>
+          ) : null}
+          {selectedTab === 'Overall' || selectedTab === 'Drills' ? (
+            <>
+              <View style={styles.workOutContainer}>
+                <Section title="Recommended Drills">
+                  <HorizontalScroll>
+                    {analysis && renderDrillCards(analysis['Golf Drills'])}
+                  </HorizontalScroll>
+                </Section>
+              </View>
+            </>
+          ) : null}
+          {selectedTab === 'Overall' || selectedTab === 'Posture' ? (
+            <>
+              <View style={styles.workOutContainer}>
+                <Section title="Recommended Tutorials">
+                  <HorizontalScroll>
+                    {swingAnalysis?.recomended_tutorials?.map((item, index) => (
+                      <TutorialCard
+                        key={index}
+                        data={item}
+                        onPress={() =>
+                          handleVideoPress(item.file_name, item.title)
+                        }
+                      />
+                    ))}
+                  </HorizontalScroll>
+                </Section>
+              </View>
+            </>
+          ) : null}
+        </ScrollView>
+      ) : (
+        <View
+          style={{
+            flex: 1,
+            justifyContent: 'center',
+            alignContent: 'center',
+            alignItems: 'center',
+          }}>
+          <Text>No Swing Analysis found</Text>
+        </View>
+        
+      )}
       {selectedVideo && (
         <VideoModal
           visible={modalVisible}
@@ -292,8 +312,7 @@ const AnalysisView: React.FC = (props: any) => {
         />
       )}
     </View>
-
-  )
+  );
 };
 
 export default AnalysisView;

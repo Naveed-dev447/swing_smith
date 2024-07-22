@@ -12,7 +12,7 @@ const GolfDurationView: React.FC = (props: any) => {
   const { route, navigation } = props;
 
   const dispatch = useDispatch();
-  const [score, setScore] = useState(80);
+  const [score, setScore] = useState(0);
 
   const handleSliderChange = (value: number) => {
     setScore(value);
@@ -20,29 +20,45 @@ const GolfDurationView: React.FC = (props: any) => {
     console.log('Golf duration value dispatched:', value);
   };
 
-  const displayScore = score === 100 ? '100+' : score;
+  const getDurationLabel = (value: number) => {
+    switch (value) {
+      case 0:
+        return 'Less than a year';
+      case 1:
+        return '1-3 years';
+      case 2:
+        return '4-6 years';
+      case 3:
+        return '7+ years';
+      default:
+        return '';
+    }
+  };
 
   return (
     <View style={globalStyles.container}>
       <CustomHeader onBackPress={goBack} />
       <View style={globalStyles.contentContainer}>
-        <Text style={globalStyles.title}>How often do you practise your golf swing?</Text>
+        <Text style={globalStyles.title}>How long have you been playing golf?
+        </Text>
         <Text style={globalStyles.subTitle}>
           We provide content tailored to your hand orientation.
         </Text>
+        
         <View style={globalStyles.sliderContainer}>
+        <Text style={globalStyles.scoreText}>{getDurationLabel(score)}</Text>
+
           <Slider
             style={globalStyles.slider}
-            minimumValue={70}
-            maximumValue={100}
+            minimumValue={0}
+            maximumValue={3}
             value={score}
             onValueChange={handleSliderChange}
             minimumTrackTintColor="#B2FF59"
             maximumTrackTintColor="#E0E0E0"
             thumbTintColor="#FFFFFF"
-            step={10}
+            step={1}
           />
-          <Text style={globalStyles.scoreText}>{displayScore}</Text>
         </View>
       </View>
       <View style={globalStyles.buttonContainer}>
