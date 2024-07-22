@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
   headerContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: Platform.OS === 'android' ? hp('4%') : hp('6%'),
+    marginTop: Platform.OS === 'android' ? hp('5%') : hp('6%'),
     paddingHorizontal: wp('5%'),
     justifyContent: 'space-between',
   },

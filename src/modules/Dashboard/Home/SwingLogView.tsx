@@ -1,28 +1,28 @@
-import React, { useState } from 'react';
-import { View, Text, ScrollView, TouchableOpacity, Image } from 'react-native';
-import { SwingCard } from './Common/Common';
+import React, {useState} from 'react';
+import {View, Text, ScrollView, TouchableOpacity, Image} from 'react-native';
+import {SwingCard} from './Common/Common';
 import globalStyles from './styles';
-import { Header } from './Common/Common';
+import {Header} from './Common/Common';
 import Modal from 'react-native-modal';
 import FilterModal from './Common/FilterModal';
-import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch, RootState } from 'redux/store';
-import { fetchSwingLogs } from '../../../redux/Slices/SwingLogSlice'
+import {useDispatch, useSelector} from 'react-redux';
+import {AppDispatch, RootState} from 'redux/store';
+import {fetchSwingLogs} from '../../../redux/Slices/SwingLogSlice';
 import * as Progress from 'react-native-progress';
-import * as util from '../../../shared/Utils/CommonUtils'
+import * as util from '../../../shared/Utils/CommonUtils';
 import ProgressLoader from '../../../components/ProgressLoader';
 
-
 const SwingLogView: React.FC = (props: any) => {
-  const { routes, navigation } = props;
+  const {routes, navigation} = props;
   const [modalVisible, setModalVisible] = useState(false);
   const dispatch = useDispatch<AppDispatch>();
-  const { swingLogs, loading, error } = useSelector((state: RootState) => state.swingLogs);
+  const {swingLogs, loading, error} = useSelector(
+    (state: RootState) => state.swingLogs,
+  );
 
   React.useEffect(() => {
     dispatch(fetchSwingLogs());
   }, [dispatch]);
-
 
   const toggleModal = () => {
     setModalVisible(!modalVisible);
@@ -31,8 +31,7 @@ const SwingLogView: React.FC = (props: any) => {
   if (loading) {
     return <ProgressLoader />;
   }
-
-
+  console.log('swing logs', swingLogs);
 
   return (
     <View style={globalStyles.container}>
@@ -50,20 +49,31 @@ const SwingLogView: React.FC = (props: any) => {
           />
         </TouchableOpacity>
       </View>
-      <ScrollView
-        contentContainerStyle={globalStyles.SwingLogScrollView}>
-        {swingLogs.map((item, index) => (
-          <SwingCard
-            key={index}
-            score={item.swing_rating}
-            date={util.formatDate(item.created_at)}
-            description={item.swing_analysis}
-            type={'Iron'}
-            shot={'DTL'}
-            navigate={() => navigation.navigate('AnalysisView', item.id)}
-          />
-        ))}
-      </ScrollView>
+      {swingLogs.length > 0 ? (
+        <ScrollView contentContainerStyle={globalStyles.SwingLogScrollView}>
+          {swingLogs.map((item, index) => (
+            <SwingCard
+              key={index}
+              score={item.swing_rating}
+              date={util.formatDate(item.created_at)}
+              description={item.swing_analysis}
+              type={'Iron'}
+              shot={'DTL'}
+              navigate={() => navigation.navigate('AnalysisView', item.id)}
+            />
+          ))}
+        </ScrollView>
+      ) : (
+        <View
+          style={{
+            flex: 1,
+            justifyContent: 'center',
+            alignContent: 'center',
+            alignItems: 'center',
+          }}>
+          <Text>No Swing Logs History Available</Text>
+        </View>
+      )}
       <Modal
         isVisible={modalVisible}
         onBackdropPress={toggleModal}

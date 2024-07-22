@@ -43,7 +43,7 @@ const LowerBodyStrength = (props: any) => {
 
   return (
     <View style={styles.container}>
-      <CustomHeader onBackPress={goBack} title="Drill" />
+      <CustomHeader onBackPress={goBack} title="WorkOuts" />
 
       <ScrollView contentContainerStyle={styles.contentContainer}>
         <View style={styles.imageView}>
@@ -54,7 +54,7 @@ const LowerBodyStrength = (props: any) => {
             loop
           />
         </View>
-        <Text style={styles.workoutTitle}>Drill Detail</Text>
+        <Text style={styles.workoutTitle}>Workout Detail</Text>
         <Text style={styles.detail}>
           The lower abdomen and hips are the most difficult areas of the body to
           reduce when we are on a diet. Even so, in this area, especially the

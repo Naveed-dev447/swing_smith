@@ -23,7 +23,7 @@ import { useNavigation } from '@react-navigation/native';
 export const Header: React.FC<{
   toggleModal: () => void;
   name: string;
-  address: string;
+  address?: string;
 }> = ({ toggleModal, name, address }) => (
   <View>
     <View style={globalStyles.headerContainer}>
@@ -194,9 +194,6 @@ export const Section: React.FC<SectionProps> = ({ title, children }) => (
   <View style={globalStyles.recommendedSection}>
     <View style={globalStyles.recommendedHeader}>
       <Text style={globalStyles.recommendedTitle}>{title}</Text>
-      <TouchableOpacity>
-        <Text style={globalStyles.seeAll}>See All</Text>
-      </TouchableOpacity>
     </View>
     {children}
   </View>
