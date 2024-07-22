@@ -8,3 +8,9 @@ export const formatDate = (dateString: string) => {
         return '';
     }
 };
+
+
+
+export const isNotEmptyObject = (obj: any): boolean => {
+    return obj && Object.keys(obj).length > 0 && obj.constructor === Object;
+  };

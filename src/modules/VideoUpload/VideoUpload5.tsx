@@ -29,9 +29,11 @@ const VideoUpload5: React.FC = (props: any) => {
   const {loading, setLoading} = useLoader();
   const [getTip, setGetTip] = useState<ITipsResponse | null>(null);
 
+  
   const handleNextPress = async () => {
     if (uploadedVideo) {
       setLoading(true);
+
       const formData = new FormData();
       formData.append('fileName', {
         uri:
@@ -43,11 +45,11 @@ const VideoUpload5: React.FC = (props: any) => {
       });
 
       try {
-        const tipResponse = await GetTipAPICall();
+        const tipResponse = await GetTipAPICall();   
         setGetTip(tipResponse);
 
         const uploadResponse = await UploadVideoAPICall(formData);
-
+        
         if (uploadResponse.status === 200) {
           setLoading(false);
           ShowToast('success', uploadResponse.message);
@@ -88,8 +90,8 @@ const VideoUpload5: React.FC = (props: any) => {
       <CustomHeader onBackPress={goBack} title="Analysing" />
       {loading && (
         <View style={styles.progressBarContainer}>
+        <Text style={styles.progressText}>Processing your upload. This may take a moment.</Text>
           <Progress.Bar
-            progress={0.38}
             width={null}
             height={20}
             style={styles.progressBar}
@@ -135,10 +137,17 @@ const styles = StyleSheet.create({
   progressBarContainer: {
     marginTop: 20,
   },
+  progressText: {
+    marginTop: 10,
+    marginBottom: 10,
+    fontSize: 16,
+    color: 'black',
+    fontFamily: 'Outfit-Regular',
+  },
   analyzingScore: {
     fontSize: 20,
     color: 'black',
-    fontFamily: 'Outfit-Regular',
+    fontFamily: 'Outfit-SemiBold',
     marginBottom: 10,
   },
   analyzingText: {
@@ -146,7 +155,10 @@ const styles = StyleSheet.create({
     color: 'black',
   },
   progressBar: {
+    borderColor:'#939393',
+    borderWidth:0.5,
     borderRadius: wp('5%'),
+    marginTop:10,
     marginBottom: 20,
   },
   imageContainer: {

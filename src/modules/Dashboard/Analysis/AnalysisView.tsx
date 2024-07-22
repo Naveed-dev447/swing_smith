@@ -26,6 +26,7 @@ import {
 import ProgressLoader from '../../../components/ProgressLoader';
 
 import VideoModal from '../../../components/VideoModal';
+import { isNotEmptyObject } from '../../../shared/Utils/CommonUtils';
 
 const workoutImage = require('../../../assets/Images/swingAnalysis.png');
 const profileImage = require('../../../assets/Images/profilePicture.png');
@@ -158,7 +159,7 @@ const AnalysisView: React.FC = (props: any) => {
   return (
     <View style={styles.container}>
       <CustomHeader onBackPress={navigation.goBack} title="Swing Analysis" />
-      {swingAnalysis?.analysis ? (
+      {isNotEmptyObject(analysis) ? (
         <ScrollView style={{flex: 1, paddingBottom: 70, marginTop: 30}}>
           <Image source={workoutImage} style={styles.image} />
           <View style={styles.analysisCardContainer}>
