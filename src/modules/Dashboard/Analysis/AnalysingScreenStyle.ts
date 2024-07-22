@@ -9,7 +9,7 @@ export const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'white',
     alignItems: 'center',
-    marginBottom:'5%'
+    marginBottom:'20 %'
   },
   headerContainer: {
     flexDirection: 'row',
