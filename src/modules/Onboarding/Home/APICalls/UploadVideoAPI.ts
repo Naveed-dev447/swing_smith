@@ -13,7 +13,7 @@ export const UploadVideoAPICall = async (payload: FormData) => {
         'Content-Type': 'multipart/form-data',
       },
       maxBodyLength: Infinity,
-      timeout: 20000,
+      timeout: 30000,
     },
   );
   return response.data;
