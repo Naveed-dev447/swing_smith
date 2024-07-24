@@ -1,5 +1,6 @@
 // src/redux/Slices/OnboardingSlice.ts
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { IVideoData } from '../../types/UploadVideo';
 
 interface OnboardingState {
   skillLevel: string | null;
@@ -8,7 +9,7 @@ interface OnboardingState {
   equipmentType: string | null;
   practiceDuration: number;
   scoringAverage: number;
-  uploadedVideo: string | null;
+  uploadedVideo: IVideoData | null;
   dtlSelectedOption: string | null;
   videoHandedness: string | null;
   selectedEquipment: string | null;
@@ -26,7 +27,7 @@ const initialState: OnboardingState = {
   uploadedVideo: null,
   dtlSelectedOption: null,
   videoHandedness: null,
-  selectedEquipment: null, 
+  selectedEquipment: null,
   selectedEquipment2: null
 };
 
@@ -65,8 +66,8 @@ const onboardingSlice = createSlice({
       state.selectedEquipment2 = action.payload;
     },
     setCLubEquipment2: (state, action: PayloadAction<string>) => {
-        state.selectedEquipment2 = action.payload;
-      },
+      state.selectedEquipment2 = action.payload;
+    },
   },
 });
 

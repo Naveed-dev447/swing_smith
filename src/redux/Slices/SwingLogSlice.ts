@@ -1,6 +1,6 @@
-import {createSlice, createAsyncThunk, PayloadAction} from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import apiClient from '../../config/client';
-import {SwingLog, SwingLogApiResponse} from '../../types/SwingLog';
+import { SwingLog, SwingLogApiResponse } from '../../types/SwingLog';
 
 interface SwingLogsState {
   swingLogs: SwingLog[];
@@ -18,7 +18,6 @@ export const fetchSwingLogs = createAsyncThunk(
   'swingLogs/fetchSwingLogs',
   async () => {
     const response = await apiClient.get<SwingLogApiResponse>('/video/all');
-    console.log('swing log api response :', response.data);
 
     return response.data.data;
   },

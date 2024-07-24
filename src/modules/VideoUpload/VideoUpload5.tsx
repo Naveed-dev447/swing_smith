@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   StyleSheet,
   Text,
@@ -9,54 +9,51 @@ import {
 } from 'react-native';
 import * as Progress from 'react-native-progress';
 import CustomHeader from '../../shared/Component/CustomHeader';
-import {goBack} from '../../shared/Utils/navigationRef';
+import { goBack } from '../../shared/Utils/navigationRef';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import {useSelector} from 'react-redux';
-import {RootState} from '../../redux/store';
-import {CommonActions} from '@react-navigation/native';
-import {useLoader} from '../../config/LoaderContext';
-import UploadVideoAPICall from '../Onboarding/Home/APICalls/UploadVideoAPI';
-import {ShowToast} from '../../components/ShowToast';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../redux/store';
+import { CommonActions } from '@react-navigation/native';
+import { useLoader } from '../../config/LoaderContext';
+import { ShowToast } from '../../components/ShowToast';
 import GetTipAPICall from '../Onboarding/Home/APICalls/TipAPI';
-import {ITipsResponse} from 'types/Tips';
+import { ITipsResponse } from 'types/Tips';
+import AnalysisVideoAPICall from '../Onboarding/Home/APICalls/AnalyiseVideoAPI';
 
 const VideoUpload5: React.FC = (props: any) => {
-  const {navigation} = props;
-  const {uploadedVideo} = useSelector((state: RootState) => state.onboarding);
-  const {loading, setLoading} = useLoader();
+  const { navigation } = props;
+  const { uploadedVideo } = useSelector((state: RootState) => state.onboarding);
+  const { loading, setLoading } = useLoader();
   const [getTip, setGetTip] = useState<ITipsResponse | null>(null);
 
-  
   const handleNextPress = async () => {
     if (uploadedVideo) {
+
       setLoading(true);
 
-      const formData = new FormData();
-      formData.append('fileName', {
-        uri:
-          Platform.OS === 'android'
-            ? uploadedVideo
-            : uploadedVideo.replace('file://', ''),
-        name: 'video.mp4',
-        type: 'video/mp4',
-      });
-
+      const payload = {
+        file_name: uploadedVideo.filename,
+        mimetype: uploadedVideo.mimetype,
+      }
       try {
-        const tipResponse = await GetTipAPICall();   
-        setGetTip(tipResponse);
+        // const tipResponse = await GetTipAPICall();   
+        // console.log("Tips API call ", tipResponse);
 
-        const uploadResponse = await UploadVideoAPICall(formData);
-        
+        // setGetTip(tipResponse);
+
+
+        const uploadResponse = await AnalysisVideoAPICall(payload);
+
         if (uploadResponse.status === 200) {
           setLoading(false);
           ShowToast('success', uploadResponse.message);
           handleNavigation(uploadResponse.data?.id);
         }
       } catch (error) {
-        ShowToast('error', 'Request is not Completed, Please try again');
+        ShowToast('error', 'Vidoe Analysis failed, Please try again');
         setLoading(false);
         console.error(error);
       } finally {
@@ -75,7 +72,7 @@ const VideoUpload5: React.FC = (props: any) => {
     navigation.dispatch(
       CommonActions.reset({
         index: 0,
-        routes: [{name: 'BottomTabStack'}],
+        routes: [{ name: 'BottomTabStack' }],
       }),
     );
 
@@ -90,7 +87,7 @@ const VideoUpload5: React.FC = (props: any) => {
       <CustomHeader onBackPress={goBack} title="Analysing" />
       {loading && (
         <View style={styles.progressBarContainer}>
-        <Text style={styles.progressText}>Processing your upload. This may take a moment.</Text>
+          <Text style={styles.progressText}>Processing your upload. This may take a moment.</Text>
           <Progress.Bar
             width={null}
             height={20}
@@ -155,10 +152,10 @@ const styles = StyleSheet.create({
     color: 'black',
   },
   progressBar: {
-    borderColor:'#939393',
-    borderWidth:0.5,
+    borderColor: '#939393',
+    borderWidth: 0.5,
     borderRadius: wp('5%'),
-    marginTop:10,
+    marginTop: 10,
     marginBottom: 20,
   },
   imageContainer: {
