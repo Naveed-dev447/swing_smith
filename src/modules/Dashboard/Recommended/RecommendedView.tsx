@@ -73,14 +73,14 @@ const RecommendedView: React.FC = () => {
                   progress="02/04"
                   description="Planks, Russian twists, Medicine ball rotations"
                   score="7.2/10"
-                  navigateTo="WorkoutView"
+                  navigateTo="Core Strength"
                 />
                 <WorkoutCard
                   title="Lower Body Strength"
                   progress="01/03"
                   description="Squats, Lunges, Glute bridges"
                   score="7.2/10"
-                  navigateTo="LowerBodyStrength" 
+                  navigateTo="Lower Body Strength" 
                 />
                 <WorkoutCard
                   title="Flexibility"

@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { ScrollView, View, Text, Image, TouchableOpacity } from 'react-native';
-import { styles } from './AnalysingScreenStyle';
+import React, {useState} from 'react';
+import {ScrollView, View, Text, Image, TouchableOpacity} from 'react-native';
+import {styles} from './AnalysingScreenStyle';
 import CustomHeader from '../../../shared/Component/CustomHeader';
 import {
   DrillCard,
@@ -15,8 +15,8 @@ import {
 } from '../../Dashboard/Home/Common/Common';
 import TutorialCard from '../../../shared/Component/TutorialCard/TutorialCard';
 import recommandedStyles from '../Recommended/styles';
-import { AppDispatch, RootState } from 'redux/store';
-import { useSelector, useDispatch } from 'react-redux';
+import {AppDispatch, RootState} from 'redux/store';
+import {useSelector, useDispatch} from 'react-redux';
 import * as Progress from 'react-native-progress';
 
 import {
@@ -26,7 +26,7 @@ import {
 import ProgressLoader from '../../../components/ProgressLoader';
 
 import VideoModal from '../../../components/VideoModal';
-import { isNotEmptyObject } from '../../../shared/Utils/CommonUtils';
+import {isNotEmptyObject} from '../../../shared/Utils/CommonUtils';
 
 const workoutImage = require('../../../assets/Images/swingAnalysis.png');
 const profileImage = require('../../../assets/Images/profilePicture.png');
@@ -35,8 +35,8 @@ const ruler = require('../../../assets/Images/ruler.png');
 const wind = require('../../../assets/Images/fast-wind.png');
 
 const AnalysisView: React.FC = (props: any) => {
-  const { navigation, route } = props;
-  const { params } = route;
+  const {navigation, route} = props;
+  const {params} = route;
 
   const [selectedTab, setSelectedTab] = useState('Overall');
   const [modalVisible, setModalVisible] = useState(false);
@@ -45,7 +45,7 @@ const AnalysisView: React.FC = (props: any) => {
     title: string;
   } | null>(null);
   const dispatch = useDispatch<AppDispatch>();
-  const { swingAnalysis, loading, error } = useSelector(
+  const {swingAnalysis, loading, error} = useSelector(
     (state: RootState) => state.swingAnalysis,
   );
   const analysis = swingAnalysis?.analysis;
@@ -68,23 +68,23 @@ const AnalysisView: React.FC = (props: any) => {
 
   const renderWorkoutCards = (drills: any) => {
     if (Array.isArray(drills)) {
-      // Handle case where drills is an array
       return drills.map((drill, index) => (
         <WorkoutCard
           key={index}
-          title={'Unknown Title'} // Use a generic title for array items
-          progress={`0/10`} // Assuming each item has a progress of 1 out of the total number of drills
+          title={'Unknown Title'} 
+          progress={`0/10`}
           description={drill}
-          score="7.2/10" // Replace with actual logic to determine score
+          score="7.2/10" 
+          navigateTo={'WorkoutDetails'} 
         />
       ));
     } else if (typeof drills === 'object' && drills !== null) {
-      // Handle case where drills is an object
       return Object.keys(drills).map(drillType => {
         const drillItems = drills[drillType];
         const progress = Array.isArray(drillItems)
           ? `${drillItems.length}/10`
           : `0/10`;
+        console.log('Drill type ========>:', drillType);
 
         return (
           <WorkoutCard
@@ -95,12 +95,12 @@ const AnalysisView: React.FC = (props: any) => {
               Array.isArray(drillItems) ? drillItems.join(', ') : drillItems
             }
             score="7.2/10"
-            navigateTo="" // Replace with actual logic to determine score
+            navigateTo={drillType} // Use the drillType as the screen name
           />
         );
       });
     } else {
-      return <Text>No drills available</Text>; // Handle cases where drills data is neither array nor object
+      return <Text>No WorkOuts are available</Text>; // Handle cases where drills data is neither array nor object
     }
   };
 
@@ -115,7 +115,7 @@ const AnalysisView: React.FC = (props: any) => {
       return Object.keys(drills).map(drillType => {
         const drillItems = drills[drillType];
         return (
-          <View key={drillType} style={{ marginBottom: 20 }}>
+          <View key={drillType} style={{marginBottom: 20}}>
             {/* <Text style={{ fontSize: 18, fontWeight: 'bold' }}>{drillType}</Text> */}
             {drillItems.map((drill, index) => (
               <DrillCard key={index} title={drill} />
@@ -132,10 +132,10 @@ const AnalysisView: React.FC = (props: any) => {
     if (!analysis) return [];
 
     const positives = Object.entries(analysis.Positives).map(
-      ([title, description]) => ({ title, description }),
+      ([title, description]) => ({title, description}),
     );
     const negatives = Object.entries(analysis.Negatives).map(
-      ([title, description]) => ({ title, description }),
+      ([title, description]) => ({title, description}),
     );
 
     const allFeedbacks = [...positives, ...negatives];
@@ -152,7 +152,7 @@ const AnalysisView: React.FC = (props: any) => {
   };
 
   const handleVideoPress = (uri: string, title: string) => {
-    setSelectedVideo({ uri, title });
+    setSelectedVideo({uri, title});
     setModalVisible(true);
   };
 
@@ -160,7 +160,7 @@ const AnalysisView: React.FC = (props: any) => {
     <View style={styles.container}>
       <CustomHeader onBackPress={navigation.goBack} title="Swing Analysis" />
       {isNotEmptyObject(analysis) ? (
-        <ScrollView style={{ flex: 1, paddingBottom: 70, marginTop: 30 }}>
+        <ScrollView style={{flex: 1, paddingBottom: 70, marginTop: 30}}>
           <Image source={workoutImage} style={styles.image} />
           <View style={styles.analysisCardContainer}>
             <Image source={profileImage} style={styles.profileImage} />
@@ -192,7 +192,6 @@ const AnalysisView: React.FC = (props: any) => {
           </View>
           <View style={styles.tabContainer}>
             <HorizontalScroll>
-
               {/* {analysis && Object.keys(analysis).map( */}
               {['Overall', 'Posture', 'Swing Rythm', 'Workouts', 'Drills'].map(
                 tab => (
@@ -206,7 +205,7 @@ const AnalysisView: React.FC = (props: any) => {
                     <Text
                       style={[
                         styles.tabText,
-                        { color: selectedTab === tab ? '#232732' : '#7E7E7E' },
+                        {color: selectedTab === tab ? '#232732' : '#7E7E7E'},
                       ]}>
                       {tab}
                     </Text>
@@ -293,7 +292,6 @@ const AnalysisView: React.FC = (props: any) => {
           }}>
           <Text>No Swing Analysis found</Text>
         </View>
-
       )}
       {selectedVideo && (
         <VideoModal

@@ -260,7 +260,7 @@ export const DrillCard: React.FC<DrillCardProps> = ({ title }) => (
       source={require('../../../../assets/Images/DashBoard/golfman.png')}
       style={globalStyles.drillIcon}
     />
-    <Text style={{ textAlign: 'center' }}>{title}</Text>
+    <Text style={{ textAlign: 'center',color:'#192126',fontFamily:'Outfit-SemiBold' }}>{title}</Text>
     <TouchableOpacity style={globalStyles.markAsDoneButton}>
       <Text style={globalStyles.markAsDoneText}>Mark As Done</Text>
     </TouchableOpacity>
