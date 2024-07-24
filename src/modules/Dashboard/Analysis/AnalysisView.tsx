@@ -38,7 +38,7 @@ const AnalysisView: React.FC = (props: any) => {
   const { navigation, route } = props;
   const { params } = route;
 
-  const [selectedTab, setSelectedTab] = useState('Overall');
+  const [selectedTab, setSelectedTab] = useState('Positives');
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedVideo, setSelectedVideo] = useState<{
     uri: string;
@@ -50,7 +50,6 @@ const AnalysisView: React.FC = (props: any) => {
   );
   const analysis = swingAnalysis?.analysis;
 
-  console.log('Swing Analysis', swingAnalysis);
 
   React.useEffect(() => {
     if (params) {
@@ -128,29 +127,79 @@ const AnalysisView: React.FC = (props: any) => {
     }
   };
 
-  const getShuffledFeedbacks = () => {
-    if (!analysis) return [];
 
-    const positives = Object.entries(analysis.Positives).map(
-      ([title, description]) => ({ title, description }),
-    );
-    const negatives = Object.entries(analysis.Negatives).map(
-      ([title, description]) => ({ title, description }),
-    );
+  const renderHeaderContent = (header) => {
+    console.log("Headers", header);
 
-    const allFeedbacks = [...positives, ...negatives];
-    for (let i = allFeedbacks.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [allFeedbacks[i], allFeedbacks[j]] = [allFeedbacks[j], allFeedbacks[i]];
+    switch (header) {
+      case 'Positives':
+        return (
+          <View style={styles.instructionContainer}>
+            <View style={styles.instructionHeader}>
+              <Text style={styles.instructionTitle}>Positives</Text>
+            </View>
+            {Object.entries(analysis?.Positives).map(([key, value]) => (
+              <Text key={key}>
+                <Text style={styles.subTitle}>{key}: </Text>
+                {value}
+              </Text>
+            ))}
+          </View>
+        );
+      case 'Negatives':
+        return (
+          <View style={styles.instructionContainer}>
+            <View style={styles.instructionHeader}>
+              <Text style={styles.instructionTitle}>Negatives</Text>
+            </View>
+            {Object.entries(analysis?.Negatives).map(([key, value]) => (
+              <Text key={key}>
+                <Text style={styles.subTitle}>{key}: </Text>
+                {value}
+              </Text>
+            ))}
+          </View>
+        );
+      case 'Workout Drills':
+        return (
+          <View style={styles.workOutContainer}>
+            <Section title="Recommended Workouts">
+              <HorizontalScroll>
+                {renderWorkoutCards(analysis['Workout Drills'])}
+              </HorizontalScroll>
+            </Section>
+          </View>
+        );
+      case 'Golf Drills':
+        return (
+          <View style={styles.workOutContainer}>
+            <Section title="Recommended Drills">
+              <HorizontalScroll>
+                {renderDrillCards(analysis['Golf Drills'])}
+              </HorizontalScroll>
+            </Section>
+          </View>
+        );
+      case 'Video Suggestions':
+        return (
+          <View style={styles.workOutContainer}>
+            <Section title="Recommended Tutorials">
+              <HorizontalScroll>
+                {swingAnalysis?.recomended_tutorials?.map((item, index) => (
+                  <TutorialCard
+                    key={index}
+                    data={item}
+                    onPress={() => handleVideoPress(item.file_name, item.title)}
+                  />
+                ))}
+              </HorizontalScroll>
+            </Section>
+          </View>
+        );
+      default:
+        return <Text style={styles.instructionText}>No data available for this category.</Text>;
     }
-    return allFeedbacks;
   };
-
-  const shuffledFeedbacks = getShuffledFeedbacks();
-  const toggleModal = () => {
-    setModalVisible(!modalVisible);
-  };
-
   const handleVideoPress = (uri: string, title: string) => {
     setSelectedVideo({ uri, title });
     setModalVisible(true);
@@ -192,9 +241,7 @@ const AnalysisView: React.FC = (props: any) => {
           </View>
           <View style={styles.tabContainer}>
             <HorizontalScroll>
-
-              {/* {analysis && Object.keys(analysis).map( */}
-              {['Overall', 'Posture', 'Swing Rythm', 'Workouts', 'Drills'].map(
+              {analysis && Object.keys(analysis).map(
                 tab => (
                   <TouchableOpacity
                     key={tab}
@@ -215,8 +262,8 @@ const AnalysisView: React.FC = (props: any) => {
               )}
             </HorizontalScroll>
           </View>
-
-          {selectedTab === 'Overall' || selectedTab === 'Swing Rythm' ? (
+          {selectedTab && renderHeaderContent(selectedTab)}
+          {/* {selectedTab === 'Overall' || selectedTab === 'Swing Rythm' ? (
             <>
               <View style={styles.instructionContainer}>
                 <View style={styles.instructionHeader}>
@@ -281,7 +328,7 @@ const AnalysisView: React.FC = (props: any) => {
                 </Section>
               </View>
             </>
-          ) : null}
+          ) : null} */}
         </ScrollView>
       ) : (
         <View
