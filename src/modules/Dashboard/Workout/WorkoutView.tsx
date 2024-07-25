@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   StyleSheet,
   Text,
@@ -12,23 +12,44 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import CustomHeader from '../../../shared/Component/CustomHeader';
-import {goBack} from '../../../shared/Utils/navigationRef';
+import { goBack } from '../../../shared/Utils/navigationRef';
 
 const workoutIcon = require('../../../assets/Images/workoutIcon.png');
 const checkIcon = require('../../../assets/Images/checkIcon.png');
 const checkIconSelected = require('../../../assets/Images/selectedCheckIcon.png');
 import LottieView from 'lottie-react-native';
+import { GetWorkoutListAPICall } from './APICalls/WorkoutAPI';
+import { ShowToast } from '../../../components/ShowToast';
 
-const workouts = ['Side Plank', 'Russian Twists', 'Plank', 'Crunches'];
+const workout = ['Side Plank', 'Russian Twists', 'Plank', 'Crunches'];
 
 const WorkoutView = (props: any) => {
-  const {route, navigation} = props;
+  const { route, navigation } = props;
+  const { video_id, type, category } = route.params;
   const [selectedWorkouts, setSelectedWorkouts] = useState<string[]>([]);
+  const [workouts, setWorkouts] = useState<string[]>([]);
 
+
+
+  React.useEffect(() => {
+    const fetchData = async () => {
+      const payload = { video_id, type, category };
+      const response = await GetWorkoutListAPICall(payload);
+
+      if (response.data.length > 0) {
+        setWorkouts(response.data);
+      } else {
+        ShowToast('error', response.message)
+        // This is only for testing when API will work properly will remove this
+        setWorkouts(workout)
+        console.error(response.message);
+      }
+    };
+    fetchData();
+  }, [video_id, type, category]);
   const toggleWorkoutSelection = (workout: string) => {
     setSelectedWorkouts(prevSelected => {
       if (!prevSelected.includes(workout)) {
-        // Navigate to the CongratulationModal when a workout is selected
         navigation.navigate('Congratulation');
         return [...prevSelected, workout];
       }

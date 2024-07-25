@@ -39,10 +39,10 @@ const VideoUpload5: React.FC = (props: any) => {
         mimetype: uploadedVideo.mimetype,
       }
       try {
-        // const tipResponse = await GetTipAPICall();   
-        // console.log("Tips API call ", tipResponse);
+        const tipResponse = await GetTipAPICall();   
+        console.log("Tips API call ", tipResponse);
 
-        // setGetTip(tipResponse);
+        setGetTip(tipResponse);
 
 
         const uploadResponse = await AnalysisVideoAPICall(payload);

@@ -1,6 +1,6 @@
-import React, {useState} from 'react';
-import {ScrollView, View, Text, Image, TouchableOpacity} from 'react-native';
-import {styles} from './AnalysingScreenStyle';
+import React, { useState } from 'react';
+import { ScrollView, View, Text, Image, TouchableOpacity } from 'react-native';
+import { styles } from './AnalysingScreenStyle';
 import CustomHeader from '../../../shared/Component/CustomHeader';
 import {
   DrillCard,
@@ -9,15 +9,15 @@ import {
   WorkoutCard,
 } from '../../Dashboard/Home/Common/Common';
 import TutorialCard from '../../../shared/Component/TutorialCard/TutorialCard';
-import {AppDispatch, RootState} from 'redux/store';
-import {useSelector, useDispatch} from 'react-redux';
+import { AppDispatch, RootState } from 'redux/store';
+import { useSelector, useDispatch } from 'react-redux';
 import {
   fetchSwingAnalysis,
   resetSwingAnalysisState,
 } from '../../../redux/Slices/SwingAnalysisSlice';
 import ProgressLoader from '../../../components/ProgressLoader';
 import VideoModal from '../../../components/VideoModal';
-import {isNotEmptyObject} from '../../../shared/Utils/CommonUtils';
+import { isNotEmptyObject } from '../../../shared/Utils/CommonUtils';
 
 const workoutImage = require('../../../assets/Images/swingAnalysis.png');
 const profileImage = require('../../../assets/Images/profilePicture.png');
@@ -26,8 +26,8 @@ const ruler = require('../../../assets/Images/ruler.png');
 const wind = require('../../../assets/Images/fast-wind.png');
 
 const AnalysisView: React.FC = (props: any) => {
-  const {navigation, route} = props;
-  const {params} = route;
+  const { navigation, route } = props;
+  const { params } = route;
 
   const [selectedTab, setSelectedTab] = useState('Overall');
   const [modalVisible, setModalVisible] = useState(false);
@@ -36,10 +36,11 @@ const AnalysisView: React.FC = (props: any) => {
     title: string;
   } | null>(null);
   const dispatch = useDispatch<AppDispatch>();
-  const {swingAnalysis, loading, error} = useSelector(
+  const { swingAnalysis, loading, error } = useSelector(
     (state: RootState) => state.swingAnalysis,
   );
-  const analysis = swingAnalysis?.analysis;
+  const analysis = swingAnalysis?.data.analysis;
+  const videoId = swingAnalysis?.data.id
 
   React.useEffect(() => {
     if (params) {
@@ -65,7 +66,7 @@ const AnalysisView: React.FC = (props: any) => {
           progress={`2/4`}
           description={drill}
           score="7.2/10"
-          navigateTo={'Core Strength'}
+          navigateTo={{ routeName: 'Core Strength', params: { video_id: videoId, type: drill, category: 'Workout Drills' } }}
         />
       ));
     } else if (typeof drills === 'object' && drills !== null) {
@@ -73,7 +74,7 @@ const AnalysisView: React.FC = (props: any) => {
         const drillItems = drills[drillType];
         const progress = Array.isArray(drillItems)
           ? `${drillItems.length}/10`
-          : `0/10`;          
+          : `0/10`;
         return (
           <WorkoutCard
             key={drillType}
@@ -101,7 +102,7 @@ const AnalysisView: React.FC = (props: any) => {
       return Object.keys(drills).map(drillType => {
         const drillItems = drills[drillType];
         return (
-          <View key={drillType} style={{marginBottom: 20}}>
+          <View key={drillType} style={{ marginBottom: 20 }}>
             {drillItems.map((drill, index) => (
               <DrillCard key={index} title={drill} />
             ))}
@@ -198,7 +199,7 @@ const AnalysisView: React.FC = (props: any) => {
     }
   };
   const handleVideoPress = (uri: string, title: string) => {
-    setSelectedVideo({uri, title});
+    setSelectedVideo({ uri, title });
     setModalVisible(true);
   };
 
@@ -206,7 +207,7 @@ const AnalysisView: React.FC = (props: any) => {
     <View style={styles.container}>
       <CustomHeader onBackPress={navigation.goBack} title="Swing Analysis" />
       {isNotEmptyObject(analysis) ? (
-        <ScrollView style={{flex: 1, paddingBottom: 70, marginTop: 30}}>
+        <ScrollView style={{ flex: 1, paddingBottom: 70, marginTop: 30 }}>
           <Image source={workoutImage} style={styles.image} />
           <View style={styles.analysisCardContainer}>
             <Image source={profileImage} style={styles.profileImage} />
@@ -256,7 +257,7 @@ const AnalysisView: React.FC = (props: any) => {
                   <Text
                     style={[
                       styles.tabText,
-                      {color: selectedTab === tab ? '#232732' : '#7E7E7E'},
+                      { color: selectedTab === tab ? '#232732' : '#7E7E7E' },
                     ]}>
                     {tab}
                   </Text>
