@@ -29,7 +29,7 @@ const AnalysisView: React.FC = (props: any) => {
   const {navigation, route} = props;
   const {params} = route;
 
-  const [selectedTab, setSelectedTab] = useState('Positives');
+  const [selectedTab, setSelectedTab] = useState('Overall');
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedVideo, setSelectedVideo] = useState<{
     uri: string;
@@ -64,7 +64,7 @@ const AnalysisView: React.FC = (props: any) => {
           progress={`0/10`}
           description={drill}
           score="7.2/10"
-          navigateTo={'WorkoutDetails'}
+          navigateTo={'Core Strength'}
         />
       ));
     } else if (typeof drills === 'object' && drills !== null) {
@@ -112,10 +112,8 @@ const AnalysisView: React.FC = (props: any) => {
     }
   };
 
-
-  const renderHeaderContent = (header) => {
-    console.log("Headers", header);
-
+  const renderHeaderContent = header => {
+    console.log('Headers', header);
 
     switch (header) {
       case 'Positives':
@@ -198,7 +196,6 @@ const AnalysisView: React.FC = (props: any) => {
             No data available for this category.
           </Text>
         );
-
     }
   };
   const handleVideoPress = (uri: string, title: string) => {
@@ -242,7 +239,6 @@ const AnalysisView: React.FC = (props: any) => {
           </View>
           <View style={styles.tabContainer}>
             <HorizontalScroll>
-
               {[
                 'Overall',
                 'Positives',
