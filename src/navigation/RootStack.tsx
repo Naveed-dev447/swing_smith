@@ -124,12 +124,12 @@ const RootNavigation = () => {
           />
           <Stack.Screen
             options={{ headerShown: false }}
-            name="WorkoutView"
+            name="Core Strength"
             component={WorkoutView}
           />
           <Stack.Screen
             options={{ headerShown: false }}
-            name="LowerBodyStrength"
+            name="Lower Body Strength"
             component={LowerBodyStrength}
           />
           <Stack.Screen

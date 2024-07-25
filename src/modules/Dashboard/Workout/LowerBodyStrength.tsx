@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   StyleSheet,
   Text,
@@ -12,33 +12,27 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import CustomHeader from '../../../shared/Component/CustomHeader';
-import {goBack} from '../../../shared/Utils/navigationRef';
+import { goBack } from '../../../shared/Utils/navigationRef';
+import LottieView from 'lottie-react-native';
 
 const workoutIcon = require('../../../assets/Images/workoutIcon.png');
 const checkIcon = require('../../../assets/Images/checkIcon.png');
 const checkIconSelected = require('../../../assets/Images/selectedCheckIcon.png');
-const workoutImage = require('../../../assets/Images/workout.png');
-import LottieView from 'lottie-react-native';
 
 const workouts = ['Side Plank', 'Russian Twists', 'Plank', 'Crunches'];
 
 const LowerBodyStrength = (props: any) => {
-  const {route, navigation} = props;
+  const { route, navigation } = props;
   const [selectedWorkouts, setSelectedWorkouts] = useState<string[]>([]);
 
   const toggleWorkoutSelection = (workout: string) => {
     setSelectedWorkouts(prevSelected => {
       if (!prevSelected.includes(workout)) {
+        navigation.navigate('Congratulation');
         return [...prevSelected, workout];
       }
       return prevSelected;
     });
-  };
-
-  const handleMarkAsDone = () => {
-    setSelectedWorkouts(workouts);
-    console.log('Selected Workouts:', workouts);
-    // navigation.navigate('OnboardHome8');
   };
 
   return (

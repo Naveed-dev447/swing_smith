@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import {StyleSheet} from 'react-native';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -9,7 +9,7 @@ const recommandedStyles = StyleSheet.create({
     flex: 1,
     padding: wp('1%'),
     backgroundColor: '#fff',
-    marginBottom: wp('20%')
+    marginBottom: wp('20%'),
   },
   headerContainer: {
     marginTop: hp('5%'),
@@ -28,15 +28,14 @@ const recommandedStyles = StyleSheet.create({
   tabContainer: {
     paddingTop: wp('1%'),
     flexDirection: 'row',
-    justifyContent: 'space-around',
-    marginVertical: hp('2%'),
+    justifyContent: 'space-between',
   },
   tab: {
     width: wp('25%'),
     padding: wp('2%'),
-    justifyContent: 'center',
+    margin:wp('2%'),
     alignItems: 'center',
-    borderRadius: wp('4%'),
+    borderRadius: wp('7%'),
     borderWidth: 0.5,
   },
   tabText: {
@@ -62,7 +61,7 @@ const recommandedStyles = StyleSheet.create({
     borderRadius: wp('2%'),
     backgroundColor: '#fff',
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
+    shadowOffset: {width: 0, height: 1},
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
@@ -102,17 +101,20 @@ const recommandedStyles = StyleSheet.create({
     width: wp('15%'),
     height: wp('10%'),
     resizeMode: 'contain',
-
   },
   cardText: {
     fontSize: wp('4%'),
-    fontWeight: 'bold',
+    fontFamily: 'Outfit-Bold',
     textAlign: 'center',
+    color: '#000',
+
     marginVertical: wp('2%'),
   },
   cardSmallText: {
     fontSize: wp('3%'),
     textAlign: 'center',
+    color: '#192126',
+    fontFamily: 'Outfit-Regular',
   },
   progressText: {
     fontSize: wp('4%'),
