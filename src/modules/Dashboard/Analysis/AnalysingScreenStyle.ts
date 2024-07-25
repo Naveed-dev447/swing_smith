@@ -170,10 +170,10 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderBottomWidth: 2,
-    borderColor: 'transparent', // Default to transparent
+    borderColor: 'transparent', 
   },
   selectedTab: {
-    borderColor: '#232732', // Underline color for selected tab
+    borderColor: '#232732', 
   },
   tabText: {
     fontSize: wp('3.5%'),

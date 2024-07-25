@@ -43,6 +43,7 @@ const AnalysisView: React.FC = (props: any) => {
 
   React.useEffect(() => {
     if (params) {
+
       dispatch(fetchSwingAnalysis(params));
     }
 
@@ -60,8 +61,8 @@ const AnalysisView: React.FC = (props: any) => {
       return drills.map((drill, index) => (
         <WorkoutCard
           key={index}
-          title={'Unknown Title'}
-          progress={`0/10`}
+          title={'Core Strength'}
+          progress={`2/4`}
           description={drill}
           score="7.2/10"
           navigateTo={'Core Strength'}
@@ -72,7 +73,7 @@ const AnalysisView: React.FC = (props: any) => {
         const drillItems = drills[drillType];
         const progress = Array.isArray(drillItems)
           ? `${drillItems.length}/10`
-          : `0/10`;
+          : `0/10`;          
         return (
           <WorkoutCard
             key={drillType}
@@ -113,8 +114,6 @@ const AnalysisView: React.FC = (props: any) => {
   };
 
   const renderHeaderContent = header => {
-    console.log('Headers', header);
-
     switch (header) {
       case 'Positives':
         return (
