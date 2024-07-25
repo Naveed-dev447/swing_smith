@@ -7,24 +7,15 @@ import {
   HorizontalScroll,
   Section,
   WorkoutCard,
-  Header,
-  Banner,
-  RecentAnalysis,
-  UploadSwing,
-  AnalysisCard,
 } from '../../Dashboard/Home/Common/Common';
 import TutorialCard from '../../../shared/Component/TutorialCard/TutorialCard';
-import recommandedStyles from '../Recommended/styles';
 import {AppDispatch, RootState} from 'redux/store';
 import {useSelector, useDispatch} from 'react-redux';
-import * as Progress from 'react-native-progress';
-
 import {
   fetchSwingAnalysis,
   resetSwingAnalysisState,
 } from '../../../redux/Slices/SwingAnalysisSlice';
 import ProgressLoader from '../../../components/ProgressLoader';
-
 import VideoModal from '../../../components/VideoModal';
 import {isNotEmptyObject} from '../../../shared/Utils/CommonUtils';
 
@@ -38,7 +29,7 @@ const AnalysisView: React.FC = (props: any) => {
   const {navigation, route} = props;
   const {params} = route;
 
-  const [selectedTab, setSelectedTab] = useState('Overall');
+  const [selectedTab, setSelectedTab] = useState('Positives');
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedVideo, setSelectedVideo] = useState<{
     uri: string;
@@ -49,8 +40,6 @@ const AnalysisView: React.FC = (props: any) => {
     (state: RootState) => state.swingAnalysis,
   );
   const analysis = swingAnalysis?.analysis;
-
-  console.log('Swing Analysis', swingAnalysis);
 
   React.useEffect(() => {
     if (params) {
@@ -71,11 +60,11 @@ const AnalysisView: React.FC = (props: any) => {
       return drills.map((drill, index) => (
         <WorkoutCard
           key={index}
-          title={'Unknown Title'} 
+          title={'Unknown Title'}
           progress={`0/10`}
           description={drill}
-          score="7.2/10" 
-          navigateTo={'WorkoutDetails'} 
+          score="7.2/10"
+          navigateTo={'WorkoutDetails'}
         />
       ));
     } else if (typeof drills === 'object' && drills !== null) {
@@ -84,8 +73,6 @@ const AnalysisView: React.FC = (props: any) => {
         const progress = Array.isArray(drillItems)
           ? `${drillItems.length}/10`
           : `0/10`;
-        console.log('Drill type ========>:', drillType);
-
         return (
           <WorkoutCard
             key={drillType}
@@ -95,28 +82,25 @@ const AnalysisView: React.FC = (props: any) => {
               Array.isArray(drillItems) ? drillItems.join(', ') : drillItems
             }
             score="7.2/10"
-            navigateTo={drillType} // Use the drillType as the screen name
+            navigateTo={drillType}
           />
         );
       });
     } else {
-      return <Text>No WorkOuts are available</Text>; // Handle cases where drills data is neither array nor object
+      return <Text>No WorkOuts are available</Text>;
     }
   };
 
   const renderDrillCards = (drills: any) => {
     if (Array.isArray(drills)) {
-      // Handle case where drills is an array
       return drills.map((drill, index) => (
         <DrillCard key={index} title={drill} />
       ));
     } else if (typeof drills === 'object' && drills !== null) {
-      // Handle case where drills is an object
       return Object.keys(drills).map(drillType => {
         const drillItems = drills[drillType];
         return (
           <View key={drillType} style={{marginBottom: 20}}>
-            {/* <Text style={{ fontSize: 18, fontWeight: 'bold' }}>{drillType}</Text> */}
             {drillItems.map((drill, index) => (
               <DrillCard key={index} title={drill} />
             ))}
@@ -124,33 +108,96 @@ const AnalysisView: React.FC = (props: any) => {
         );
       });
     } else {
-      return <Text>No drills available</Text>; // Handle cases where drills data is neither array nor object
+      return <Text>No drills available</Text>;
     }
   };
 
-  const getShuffledFeedbacks = () => {
-    if (!analysis) return [];
+  const renderHeaderContent = header => {
+    console.log('Headers', header);
 
-    const positives = Object.entries(analysis.Positives).map(
-      ([title, description]) => ({title, description}),
-    );
-    const negatives = Object.entries(analysis.Negatives).map(
-      ([title, description]) => ({title, description}),
-    );
-
-    const allFeedbacks = [...positives, ...negatives];
-    for (let i = allFeedbacks.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [allFeedbacks[i], allFeedbacks[j]] = [allFeedbacks[j], allFeedbacks[i]];
+    switch (header) {
+      case 'Positives':
+        return (
+          <View style={styles.instructionContainer}>
+            <View style={styles.instructionHeader}>
+              <Text style={styles.instructionTitle}>Positives</Text>
+            </View>
+            {Object.entries(analysis?.Positives).map(([key, value]) => (
+              <Text key={key}>
+                <Text style={styles.subTitle}>{key}: </Text>
+                {value}
+              </Text>
+            ))}
+          </View>
+        );
+      case 'Negatives':
+        return (
+          <View style={styles.instructionContainer}>
+            <View style={styles.instructionHeader}>
+              <Text style={styles.instructionTitle}>Negatives</Text>
+            </View>
+            {Object.entries(analysis?.Negatives).map(([key, value]) => (
+              <Text key={key}>
+                <Text style={styles.subTitle}>{key}: </Text>
+                {value}
+              </Text>
+            ))}
+          </View>
+        );
+      case 'Workout Drills':
+        return (
+          <View style={styles.workOutContainer}>
+            <Section title="Recommended Workouts">
+              <HorizontalScroll>
+                {renderWorkoutCards(analysis['Workout Drills'])}
+              </HorizontalScroll>
+            </Section>
+          </View>
+        );
+      case 'Golf Drills':
+        return (
+          <View style={styles.workOutContainer}>
+            <Section title="Recommended Drills">
+              <HorizontalScroll>
+                {renderDrillCards(analysis['Golf Drills'])}
+              </HorizontalScroll>
+            </Section>
+          </View>
+        );
+      case 'Video Suggestions':
+        return (
+          <View style={styles.workOutContainer}>
+            <Section title="Recommended Tutorials">
+              <HorizontalScroll>
+                {swingAnalysis?.recomended_tutorials?.map((item, index) => (
+                  <TutorialCard
+                    key={index}
+                    data={item}
+                    onPress={() => handleVideoPress(item.file_name, item.title)}
+                  />
+                ))}
+              </HorizontalScroll>
+            </Section>
+          </View>
+        );
+      case 'Overall':
+        return (
+          <>
+            {renderHeaderContent('Positives')}
+            {renderHeaderContent('Negatives')}
+            {renderHeaderContent('Workout Drills')}
+            {renderHeaderContent('Golf Drills')}
+            {renderHeaderContent('Video Suggestions')}
+          </>
+        );
+      default:
+        return (
+          <Text style={styles.instructionText}>
+            No data available for this category.
+          </Text>
+        );
     }
-    return allFeedbacks;
   };
-
-  const shuffledFeedbacks = getShuffledFeedbacks();
-  const toggleModal = () => {
-    setModalVisible(!modalVisible);
-  };
-
   const handleVideoPress = (uri: string, title: string) => {
     setSelectedVideo({uri, title});
     setModalVisible(true);
@@ -192,95 +239,33 @@ const AnalysisView: React.FC = (props: any) => {
           </View>
           <View style={styles.tabContainer}>
             <HorizontalScroll>
-              {/* {analysis && Object.keys(analysis).map( */}
-              {['Overall', 'Posture', 'Swing Rythm', 'Workouts', 'Drills'].map(
-                tab => (
-                  <TouchableOpacity
-                    key={tab}
+              {[
+                'Overall',
+                'Positives',
+                'Negatives',
+                'Workout Drills',
+                'Golf Drills',
+                'Video Suggestions',
+              ].map(tab => (
+                <TouchableOpacity
+                  key={tab}
+                  style={[
+                    styles.tab,
+                    selectedTab === tab && styles.selectedTab,
+                  ]}
+                  onPress={() => setSelectedTab(tab)}>
+                  <Text
                     style={[
-                      styles.tab,
-                      selectedTab === tab && styles.selectedTab,
-                    ]}
-                    onPress={() => setSelectedTab(tab)}>
-                    <Text
-                      style={[
-                        styles.tabText,
-                        {color: selectedTab === tab ? '#232732' : '#7E7E7E'},
-                      ]}>
-                      {tab}
-                    </Text>
-                  </TouchableOpacity>
-                ),
-              )}
+                      styles.tabText,
+                      {color: selectedTab === tab ? '#232732' : '#7E7E7E'},
+                    ]}>
+                    {tab}
+                  </Text>
+                </TouchableOpacity>
+              ))}
             </HorizontalScroll>
           </View>
-
-          {selectedTab === 'Overall' || selectedTab === 'Swing Rythm' ? (
-            <>
-              <View style={styles.instructionContainer}>
-                <View style={styles.instructionHeader}>
-                  <Text style={styles.instructionTitle}>Swing Analysis</Text>
-                  <Image
-                    source={require('../../../assets/Images/info.png')}
-                    style={styles.infoIcon}
-                  />
-                </View>
-                <Text style={styles.subInstructionText}>
-                  There are some good fundamentals, but there's a lot of room
-                  for improvement.
-                </Text>
-                <Text style={styles.instructionText}>
-                  {shuffledFeedbacks.map((feedback, index) => (
-                    <Text key={index}>
-                      <Text style={styles.subTitle}>{feedback.title} : </Text>{' '}
-                      {feedback.description} {'\n\n'}
-                    </Text>
-                  ))}
-                </Text>
-              </View>
-            </>
-          ) : null}
-          {selectedTab === 'Overall' || selectedTab === 'Workouts' ? (
-            <>
-              <View style={styles.workOutContainer}>
-                <Section title="Recommended Workouts">
-                  <HorizontalScroll>
-                    {analysis && renderWorkoutCards(analysis['Workout Drills'])}
-                  </HorizontalScroll>
-                </Section>
-              </View>
-            </>
-          ) : null}
-          {selectedTab === 'Overall' || selectedTab === 'Drills' ? (
-            <>
-              <View style={styles.workOutContainer}>
-                <Section title="Recommended Drills">
-                  <HorizontalScroll>
-                    {analysis && renderDrillCards(analysis['Golf Drills'])}
-                  </HorizontalScroll>
-                </Section>
-              </View>
-            </>
-          ) : null}
-          {selectedTab === 'Overall' || selectedTab === 'Posture' ? (
-            <>
-              <View style={styles.workOutContainer}>
-                <Section title="Recommended Tutorials">
-                  <HorizontalScroll>
-                    {swingAnalysis?.recomended_tutorials?.map((item, index) => (
-                      <TutorialCard
-                        key={index}
-                        data={item}
-                        onPress={() =>
-                          handleVideoPress(item.file_name, item.title)
-                        }
-                      />
-                    ))}
-                  </HorizontalScroll>
-                </Section>
-              </View>
-            </>
-          ) : null}
+          {selectedTab && renderHeaderContent(selectedTab)}
         </ScrollView>
       ) : (
         <View
