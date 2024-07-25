@@ -112,8 +112,10 @@ const AnalysisView: React.FC = (props: any) => {
     }
   };
 
-  const renderHeaderContent = header => {
-    console.log('Headers', header);
+
+  const renderHeaderContent = (header) => {
+    console.log("Headers", header);
+
 
     switch (header) {
       case 'Positives':
@@ -196,6 +198,7 @@ const AnalysisView: React.FC = (props: any) => {
             No data available for this category.
           </Text>
         );
+
     }
   };
   const handleVideoPress = (uri: string, title: string) => {
@@ -239,6 +242,7 @@ const AnalysisView: React.FC = (props: any) => {
           </View>
           <View style={styles.tabContainer}>
             <HorizontalScroll>
+
               {[
                 'Overall',
                 'Positives',
