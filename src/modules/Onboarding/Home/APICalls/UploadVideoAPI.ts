@@ -3,7 +3,6 @@ import { IUploadVideoResponse } from '../../../../types/UploadVideo';
 
 // API call
 export const UploadVideoAPICall = async (payload: FormData) => {
-  console.log('PAYLOAD', JSON.stringify(payload));
 
   const response = await apiClient.post<IUploadVideoResponse>(
     `gemini/upload/video`,
