@@ -94,9 +94,9 @@ const HomeView = (props: any) => {
 
         <Section title="Recommended Workouts">
           <HorizontalScroll>
-            <WorkoutCard title="Core Strength" progress="02/04" navigateTo="WorkoutView" />
-            <WorkoutCard title="Lower Body Strength" progress="01/04" navigateTo="WorkoutView" />
-            <WorkoutCard title="Flexibility" progress="03/04" navigateTo="WorkoutView" />
+            <WorkoutCard title="Core Strength" progress="02/04" navigateTo="Core Strength" />
+            <WorkoutCard title="Lower Body Strength" progress="01/04" navigateTo="Core Strength" />
+            <WorkoutCard title="Flexibility" progress="03/04" navigateTo="Flexibility" />
           </HorizontalScroll>
         </Section>
 
