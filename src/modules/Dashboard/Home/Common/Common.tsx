@@ -203,10 +203,17 @@ export const Section: React.FC<SectionProps> = ({title, children}) => (
 interface WorkoutCardProps {
   title: string;
   progress: string;
-  icon?: string; // You can define the type of icon if needed
-  description?: string;
-  score?: string;
-  navigateTo: string; // Prop for navigation screen
+  icon?: string;
+  description: string;
+  score: string;
+  navigateTo: {
+    routeName: string;
+    params: {
+      video_id: string;
+      type: string;
+      category: string;
+    };
+  };
 }
 
 export const WorkoutCard: React.FC<WorkoutCardProps> = ({
@@ -221,9 +228,9 @@ export const WorkoutCard: React.FC<WorkoutCardProps> = ({
 
   return (
     <TouchableOpacity
-      onPress={() => navigation.navigate(navigateTo)}
-      style={[globalStyles.card, {width: wp('40%'), marginRight: wp('4%')}]}>
-      <View style={{marginVertical: '2%'}}>
+      onPress={() => navigation.navigate(navigateTo.routeName, navigateTo.params)} style={[globalStyles.card, { width: wp('40%'), marginRight: wp('4%') }]}
+    >
+      <View style={{ marginVertical: '2%' }}>
         <Image
           source={require('../../../../assets/Images/GraphPie.png')}
           style={globalStyles.graphPieIcon}
@@ -260,29 +267,39 @@ export const WorkoutCard: React.FC<WorkoutCardProps> = ({
   );
 };
 
+
 interface DrillCardProps {
   title: string;
+  navigateTo: {
+    routeName: string;
+    params: {
+      video_id: string;
+      type: string;
+      category: string;
+    };
+  };
 }
 
-export const DrillCard: React.FC<DrillCardProps> = ({title}) => (
-  <View style={[globalStyles.card, {width: wp('40%'), marginRight: wp('4%')}]}>
-    <Image
-      source={require('../../../../assets/Images/DashBoard/golfman.png')}
-      style={globalStyles.drillIcon}
-    />
-    <Text
-      style={{
-        textAlign: 'center',
-        color: '#192126',
-        fontFamily: 'Outfit-SemiBold',
-      }}>
-      {title}
-    </Text>
-    <TouchableOpacity style={globalStyles.markAsDoneButton}>
-      <Text style={globalStyles.markAsDoneText}>Mark As Done</Text>
-    </TouchableOpacity>
-  </View>
-);
+export const DrillCard: React.FC<DrillCardProps> = ({ title, navigateTo }) => {
+  const navigation = useNavigation();
+
+  const handlePress = () => {
+    navigation.navigate(navigateTo.routeName, navigateTo.params)
+  };
+
+  return (
+    <View style={[globalStyles.card, { width: wp('40%'), marginRight: wp('4%') }]}>
+      <Image
+        source={require('../../../../assets/Images/DashBoard/golfman.png')}
+        style={globalStyles.drillIcon}
+      />
+      <Text style={{ textAlign: 'center', color: '#192126', fontFamily: 'Outfit-SemiBold' }}>{title}</Text>
+      <TouchableOpacity style={globalStyles.markAsDoneButton} onPress={handlePress}>
+        <Text style={globalStyles.markAsDoneText}>Mark As Done</Text>
+      </TouchableOpacity>
+    </View>
+  );
+};
 
 interface TutorialCardProps {
   title: string;

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   StyleSheet,
   Text,
@@ -12,28 +12,91 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import CustomHeader from '../../../shared/Component/CustomHeader';
-import {goBack} from '../../../shared/Utils/navigationRef';
+import { goBack } from '../../../shared/Utils/navigationRef';
+import LottieView from 'lottie-react-native';
+import { GetWorkoutListAPICall, UpdateWorkoutListAPICall } from './APICalls/WorkoutAPI';
+import { ShowToast } from '../../../components/ShowToast';
+import Button from '../../../components/Button';
+
 
 const workoutIcon = require('../../../assets/Images/workoutIcon.png');
 const checkIcon = require('../../../assets/Images/checkIcon.png');
 const checkIconSelected = require('../../../assets/Images/selectedCheckIcon.png');
-import LottieView from 'lottie-react-native';
-
-const workouts = ['Side Plank', 'Russian Twists', 'Plank', 'Crunches'];
+const workoutImage = require('../../../assets/Images/workout.png');
 
 const WorkoutView = (props: any) => {
-  const {route, navigation} = props;
+  const { route, navigation } = props;
+  const { video_id, type, category } = route.params;
   const [selectedWorkouts, setSelectedWorkouts] = useState<string[]>([]);
+  const [workouts, setWorkouts] = useState<{ [key: string]: boolean }>({});
 
-  const toggleWorkoutSelection = (workout: string) => {
-    setSelectedWorkouts(prevSelected => {
-      if (!prevSelected.includes(workout)) {
-        // Navigate to the CongratulationModal when a workout is selected
-        navigation.navigate('Congratulation');
-        return [...prevSelected, workout];
+  useEffect(() => {
+    const fetchData = async () => {
+      const payload = { video_id, type, category };
+      const response = await GetWorkoutListAPICall(payload);
+
+
+      if (response.status === 200) {
+        setWorkouts(response.data.workout);
+      } else {
+        ShowToast('error', response.message);
+        console.error(response.message);
       }
-      return prevSelected;
-    });
+    };
+    fetchData();
+  }, [video_id, type, category]);
+
+  const toggleWorkoutSelection = async (workout: string) => {
+    if (!workouts[workout]) {
+      const updatedWorkouts = { ...workouts, [workout]: true };
+      setWorkouts(updatedWorkouts);
+
+      const payload = {
+        id: video_id,
+        category,
+        type,
+        workout: updatedWorkouts,
+      };
+
+      const response = await UpdateWorkoutListAPICall(payload);
+
+      if (response.status === 200 && response.message !== 'Unable to update workout.') {
+        ShowToast('success', 'Workout updated successfully!');
+        navigation.navigate('Congratulation');
+      } else {
+        ShowToast('error', response.message);
+        console.error(response.message);
+      }
+    } else {
+      ShowToast('info', 'This workout is already selected.');
+    }
+  };
+
+  const handleMarkAsDone = async () => {
+    const updatedWorkouts = Object.keys(workouts).reduce((acc, key) => {
+      acc[key] = true;
+      return acc;
+    }, {} as { [key: string]: boolean });
+
+    setWorkouts(updatedWorkouts);
+    setSelectedWorkouts(Object.keys(updatedWorkouts));
+
+    const payload = {
+      id: video_id,
+      category,
+      type,
+      workout: updatedWorkouts,
+    };
+
+    const response = await UpdateWorkoutListAPICall(payload);
+
+    if (response.status === 200 && response.message !== 'Unable to update workout.') {
+      ShowToast('success', 'All workouts marked as done!');
+      navigation.navigate('Congratulation');
+    } else {
+      ShowToast('error', response.message);
+      console.error(response.message);
+    }
   };
 
   return (
@@ -55,33 +118,44 @@ const WorkoutView = (props: any) => {
           reduce when we are on a diet. Even so, in this area, especially the
           legs as a whole, you can reduce weight even if you don’t use tools.
         </Text>
-        <View style={styles.workoutsContainer}>
-          {workouts.map((workout, index) => (
-            <TouchableOpacity
-              key={index}
-              style={styles.workoutItem}
-              onPress={() => toggleWorkoutSelection(workout)}>
-              <View style={styles.workoutLeft}>
-                <Image source={workoutIcon} style={styles.workoutIcon} />
-                <Text style={styles.workoutText}>{workout}</Text>
-              </View>
-              <Image
-                source={
-                  selectedWorkouts.includes(workout)
-                    ? checkIconSelected
-                    : checkIcon
-                }
-                style={styles.checkIcon}
+        {Object.keys(workouts).length > 0 ? (
+          <View style={styles.workoutsContainer}>
+            {Object.keys(workouts).map((workout, index) => (
+              <TouchableOpacity
+                key={index}
+                style={styles.workoutItem}
+                onPress={() => toggleWorkoutSelection(workout)}
+              >
+                <View style={styles.workoutLeft}>
+                  <Image source={workoutIcon} style={styles.workoutIcon} />
+                  <Text style={styles.workoutText}>{workout}</Text>
+                </View>
+                <Image
+                  source={
+                    workouts[workout] ? checkIconSelected : checkIcon
+                  }
+                  style={styles.checkIcon}
+                />
+              </TouchableOpacity>
+            ))}
+            <View style={styles.buttonContainer}>
+              <Button
+                title="Mark as Done"
+                onPress={handleMarkAsDone}
+                buttonStyle={styles.markAsDoneButton}
+                textStyle={styles.buttonText}
               />
-            </TouchableOpacity>
-          ))}
-        </View>
+            </View>
+          </View>
+        ) : (
+          <View style={styles.emptyContainer}>
+            <Text style={styles.emptyText}>No record found at the moment. Please check back later!</Text>
+          </View>
+        )}
       </ScrollView>
     </View>
   );
 };
-
-export default WorkoutView;
 
 const styles = StyleSheet.create({
   container: {
@@ -91,15 +165,15 @@ const styles = StyleSheet.create({
   contentContainer: {
     padding: wp('5%'),
   },
-  image: {
-    width: wp('90%'),
-    height: wp('50%'),
-  },
   imageView: {
     width: wp('90%'),
     height: wp('50%'),
     backgroundColor: '#F6FFE7',
     marginBottom: hp('2%'),
+  },
+  image: {
+    width: '100%',
+    height: '100%',
   },
   workoutTitle: {
     fontSize: wp('5%'),
@@ -146,9 +220,20 @@ const styles = StyleSheet.create({
     height: wp('6%'),
     resizeMode: 'contain',
   },
+  emptyContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: hp('10%'),
+  },
+  emptyText: {
+    fontSize: wp('4%'),
+    color: '#FF474C',
+    textAlign: 'center',
+  },
   buttonContainer: {
     width: '100%',
     alignItems: 'center',
+    marginTop: hp('4%'),
     marginBottom: hp('10%'),
   },
   markAsDoneButton: {
@@ -163,3 +248,5 @@ const styles = StyleSheet.create({
     fontSize: wp('4.2%'),
   },
 });
+
+export default WorkoutView;

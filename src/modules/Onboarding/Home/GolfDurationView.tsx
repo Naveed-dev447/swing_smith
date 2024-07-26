@@ -12,7 +12,7 @@ const GolfDurationView: React.FC = (props: any) => {
   const { route, navigation } = props;
 
   const dispatch = useDispatch();
-  const [score, setScore] = useState(0);
+  const [score, setScore] = useState(1);
 
   const handleSliderChange = (value: number) => {
     setScore(value);
@@ -44,9 +44,9 @@ const GolfDurationView: React.FC = (props: any) => {
         <Text style={globalStyles.subTitle}>
           We provide content tailored to your hand orientation.
         </Text>
-        
+
         <View style={globalStyles.sliderContainer}>
-        <Text style={globalStyles.scoreText}>{getDurationLabel(score)}</Text>
+          <Text style={globalStyles.scoreText}>{getDurationLabel(score)}</Text>
 
           <Slider
             style={globalStyles.slider}

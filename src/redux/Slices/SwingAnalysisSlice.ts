@@ -3,7 +3,7 @@ import apiClient from '../../config/client';
 import { SwingAnalysis, SwingAnalysisResponse } from '../../types/SwingAnalysis';
 
 interface SwingAnalysisState {
-    swingAnalysis: SwingAnalysis | null;
+    swingAnalysis: SwingAnalysisResponse | null;
     loading: boolean;
     error: string | null;
 }
@@ -16,7 +16,7 @@ const initialState: SwingAnalysisState = {
 
 export const fetchSwingAnalysis = createAsyncThunk('swingAnalysis/fetchSwingAnalysis', async (id: number) => {
     const response = await apiClient.get<SwingAnalysisResponse>(`/video/details/${id}`);
-    return response.data.data;
+    return response.data;
 });
 
 const swingAnalysisSlice = createSlice({
@@ -35,7 +35,7 @@ const swingAnalysisSlice = createSlice({
                 state.loading = true;
                 state.error = null;
             })
-            .addCase(fetchSwingAnalysis.fulfilled, (state, action: PayloadAction<SwingAnalysis>) => {
+            .addCase(fetchSwingAnalysis.fulfilled, (state, action: PayloadAction<SwingAnalysisResponse>) => {
                 state.loading = false;
                 state.swingAnalysis = action.payload;
             })

@@ -1,5 +1,4 @@
 
-// src/screens/Onboarding/UploadVideo.tsx
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image, Platform } from 'react-native';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
@@ -21,7 +20,6 @@ import { ShowToast } from '../../../components/ShowToast';
 const schema = yup.object().shape({
   video: yup.string().required('Please upload a video'),
 });
-
 // const schema = yup.object().shape({
 //   video: yup.string().test(
 //     'required-if-not-empty',
@@ -35,6 +33,12 @@ const schema = yup.object().shape({
 //     }
 //   ),
 // });
+interface Video {
+  uri: string;
+  fileName?: string;
+  size?: number;
+  type?: string;
+}
 
 const UploadVideo: React.FC = (props: any) => {
   const { route, navigation } = props;
@@ -42,7 +46,7 @@ const UploadVideo: React.FC = (props: any) => {
   const { control, handleSubmit, formState: { errors }, setValue } = useForm({
     resolver: yupResolver(schema),
   });
-  const [videoUri, setVideoUri] = useState<string | null>(null);
+  const [videoUri, setVideoUri] = useState<Video | null>(null);
   const { loading, setLoading } = useLoader();
 
   const handleUploadPress = () => {
@@ -56,48 +60,42 @@ const UploadVideo: React.FC = (props: any) => {
         console.log('User cancelled video picker');
       } else if (response.errorCode) {
         console.log('ImagePicker Error: ', response.errorMessage);
-      } else {
-        const uri = response.assets[0].uri;
-        setVideoUri(uri);
-        setValue('video', uri);
+      } else if (response.assets && response.assets.length > 0) {
+        const asset = response.assets[0];
+        setVideoUri(asset);
+        setValue('video', asset.uri);
       }
     });
   };
 
   const handleNextPress = async () => {
-    if (videoUri) {
-      setLoading(true)
+    if (videoUri?.uri) {
+      setLoading(true);
       const formData = new FormData();
       formData.append('fileName', {
-        uri:
-          Platform.OS === 'android'
-            ? videoUri
-            : videoUri.replace('file://', ''),
-        name: 'video.mp4',
-        type: 'video/mp4',
+        uri: Platform.OS === 'android' ? videoUri.uri : videoUri.uri.replace('file://', ''),
+        name: videoUri.fileName || 'video.mp4',
+        type: videoUri.type || 'video/mp4',
       });
-      try {
 
+      try {
         const uploadResponse = await UploadVideoAPICall(formData);
-        console.log("Response of upload video", uploadResponse);
 
         if (uploadResponse.status === 400) {
-          dispatch(setUploadedVideo(uploadResponse?.data));
-          console.log("video url dispatched:", videoUri)
+          dispatch(setUploadedVideo(uploadResponse.data));
           navigation.navigate('OnboardHome8');
-          setLoading(false);
           ShowToast('success', uploadResponse.message);
+        } else {
+          ShowToast('error', 'Video is not uploaded, Please try again');
         }
       } catch (error) {
         ShowToast('error', 'Video is not uploaded, Please try again');
-        setLoading(false);
         console.error(error);
       } finally {
         setLoading(false);
       }
-
-    };
-  }
+    }
+  };
 
   return (
     <View style={globalStyles.container}>
@@ -130,7 +128,7 @@ const UploadVideo: React.FC = (props: any) => {
             >
               {videoUri ? (
                 <Video
-                  source={{ uri: videoUri }}
+                  source={{ uri: videoUri.uri }}
                   style={styles.videoPlayer}
                   controls={true}
                 />
@@ -151,6 +149,8 @@ const UploadVideo: React.FC = (props: any) => {
     </View>
   );
 };
+
+
 
 const styles = StyleSheet.create({
   uploadContainer: {
