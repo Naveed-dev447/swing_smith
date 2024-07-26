@@ -112,7 +112,7 @@ const WorkoutView = (props: any) => {
             loop
           />
         </View>
-        <Text style={styles.workoutTitle}>Workout Detail</Text>
+        <Text style={styles.workoutTitle}>{category === 'Workout Drills' ? 'Workout Drills' : 'Golf Drills'}</Text>
         <Text style={styles.detail}>
           The lower abdomen and hips are the most difficult areas of the body to
           reduce when we are on a diet. Even so, in this area, especially the
