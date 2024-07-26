@@ -71,14 +71,14 @@ const HomeView = (props: any) => {
               postureScore="8.4"
               swingRhythm="6.0"
               source={require('../../../assets/Images/DashBoard/RecentAna1.png')} // Adjust the path as necessary
-              onPress={() => navigation.navigate('SwingLog')}
+              // onPress={() => navigation.navigate('SwingLog')}
             />
             <AnalysisCard
               score="6.2"
               postureScore="8.4"
               swingRhythm="6.0"
               source={require('../../../assets/Images/DashBoard/RecentAna2.png')} // Adjust the path as necessary
-              onPress={() => navigation.navigate('SwingLog')}
+              // onPress={() => navigation.navigate('SwingLog')}
             />
           </ScrollView>
         </View>
