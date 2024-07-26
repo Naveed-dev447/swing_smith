@@ -101,6 +101,12 @@ const globalStyles = StyleSheet.create({
     textAlign: 'left',
     lineHeight: hp('3.5%'),
   },
+  uploadSwingText: {
+    fontSize: wp('6%'),
+    color: '#FFFFFF',
+    fontFamily: 'Outfit-Bold',
+    textAlign:'center'
+  },
   sectionTitle: {
     fontSize: wp('4%'),
     color: '#192126',
