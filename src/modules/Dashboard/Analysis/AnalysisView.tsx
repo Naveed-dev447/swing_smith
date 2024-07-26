@@ -39,6 +39,7 @@ const AnalysisView: React.FC = (props: any) => {
   const { swingAnalysis, loading, error } = useSelector(
     (state: RootState) => state.swingAnalysis,
   );
+
   const analysis = swingAnalysis?.data.analysis;
   const videoId = swingAnalysis?.data.id
 
@@ -84,7 +85,7 @@ const AnalysisView: React.FC = (props: any) => {
               Array.isArray(drillItems) ? drillItems.join(', ') : drillItems
             }
             score="7.2/10"
-            navigateTo={drillType}
+            navigateTo={{ routeName: 'Core Strength', params: { video_id: videoId, type: drillType, category: 'Workout Drills' } }}
           />
         );
       });
@@ -96,7 +97,9 @@ const AnalysisView: React.FC = (props: any) => {
   const renderDrillCards = (drills: any) => {
     if (Array.isArray(drills)) {
       return drills.map((drill, index) => (
-        <DrillCard key={index} title={drill} />
+        <DrillCard key={index} title={drill}
+          navigateTo={{ routeName: 'Core Strength', params: { video_id: videoId, type: drill, category: 'Workout Drills' } }}
+        />
       ));
     } else if (typeof drills === 'object' && drills !== null) {
       return Object.keys(drills).map(drillType => {
@@ -104,7 +107,9 @@ const AnalysisView: React.FC = (props: any) => {
         return (
           <View key={drillType} style={{ marginBottom: 20 }}>
             {drillItems.map((drill, index) => (
-              <DrillCard key={index} title={drill} />
+              <DrillCard key={index} title={drill}
+                navigateTo={{ routeName: 'Core Strength', params: { video_id: videoId, type: drill, category: 'Workout Drills' } }}
+              />
             ))}
           </View>
         );
@@ -169,7 +174,7 @@ const AnalysisView: React.FC = (props: any) => {
           <View style={styles.workOutContainer}>
             <Section title="Recommended Tutorials">
               <HorizontalScroll>
-                {swingAnalysis?.recomended_tutorials?.map((item, index) => (
+                {swingAnalysis?.data?.recomended_tutorials?.map((item, index) => (
                   <TutorialCard
                     key={index}
                     data={item}

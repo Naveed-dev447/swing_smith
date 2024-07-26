@@ -94,17 +94,26 @@ const HomeView = (props: any) => {
 
         <Section title="Recommended Workouts">
           <HorizontalScroll>
-            <WorkoutCard title="Core Strength" progress="02/04" navigateTo="Core Strength" />
-            <WorkoutCard title="Lower Body Strength" progress="01/04" navigateTo="Core Strength" />
-            <WorkoutCard title="Flexibility" progress="03/04" navigateTo="Flexibility" />
+            <WorkoutCard title="Core Strength" progress="02/04"
+              navigateTo={{ routeName: 'Core Strength', params: { video_id: 0, type: '', category: 'Workout Drills' } }} />
+            <WorkoutCard title="Lower Body Strength" progress="01/04"
+              navigateTo={{ routeName: 'Core Strength', params: { video_id: 0, type: '', category: 'Workout Drills' } }} />
+            <WorkoutCard title="Flexibility" progress="03/04"
+              navigateTo={{ routeName: 'Core Strength', params: { video_id: 0, type: '', category: 'Workout Drills' } }} />
           </HorizontalScroll>
         </Section>
 
         <Section title="Recommended Drills">
           <HorizontalScroll>
-            <DrillCard title="Core Strength" />
-            <DrillCard title="Core Strength" />
-            <DrillCard title="Core Strength" />
+            <DrillCard title="Core Strength"
+              navigateTo={{ routeName: 'Core Strength', params: { video_id: 0, type: '', '': 'Workout Drills' } }}
+            />
+            <DrillCard title="Core Strength"
+              navigateTo={{ routeName: 'Core Strength', params: { video_id: 0, type: '', '': 'Workout Drills' } }}
+            />
+            <DrillCard title="Core Strength"
+              navigateTo={{ routeName: 'Core Strength', params: { video_id: 0, type: '', '': 'Workout Drills' } }}
+            />
           </HorizontalScroll>
         </Section>
 

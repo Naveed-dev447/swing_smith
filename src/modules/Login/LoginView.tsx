@@ -11,6 +11,7 @@ import {
   KeyboardAvoidingView,
   Platform,
   Keyboard,
+  ActivityIndicator,
 } from 'react-native';
 import * as EmailValidator from 'email-validator';
 import { useForm, Controller } from 'react-hook-form';
@@ -64,7 +65,7 @@ const LoginScreen: React.FC = (props: any) => {
     setLoading(true);
     try {
       const res = await LoginAPICall(data);
-      
+
       if (res.status === 201) {
         await dispatch(fetchTutorials()).unwrap();
         navigation.replace('Onboard');
@@ -76,7 +77,7 @@ const LoginScreen: React.FC = (props: any) => {
       setLoading(false);
     }
   };
- const handleNavigation = () => {
+  const handleNavigation = () => {
     navigation.dispatch(
       CommonActions.reset({
         index: 0,
@@ -142,12 +143,19 @@ const LoginScreen: React.FC = (props: any) => {
                     <Text style={styles.forgotText}>Forgot Password?</Text>
                   </TouchableOpacity>
                 </View>
-                <Button
-                  title="Log In"
-                  onPress={handleSubmit(onSubmit)}
-                  buttonStyle={styles.loginButton}
-                  textStyle={styles.loginButtonText}
-                />
+                <View style={styles.buttonContainer}>
+                  <TouchableOpacity
+                    style={[styles.loginButton, { backgroundColor: loading ? '#fff' : '#000', borderColor: loading ? '#c5f048' : 'transparent', borderWidth: 1 }]}
+                    onPress={handleSubmit(onSubmit)}
+                    disabled={loading}
+                  >
+                    {loading ? (
+                      <ActivityIndicator size="small" color={loading ? "indigo" : '#192126'} />
+                    ) : (
+                      <Text style={styles.loginButtonText}>Log In</Text>
+                    )}
+                  </TouchableOpacity>
+                </View>
                 <Text style={styles.orText}>Or</Text>
                 <Button
                   title="Continue with Google"
@@ -158,7 +166,7 @@ const LoginScreen: React.FC = (props: any) => {
                 />
                 <Button
                   title="Continue with Facebook"
-                  onPress={() =>navigation.navigate('Congratulation')}
+                  onPress={() => navigation.navigate('Congratulation')}
                   buttonStyle={styles.socialButton}
                   textStyle={styles.socialButtonText}
                   icon={require('../../assets/Images/facebok3.png')}
@@ -168,7 +176,6 @@ const LoginScreen: React.FC = (props: any) => {
           </KeyboardAvoidingView>
         </View>
       </ImageBackground>
-      {loading && <Loader />}
     </>
   );
 };
