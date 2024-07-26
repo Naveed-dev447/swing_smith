@@ -18,13 +18,13 @@ import {
 } from 'react-native-responsive-screen';
 import LinearGradient from 'react-native-linear-gradient';
 import globalStyles from '../styles';
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 
 export const Header: React.FC<{
   toggleModal: () => void;
   name: string;
   address?: string;
-}> = ({ toggleModal, name, address }) => (
+}> = ({toggleModal, name, address}) => (
   <View>
     <View style={globalStyles.headerContainer}>
       <TouchableOpacity onPress={toggleModal}>
@@ -42,7 +42,7 @@ export const Header: React.FC<{
     {address && (
       <View style={globalStyles.addressContainer}>
         <Image
-          source={require('../../../../assets/Images/gps.png')} // Adjust the path to your location icon
+          source={require('../../../../assets/Images/gps.png')}
           style={globalStyles.locationIcon}
         />
         <Text style={globalStyles.subHeader}>{address}</Text>
@@ -62,7 +62,7 @@ export const Banner: React.FC = () => (
       overflow: 'hidden',
     }}
     resizeMode="stretch">
-    <View style={{ flex: 1, justifyContent: 'center', padding: wp('4%') }}>
+    <View style={{flex: 1, justifyContent: 'center', padding: wp('4%')}}>
       <Image
         source={require('../../../../assets/Images/DashBoard/overlay.png')}
         style={{
@@ -81,20 +81,20 @@ export const Banner: React.FC = () => (
 
 export const RecentAnalysis: React.FC = () => (
   <View>
-    <Text style={[globalStyles.sectionTitle, { marginTop: hp('2%') }]}>
+    <Text style={[globalStyles.sectionTitle, {marginTop: hp('2%')}]}>
       Recent Analysis
     </Text>
     <ScrollView
       horizontal
       showsHorizontalScrollIndicator={false}
-      style={{ marginVertical: hp('2%') }}>
-      <View style={[globalStyles.analysisCard, { marginRight: wp('2%') }]}>
+      style={{marginVertical: hp('2%')}}>
+      <View style={[globalStyles.analysisCard, {marginRight: wp('2%')}]}>
         <ImageBackground
           source={{
             uri: 'https://images.unsplash.com/photo-1570129477492-45c003edd2be',
           }}
           style={globalStyles.analysisCardImage}
-          imageStyle={{ borderRadius: wp('2%') }}>
+          imageStyle={{borderRadius: wp('2%')}}>
           <View style={globalStyles.analysisCardContent}>
             <Text style={globalStyles.cardSubtitle}>Score: 7.2</Text>
             <Text>Posture Score: 8.4</Text>
@@ -108,8 +108,8 @@ export const RecentAnalysis: React.FC = () => (
             uri: 'https://images.unsplash.com/photo-1580587771525-78b9dba3b914',
           }}
           style={globalStyles.analysisCardImage}
-          imageStyle={{ borderRadius: wp('2%') }}>
-          <Text style={[globalStyles.cardSubtitle, { paddingLeft: wp('4%') }]}>
+          imageStyle={{borderRadius: wp('2%')}}>
+          <Text style={[globalStyles.cardSubtitle, {paddingLeft: wp('4%')}]}>
             Score: 6.2
           </Text>
           <View style={globalStyles.analysisCardContent}>
@@ -128,52 +128,53 @@ export const AnalysisCard: React.FC<{
   swingRhythm: string;
   source: ImageSourcePropType;
   onPress: () => void;
-}> = ({ score, postureScore, swingRhythm, source, onPress }) => (
-  <TouchableOpacity
-    onPress={onPress}
-    style={[styles.analysisCard, { marginRight: wp('2%') }]}>
-    <ImageBackground
-      source={source}
-      style={styles.analysisCardImage}
-      imageStyle={{ borderRadius: wp('2%') }}>
-      <View style={styles.overlay}>
-        <Text style={styles.scoreText}>Score</Text>
-        <Text style={styles.scoreValue}>{score}</Text>
-        <View style={styles.scoreDetail}>
-          <Image
-            source={require('../../../../assets/Images/DashBoard/fire.png')}
-            style={styles.icon}
-          />
-          <Text style={styles.detailText}>
-            Posture Score{' '}
-            <Text style={styles.detailScoreText}>{postureScore}</Text>
-          </Text>
+}> = ({score, postureScore, swingRhythm, source, onPress}) => (
+  <View style={{width: '50%'}}>
+    <TouchableOpacity
+      onPress={onPress}
+      style={[styles.analysisCard, {marginRight: wp('2%')}]}>
+      <ImageBackground
+        source={source}
+        style={styles.analysisCardImage}
+        imageStyle={{borderRadius: wp('2%')}}>
+        <View style={styles.overlay}>
+          <Text style={styles.scoreText}>Score</Text>
+          <Text style={styles.scoreValue}>{score}</Text>
+          <View style={styles.scoreDetail}>
+            <Image
+              source={require('../../../../assets/Images/DashBoard/fire.png')}
+              style={styles.icon}
+            />
+            <Text style={styles.detailText}>
+              Posture Score{' '}
+              <Text style={styles.detailScoreText}>{postureScore}</Text>
+            </Text>
+          </View>
+          <View style={styles.scoreDetail}>
+            <Image
+              source={require('../../../../assets/Images/DashBoard/clock.png')}
+              style={styles.icon}
+            />
+            <Text style={styles.detailText}>
+              Swing Rhythm{' '}
+              <Text style={styles.detailScoreText}>{swingRhythm}</Text>
+            </Text>
+          </View>
         </View>
-        <View style={styles.scoreDetail}>
-          <Image
-            source={require('../../../../assets/Images/DashBoard/clock.png')}
-            style={styles.icon}
-          />
-          <Text style={styles.detailText}>
-            Swing Rhythm{' '}
-            <Text style={styles.detailScoreText}>{swingRhythm}</Text>
-          </Text>
-        </View>
-      </View>
-    </ImageBackground>
-  </TouchableOpacity>
+      </ImageBackground>
+    </TouchableOpacity>
+  </View>
 );
 
-export const UploadSwing: React.FC<{ onClick: () => void }> = ({ onClick }) => (
-
+export const UploadSwing: React.FC<{onClick: () => void}> = ({onClick}) => (
   <View style={globalStyles.uploadSwingContainer}>
     <ImageBackground
       source={require('../../../../assets/Images/DashBoard/swingsImage.png')}
       style={globalStyles.uploadSwingImage}
       resizeMode="cover"
-      imageStyle={{ borderRadius: wp('2%') }}>
+      imageStyle={{borderRadius: wp('2%')}}>
       <View style={styles.overlaySwing}>
-        <Text style={globalStyles.bannerText}>Import Swing</Text>
+        <Text style={globalStyles.uploadSwingText}>Import Swing</Text> 
         <Text style={globalStyles.swingDesText}>
           Record your Swing and receive analysis.
         </Text>
@@ -190,7 +191,7 @@ interface SectionProps {
   children: React.ReactNode;
 }
 
-export const Section: React.FC<SectionProps> = ({ title, children }) => (
+export const Section: React.FC<SectionProps> = ({title, children}) => (
   <View style={globalStyles.recommendedSection}>
     <View style={globalStyles.recommendedHeader}>
       <Text style={globalStyles.recommendedTitle}>{title}</Text>
@@ -221,28 +222,37 @@ export const WorkoutCard: React.FC<WorkoutCardProps> = ({
   return (
     <TouchableOpacity
       onPress={() => navigation.navigate(navigateTo)}
-      style={[globalStyles.card, { width: wp('40%'), marginRight: wp('4%') }]}
-    >
-      <View style={{ marginVertical: '2%' }}>
+      style={[globalStyles.card, {width: wp('40%'), marginRight: wp('4%')}]}>
+      <View style={{marginVertical: '2%'}}>
         <Image
           source={require('../../../../assets/Images/GraphPie.png')}
           style={globalStyles.graphPieIcon}
         />
       </View>
-      <View style={{ marginVertical: '2%' }}>
-        <Text style={{ color: '#192126', fontFamily: 'Outfit-Regular' }}>
+      <View style={{marginVertical: '2%'}}>
+        <Text style={{color: '#192126', fontFamily: 'Outfit-Regular'}}>
           {progress}
         </Text>
       </View>
 
-      <View style={{ marginVertical: '1%' }}>
-        <Text style={{ color: '#192126', fontFamily: 'Outfit-SemiBold', textAlign: 'center' }}>
+      <View style={{marginVertical: '1%'}}>
+        <Text
+          style={{
+            color: '#192126',
+            fontFamily: 'Outfit-SemiBold',
+            textAlign: 'center',
+          }}>
           {title}
         </Text>
       </View>
 
-      <View style={{ marginVertical: '1%' }}>
-        <Text style={{ color: '#192126', fontFamily: 'Outfit-Regular', textAlign: 'center' }}>
+      <View style={{marginVertical: '1%'}}>
+        <Text
+          style={{
+            color: '#192126',
+            fontFamily: 'Outfit-Regular',
+            textAlign: 'center',
+          }}>
           {description}
         </Text>
       </View>
@@ -254,13 +264,20 @@ interface DrillCardProps {
   title: string;
 }
 
-export const DrillCard: React.FC<DrillCardProps> = ({ title }) => (
-  <View style={[globalStyles.card, { width: wp('40%'), marginRight: wp('4%') }]}>
+export const DrillCard: React.FC<DrillCardProps> = ({title}) => (
+  <View style={[globalStyles.card, {width: wp('40%'), marginRight: wp('4%')}]}>
     <Image
       source={require('../../../../assets/Images/DashBoard/golfman.png')}
       style={globalStyles.drillIcon}
     />
-    <Text style={{ textAlign: 'center',color:'#192126',fontFamily:'Outfit-SemiBold' }}>{title}</Text>
+    <Text
+      style={{
+        textAlign: 'center',
+        color: '#192126',
+        fontFamily: 'Outfit-SemiBold',
+      }}>
+      {title}
+    </Text>
     <TouchableOpacity style={globalStyles.markAsDoneButton}>
       <Text style={globalStyles.markAsDoneText}>Mark As Done</Text>
     </TouchableOpacity>
@@ -287,7 +304,7 @@ export const TutorialCard: React.FC<TutorialCardProps> = ({
   </View>
 );
 
-export const HorizontalScroll: React.FC<{ children: React.ReactNode }> = ({
+export const HorizontalScroll: React.FC<{children: React.ReactNode}> = ({
   children,
 }) => (
   <ScrollView horizontal showsHorizontalScrollIndicator={false}>
@@ -326,8 +343,7 @@ export const SwingCard: React.FC<SwingCardProps> = ({
             borderRadius: 35,
             marginRight: 10,
             marginBottom: 60,
-          }}>
-        </TouchableOpacity>
+          }}></TouchableOpacity>
       </ImageBackground>
       <View style={globalStyles.analysisView}>
         <Text style={globalStyles.recommendedTitle}>Swing Analysis</Text>
@@ -349,7 +365,7 @@ export const SwingCard: React.FC<SwingCardProps> = ({
           <Text style={globalStyles.detailText}>{type}</Text>
           <Image
             source={require('../../../../assets/Images/swingIron.png')}
-            style={[globalStyles.swinglogGolfIcon, { marginLeft: '10%' }]}
+            style={[globalStyles.swinglogGolfIcon, {marginLeft: '10%'}]}
           />
           <Text style={globalStyles.detailText}>{shot}</Text>
           <TouchableOpacity style={styles.button} onPress={navigate}>
@@ -430,7 +446,7 @@ const styles = StyleSheet.create({
   },
   scoreDetail: {
     flexDirection: 'row',
-    width: wp('33%'),
+    width: wp('40%'),
     alignItems: 'center',
     marginVertical: hp('0.5%'),
     backgroundColor: 'rgba(255, 255, 255, 0.8)',
@@ -457,7 +473,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: wp('2%'),
-    padding: wp('4%'),
+    width:wp('100%')
   },
 });
