@@ -143,7 +143,6 @@ const LoginScreen: React.FC = (props: any) => {
                     <Text style={styles.forgotText}>Forgot Password?</Text>
                   </TouchableOpacity>
                 </View>
-                <View style={styles.buttonContainer}>
                   <TouchableOpacity
                     style={[styles.loginButton, { backgroundColor: loading ? '#fff' : '#000', borderColor: loading ? '#c5f048' : 'transparent', borderWidth: 1 }]}
                     onPress={handleSubmit(onSubmit)}
@@ -155,7 +154,6 @@ const LoginScreen: React.FC = (props: any) => {
                       <Text style={styles.loginButtonText}>Log In</Text>
                     )}
                   </TouchableOpacity>
-                </View>
                 <Text style={styles.orText}>Or</Text>
                 <Button
                   title="Continue with Google"

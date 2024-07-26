@@ -74,12 +74,6 @@ import { useTheme } from '../../theme/theme';
     backgroundColor: '#000',
     marginBottom: hp('1%'),
   },
-  buttonContainer: {
-    width: '100%',
-    alignItems: 'center',
-    marginTop: hp('4%'),
-    marginBottom: hp('10%'),
-  },
   loginButtonText: {
     fontFamily: 'Outfit-Medium',
     color: '#FFFFFF',
