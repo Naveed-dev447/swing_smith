@@ -21,7 +21,8 @@ import { RootState } from 'redux/store';
 import { useSelector } from 'react-redux';
 import VideoModal from '../../../components/VideoModal';
 
-const RecommendedView: React.FC = () => {
+const RecommendedView: React.FC = (props: any) => {
+  const { route, navigation } = props;
   const [selectedTab, setSelectedTab] = useState('All');
   const { tutorials } = useSelector((state: RootState) => state.tutorials);
 
@@ -35,31 +36,37 @@ const RecommendedView: React.FC = () => {
     setSelectedVideo({ uri, title });
     setModalVisible(true);
   };
-
+  const handlePress = () => {
+    navigation.navigate('Core Strength', {
+      video_id: 0,
+      type: '',
+      category: 'Workout Drills',
+    });
+  };
   return (
     <View style={recommandedStyles.container}>
       <CustomHeader onBackPress={goBack} title="Recommended" />
       <ScrollView contentContainerStyle={recommandedStyles.scrollViewContent}>
         <View style={recommandedStyles.tabContainer}>
           <HorizontalScroll>
-          {['All', 'Workouts', 'Drills','Tutorials'].map(tab => (
-            <TouchableOpacity
-              key={tab}
-              style={[
-                recommandedStyles.tab,
-                { backgroundColor: selectedTab === tab ? '#BBF246' : 'white' },
-                { borderColor: selectedTab !== tab ? '#192126' : 'white' },
-              ]}
-              onPress={() => setSelectedTab(tab)}>
-              <Text
+            {['All', 'Workouts', 'Drills', 'Tutorials'].map(tab => (
+              <TouchableOpacity
+                key={tab}
                 style={[
-                  recommandedStyles.tabText,
-                  { color: selectedTab === tab ? '#192126' : '#192126' },
-                ]}>
-                {tab}
-              </Text>
-            </TouchableOpacity>
-          ))}
+                  recommandedStyles.tab,
+                  { backgroundColor: selectedTab === tab ? '#BBF246' : 'white' },
+                  { borderColor: selectedTab !== tab ? '#192126' : 'white' },
+                ]}
+                onPress={() => setSelectedTab(tab)}>
+                <Text
+                  style={[
+                    recommandedStyles.tabText,
+                    { color: selectedTab === tab ? '#192126' : '#192126' },
+                  ]}>
+                  {tab}
+                </Text>
+              </TouchableOpacity>
+            ))}
           </HorizontalScroll>
         </View>
 
@@ -72,21 +79,22 @@ const RecommendedView: React.FC = () => {
                 progress="02/04"
                 description="Planks, Russian twists, Medicine ball rotations"
                 score="7.2/10"
-                navigateTo="Core Strength"
+                navigateTo={{ routeName: 'Core Strength', params: { video_id: 0, type: '', category: 'Workout Drills' } }}
               />
+
               <WorkoutCard
                 title="Lower Body Strength"
                 progress="01/03"
                 description="Squats, Lunges, Glute bridges"
                 score="7.2/10"
-                navigateTo="Lower Body Strength"
+                navigateTo={{ routeName: 'Core Strength', params: { video_id: 0, type: '', category: 'Workout Drills' } }}
               />
               <WorkoutCard
                 title="Flexibility"
                 progress="01/03"
                 description="Yoga, Pilates"
                 score="7.2/10"
-                navigateTo="Flexibility"
+                navigateTo={{ routeName: 'Core Strength', params: { video_id: 0, type: '', category: 'Workout Drills' } }}
               />
             </HorizontalScroll>
           </Section>
@@ -98,21 +106,21 @@ const RecommendedView: React.FC = () => {
                 progress="02/04"
                 description="Planks, Russian twists, Medicine ball rotations"
                 score="7.2/10"
-                navigateTo="Core Strength"
+                navigateTo={{ routeName: 'Core Strength', params: { video_id: 0, type: '', category: 'Workout Drills' } }}
               />
               <WorkoutCard
                 title="Lower Body Strength"
                 progress="01/03"
                 description="Squats, Lunges, Glute bridges"
                 score="7.2/10"
-                navigateTo="Lower Body Strength"
+                navigateTo={{ routeName: 'Core Strength', params: { video_id: 0, type: '', category: 'Workout Drills' } }}
               />
               <WorkoutCard
                 title="Flexibility"
                 progress="01/03"
                 description="Yoga, Pilates"
                 score="7.2/10"
-                navigateTo="Flexibility"
+                navigateTo={{ routeName: 'Core Strength', params: { video_id: 0, type: '', category: 'Workout Drills' } }}
               />
             </View>
           </Section>
@@ -122,7 +130,8 @@ const RecommendedView: React.FC = () => {
         {selectedTab === 'All' || selectedTab === 'Drills' ? (
           <Section title="Recommended Drills">
             <View style={recommandedStyles.maincontainer}>
-              <View style={recommandedStyles.cardContainer}>
+              <TouchableOpacity style={recommandedStyles.cardContainer}
+                onPress={handlePress}>
                 <ImageBackground
                   source={require('../../../assets/Images/recommendedVideoIcon.png')}
                   style={recommandedStyles.cardImage}
@@ -140,11 +149,12 @@ const RecommendedView: React.FC = () => {
                     Watch video to get it fixed
                   </Text>
                 </ImageBackground>
-              </View>
+              </TouchableOpacity>
               {Array(3)
                 .fill(0)
                 .map((_, index) => (
-                  <View key={index} style={recommandedStyles.cardContainer}>
+                  <TouchableOpacity key={index} style={recommandedStyles.cardContainer}
+                    onPress={handlePress} >
                     <Image
                       source={require('../../../assets/Images/DashBoard/golfman.png')}
                       style={recommandedStyles.cardIcon}
@@ -158,14 +168,14 @@ const RecommendedView: React.FC = () => {
                         golfer)...
                       </Text>
                     </View>
-                  </View>
+                  </TouchableOpacity>
                 ))}
             </View>
           </Section>
         ) : null}
 
         {/* Recommended Tutorials */}
-        {selectedTab === 'All'|| selectedTab === 'Tutorials' ? (
+        {selectedTab === 'All' || selectedTab === 'Tutorials' ? (
           <Section title="Recommended Tutorials">
             <View style={{ marginLeft: wp('5%') }}>
               <HorizontalScroll>
