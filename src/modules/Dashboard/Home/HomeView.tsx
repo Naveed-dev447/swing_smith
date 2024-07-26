@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
+import React, {useState} from 'react';
+import {View, Text, ScrollView, TouchableOpacity} from 'react-native';
 import globalStyles from './styles';
 import {
   widthPercentageToDP as wp,
@@ -16,24 +16,23 @@ import {
   AnalysisCard,
 } from './Common/Common';
 import TutorialCard from '../../../shared/Component/TutorialCard/TutorialCard';
-import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch, RootState } from '../../../redux/Store';
-import { fetchTutorials } from '../../../redux/Slices/TutorialSlice';
+import {useDispatch, useSelector} from 'react-redux';
+import {AppDispatch, RootState} from '../../../redux/Store';
+import {fetchTutorials} from '../../../redux/Slices/TutorialSlice';
 import VideoModal from '../../../components/VideoModal';
-import { isNotEmptyObject } from '../../../shared/Utils/CommonUtils';
+import {isNotEmptyObject} from '../../../shared/Utils/CommonUtils';
 
 const HomeView = (props: any) => {
-  const { route, navigation } = props;
+  const {route, navigation} = props;
   const [modalVisible, setModalVisible] = useState(false);
-  const { tutorials, loading, error } = useSelector((state: RootState) => state.tutorials);
-
+  const {tutorials, loading, error} = useSelector(
+    (state: RootState) => state.tutorials,
+  );
 
   const [selectedVideo, setSelectedVideo] = useState<{
     uri: string;
     title: string;
   } | null>(null);
-
-  console.log('Videos ', tutorials);
 
   const dispatch = useDispatch<AppDispatch>();
 
@@ -46,38 +45,35 @@ const HomeView = (props: any) => {
   };
 
   const handleVideoPress = (uri: string, title: string) => {
-    setSelectedVideo({ uri, title });
+    setSelectedVideo({uri, title});
     setModalVisible(true);
   };
 
   return (
     <View style={globalStyles.container}>
-      <Header
-        toggleModal={toggleModal}
-        name={'Hello, Dilshan'}
-      />
+      <Header toggleModal={toggleModal} name={'Hello, Hassan'} />
       <ScrollView contentContainerStyle={globalStyles.SwingLogScrollView}>
         <Banner />
-        <View>
-          <Text style={[globalStyles.sectionTitle, { marginTop: hp('2%') }]}>
+        <View style={{width:'100%'}}>
+          <Text style={[globalStyles.sectionTitle, {marginTop: hp('2%')}]}>
             Recent Analysis
           </Text>
           <ScrollView
             horizontal
             showsHorizontalScrollIndicator={false}
-            style={{ marginVertical: hp('2%') }}>
+            style={{marginVertical: hp('1%')}}>
             <AnalysisCard
               score="7.2"
               postureScore="8.4"
               swingRhythm="6.0"
-              source={require('../../../assets/Images/DashBoard/RecentAna1.png')} // Adjust the path as necessary
+              source={require('../../../assets/Images/DashBoard/RecentAna1.png')} 
               onPress={() => navigation.navigate('SwingLog')}
             />
             <AnalysisCard
               score="6.2"
               postureScore="8.4"
               swingRhythm="6.0"
-              source={require('../../../assets/Images/DashBoard/RecentAna2.png')} // Adjust the path as necessary
+              source={require('../../../assets/Images/DashBoard/RecentAna2.png')}
               onPress={() => navigation.navigate('SwingLog')}
             />
           </ScrollView>
@@ -86,7 +82,7 @@ const HomeView = (props: any) => {
           onClick={() =>
             navigation.navigate(
               'Onboard',
-              { screen: 'OnboardHome12' },
+              {screen: 'OnboardHome12'},
               'HomeUpload',
             )
           }
@@ -123,7 +119,9 @@ const HomeView = (props: any) => {
               <TutorialCard
                 key={index}
                 data={item}
-                onPress={() => handleVideoPress(item.file_name, item.description)}
+                onPress={() =>
+                  handleVideoPress(item.file_name, item.description)
+                }
               />
             ))}
           </HorizontalScroll>
