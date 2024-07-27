@@ -174,7 +174,7 @@ export const UploadSwing: React.FC<{onClick: () => void}> = ({onClick}) => (
       resizeMode="cover"
       imageStyle={{borderRadius: wp('2%')}}>
       <View style={styles.overlaySwing}>
-        <Text style={globalStyles.uploadSwingText}>Import Swing</Text> 
+        <Text style={globalStyles.uploadSwingText}>Import Swing</Text>
         <Text style={globalStyles.swingDesText}>
           Record your Swing and receive analysis.
         </Text>
@@ -216,21 +216,31 @@ interface WorkoutCardProps {
   };
 }
 
+interface WorkoutCardProps {
+  title: string;
+  progress: string;
+  icon: string;
+  description: string;
+  score: string;
+  navigateTo: {routeName: string; params?: object};
+}
+
 export const WorkoutCard: React.FC<WorkoutCardProps> = ({
   title,
   progress,
   icon,
   description,
-  score,
   navigateTo,
 }) => {
   const navigation = useNavigation();
 
   return (
     <TouchableOpacity
-      onPress={() => navigation.navigate(navigateTo.routeName, navigateTo.params)} style={[globalStyles.card, { width: wp('40%'), marginRight: wp('4%') }]}
-    >
-      <View style={{ marginVertical: '2%' }}>
+      onPress={() =>
+        navigation.navigate(navigateTo?.routeName, navigateTo.params)
+      }
+      style={[globalStyles.card, {width: wp('40%'), marginRight: wp('4%')}]}>
+      <View style={{marginVertical: '2%'}}>
         <Image
           source={require('../../../../assets/Images/GraphPie.png')}
           style={globalStyles.graphPieIcon}
@@ -241,7 +251,6 @@ export const WorkoutCard: React.FC<WorkoutCardProps> = ({
           {progress}
         </Text>
       </View>
-
       <View style={{marginVertical: '1%'}}>
         <Text
           style={{
@@ -252,21 +261,22 @@ export const WorkoutCard: React.FC<WorkoutCardProps> = ({
           {title}
         </Text>
       </View>
-
       <View style={{marginVertical: '1%'}}>
         <Text
           style={{
             color: '#192126',
             fontFamily: 'Outfit-Regular',
             textAlign: 'center',
-          }}>
+          }}
+          numberOfLines={2} 
+          ellipsizeMode="tail"
+        >
           {description}
         </Text>
       </View>
     </TouchableOpacity>
   );
 };
-
 
 interface DrillCardProps {
   title: string;
@@ -280,21 +290,31 @@ interface DrillCardProps {
   };
 }
 
-export const DrillCard: React.FC<DrillCardProps> = ({ title, navigateTo }) => {
+export const DrillCard: React.FC<DrillCardProps> = ({title, navigateTo}) => {
   const navigation = useNavigation();
 
   const handlePress = () => {
-    navigation.navigate(navigateTo.routeName, navigateTo.params)
+    navigation.navigate(navigateTo.routeName, navigateTo.params);
   };
 
   return (
-    <View style={[globalStyles.card, { width: wp('40%'), marginRight: wp('4%') }]}>
+    <View
+      style={[globalStyles.card, {width: wp('40%'), marginRight: wp('4%')}]}>
       <Image
         source={require('../../../../assets/Images/DashBoard/golfman.png')}
         style={globalStyles.drillIcon}
       />
-      <Text style={{ textAlign: 'center', color: '#192126', fontFamily: 'Outfit-SemiBold' }}>{title}</Text>
-      <TouchableOpacity style={globalStyles.markAsDoneButton} onPress={handlePress}>
+      <Text
+        style={{
+          textAlign: 'center',
+          color: '#192126',
+          fontFamily: 'Outfit-SemiBold',
+        }}>
+        {title}
+      </Text>
+      <TouchableOpacity
+        style={globalStyles.markAsDoneButton}
+        onPress={handlePress}>
         <Text style={globalStyles.markAsDoneText}>Mark As Done</Text>
       </TouchableOpacity>
     </View>
@@ -490,6 +510,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    width:wp('100%')
+    width: wp('100%'),
   },
 });

@@ -27,7 +27,7 @@ const CongratulationModal: React.FC = (props: any) => {
       <View style={styles.imageView}>
         <LottieView
           style={styles.image}
-          source={require('../assets/animations/drum1.json')}
+          source={require('../assets/animations/Drum1.json')}
           autoPlay
           loop
         />

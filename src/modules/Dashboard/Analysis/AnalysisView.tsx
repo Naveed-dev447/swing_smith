@@ -128,7 +128,7 @@ const AnalysisView: React.FC = (props: any) => {
               <Text style={styles.instructionTitle}>Positives</Text>
             </View>
             {Object.entries(analysis?.Positives).map(([key, value]) => (
-              <Text key={key}>
+              <Text style={styles.headerTitle} key={key}>
                 <Text style={styles.subTitle}>{key}: </Text>
                 {value}
               </Text>
@@ -142,7 +142,7 @@ const AnalysisView: React.FC = (props: any) => {
               <Text style={styles.instructionTitle}>Negatives</Text>
             </View>
             {Object.entries(analysis?.Negatives).map(([key, value]) => (
-              <Text key={key}>
+              <Text style={styles.headerTitle} key={key}>
                 <Text style={styles.subTitle}>{key}: </Text>
                 {value}
               </Text>

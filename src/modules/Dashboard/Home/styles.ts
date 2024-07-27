@@ -199,8 +199,6 @@ const globalStyles = StyleSheet.create({
     justifyContent: 'center',
     marginVertical: wp('2%'),
     alignItems: 'center',
-    // borderColor:'#000',
-    // borderWidth:1,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -208,9 +206,10 @@ const globalStyles = StyleSheet.create({
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
-    // Shadow for Android
     elevation: 5,
+    overflow: 'hidden', // Ensure child elements don't overflow
   },
+  
   cardImage: {
     width: '100%',
     height: hp('15%'),
