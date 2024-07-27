@@ -257,7 +257,10 @@ export const WorkoutCard: React.FC<WorkoutCardProps> = ({
             color: '#192126',
             fontFamily: 'Outfit-SemiBold',
             textAlign: 'center',
-          }}>
+          }}
+          numberOfLines={1} 
+          ellipsizeMode="tail"
+          >
           {title}
         </Text>
       </View>
@@ -309,7 +312,10 @@ export const DrillCard: React.FC<DrillCardProps> = ({title, navigateTo}) => {
           textAlign: 'center',
           color: '#192126',
           fontFamily: 'Outfit-SemiBold',
-        }}>
+        }}
+        numberOfLines={1} 
+          ellipsizeMode="tail"
+        >
         {title}
       </Text>
       <TouchableOpacity

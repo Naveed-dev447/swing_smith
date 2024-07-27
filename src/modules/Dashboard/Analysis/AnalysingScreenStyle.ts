@@ -103,7 +103,6 @@ export const styles = StyleSheet.create({
   },
   instructionContainer: {
     width: wp('90%'),
-
     backgroundColor: '#FFFFFF',
     borderWidth: 1,
     borderColor: '#F0F0F0',
