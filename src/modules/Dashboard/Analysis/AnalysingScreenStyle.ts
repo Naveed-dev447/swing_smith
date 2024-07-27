@@ -139,10 +139,14 @@ export const styles = StyleSheet.create({
     marginBottom: hp('1%'),
     color: '#192126',
   },
+  headerTitle:{
+    fontSize: wp('3.8%'),
+    fontFamily:'Outfit-Regular',
+    color: '#192126',
+  },
   subTitle:{
     fontSize: wp('4%'),
     fontFamily:'Outfit-SemiBold',
-    // marginBottom: hp('1%'),
     color: '#192126',
   },
   infoIcon: {
