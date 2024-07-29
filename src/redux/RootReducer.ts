@@ -5,6 +5,7 @@ import OnboardingReducer from './Slices/OnboardingSlice';
 import SwingLogReducer from './Slices/SwingLogSlice';
 import SwingAnalysisReducer from './Slices/SwingAnalysisSlice';
 import ProfileReducer from './Slices/ProfileSlice';
+import RecommendedDrillsReducer from './Slices/RecommendedDrillsSlice';
 import RecentAnalysisReducer from './Slices/RecentAnalysisSlice';
 import RecommendedWorkoutsReducer from './Slices/RecommendedWorkouts';
 
@@ -14,6 +15,7 @@ const appReducer = combineReducers({
   swingLogs: SwingLogReducer,
   swingAnalysis: SwingAnalysisReducer,
   profile: ProfileReducer,
+  recommendedDrills: RecommendedDrillsReducer,
   recentAnalysis: RecentAnalysisReducer,
   recommendedWorkout: RecommendedWorkoutsReducer
 });

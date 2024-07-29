@@ -133,6 +133,12 @@ const recommandedStyles = StyleSheet.create({
     // flexGrow: 1,
     paddingVertical: hp('2%'),
   },
+  drillsContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
+    paddingHorizontal: wp('5%'),
+  },
 });
 
 export default recommandedStyles;

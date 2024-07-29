@@ -16,6 +16,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../../redux/Store';
 import { fetchTutorials } from '../../../redux/Slices/TutorialSlice';
 import { fetchProfile } from '../../../redux/Slices/ProfileSlice';
+import { fetchRecommendedDrills } from '../../../redux/Slices/RecommendedDrillsSlice';
 import { fetchRecentAnalysis } from '../../../redux/Slices/RecentAnalysisSlice';
 import { fetchRecommendedWorkouts } from '../../../redux/Slices/RecommendedWorkouts';
 
@@ -30,6 +31,7 @@ const LOCAL_FALLBACK_IMAGE = require('../../../assets/Images/DashBoard/RecentAna
 
 const HomeView = (props: any) => {
   const { route, navigation } = props;
+  const dispatch = useDispatch<AppDispatch>();
   const [modalVisible, setModalVisible] = useState(false);
   const { tutorials, loading: tutorialsLoading, error: tutorialsError } = useSelector(
     (state: RootState) => state.tutorials,
@@ -49,11 +51,13 @@ const HomeView = (props: any) => {
     title: string;
   } | null>(null);
 
-  const dispatch = useDispatch<AppDispatch>();
+  const { drills, drillsLoading, drillsError } = useSelector((state: RootState) => state.recommendedDrills);
+
 
   useEffect(() => {
     dispatch(fetchRecommendedWorkouts()).unwrap();
     dispatch(fetchProfile()).unwrap();
+    dispatch(fetchRecommendedDrills()).unwrap();
     dispatch(fetchRecentAnalysis()).unwrap();
     dispatch(fetchTutorials()).unwrap();
   }, [dispatch]);
@@ -106,7 +110,6 @@ const HomeView = (props: any) => {
             )
           }
         />
-        {console.log("Workout data", workouts)}
         <Section title="Recommended Workouts">
           <FlatList
             horizontal
@@ -118,26 +121,28 @@ const HomeView = (props: any) => {
                 title={item.type}
                 progress={`${item.done}/${item.total}`}
                 navigateTo={{ routeName: 'Core Strength', params: { video_id: item.id, type: '', category: 'Workout Drills' } }}
+                
               />
             )}
             contentContainerStyle={{ marginVertical: hp('1%') }}
           />
         </Section>
         <Section title="Recommended Drills">
-          <HorizontalScroll>
-            <DrillCard
-              title="Core Strength"
-              navigateTo={{ routeName: 'Core Strength', params: { video_id: 0, type: '', category: 'Workout Drills' } }}
-            />
-            <DrillCard
-              title="Core Strength"
-              navigateTo={{ routeName: 'Core Strength', params: { video_id: 0, type: '', category: 'Workout Drills' } }}
-            />
-            <DrillCard
-              title="Core Strength"
-              navigateTo={{ routeName: 'Core Strength', params: { video_id: 0, type: '', category: 'Workout Drills' } }}
-            />
-          </HorizontalScroll>
+          <FlatList
+            data={drills}
+            keyExtractor={(item) => item.id.toString()}
+            horizontal
+            renderItem={({ item }) => (
+              <DrillCard
+                title={item.name}
+                description={item.description}
+                navigateTo={{
+                  routeName: 'Core Strength', // Adjust route as needed
+                  params: { video_id: item.video_id, type: item.name, category: 'Golf Drills' },
+                }}
+              />
+            )}
+          />
         </Section>
         <Section title="Recommended Tutorials">
           <HorizontalScroll>

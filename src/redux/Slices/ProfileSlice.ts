@@ -17,7 +17,6 @@ const initialState: ProfileState = {
 export const fetchProfile = createAsyncThunk('profile/fetchProfile', async (_, { rejectWithValue }) => {
   try {
     const response = await apiClient.get<IProfileResponse>('/account/profile');
-
     return response.data.data;
   } catch (profileError) {
     return rejectWithValue(profileError);

@@ -65,6 +65,8 @@ const LoginScreen: React.FC = (props: any) => {
     setLoading(true);
     try {
       const res = await LoginAPICall(data);
+      console.log("token",res.data);
+      
 
       if (res.status === 201) {
         await dispatch(fetchTutorials()).unwrap();
