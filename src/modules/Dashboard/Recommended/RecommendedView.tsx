@@ -26,8 +26,7 @@ import { fetchRecommendedDrills } from '../../../redux/Slices/RecommendedDrillsS
 import { RootState, AppDispatch } from 'redux/store';
 import { useDispatch, useSelector } from 'react-redux';
 import VideoModal from '../../../components/VideoModal';
-
-
+import { fetchRecommendedWorkouts } from '../../../redux/Slices/RecommendedWorkouts'
 const RecommendedView: React.FC = (props: any) => {
   const { route, navigation } = props;
   const dispatch = useDispatch<AppDispatch>();
@@ -40,11 +39,12 @@ const RecommendedView: React.FC = (props: any) => {
     title: string;
   } | null>(null);
   const { drills, drillsLoading, drillsError } = useSelector((state: RootState) => state.recommendedDrills);
+  const { workouts, recWorkoutLoading, recWorkoutError } = useSelector((state: RootState) => state.recommendedWorkouts);
 
   useEffect(() => {
     dispatch(fetchRecommendedDrills()).unwrap();
+    dispatch(fetchRecommendedWorkouts()).unwrap();
   }, [dispatch]);
-
 
 
   const handleVideoPress = (uri: string, title: string) => {
@@ -58,6 +58,16 @@ const RecommendedView: React.FC = (props: any) => {
       category: 'Workout Drills',
     });
   };
+
+
+  if (drillsLoading || recWorkoutLoading) {
+    return <Text>Loading...</Text>;
+  }
+
+  if (drillsError || recWorkoutError) {
+    return <Text>Error: {drillsError || recWorkoutError}</Text>;
+  }
+
   return (
     <View style={recommandedStyles.container}>
       <CustomHeader onBackPress={goBack} title="Recommended" />
