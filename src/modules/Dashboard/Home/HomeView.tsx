@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { View, Text, ScrollView } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, ScrollView, FlatList, Image, StyleSheet } from 'react-native';
 import globalStyles from './styles';
 import {
   DrillCard,
@@ -16,18 +16,32 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../../redux/Store';
 import { fetchTutorials } from '../../../redux/Slices/TutorialSlice';
 import { fetchProfile } from '../../../redux/Slices/ProfileSlice';
+import { fetchRecentAnalysis } from '../../../redux/Slices/RecentAnalysisSlice';
+import { fetchRecommendedWorkouts } from '../../../redux/Slices/RecommendedWorkouts';
+
 import VideoModal from '../../../components/VideoModal';
 import ProgressLoader from '../../../components/ProgressLoader';
 import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
+
+// Define a fallback image URL
+const FALLBACK_IMAGE_URL = 'https://example.com/path/to/fallback-image.png'; // URL for remote fallback image
+const LOCAL_FALLBACK_IMAGE = require('../../../assets/Images/DashBoard/RecentAna1.png');
+
 const HomeView = (props: any) => {
   const { route, navigation } = props;
   const [modalVisible, setModalVisible] = useState(false);
-  const { tutorials, loading, error } = useSelector(
+  const { tutorials, loading: tutorialsLoading, error: tutorialsError } = useSelector(
     (state: RootState) => state.tutorials,
   );
   const { profiles, profileLoading, profileError } = useSelector(
     (state: RootState) => state.profile,
+  );
+  const { data: recentAnalysis, analysisloading: recentAnalysisLoading, analysisError } = useSelector(
+    (state: RootState) => state.recentAnalysis,
+  );
+  const { workouts, recWorkoutLoading, recWorkoutError } = useSelector(
+    (state: RootState) => state.recommendedWorkout,
   );
   const userName = profiles.length > 0 ? profiles[0].name : 'User';
   const [selectedVideo, setSelectedVideo] = useState<{
@@ -37,9 +51,11 @@ const HomeView = (props: any) => {
 
   const dispatch = useDispatch<AppDispatch>();
 
-  React.useEffect(() => {
-    dispatch(fetchTutorials()).unwrap();
+  useEffect(() => {
+    dispatch(fetchRecommendedWorkouts()).unwrap();
     dispatch(fetchProfile()).unwrap();
+    dispatch(fetchRecentAnalysis()).unwrap();
+    dispatch(fetchTutorials()).unwrap();
   }, [dispatch]);
 
   const toggleModal = () => {
@@ -50,9 +66,11 @@ const HomeView = (props: any) => {
     setSelectedVideo({ uri, title });
     setModalVisible(true);
   };
-  if (loading || profileLoading) {
+
+  if (tutorialsLoading || profileLoading || recentAnalysisLoading || recWorkoutLoading) {
     return <ProgressLoader />;
   }
+
   return (
     <View style={globalStyles.container}>
       <Header toggleModal={toggleModal} name={`Hello, ${userName}`} />
@@ -62,23 +80,22 @@ const HomeView = (props: any) => {
           <Text style={[globalStyles.sectionTitle, { marginTop: hp('2%') }]}>
             Recent Analysis
           </Text>
-          <ScrollView
+          <FlatList
             horizontal
             showsHorizontalScrollIndicator={false}
-            style={{ marginVertical: hp('1%') }}>
-            <AnalysisCard
-              score="7.2"
-              postureScore="8.4"
-              swingRhythm="6.0"
-              source={require('../../../assets/Images/DashBoard/RecentAna1.png')} // Adjust the path as necessary
-            />
-            <AnalysisCard
-              score="6.2"
-              postureScore="8.4"
-              swingRhythm="6.0"
-              source={require('../../../assets/Images/DashBoard/RecentAna2.png')} // Adjust the path as necessary
-            />
-          </ScrollView>
+            data={recentAnalysis}
+            keyExtractor={(item) => item.id.toString()}
+            renderItem={({ item }) => (
+              <AnalysisCard
+                score={item.swing_rating.toString()}
+                postureScore={item.posture.toString()}
+                swingRhythm={item.swing_rhythm.toString()}
+                source={require('../../../assets/Images/DashBoard/RecentAna1.png')}
+                onPress={() => console.log(`Pressed item with ID: ${item.id}`)}
+              />
+            )}
+            contentContainerStyle={{ marginVertical: hp('1%') }}
+          />
         </View>
         <UploadSwing
           onClick={() =>
@@ -89,24 +106,22 @@ const HomeView = (props: any) => {
             )
           }
         />
+        {console.log("Workout data", workouts)}
         <Section title="Recommended Workouts">
-          <HorizontalScroll>
-            <WorkoutCard
-              title="Core Strength"
-              progress="02/04"
-              navigateTo={{ routeName: 'Core Strength', params: { video_id: 0, type: '', category: 'Workout Drills' } }}
-            />
-            <WorkoutCard
-              title="Lower Body Strength"
-              progress="01/04"
-              navigateTo={{ routeName: 'Core Strength', params: { video_id: 0, type: '', category: 'Workout Drills' } }}
-            />
-            <WorkoutCard
-              title="Flexibility"
-              progress="03/04"
-              navigateTo={{ routeName: 'Core Strength', params: { video_id: 0, type: '', category: 'Workout Drills' } }}
-            />
-          </HorizontalScroll>
+          <FlatList
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            data={workouts}
+            keyExtractor={(item) => item.id.toString()}
+            renderItem={({ item }) => (
+              <WorkoutCard
+                title={item.type}
+                progress={`${item.done}/${item.total}`}
+                navigateTo={{ routeName: 'Core Strength', params: { video_id: item.id, type: '', category: 'Workout Drills' } }}
+              />
+            )}
+            contentContainerStyle={{ marginVertical: hp('1%') }}
+          />
         </Section>
         <Section title="Recommended Drills">
           <HorizontalScroll>
@@ -149,5 +164,6 @@ const HomeView = (props: any) => {
     </View>
   );
 };
+
 
 export default HomeView;
