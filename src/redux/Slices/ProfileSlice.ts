@@ -3,7 +3,7 @@ import apiClient from '../../config/client';
 import { IProfile, IProfileResponse } from '../../types/Profile';
 
 interface ProfileState {
-  profiles: IProfile[];  
+  profiles: IProfile[];
   profileLoading: boolean;
   profileError: string | null;
 }

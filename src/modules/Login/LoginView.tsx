@@ -23,14 +23,13 @@ import { AppDispatch } from '../../redux/store'; // Import the typed dispatch
 import TextInput from '../../components/TextInput';
 import Button from '../../components/Button';
 import Checkbox from '../../components/Checkbox';
-import Loader from '../../components/Loader';
 import useLoginStyles from './styles';
 import LoginAPICall from './LoginAPI';
 import { fetchTutorials } from '../../redux/Slices/TutorialSlice';
+
 import { useLoader } from '../../config/LoaderContext';
 import { CommonActions } from '@react-navigation/native';
 import { ShowToast } from '../../components/ShowToast';
-import { fetchProfile } from '../../redux/Slices/ProfileSlice';
 
 
 const loginSchema = yup.object().shape({
@@ -71,7 +70,6 @@ const LoginScreen: React.FC = (props: any) => {
 
       if (res.status === 201) {
         await dispatch(fetchTutorials()).unwrap();
-
         navigation.replace('Onboard');
       }
     } catch (error) {

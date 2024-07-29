@@ -130,7 +130,7 @@ export const AnalysisCard: React.FC<{
   source: ImageSourcePropType;
   onPress: () => void;
 }> = ({ score, postureScore, swingRhythm, source, onPress }) => (
-  <View style={{ width: '50%' }}>
+  <View>
     <TouchableOpacity
       onPress={onPress}
       style={[styles.analysisCard, { marginRight: wp('2%') }]}>
@@ -168,23 +168,21 @@ export const AnalysisCard: React.FC<{
 );
 
 export const UploadSwing: React.FC<{ onClick: () => void }> = ({ onClick }) => (
-  <View style={globalStyles.uploadSwingContainer}>
-    <ImageBackground
-      source={require('../../../../assets/Images/DashBoard/swingsImage.png')}
-      style={globalStyles.uploadSwingImage}
-      resizeMode="cover"
-      imageStyle={{ borderRadius: wp('2%') }}>
-      <View style={styles.overlaySwing}>
-        <Text style={globalStyles.uploadSwingText}>Import Swing</Text>
-        <Text style={globalStyles.swingDesText}>
-          Record your Swing and receive analysis.
-        </Text>
-        <TouchableOpacity style={globalStyles.uploadButton} onPress={onClick}>
-          <Text style={globalStyles.uploadButtonText}>Upload</Text>
-        </TouchableOpacity>
-      </View>
-    </ImageBackground>
-  </View>
+  <ImageBackground
+    source={require('../../../../assets/Images/DashBoard/swingsImage.png')}
+    style={globalStyles.uploadSwingImage}
+    resizeMode="cover"
+    imageStyle={{ borderRadius: wp('2%') }}>
+    <View style={styles.overlaySwing}>
+      <Text style={globalStyles.uploadSwingText}>Import Swing</Text>
+      <Text style={globalStyles.swingDesText}>
+        Record your Swing and receive analysis.
+      </Text>
+      <TouchableOpacity style={globalStyles.uploadButton} onPress={onClick}>
+        <Text style={globalStyles.uploadButtonText}>Upload</Text>
+      </TouchableOpacity>
+    </View>
+  </ImageBackground>
 );
 
 interface SectionProps {
@@ -288,7 +286,7 @@ interface DrillCardProps {
   navigateTo: {
     routeName: string;
     params: {
-      video_id: number;
+      video_id: string;
       type: string;
       category: string;
     };
