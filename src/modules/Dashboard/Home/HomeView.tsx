@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import {View, Text, ScrollView} from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, ScrollView, FlatList } from 'react-native';
 import globalStyles from './styles';
 import {
   DrillCard,
@@ -12,22 +12,23 @@ import {
   AnalysisCard,
 } from './Common/Common';
 import TutorialCard from '../../../shared/Component/TutorialCard/TutorialCard';
-import {useDispatch, useSelector} from 'react-redux';
-import {AppDispatch, RootState} from '../../../redux/Store';
-import {fetchTutorials} from '../../../redux/Slices/TutorialSlice';
-import {fetchProfile} from '../../../redux/Slices/ProfileSlice';
-import {fetchRecommendedDrills} from '../../../redux/Slices/RecommendedDrillsSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '../../../redux/Store';
+import { fetchTutorials } from '../../../redux/Slices/TutorialSlice';
+import { fetchProfile } from '../../../redux/Slices/ProfileSlice';
+import { fetchRecommendedDrills } from '../../../redux/Slices/RecommendedDrillsSlice';
 import VideoModal from '../../../components/VideoModal';
 import ProgressLoader from '../../../components/ProgressLoader';
-import {heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 const HomeView = (props: any) => {
-  const {route, navigation} = props;
+  const { route, navigation } = props;
+  const dispatch = useDispatch<AppDispatch>();
   const [modalVisible, setModalVisible] = useState(false);
-  const {tutorials, loading, error} = useSelector(
+  const { tutorials, loading, error } = useSelector(
     (state: RootState) => state.tutorials,
   );
-  const {profiles, profileLoading, profileError} = useSelector(
+  const { profiles, profileLoading, profileError } = useSelector(
     (state: RootState) => state.profile,
   );
   const userName = profiles.length > 0 ? profiles[0].name : 'User';
@@ -36,12 +37,13 @@ const HomeView = (props: any) => {
     title: string;
   } | null>(null);
 
-  const dispatch = useDispatch<AppDispatch>();
+  const { drills, drillsLoading, drillsError } = useSelector((state: RootState) => state.recommendedDrills);
+
 
   React.useEffect(() => {
     dispatch(fetchTutorials()).unwrap();
     dispatch(fetchProfile()).unwrap();
-    dispatch(fetchRecommendedDrills()).unwrap;
+    dispatch(fetchRecommendedDrills()).unwrap();
   }, [dispatch]);
 
   const toggleModal = () => {
@@ -49,7 +51,7 @@ const HomeView = (props: any) => {
   };
 
   const handleVideoPress = (uri: string, title: string) => {
-    setSelectedVideo({uri, title});
+    setSelectedVideo({ uri, title });
     setModalVisible(true);
   };
   if (loading || profileLoading) {
@@ -60,14 +62,14 @@ const HomeView = (props: any) => {
       <Header toggleModal={toggleModal} name={`Hello, ${userName}`} />
       <ScrollView contentContainerStyle={globalStyles.SwingLogScrollView}>
         <Banner />
-        <View style={{width: '100%'}}>
-          <Text style={[globalStyles.sectionTitle, {marginTop: hp('2%')}]}>
+        <View style={{ width: '100%' }}>
+          <Text style={[globalStyles.sectionTitle, { marginTop: hp('2%') }]}>
             Recent Analysis
           </Text>
           <ScrollView
             horizontal
             showsHorizontalScrollIndicator={false}
-            style={{marginVertical: hp('1%')}}>
+            style={{ marginVertical: hp('1%') }}>
             <AnalysisCard
               score="7.2"
               postureScore="8.4"
@@ -86,7 +88,7 @@ const HomeView = (props: any) => {
           onClick={() =>
             navigation.navigate(
               'Onboard',
-              {screen: 'OnboardHome12'},
+              { screen: 'OnboardHome12' },
               'HomeUpload',
             )
           }
@@ -98,7 +100,7 @@ const HomeView = (props: any) => {
               progress="02/04"
               navigateTo={{
                 routeName: 'Core Strength',
-                params: {video_id: 0, type: '', category: 'Workout Drills'},
+                params: { video_id: 0, type: '', category: 'Workout Drills' },
               }}
             />
             <WorkoutCard
@@ -106,7 +108,7 @@ const HomeView = (props: any) => {
               progress="01/04"
               navigateTo={{
                 routeName: 'Core Strength',
-                params: {video_id: 0, type: '', category: 'Workout Drills'},
+                params: { video_id: 0, type: '', category: 'Workout Drills' },
               }}
             />
             <WorkoutCard
@@ -114,38 +116,27 @@ const HomeView = (props: any) => {
               progress="03/04"
               navigateTo={{
                 routeName: 'Core Strength',
-                params: {video_id: 0, type: '', category: 'Workout Drills'},
+                params: { video_id: 0, type: '', category: 'Workout Drills' },
               }}
             />
           </HorizontalScroll>
         </Section>
         <Section title="Recommended Drills">
-          <HorizontalScroll>
-            <DrillCard
-              title="Core Strength"
-              description="This drill focuses on building core strength."
-              navigateTo={{
-                routeName: 'Core Strength',
-                params: {video_id: 0, type: '', category: 'Workout Drills'},
-              }}
-            />
-            <DrillCard
-              title="Flexibility Drills"
-              description="Improve your flexibility with these drills."
-              navigateTo={{
-                routeName: 'Flexibility',
-                params: {video_id: 1, type: '', category: 'Workout Drills'},
-              }}
-            />
-            <DrillCard
-              title="Swing Drills"
-              description="Enhance your swing with these drills."
-              navigateTo={{
-                routeName: 'Flexibility',
-                params: {video_id: 2, type: '', category: 'Swing Drills'},
-              }}
-            />
-          </HorizontalScroll>
+          <FlatList
+            data={drills}
+            keyExtractor={(item) => item.id.toString()}
+            horizontal
+            renderItem={({ item }) => (
+              <DrillCard
+                title={item.name}
+                description={item.description}
+                navigateTo={{
+                  routeName: 'Core Strength', // Adjust route as needed
+                  params: { video_id: item.video_id, type: item.name, category: 'Golf Drills' },
+                }}
+              />
+            )}
+          />
         </Section>
         <Section title="Recommended Tutorials">
           <HorizontalScroll>

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -13,7 +13,7 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import recommandedStyles from './styles';
-import {goBack} from '../../../shared/Utils/navigationRef';
+import { goBack } from '../../../shared/Utils/navigationRef';
 import CustomHeader from '../../../shared/Component/CustomHeader';
 import {
   DrillCard,
@@ -22,35 +22,33 @@ import {
   WorkoutCard,
 } from '../Home/Common/Common';
 import TutorialCard from '../../../shared/Component/TutorialCard/TutorialCard';
-import {fetchRecommendedDrills} from '../../../redux/Slices/RecommendedDrillsSlice';
-import {RootState, AppDispatch} from 'redux/store';
-import {useDispatch, useSelector} from 'react-redux';
+import { fetchRecommendedDrills } from '../../../redux/Slices/RecommendedDrillsSlice';
+import { RootState, AppDispatch } from 'redux/store';
+import { useDispatch, useSelector } from 'react-redux';
 import VideoModal from '../../../components/VideoModal';
-const {recommendedDrills, loading, error} = useSelector(
-  (state: RootState) => state.recommendedDrills,
-);
-const dispatch = useDispatch<AppDispatch>();
+
 
 const RecommendedView: React.FC = (props: any) => {
-  const {route, navigation} = props;
+  const { route, navigation } = props;
+  const dispatch = useDispatch<AppDispatch>();
   const [selectedTab, setSelectedTab] = useState('All');
-  const {tutorials} = useSelector((state: RootState) => state.tutorials);
+  const { tutorials } = useSelector((state: RootState) => state.tutorials);
 
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedVideo, setSelectedVideo] = useState<{
     uri: string;
     title: string;
   } | null>(null);
+  const { drills, drillsLoading, drillsError } = useSelector((state: RootState) => state.recommendedDrills);
 
   useEffect(() => {
-    dispatch(fetchRecommendedDrills());
+    dispatch(fetchRecommendedDrills()).unwrap();
   }, [dispatch]);
-  useEffect(() => {
-    console.log('Recommended Drills:', recommendedDrills);
-  }, [recommendedDrills]);
+
+
 
   const handleVideoPress = (uri: string, title: string) => {
-    setSelectedVideo({uri, title});
+    setSelectedVideo({ uri, title });
     setModalVisible(true);
   };
   const handlePress = () => {
@@ -71,14 +69,14 @@ const RecommendedView: React.FC = (props: any) => {
                 key={tab}
                 style={[
                   recommandedStyles.tab,
-                  {backgroundColor: selectedTab === tab ? '#BBF246' : 'white'},
-                  {borderColor: selectedTab !== tab ? '#192126' : 'white'},
+                  { backgroundColor: selectedTab === tab ? '#BBF246' : 'white' },
+                  { borderColor: selectedTab !== tab ? '#192126' : 'white' },
                 ]}
                 onPress={() => setSelectedTab(tab)}>
                 <Text
                   style={[
                     recommandedStyles.tabText,
-                    {color: selectedTab === tab ? '#192126' : '#192126'},
+                    { color: selectedTab === tab ? '#192126' : '#192126' },
                   ]}>
                   {tab}
                 </Text>
@@ -98,7 +96,7 @@ const RecommendedView: React.FC = (props: any) => {
                 score="7.2/10"
                 navigateTo={{
                   routeName: 'Core Strength',
-                  params: {video_id: 0, type: '', category: 'Workout Drills'},
+                  params: { video_id: 0, type: '', category: 'Workout Drills' },
                 }}
               />
 
@@ -109,7 +107,7 @@ const RecommendedView: React.FC = (props: any) => {
                 score="7.2/10"
                 navigateTo={{
                   routeName: 'Core Strength',
-                  params: {video_id: 0, type: '', category: 'Workout Drills'},
+                  params: { video_id: 0, type: '', category: 'Workout Drills' },
                 }}
               />
               <WorkoutCard
@@ -119,7 +117,7 @@ const RecommendedView: React.FC = (props: any) => {
                 score="7.2/10"
                 navigateTo={{
                   routeName: 'Core Strength',
-                  params: {video_id: 0, type: '', category: 'Workout Drills'},
+                  params: { video_id: 0, type: '', category: 'Workout Drills' },
                 }}
               />
             </HorizontalScroll>
@@ -134,7 +132,7 @@ const RecommendedView: React.FC = (props: any) => {
                 score="7.2/10"
                 navigateTo={{
                   routeName: 'Core Strength',
-                  params: {video_id: 0, type: '', category: 'Workout Drills'},
+                  params: { video_id: 0, type: '', category: 'Workout Drills' },
                 }}
               />
               <WorkoutCard
@@ -144,7 +142,7 @@ const RecommendedView: React.FC = (props: any) => {
                 score="7.2/10"
                 navigateTo={{
                   routeName: 'Core Strength',
-                  params: {video_id: 0, type: '', category: 'Workout Drills'},
+                  params: { video_id: 0, type: '', category: 'Workout Drills' },
                 }}
               />
               <WorkoutCard
@@ -154,7 +152,7 @@ const RecommendedView: React.FC = (props: any) => {
                 score="7.2/10"
                 navigateTo={{
                   routeName: 'Core Strength',
-                  params: {video_id: 0, type: '', category: 'Workout Drills'},
+                  params: { video_id: 0, type: '', category: 'Workout Drills' },
                 }}
               />
             </View>
@@ -170,7 +168,7 @@ const RecommendedView: React.FC = (props: any) => {
                 description="This drill focuses on building core strength."
                 navigateTo={{
                   routeName: 'Core Strength',
-                  params: {video_id: 0, type: '', category: 'Workout Drills'},
+                  params: { video_id: 0, type: '', category: 'Workout Drills' },
                 }}
               />
               <DrillCard
@@ -178,7 +176,7 @@ const RecommendedView: React.FC = (props: any) => {
                 description="Improve your flexibility with these drills."
                 navigateTo={{
                   routeName: 'Flexibility',
-                  params: {video_id: 1, type: '', category: 'Workout Drills'},
+                  params: { video_id: 1, type: '', category: 'Workout Drills' },
                 }}
               />
               <DrillCard
@@ -186,7 +184,7 @@ const RecommendedView: React.FC = (props: any) => {
                 description="Enhance your swing with these drills."
                 navigateTo={{
                   routeName: 'Core Strength',
-                  params: {video_id: 2, type: '', category: 'Swing Drills'},
+                  params: { video_id: 2, type: '', category: 'Swing Drills' },
                 }}
               />
             </HorizontalScroll>
@@ -199,7 +197,7 @@ const RecommendedView: React.FC = (props: any) => {
                 description="This drill focuses on building core strength."
                 navigateTo={{
                   routeName: 'Core Strength',
-                  params: {video_id: 0, type: '', category: 'Workout Drills'},
+                  params: { video_id: 0, type: '', category: 'Workout Drills' },
                 }}
               />
               <DrillCard
@@ -207,7 +205,7 @@ const RecommendedView: React.FC = (props: any) => {
                 description="Improve your flexibility with these drills."
                 navigateTo={{
                   routeName: 'Flexibility',
-                  params: {video_id: 1, type: '', category: 'Workout Drills'},
+                  params: { video_id: 1, type: '', category: 'Workout Drills' },
                 }}
               />
               <DrillCard
@@ -215,7 +213,7 @@ const RecommendedView: React.FC = (props: any) => {
                 description="Enhance your swing with these drills."
                 navigateTo={{
                   routeName: 'Core Strength',
-                  params: {video_id: 2, type: '', category: 'Swing Drills'},
+                  params: { video_id: 2, type: '', category: 'Swing Drills' },
                 }}
               />
             </View>
@@ -225,7 +223,7 @@ const RecommendedView: React.FC = (props: any) => {
         {/* Recommended Tutorials */}
         {selectedTab === 'All' || selectedTab === 'Tutorials' ? (
           <Section title="Recommended Tutorials">
-            <View style={{marginLeft: wp('5%')}}>
+            <View style={{ marginLeft: wp('5%') }}>
               <HorizontalScroll>
                 {tutorials?.map((item, index) => (
                   <TutorialCard

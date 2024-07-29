@@ -1,44 +1,58 @@
-// src/redux/Slices/RecommendedDrillsSlice.ts
+
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import apiClient from '../../config/client';
-import { RecommendedDrill } from '../../types/RecommededDrills';
+import { IRecommendedDrill, IRecommendedDrillResponse } from '../../types/RecommededDrills';
 
 interface RecommendedDrillsState {
-  recommendedDrills: RecommendedDrill[];
-  loading: boolean;
-  error: string | null;
+  drills: IRecommendedDrill[];
+  drillsLoading: boolean;
+  drillsError: string | null;
 }
 
 const initialState: RecommendedDrillsState = {
-  recommendedDrills: [],
-  loading: false,
-  error: null,
+  drills: [],
+  drillsLoading: false,
+  drillsError: null,
 };
 
-export const fetchRecommendedDrills = createAsyncThunk('recommendedDrills/fetchRecommendedDrills', async () => {
-  const response = await apiClient.get<RecommendedDrill[]>('/dashboard/recomended-golf-drills');
-  return response.data;
-});
+export const fetchRecommendedDrills = createAsyncThunk(
+  'recommendedDrills/fetchRecommendedDrills',
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await apiClient.get<IRecommendedDrillResponse>('dashboard/recomended-golf-drills');
+      return response.data.data;
+    } catch (error: any) {
+      return rejectWithValue(error.message || 'Failed to fetch recommended golf drills');
+    }
+  }
+);
 
+// Create slice
 const recommendedDrillsSlice = createSlice({
   name: 'recommendedDrills',
   initialState,
-  reducers: {},
+  reducers: {
+    clearRecommendedGolfDrills: (state) => {
+      state.drills = [];
+      state.drillsError = null;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchRecommendedDrills.pending, (state) => {
-        state.loading = true;
-        state.error = null;
+        state.drillsLoading = true;
+        state.drillsError = null;
       })
-      .addCase(fetchRecommendedDrills.fulfilled, (state, action: PayloadAction<RecommendedDrill[]>) => {
-        state.loading = false;
-        state.recommendedDrills = action.payload;
+      .addCase(fetchRecommendedDrills.fulfilled, (state, action: PayloadAction<IRecommendedDrill[]>) => {
+        state.drillsLoading = false;
+        state.drills = action.payload;
       })
       .addCase(fetchRecommendedDrills.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.error.message || 'Failed to fetch recommended drills';
+        state.drillsLoading = false;
+        state.drillsError = action.payload as string || 'Failed to fetch recommended golf drills'; // Handling errors
       });
   },
 });
 
+export const { clearRecommendedGolfDrills } = recommendedDrillsSlice.actions;
 export default recommendedDrillsSlice.reducer;
