@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   ImageBackground,
   Image,
+  FlatList
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {
@@ -39,7 +40,9 @@ const RecommendedView: React.FC = (props: any) => {
     title: string;
   } | null>(null);
   const { drills, drillsLoading, drillsError } = useSelector((state: RootState) => state.recommendedDrills);
-  const { workouts, recWorkoutLoading, recWorkoutError } = useSelector((state: RootState) => state.recommendedWorkouts);
+  const { workouts, recWorkoutLoading, recWorkoutError } = useSelector(
+    (state: RootState) => state.recommendedWorkout,
+  );
 
   useEffect(() => {
     dispatch(fetchRecommendedDrills()).unwrap();
@@ -98,135 +101,77 @@ const RecommendedView: React.FC = (props: any) => {
         {/* Recommended Workouts */}
         {selectedTab === 'All' ? (
           <Section title="Recommended Workouts">
-            <HorizontalScroll>
-              <WorkoutCard
-                title="Core Strength"
-                progress="02/04"
-                description="Planks, Russian twists, Medicine ball rotations"
-                score="7.2/10"
-                navigateTo={{
-                  routeName: 'Core Strength',
-                  params: { video_id: 0, type: '', category: 'Workout Drills' },
-                }}
-              />
+            <FlatList
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              data={workouts}
+              keyExtractor={(item) => item.id.toString()}
+              renderItem={({ item }) => (
+                <WorkoutCard
+                  title={item.type}
+                  progress={`${item.done}/${item.total}`}
+                  navigateTo={{ routeName: 'Core Strength', params: { video_id: item.id, type: item.type, category: 'Workout Drills' } }}
 
-              <WorkoutCard
-                title="Lower Body Strength"
-                progress="01/03"
-                description="Squats, Lunges, Glute bridges"
-                score="7.2/10"
-                navigateTo={{
-                  routeName: 'Core Strength',
-                  params: { video_id: 0, type: '', category: 'Workout Drills' },
-                }}
-              />
-              <WorkoutCard
-                title="Flexibility"
-                progress="01/03"
-                description="Yoga, Pilates"
-                score="7.2/10"
-                navigateTo={{
-                  routeName: 'Core Strength',
-                  params: { video_id: 0, type: '', category: 'Workout Drills' },
-                }}
-              />
-            </HorizontalScroll>
+                />
+              )}
+              contentContainerStyle={{ marginVertical: hp('1%') }}
+            />
           </Section>
         ) : selectedTab === 'Workouts' ? (
           <Section title="Recommended Workouts">
-            <View style={recommandedStyles.maincontainer}>
-              <WorkoutCard
-                title="Core Strength"
-                progress="02/04"
-                description="Planks, Russian twists, Medicine ball rotations"
-                score="7.2/10"
-                navigateTo={{
-                  routeName: 'Core Strength',
-                  params: { video_id: 0, type: '', category: 'Workout Drills' },
-                }}
-              />
-              <WorkoutCard
-                title="Lower Body Strength"
-                progress="01/03"
-                description="Squats, Lunges, Glute bridges"
-                score="7.2/10"
-                navigateTo={{
-                  routeName: 'Core Strength',
-                  params: { video_id: 0, type: '', category: 'Workout Drills' },
-                }}
-              />
-              <WorkoutCard
-                title="Flexibility"
-                progress="01/03"
-                description="Yoga, Pilates"
-                score="7.2/10"
-                navigateTo={{
-                  routeName: 'Core Strength',
-                  params: { video_id: 0, type: '', category: 'Workout Drills' },
-                }}
-              />
-            </View>
+            <FlatList
+              showsHorizontalScrollIndicator={false}
+              data={workouts}
+              keyExtractor={(item) => item.id.toString()}
+              renderItem={({ item }) => (
+                <WorkoutCard
+                  title={item.type}
+                  progress={`${item.done}/${item.total}`}
+                  navigateTo={{ routeName: 'Core Strength', params: { video_id: item.id, type: item.type, category: 'Workout Drills' } }}
+
+                />
+              )}
+              contentContainerStyle={{ marginVertical: hp('1%') }}
+            />
           </Section>
         ) : null}
 
         {/* Recommended Drills */}
         {selectedTab === 'All' ? (
           <Section title="Recommended Drills">
-            <HorizontalScroll>
-              <DrillCard
-                title="Core Strength"
-                description="This drill focuses on building core strength."
-                navigateTo={{
-                  routeName: 'Core Strength',
-                  params: { video_id: 0, type: '', category: 'Workout Drills' },
-                }}
-              />
-              <DrillCard
-                title="Flexibility Drills"
-                description="Improve your flexibility with these drills."
-                navigateTo={{
-                  routeName: 'Flexibility',
-                  params: { video_id: 1, type: '', category: 'Workout Drills' },
-                }}
-              />
-              <DrillCard
-                title="Swing Drills"
-                description="Enhance your swing with these drills."
-                navigateTo={{
-                  routeName: 'Core Strength',
-                  params: { video_id: 2, type: '', category: 'Swing Drills' },
-                }}
-              />
-            </HorizontalScroll>
+            <FlatList
+              data={drills}
+              keyExtractor={(item) => item.id.toString()}
+              horizontal
+              renderItem={({ item }) => (
+                <DrillCard
+                  title={item.name}
+                  description={item.description}
+                  navigateTo={{
+                    routeName: 'Core Strength', // Adjust route as needed
+                    params: { video_id: item.video_id, type: item.name, category: 'Golf Drills' },
+                  }}
+                />
+              )}
+            />
           </Section>
         ) : selectedTab === 'Drills' ? (
           <Section title="Recommended Drills">
-            <View style={recommandedStyles.maincontainer}>
-              <DrillCard
-                title="Core Strength"
-                description="This drill focuses on building core strength."
-                navigateTo={{
-                  routeName: 'Core Strength',
-                  params: { video_id: 0, type: '', category: 'Workout Drills' },
-                }}
-              />
-              <DrillCard
-                title="Flexibility Drills"
-                description="Improve your flexibility with these drills."
-                navigateTo={{
-                  routeName: 'Flexibility',
-                  params: { video_id: 1, type: '', category: 'Workout Drills' },
-                }}
-              />
-              <DrillCard
-                title="Swing Drills"
-                description="Enhance your swing with these drills."
-                navigateTo={{
-                  routeName: 'Core Strength',
-                  params: { video_id: 2, type: '', category: 'Swing Drills' },
-                }}
-              />
-            </View>
+            <FlatList
+              data={drills}
+              keyExtractor={(item) => item.id.toString()}
+              horizontal
+              renderItem={({ item }) => (
+                <DrillCard
+                  title={item.name}
+                  description={item.description}
+                  navigateTo={{
+                    routeName: 'Core Strength', // Adjust route as needed
+                    params: { video_id: item.video_id, type: item.name, category: 'Golf Drills' },
+                  }}
+                />
+              )}
+            />
           </Section>
         ) : null}
 

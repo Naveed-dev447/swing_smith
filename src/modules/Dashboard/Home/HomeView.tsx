@@ -33,6 +33,10 @@ const HomeView = (props: any) => {
   const { route, navigation } = props;
   const dispatch = useDispatch<AppDispatch>();
   const [modalVisible, setModalVisible] = useState(false);
+  const [selectedVideo, setSelectedVideo] = useState<{
+    uri: string;
+    title: string;
+  } | null>(null);
   const { tutorials, loading: tutorialsLoading, error: tutorialsError } = useSelector(
     (state: RootState) => state.tutorials,
   );
@@ -46,10 +50,6 @@ const HomeView = (props: any) => {
     (state: RootState) => state.recommendedWorkout,
   );
   const userName = profiles.length > 0 ? profiles[0].name : 'User';
-  const [selectedVideo, setSelectedVideo] = useState<{
-    uri: string;
-    title: string;
-  } | null>(null);
 
   const { drills, drillsLoading, drillsError } = useSelector((state: RootState) => state.recommendedDrills);
 
@@ -130,8 +130,9 @@ const HomeView = (props: any) => {
         <Section title="Recommended Drills">
           <FlatList
             data={drills}
-            keyExtractor={(item) => item.id.toString()}
             horizontal
+            showsHorizontalScrollIndicator={false}
+            keyExtractor={(item) => item.id.toString()}
             renderItem={({ item }) => (
               <DrillCard
                 title={item.name}
