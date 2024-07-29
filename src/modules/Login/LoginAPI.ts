@@ -9,6 +9,8 @@ export const LoginAPICall = async (payload: ILogin) => {
     if (response.data.data) {
         await AsyncStorage.setItem('Token', response.data.data.token);
       }
+      console.log("token:",response.data.data.token);
+      
     return response.data;
 }
 

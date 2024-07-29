@@ -120,7 +120,7 @@ const AnalysisView: React.FC = (props: any) => {
       return drills.map((drill, index) => (
         <DrillCard
           key={index}
-          title={drill}
+          title={drill} 
           description={drills[drill]}
           navigateTo={{
             routeName: 'Core Strength',
