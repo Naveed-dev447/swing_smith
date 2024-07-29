@@ -71,7 +71,7 @@ const HomeView = (props: any) => {
     setModalVisible(true);
   };
 
-  if (tutorialsLoading || profileLoading || recentAnalysisLoading || recWorkoutLoading) {
+  if (tutorialsLoading || profileLoading || recentAnalysisLoading || recWorkoutLoading || drillsLoading) {
     return <ProgressLoader />;
   }
 
@@ -95,7 +95,7 @@ const HomeView = (props: any) => {
                 postureScore={item.posture.toString()}
                 swingRhythm={item.swing_rhythm.toString()}
                 source={require('../../../assets/Images/DashBoard/RecentAna1.png')}
-                onPress={() => console.log(`Pressed item with ID: ${item.id}`)}
+                onPress={() => navigation.navigate('AnalysisView', item.id)}
               />
             )}
             contentContainerStyle={{ marginVertical: hp('1%') }}
@@ -120,8 +120,8 @@ const HomeView = (props: any) => {
               <WorkoutCard
                 title={item.type}
                 progress={`${item.done}/${item.total}`}
-                navigateTo={{ routeName: 'Core Strength', params: { video_id: item.id, type: '', category: 'Workout Drills' } }}
-                
+                navigateTo={{ routeName: 'Core Strength', params: { video_id: item.id, type: item.type, category: 'Workout Drills' } }}
+
               />
             )}
             contentContainerStyle={{ marginVertical: hp('1%') }}

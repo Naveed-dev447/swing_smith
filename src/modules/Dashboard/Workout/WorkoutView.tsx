@@ -17,33 +17,47 @@ import LottieView from 'lottie-react-native';
 import { GetWorkoutListAPICall, UpdateWorkoutListAPICall } from './APICalls/WorkoutAPI';
 import { ShowToast } from '../../../components/ShowToast';
 import Button from '../../../components/Button';
+import ProgressLoader from '../../../components/ProgressLoader';
+
 
 
 const workoutIcon = require('../../../assets/Images/workoutIcon.png');
 const checkIcon = require('../../../assets/Images/checkIcon.png');
 const checkIconSelected = require('../../../assets/Images/selectedCheckIcon.png');
 const workoutImage = require('../../../assets/Images/workout.png');
+import { useLoader } from '../../../config/LoaderContext'
+
 
 const WorkoutView = (props: any) => {
   const { route, navigation } = props;
   const { video_id, type, category } = route.params;
   const [selectedWorkouts, setSelectedWorkouts] = useState<string[]>([]);
   const [workouts, setWorkouts] = useState<{ [key: string]: boolean }>({});
+  const { loading, setLoading } = useLoader();
+
+  console.log("Core Workout API", route.params);
 
   useEffect(() => {
     const fetchData = async () => {
+      setLoading(true);
       const payload = { video_id, type, category };
       const response = await GetWorkoutListAPICall(payload);
 
 
       if (response.status === 200) {
         setWorkouts(response.data.workout);
+        setLoading(false);
+
       } else {
         ShowToast('error', response.message);
+        setLoading(false);
         console.error(response.message);
       }
     };
     fetchData();
+    return () => {
+      setWorkouts({})
+    };
   }, [video_id, type, category]);
 
   const toggleWorkoutSelection = async (workout: string) => {
@@ -72,6 +86,9 @@ const WorkoutView = (props: any) => {
     }
   };
 
+  if (loading) {
+    return <ProgressLoader />;
+  }
   const handleMarkAsDone = async () => {
     const updatedWorkouts = Object.keys(workouts).reduce((acc, key) => {
       acc[key] = true;
@@ -87,7 +104,6 @@ const WorkoutView = (props: any) => {
       type,
       workout: updatedWorkouts,
     };
-
     const response = await UpdateWorkoutListAPICall(payload);
 
     if (response.status === 200 && response.message !== 'Unable to update workout.') {

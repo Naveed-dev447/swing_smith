@@ -28,7 +28,6 @@ const wind = require('../../../assets/Images/fast-wind.png');
 const AnalysisView: React.FC = (props: any) => {
   const { navigation, route } = props;
   const { params } = route;
-
   const [selectedTab, setSelectedTab] = useState('Overall');
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedVideo, setSelectedVideo] = useState<{
@@ -120,14 +119,14 @@ const AnalysisView: React.FC = (props: any) => {
       return drills.map((drill, index) => (
         <DrillCard
           key={index}
-          title={drill} 
+          title={drill}
           description={drills[drill]}
           navigateTo={{
             routeName: 'Core Strength',
             params: {
               video_id: videoId,
               type: drill,
-              category: 'Workout Drills',
+              category: 'Golf Drills',
             },
           }}
         />
@@ -144,7 +143,7 @@ const AnalysisView: React.FC = (props: any) => {
               params: {
                 video_id: videoId,
                 type: drillName,
-                category: 'Workout Drills',
+                category: 'Golf Drills',
               },
             }}
           />
