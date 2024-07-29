@@ -30,6 +30,7 @@ import { fetchTutorials } from '../../redux/Slices/TutorialSlice';
 import { useLoader } from '../../config/LoaderContext';
 import { CommonActions } from '@react-navigation/native';
 import { ShowToast } from '../../components/ShowToast';
+import { fetchProfile } from '../../redux/Slices/ProfileSlice';
 
 
 const loginSchema = yup.object().shape({
@@ -68,6 +69,7 @@ const LoginScreen: React.FC = (props: any) => {
 
       if (res.status === 201) {
         await dispatch(fetchTutorials()).unwrap();
+
         navigation.replace('Onboard');
       }
     } catch (error) {
@@ -143,17 +145,17 @@ const LoginScreen: React.FC = (props: any) => {
                     <Text style={styles.forgotText}>Forgot Password?</Text>
                   </TouchableOpacity>
                 </View>
-                  <TouchableOpacity
-                    style={[styles.loginButton, { backgroundColor: loading ? '#fff' : '#000', borderColor: loading ? '#000' : 'transparent', borderWidth: 1 }]}
-                    onPress={handleSubmit(onSubmit)}
-                    disabled={loading}
-                  >
-                    {loading ? (
-                      <ActivityIndicator size="small" color={loading ? "#000" : '#192126'} />
-                    ) : (
-                      <Text style={styles.loginButtonText}>Log In</Text>
-                    )}
-                  </TouchableOpacity>
+                <TouchableOpacity
+                  style={[styles.loginButton, { backgroundColor: loading ? '#fff' : '#000', borderColor: loading ? '#000' : 'transparent', borderWidth: 1 }]}
+                  onPress={handleSubmit(onSubmit)}
+                  disabled={loading}
+                >
+                  {loading ? (
+                    <ActivityIndicator size="small" color={loading ? "#000" : '#192126'} />
+                  ) : (
+                    <Text style={styles.loginButtonText}>Log In</Text>
+                  )}
+                </TouchableOpacity>
                 <Text style={styles.orText}>Or</Text>
                 <Button
                   title="Continue with Google"
