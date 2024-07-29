@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -33,7 +33,7 @@ const recommandedStyles = StyleSheet.create({
   tab: {
     width: wp('25%'),
     padding: wp('2%'),
-    margin:wp('2%'),
+    margin: wp('2%'),
     alignItems: 'center',
     borderRadius: wp('7%'),
     borderWidth: 0.5,
@@ -55,13 +55,13 @@ const recommandedStyles = StyleSheet.create({
   },
   cardContainer: {
     width: wp('44%'),
-    // padding: wp('3%'),
+    margin: wp('2%'),
     height: hp('22%'),
     marginBottom: wp('5%'),
     borderRadius: wp('2%'),
     backgroundColor: '#fff',
     shadowColor: '#000',
-    shadowOffset: {width: 0, height: 1},
+    shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,

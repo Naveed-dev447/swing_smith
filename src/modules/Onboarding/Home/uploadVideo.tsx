@@ -17,22 +17,22 @@ import Progress from 'react-native-progress/Bar';
 import UploadVideoAPICall from './APICalls/UploadVideoAPI';
 import { ShowToast } from '../../../components/ShowToast';
 
-const schema = yup.object().shape({
-  video: yup.string().required('Please upload a video'),
-});
 // const schema = yup.object().shape({
-//   video: yup.string().test(
-//     'required-if-not-empty',
-//     'Please upload a video',
-//     (value) => {
-//       // Check if the field has a value and ensure it's not empty
-//       if (value && value.length > 0) {
-//         return true; // Field is valid if it has a value
-//       }
-//       return true; // Field is valid if it is empty (not required)
-//     }
-//   ),
+//   video: yup.string().required('Please upload a video'),
 // });
+const schema = yup.object().shape({
+  video: yup.string().test(
+    'required-if-not-empty',
+    'Please upload a video',
+    (value) => {
+      // Check if the field has a value and ensure it's not empty
+      if (value && value.length > 0) {
+        return true; // Field is valid if it has a value
+      }
+      return true; // Field is valid if it is empty (not required)
+    }
+  ),
+});
 interface Video {
   uri: string;
   fileName?: string;
@@ -69,13 +69,14 @@ const UploadVideo: React.FC = (props: any) => {
   };
 
   const handleNextPress = async () => {
-    if (videoUri?.uri) {
+    if (!videoUri?.uri) {
+      const url = "/Users/naveed/Desktop/video.mp4"
       setLoading(true);
       const formData = new FormData();
       formData.append('fileName', {
-        uri: Platform.OS === 'android' ? videoUri.uri : videoUri.uri.replace('file://', ''),
-        name: videoUri.fileName || 'video.mp4',
-        type: videoUri.type || 'video/mp4',
+        uri: Platform.OS === 'android' ? url : url.replace('file://', ''),
+        name: 'video.mp4',
+        type: 'video/mp4',
       });
 
       try {

@@ -105,7 +105,7 @@ const globalStyles = StyleSheet.create({
     fontSize: wp('6%'),
     color: '#FFFFFF',
     fontFamily: 'Outfit-Bold',
-    textAlign:'center'
+    textAlign: 'center'
   },
   sectionTitle: {
     fontSize: wp('4%'),
@@ -207,9 +207,8 @@ const globalStyles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
-    overflow: 'hidden', // Ensure child elements don't overflow
   },
-  
+
   cardImage: {
     width: '100%',
     height: hp('15%'),

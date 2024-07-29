@@ -22,6 +22,7 @@ import { ShowToast } from '../../components/ShowToast';
 import GetTipAPICall from '../Onboarding/Home/APICalls/TipAPI';
 import { ITipsResponse } from 'types/Tips';
 import AnalysisVideoAPICall from '../Onboarding/Home/APICalls/AnalyiseVideoAPI';
+import { isNotEmptyObject } from '../../shared/Utils/CommonUtils';
 
 const VideoUpload5: React.FC = (props: any) => {
   const { navigation } = props;
@@ -39,16 +40,18 @@ const VideoUpload5: React.FC = (props: any) => {
         mimetype: uploadedVideo.mimetype,
       }
       try {
-        const tipResponse = await GetTipAPICall();   
-        console.log("Tips API call ", tipResponse);
+        const tipResponse = await GetTipAPICall();
 
         setGetTip(tipResponse);
-
 
         const uploadResponse = await AnalysisVideoAPICall(payload);
 
         if (uploadResponse.status === 200) {
-          setLoading(false);
+          setLoading(false)
+          if (!isNotEmptyObject(uploadResponse.data.analysis)) {
+            ShowToast('error', 'Invalid Video, Please upload a new one.');
+            return;
+          }
           ShowToast('success', uploadResponse.message);
           handleNavigation(uploadResponse.data?.id);
         }

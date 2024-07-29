@@ -144,12 +144,12 @@ const LoginScreen: React.FC = (props: any) => {
                   </TouchableOpacity>
                 </View>
                   <TouchableOpacity
-                    style={[styles.loginButton, { backgroundColor: loading ? '#fff' : '#000', borderColor: loading ? '#c5f048' : 'transparent', borderWidth: 1 }]}
+                    style={[styles.loginButton, { backgroundColor: loading ? '#fff' : '#000', borderColor: loading ? '#000' : 'transparent', borderWidth: 1 }]}
                     onPress={handleSubmit(onSubmit)}
                     disabled={loading}
                   >
                     {loading ? (
-                      <ActivityIndicator size="small" color={loading ? "indigo" : '#192126'} />
+                      <ActivityIndicator size="small" color={loading ? "#000" : '#192126'} />
                     ) : (
                       <Text style={styles.loginButtonText}>Log In</Text>
                     )}

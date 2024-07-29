@@ -1,6 +1,6 @@
-import React, {useState} from 'react';
-import {ScrollView, View, Text, Image, TouchableOpacity} from 'react-native';
-import {styles} from './AnalysingScreenStyle';
+import React, { useState } from 'react';
+import { ScrollView, View, Text, Image, TouchableOpacity } from 'react-native';
+import { styles } from './AnalysingScreenStyle';
 import CustomHeader from '../../../shared/Component/CustomHeader';
 import {
   DrillCard,
@@ -9,15 +9,15 @@ import {
   WorkoutCard,
 } from '../../Dashboard/Home/Common/Common';
 import TutorialCard from '../../../shared/Component/TutorialCard/TutorialCard';
-import {AppDispatch, RootState} from 'redux/store';
-import {useSelector, useDispatch} from 'react-redux';
+import { AppDispatch, RootState } from 'redux/store';
+import { useSelector, useDispatch } from 'react-redux';
 import {
   fetchSwingAnalysis,
   resetSwingAnalysisState,
 } from '../../../redux/Slices/SwingAnalysisSlice';
 import ProgressLoader from '../../../components/ProgressLoader';
 import VideoModal from '../../../components/VideoModal';
-import {isNotEmptyObject} from '../../../shared/Utils/CommonUtils';
+import { isNotEmptyObject } from '../../../shared/Utils/CommonUtils';
 
 const workoutImage = require('../../../assets/Images/swingAnalysis.png');
 const profileImage = require('../../../assets/Images/profilePicture.png');
@@ -26,8 +26,8 @@ const ruler = require('../../../assets/Images/ruler.png');
 const wind = require('../../../assets/Images/fast-wind.png');
 
 const AnalysisView: React.FC = (props: any) => {
-  const {navigation, route} = props;
-  const {params} = route;
+  const { navigation, route } = props;
+  const { params } = route;
 
   const [selectedTab, setSelectedTab] = useState('Overall');
   const [modalVisible, setModalVisible] = useState(false);
@@ -36,7 +36,7 @@ const AnalysisView: React.FC = (props: any) => {
     title: string;
   } | null>(null);
   const dispatch = useDispatch<AppDispatch>();
-  const {swingAnalysis, loading, error} = useSelector(
+  const { swingAnalysis, loading, error } = useSelector(
     (state: RootState) => state.swingAnalysis,
   );
 
@@ -115,12 +115,13 @@ const AnalysisView: React.FC = (props: any) => {
     }
   };
 
-  const renderDrillCards = (drills: any) => {
+  const renderDrillCards = (drills: { [key: string]: string }) => {
     if (Array.isArray(drills)) {
       return drills.map((drill, index) => (
         <DrillCard
           key={index}
           title={drill}
+          description={drills[drill]}
           navigateTo={{
             routeName: 'Core Strength',
             params: {
@@ -132,27 +133,23 @@ const AnalysisView: React.FC = (props: any) => {
         />
       ));
     } else if (typeof drills === 'object' && drills !== null) {
-      return Object.keys(drills).map(drillType => {
-        const drillItems = drills[drillType];
-        return (
-          <View key={drillType} style={{marginBottom: 20}}>
-            {drillItems.map((drill, index) => (
-              <DrillCard
-                key={index}
-                title={drill}
-                navigateTo={{
-                  routeName: 'Core Strength',
-                  params: {
-                    video_id: videoId,
-                    type: drill,
-                    category: 'Workout Drills',
-                  },
-                }}
-              />
-            ))}
-          </View>
-        );
-      });
+      return Object.keys(drills).map((drillName, index) => (
+        <View key={index} style={{ marginBottom: 20 }}>
+          <DrillCard
+            key={index}
+            title={drillName}
+            description={drills[drillName]}
+            navigateTo={{
+              routeName: 'Core Strength',
+              params: {
+                video_id: videoId,
+                type: drillName,
+                category: 'Workout Drills',
+              },
+            }}
+          />
+        </View>
+      ));
     } else {
       return (
         <Text
@@ -165,6 +162,9 @@ const AnalysisView: React.FC = (props: any) => {
       );
     }
   };
+
+
+
 
   const renderHeaderContent = header => {
     switch (header) {
@@ -255,7 +255,7 @@ const AnalysisView: React.FC = (props: any) => {
     }
   };
   const handleVideoPress = (uri: string, title: string) => {
-    setSelectedVideo({uri, title});
+    setSelectedVideo({ uri, title });
     setModalVisible(true);
   };
 
@@ -263,7 +263,7 @@ const AnalysisView: React.FC = (props: any) => {
     <View style={styles.container}>
       <CustomHeader onBackPress={navigation.goBack} title="Swing Analysis" />
       {isNotEmptyObject(analysis) ? (
-        <ScrollView style={{flex: 1, paddingBottom: 70, marginTop: 30}}>
+        <ScrollView style={{ flex: 1, paddingBottom: 70, marginTop: 30 }}>
           <Image source={workoutImage} style={styles.image} />
           <View style={styles.analysisCardContainer}>
             <Image source={profileImage} style={styles.profileImage} />
@@ -313,7 +313,7 @@ const AnalysisView: React.FC = (props: any) => {
                   <Text
                     style={[
                       styles.tabText,
-                      {color: selectedTab === tab ? '#232732' : '#7E7E7E'},
+                      { color: selectedTab === tab ? '#232732' : '#7E7E7E' },
                     ]}>
                     {tab}
                   </Text>
