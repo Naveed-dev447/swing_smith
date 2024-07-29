@@ -3,7 +3,7 @@ import apiClient from '../../config/client';
 import { IProfile, IProfileResponse } from '../../types/Profile';
 
 interface ProfileState {
-  profiles: IProfile[];  
+  profiles: IProfile[];
   profileLoading: boolean;
   profileError: string | null;
 }
@@ -17,8 +17,7 @@ const initialState: ProfileState = {
 export const fetchProfile = createAsyncThunk('profile/fetchProfile', async (_, { rejectWithValue }) => {
   try {
     const response = await apiClient.get<IProfileResponse>('/account/profile');
-    console.log("Profile API response", response.data);
-    
+
     return response.data.data;
   } catch (profileError) {
     return rejectWithValue(profileError);

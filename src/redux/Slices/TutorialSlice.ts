@@ -3,7 +3,7 @@ import apiClient from '../../config/client';
 import { ITutorial, ITutorialResponse } from '../../types/Tutorial';
 
 interface TutorialsState {
-  tutorials: ITutorial[];  // Change to ITutorial[] to only store tutorials
+  tutorials: ITutorial[];
   loading: boolean;
   error: string | null;
 }
@@ -16,9 +16,7 @@ const initialState: TutorialsState = {
 
 export const fetchTutorials = createAsyncThunk('tutorials/fetchTutorials', async () => {
   const response = await apiClient.get<ITutorialResponse>('/tutorials');
-  console.log("Tutorial API response", response.data);
-  
-  // Return only the data field
+
   return response.data.data;
 });
 
