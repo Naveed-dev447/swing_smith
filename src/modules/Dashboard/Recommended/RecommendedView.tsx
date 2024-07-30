@@ -28,6 +28,9 @@ import { RootState, AppDispatch } from 'redux/store';
 import { useDispatch, useSelector } from 'react-redux';
 import VideoModal from '../../../components/VideoModal';
 import { fetchRecommendedWorkouts } from '../../../redux/Slices/RecommendedWorkouts'
+import ProgressLoader from '../../../components/ProgressLoader';
+
+
 const RecommendedView: React.FC = (props: any) => {
   const { route, navigation } = props;
   const dispatch = useDispatch<AppDispatch>();
@@ -64,12 +67,9 @@ const RecommendedView: React.FC = (props: any) => {
 
 
   if (drillsLoading || recWorkoutLoading) {
-    return <Text>Loading...</Text>;
+    return <ProgressLoader />
   }
 
-  if (drillsError || recWorkoutError) {
-    return <Text>Error: {drillsError || recWorkoutError}</Text>;
-  }
 
   return (
     <View style={recommandedStyles.container}>
@@ -122,6 +122,7 @@ const RecommendedView: React.FC = (props: any) => {
             <FlatList
               showsHorizontalScrollIndicator={false}
               data={workouts}
+              horizontal
               keyExtractor={(item) => item.id.toString()}
               renderItem={({ item }) => (
                 <WorkoutCard

@@ -35,8 +35,6 @@ const WorkoutView = (props: any) => {
   const [workouts, setWorkouts] = useState<{ [key: string]: boolean }>({});
   const { loading, setLoading } = useLoader();
 
-  console.log("Core Workout API", route.params);
-
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);

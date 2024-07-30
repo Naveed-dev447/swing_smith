@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ScrollView, View, Text, Image, TouchableOpacity } from 'react-native';
 import { styles } from './AnalysingScreenStyle';
 import CustomHeader from '../../../shared/Component/CustomHeader';
@@ -40,9 +40,11 @@ const AnalysisView: React.FC = (props: any) => {
   );
 
   const analysis = swingAnalysis?.data.analysis;
+  console.log("Analysis");
+
   const videoId = swingAnalysis?.data.id;
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (params) {
       dispatch(fetchSwingAnalysis(params));
     }
@@ -56,138 +58,102 @@ const AnalysisView: React.FC = (props: any) => {
     return <ProgressLoader />;
   }
 
-  const renderWorkoutCards = (drills: any) => {
-    if (Array.isArray(drills)) {
-      return drills.map((drill, index) => (
-        <WorkoutCard
-          key={index}
-          title={'Core Strength'}
-          progress={`2/4`}
-          description={drill}
-          score="7.2/10"
-          navigateTo={{
-            routeName: 'Core Strength',
-            params: {
-              video_id: videoId,
-              type: drill,
-              category: 'Workout Drills',
-            },
-          }}
-        />
-      ));
-    } else if (typeof drills === 'object' && drills !== null) {
-      return Object.keys(drills).map(drillType => {
-        const drillItems = drills[drillType];
-        const progress = Array.isArray(drillItems)
-          ? `${drillItems.length}/10`
-          : `0/10`;
-        return (
-          <WorkoutCard
-            key={drillType}
-            title={drillType}
-            progress={progress}
-            description={
-              Array.isArray(drillItems) ? drillItems.join(', ') : drillItems
-            }
-            score="7.2/10"
-            navigateTo={{
-              routeName: 'Core Strength',
-              params: {
-                video_id: videoId,
-                type: drillType,
-                category: 'Workout Drills',
-              },
-            }}
-          />
-        );
+  const renderCards = (
+    items: any,
+    Component: React.FC<any>,
+    title: string,
+    category: string
+  ) => {
+    if (Array.isArray(items)) {
+      return items.map((item, index) => {
+        if (category === 'Golf Drills') {
+          // Handle Golf Drills data
+          return (
+            <Component
+              key={index}
+              title={item.name}
+              description={item.description}
+              navigateTo={{
+                routeName: 'Core Strength',
+                params: {
+                  video_id: item.video_id,
+                  type: item.name,
+                  category: category,
+                },
+              }}
+            />
+          );
+        } else if (category === 'Workout Drills') {
+          // Handle Workout Drills data
+          const parsedWorkout = item.workout
+            ? JSON.parse(item.workout)
+            : {};
+          const totalWorkouts = Object.keys(parsedWorkout).length;
+          const completedWorkouts = Object.values(parsedWorkout).filter(
+            (value: boolean) => value
+          ).length;
+          const progress = `${completedWorkouts}/${totalWorkouts}`;
+
+          return Object.keys(parsedWorkout).map((workoutKey, workoutIndex) => (
+            <Component
+              key={`${index}-${workoutIndex}`}
+              title={workoutKey}
+              description={item.description}
+              progress={progress} // Show progress separately
+              navigateTo={{
+                routeName: 'Core Strength',
+                params: {
+                  video_id: item.video_id,
+                  type: workoutKey,
+                  category: 'Workout Drills',
+                },
+              }}
+            />
+          ));
+        } else {
+          return (
+            <Text style={{ fontFamily: 'Outfit-Regular', color: '#192126' }}>
+              No {title.toLowerCase()} available
+            </Text>
+          );
+        }
       });
-    } else {
-      return (
-        <Text
-          style={{
-            fontFamily: 'Outfit-Regular',
-            color: '#192126',
-          }}>
-          No WorkOuts are available
-        </Text>
-      );
-    }
-  };
-
-  const renderDrillCards = (drills: { [key: string]: string }) => {
-    if (Array.isArray(drills)) {
-      return drills.map((drill, index) => (
-        <DrillCard
+    } else if (typeof items === 'object' && items !== null) {
+      return Object.keys(items).map((itemKey, index) => (
+        <Component
           key={index}
-          title={drill}
-          description={drills[drill]}
+          title={itemKey}
+          description={items[itemKey]}
           navigateTo={{
             routeName: 'Core Strength',
             params: {
               video_id: videoId,
-              type: drill,
-              category: 'Golf Drills',
+              type: itemKey,
+              category,
             },
           }}
         />
       ));
-    } else if (typeof drills === 'object' && drills !== null) {
-      return Object.keys(drills).map((drillName, index) => (
-        <View key={index} style={{ marginBottom: 20 }}>
-          <DrillCard
-            key={index}
-            title={drillName}
-            description={drills[drillName]}
-            navigateTo={{
-              routeName: 'Core Strength',
-              params: {
-                video_id: videoId,
-                type: drillName,
-                category: 'Golf Drills',
-              },
-            }}
-          />
-        </View>
-      ));
     } else {
       return (
-        <Text
-          style={{
-            fontFamily: 'Outfit-Regular',
-            color: '#192126',
-          }}>
-          No drills available
+        <Text style={{ fontFamily: 'Outfit-Regular', color: '#192126' }}>
+          No {title.toLowerCase()} available
         </Text>
       );
     }
   };
 
 
-
-
-  const renderHeaderContent = header => {
+  const renderHeaderContent = (header: string) => {
     switch (header) {
       case 'Positives':
-        return (
-          <View style={styles.instructionContainer}>
-            <View style={styles.instructionHeader}>
-              <Text style={styles.instructionTitle}>Positives</Text>
-            </View>
-            {Object.entries(analysis?.Positives).map(([key, value]) => (
-              <Text style={styles.headerTitle} key={key}>
-                <Text style={styles.subTitle}>{key}: </Text>
-                {value}
-              </Text>
-            ))}
-          </View>
-        );
       case 'Negatives':
         return (
           <View style={styles.instructionContainer}>
             <View style={styles.instructionHeader}>
-              <Text style={styles.instructionTitle}>Negatives</Text>
+              <Text style={styles.instructionTitle}>{header}</Text>
             </View>
-            {Object.entries(analysis?.Negatives).map(([key, value]) => (
+            {Object.entries(analysis?.[header]).map(([key, value]) => (
               <Text style={styles.headerTitle} key={key}>
                 <Text style={styles.subTitle}>{key}: </Text>
                 {value}
@@ -200,7 +166,7 @@ const AnalysisView: React.FC = (props: any) => {
           <View style={styles.workOutContainer}>
             <Section title="Recommended Workouts">
               <HorizontalScroll>
-                {renderWorkoutCards(analysis['Workout Drills'])}
+                {renderCards(analysis['Workout Drills'], WorkoutCard, 'Core Strength', 'Workout Drills')}
               </HorizontalScroll>
             </Section>
           </View>
@@ -210,7 +176,7 @@ const AnalysisView: React.FC = (props: any) => {
           <View style={styles.workOutContainer}>
             <Section title="Recommended Drills">
               <HorizontalScroll>
-                {renderDrillCards(analysis['Golf Drills'])}
+                {renderCards(analysis['Golf Drills'], DrillCard, 'Core Strength', 'Golf Drills')}
               </HorizontalScroll>
             </Section>
           </View>
@@ -253,6 +219,7 @@ const AnalysisView: React.FC = (props: any) => {
         );
     }
   };
+
   const handleVideoPress = (uri: string, title: string) => {
     setSelectedVideo({ uri, title });
     setModalVisible(true);
@@ -323,13 +290,7 @@ const AnalysisView: React.FC = (props: any) => {
           {selectedTab && renderHeaderContent(selectedTab)}
         </ScrollView>
       ) : (
-        <View
-          style={{
-            flex: 1,
-            justifyContent: 'center',
-            alignContent: 'center',
-            alignItems: 'center',
-          }}>
+        <View style={{ flex: 1, justifyContent: 'center', alignContent: 'center', alignItems: 'center' }}>
           <Text>No Swing Analysis found</Text>
         </View>
       )}
