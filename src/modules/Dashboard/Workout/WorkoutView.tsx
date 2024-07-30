@@ -6,6 +6,7 @@ import {
   Image,
   ScrollView,
   TouchableOpacity,
+  FlatList,
 } from 'react-native';
 import {
   widthPercentageToDP as wp,
@@ -18,15 +19,12 @@ import { GetWorkoutListAPICall, UpdateWorkoutListAPICall } from './APICalls/Work
 import { ShowToast } from '../../../components/ShowToast';
 import Button from '../../../components/Button';
 import ProgressLoader from '../../../components/ProgressLoader';
-
-
+import { useLoader } from '../../../config/LoaderContext';
 
 const workoutIcon = require('../../../assets/Images/workoutIcon.png');
 const checkIcon = require('../../../assets/Images/checkIcon.png');
 const checkIconSelected = require('../../../assets/Images/selectedCheckIcon.png');
 const workoutImage = require('../../../assets/Images/workout.png');
-import { useLoader } from '../../../config/LoaderContext'
-
 
 const WorkoutView = (props: any) => {
   const { route, navigation } = props;
@@ -41,11 +39,9 @@ const WorkoutView = (props: any) => {
       const payload = { video_id, type, category };
       const response = await GetWorkoutListAPICall(payload);
 
-
       if (response.status === 200) {
         setWorkouts(response.data.workout);
         setLoading(false);
-
       } else {
         ShowToast('error', response.message);
         setLoading(false);
@@ -54,7 +50,7 @@ const WorkoutView = (props: any) => {
     };
     fetchData();
     return () => {
-      setWorkouts({})
+      setWorkouts({});
     };
   }, [video_id, type, category]);
 
@@ -87,6 +83,7 @@ const WorkoutView = (props: any) => {
   if (loading) {
     return <ProgressLoader />;
   }
+
   const handleMarkAsDone = async () => {
     const updatedWorkouts = Object.keys(workouts).reduce((acc, key) => {
       acc[key] = true;
@@ -113,6 +110,22 @@ const WorkoutView = (props: any) => {
     }
   };
 
+  const renderItem = ({ item }: { item: string }) => (
+    <TouchableOpacity
+      style={styles.workoutItem}
+      onPress={() => toggleWorkoutSelection(item)}
+    >
+      <View style={styles.workoutLeft}>
+        <Image source={workoutIcon} style={styles.workoutIcon} />
+        <Text style={styles.workoutText}>{item}</Text>
+      </View>
+      <Image
+        source={workouts[item] ? checkIconSelected : checkIcon}
+        style={styles.checkIcon}
+      />
+    </TouchableOpacity>
+  );
+
   return (
     <View style={styles.container}>
       <CustomHeader onBackPress={goBack} title="Core Strength" />
@@ -126,7 +139,9 @@ const WorkoutView = (props: any) => {
             loop
           />
         </View>
-        <Text style={styles.workoutTitle}>{category === 'Workout Drills' ? 'Workout Drills' : 'Golf Drills'}</Text>
+        <Text style={styles.workoutTitle}>
+          {category === 'Workout Drills' ? 'Workout Drills' : 'Golf Drills'}
+        </Text>
         <Text style={styles.detail}>
           The lower abdomen and hips are the most difficult areas of the body to
           reduce when we are on a diet. Even so, in this area, especially the
@@ -134,24 +149,11 @@ const WorkoutView = (props: any) => {
         </Text>
         {Object.keys(workouts).length > 0 ? (
           <View style={styles.workoutsContainer}>
-            {Object.keys(workouts).map((workout, index) => (
-              <TouchableOpacity
-                key={index}
-                style={styles.workoutItem}
-                onPress={() => toggleWorkoutSelection(workout)}
-              >
-                <View style={styles.workoutLeft}>
-                  <Image source={workoutIcon} style={styles.workoutIcon} />
-                  <Text style={styles.workoutText}>{workout}</Text>
-                </View>
-                <Image
-                  source={
-                    workouts[workout] ? checkIconSelected : checkIcon
-                  }
-                  style={styles.checkIcon}
-                />
-              </TouchableOpacity>
-            ))}
+            <FlatList
+              data={Object.keys(workouts)}
+              renderItem={renderItem}
+              keyExtractor={(item) => item}
+            />
             <View style={styles.buttonContainer}>
               <Button
                 title="Mark as Done"
@@ -163,7 +165,9 @@ const WorkoutView = (props: any) => {
           </View>
         ) : (
           <View style={styles.emptyContainer}>
-            <Text style={styles.emptyText}>No record found at the moment. Please check back later!</Text>
+            <Text style={styles.emptyText}>
+              No record found at the moment. Please check back later!
+            </Text>
           </View>
         )}
       </ScrollView>
