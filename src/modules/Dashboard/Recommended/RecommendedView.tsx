@@ -150,7 +150,7 @@ const RecommendedView: React.FC = (props: any) => {
                   description={item.description}
                   navigateTo={{
                     routeName: 'Core Strength', // Adjust route as needed
-                    params: { video_id: item.video_id, type: item.name, category: 'Golf Drills' },
+                    params: { video_id: item.id, type: item.name, category: 'Golf Drills' },
                   }}
                 />
               )}
@@ -168,7 +168,7 @@ const RecommendedView: React.FC = (props: any) => {
                   description={item.description}
                   navigateTo={{
                     routeName: 'Core Strength', // Adjust route as needed
-                    params: { video_id: item.video_id, type: item.name, category: 'Golf Drills' },
+                    params: { video_id: item.id, type: item.name, category: 'Golf Drills' },
                   }}
                 />
               )}

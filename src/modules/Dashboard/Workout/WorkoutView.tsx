@@ -32,6 +32,7 @@ const WorkoutView = (props: any) => {
   const [selectedWorkouts, setSelectedWorkouts] = useState<string[]>([]);
   const [workouts, setWorkouts] = useState<{ [key: string]: boolean }>({});
   const { loading, setLoading } = useLoader();
+  console.log("Workout screeen params", route.params);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -130,7 +131,8 @@ const WorkoutView = (props: any) => {
     <View style={styles.container}>
       <CustomHeader onBackPress={goBack} title="Core Strength" />
 
-      <ScrollView contentContainerStyle={styles.contentContainer}>
+      <ScrollView contentContainerStyle={styles.contentContainer}
+        scrollIndicatorInsets={{ right: 1 }}>
         <View style={styles.imageView}>
           <LottieView
             style={styles.image}

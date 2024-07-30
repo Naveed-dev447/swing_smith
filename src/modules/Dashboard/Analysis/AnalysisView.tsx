@@ -64,30 +64,51 @@ const AnalysisView: React.FC = (props: any) => {
     title: string,
     category: string
   ) => {
-    if (Array.isArray(items)) {
-      return items.map((item, index) => {
-        if (category === 'Golf Drills') {
-          // Handle Golf Drills data
-          return (
-            <Component
-              key={index}
-              title={item.name}
-              description={item.description}
-              navigateTo={{
-                routeName: 'Core Strength',
-                params: {
-                  video_id: item.video_id,
-                  type: item.name,
-                  category: category,
-                },
-              }}
-            />
-          );
-        } else if (category === 'Workout Drills') {
-          // Handle Workout Drills data
-          const parsedWorkout = item.workout
-            ? JSON.parse(item.workout)
-            : {};
+    if (category === 'Golf Drills') {
+      if (Array.isArray(items) && items.length === 1) {
+        const item = items[0];
+        return (
+          <Component
+            key={0}
+            title={item.drill_name}
+            description={item.description}
+            navigateTo={{
+              routeName: 'Core Strength',
+              params: {
+                video_id: item.id,
+                type: item.drill_name,
+                category: 'Golf Drills',
+              },
+            }}
+          />
+        );
+      } else if (Array.isArray(items)) {
+        return items.map((item, index) => (
+          <Component
+            key={index}
+            title={item.name}
+            description={item.description}
+            navigateTo={{
+              routeName: 'Core Strength',
+              params: {
+                video_id: item.id,
+                type: item.name,
+                category: 'Golf Drills',
+              },
+            }}
+          />
+        ));
+      } else {
+        return (
+          <Text style={{ fontFamily: 'Outfit-Regular', color: '#192126' }}>
+            No {title.toLowerCase()} available
+          </Text>
+        );
+      }
+    } else if (category === 'Workout Drills') {
+      if (Array.isArray(items)) {
+        return items.map((item, index) => {
+          const parsedWorkout = item.workout ? JSON.parse(item.workout) : {};
           const totalWorkouts = Object.keys(parsedWorkout).length;
           const completedWorkouts = Object.values(parsedWorkout).filter(
             (value: boolean) => value
@@ -99,41 +120,26 @@ const AnalysisView: React.FC = (props: any) => {
               key={`${index}-${workoutIndex}`}
               title={workoutKey}
               description={item.description}
-              progress={progress} // Show progress separately
+              progress={progress}
               navigateTo={{
                 routeName: 'Core Strength',
                 params: {
-                  video_id: item.video_id,
+                  video_id: item.id,
                   type: workoutKey,
                   category: 'Workout Drills',
                 },
               }}
             />
           ));
-        } else {
-          return (
-            <Text style={{ fontFamily: 'Outfit-Regular', color: '#192126' }}>
-              No {title.toLowerCase()} available
-            </Text>
-          );
-        }
-      });
-    } else if (typeof items === 'object' && items !== null) {
-      return Object.keys(items).map((itemKey, index) => (
-        <Component
-          key={index}
-          title={itemKey}
-          description={items[itemKey]}
-          navigateTo={{
-            routeName: 'Core Strength',
-            params: {
-              video_id: videoId,
-              type: itemKey,
-              category,
-            },
-          }}
-        />
-      ));
+        });
+      } else {
+        return (
+          <Text style={{ fontFamily: 'Outfit-Regular', color: '#192126' }}>
+            No {title.toLowerCase()} available
+          </Text>
+        );
+      }
+
     } else {
       return (
         <Text style={{ fontFamily: 'Outfit-Regular', color: '#192126' }}>
@@ -142,6 +148,7 @@ const AnalysisView: React.FC = (props: any) => {
       );
     }
   };
+
 
 
   const renderHeaderContent = (header: string) => {
