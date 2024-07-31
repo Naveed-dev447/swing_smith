@@ -52,7 +52,7 @@ const HomeView = (props: any) => {
   const userName = profiles.length > 0 ? profiles[0].name : 'User';
 
   const { drills, drillsLoading, drillsError } = useSelector((state: RootState) => state.recommendedDrills);
-
+   
 
   useEffect(() => {
     dispatch(fetchRecommendedWorkouts()).unwrap();

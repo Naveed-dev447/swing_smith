@@ -40,9 +40,6 @@ const AnalysisView: React.FC = (props: any) => {
   );
 
   const analysis = swingAnalysis?.data.analysis;
-  console.log("Analysis");
-
-  const videoId = swingAnalysis?.data.id;
 
   useEffect(() => {
     if (params) {
@@ -114,23 +111,26 @@ const AnalysisView: React.FC = (props: any) => {
             (value: boolean) => value
           ).length;
           const progress = `${completedWorkouts}/${totalWorkouts}`;
+          const trueFlagsDescription = Object.keys(parsedWorkout)
+            .filter((key) => parsedWorkout[key])
+            .join(', ');
 
-          return Object.keys(parsedWorkout).map((workoutKey, workoutIndex) => (
+          return (
             <Component
-              key={`${index}-${workoutIndex}`}
-              title={workoutKey}
-              description={item.description}
+              key={index}
+              title={item.category}
+              description={trueFlagsDescription || item.description}
               progress={progress}
               navigateTo={{
                 routeName: 'Core Strength',
                 params: {
                   video_id: item.id,
-                  type: workoutKey,
+                  type: item.type,
                   category: 'Workout Drills',
                 },
               }}
             />
-          ));
+          )
         });
       } else {
         return (
