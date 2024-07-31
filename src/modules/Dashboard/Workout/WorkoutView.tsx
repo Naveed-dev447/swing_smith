@@ -37,8 +37,7 @@ const WorkoutView = (props: any) => {
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
-      const payload = { video_id, type, category };
-      const response = await GetWorkoutListAPICall(payload);
+      const response = await GetWorkoutListAPICall(video_id);
 
       if (response.status === 200) {
         setWorkouts(response.data.workout);
@@ -53,7 +52,7 @@ const WorkoutView = (props: any) => {
     return () => {
       setWorkouts({});
     };
-  }, [video_id, type, category]);
+  }, [video_id, category]);
 
   const toggleWorkoutSelection = async (workout: string) => {
     if (!workouts[workout]) {
@@ -129,7 +128,7 @@ const WorkoutView = (props: any) => {
 
   return (
     <View style={styles.container}>
-      <CustomHeader onBackPress={goBack} title="Core Strength" />
+      <CustomHeader onBackPress={goBack} title={type} />
 
       <ScrollView contentContainerStyle={styles.contentContainer}
         scrollIndicatorInsets={{ right: 1 }}>
@@ -142,7 +141,7 @@ const WorkoutView = (props: any) => {
           />
         </View>
         <Text style={styles.workoutTitle}>
-          {category === 'Workout Drills' ? 'Workout Drills' : 'Golf Drills'}
+          {'Workout Drills'}
         </Text>
         <Text style={styles.detail}>
           The lower abdomen and hips are the most difficult areas of the body to

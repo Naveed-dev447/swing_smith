@@ -29,10 +29,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import VideoModal from '../../../components/VideoModal';
 import { fetchRecommendedWorkouts } from '../../../redux/Slices/RecommendedWorkouts'
 import ProgressLoader from '../../../components/ProgressLoader';
+import { useIsFocused } from '@react-navigation/native';
 
 
 const RecommendedView: React.FC = (props: any) => {
   const { route, navigation } = props;
+  const focused = useIsFocused();
   const dispatch = useDispatch<AppDispatch>();
   const [selectedTab, setSelectedTab] = useState('All');
   const { tutorials } = useSelector((state: RootState) => state.tutorials);
@@ -48,23 +50,17 @@ const RecommendedView: React.FC = (props: any) => {
   );
 
   useEffect(() => {
-    dispatch(fetchRecommendedDrills()).unwrap();
-    dispatch(fetchRecommendedWorkouts()).unwrap();
-  }, [dispatch]);
+    if (focused) {
+      dispatch(fetchRecommendedDrills()).unwrap();
+      dispatch(fetchRecommendedWorkouts()).unwrap();
+    }
+  }, [dispatch, focused]);
 
 
   const handleVideoPress = (uri: string, title: string) => {
     setSelectedVideo({ uri, title });
     setModalVisible(true);
   };
-  const handlePress = () => {
-    navigation.navigate('Core Strength', {
-      video_id: 0,
-      type: '',
-      category: 'Workout Drills',
-    });
-  };
-
 
   if (drillsLoading || recWorkoutLoading) {
     return <ProgressLoader />
@@ -106,34 +102,46 @@ const RecommendedView: React.FC = (props: any) => {
               showsHorizontalScrollIndicator={false}
               data={workouts}
               keyExtractor={(item) => item.id.toString()}
-              renderItem={({ item }) => (
-                <WorkoutCard
-                  title={item.type}
-                  progress={`${item.done}/${item.total}`}
-                  navigateTo={{ routeName: 'Core Strength', params: { video_id: item.id, type: item.type, category: 'Workout Drills' } }}
+              renderItem={({ item }) => {
+                const completedWorkouts = Object.keys(item.workouts).filter((key) => item.workouts[key]);
+                const description = completedWorkouts.join(', ');
 
-                />
-              )}
+                return (
+                  <WorkoutCard
+                    title={item.type}
+                    description={description}
+                    progress={`${item.done}/${item.total}`}
+                    navigateTo={{ routeName: 'Core Strength', params: { video_id: item.id, type: item.type, category: 'Workout Drills' } }}
+                  />
+                );
+              }}
               contentContainerStyle={{ marginVertical: hp('1%') }}
             />
+
           </Section>
         ) : selectedTab === 'Workouts' ? (
           <Section title="Recommended Workouts">
             <FlatList
+              horizontal
               showsHorizontalScrollIndicator={false}
               data={workouts}
-              horizontal
               keyExtractor={(item) => item.id.toString()}
-              renderItem={({ item }) => (
-                <WorkoutCard
-                  title={item.type}
-                  progress={`${item.done}/${item.total}`}
-                  navigateTo={{ routeName: 'Core Strength', params: { video_id: item.id, type: item.type, category: 'Workout Drills' } }}
+              renderItem={({ item }) => {
+                const completedWorkouts = Object.keys(item.workouts).filter((key) => item.workouts[key]);
+                const description = completedWorkouts.join(', ');
 
-                />
-              )}
+                return (
+                  <WorkoutCard
+                    title={item.type}
+                    description={description}
+                    progress={`${item.done}/${item.total}`}
+                    navigateTo={{ routeName: 'Core Strength', params: { video_id: item.id, type: item.type, category: 'Workout Drills' } }}
+                  />
+                );
+              }}
               contentContainerStyle={{ marginVertical: hp('1%') }}
             />
+
           </Section>
         ) : null}
 
@@ -149,8 +157,8 @@ const RecommendedView: React.FC = (props: any) => {
                   title={item.name}
                   description={item.description}
                   navigateTo={{
-                    routeName: 'Core Strength', // Adjust route as needed
-                    params: { video_id: item.id, type: item.name, category: 'Golf Drills' },
+                    routeName: 'Golf Drill',
+                    params: { id: item.id, type: item.name, description: item.description },
                   }}
                 />
               )}
@@ -167,8 +175,8 @@ const RecommendedView: React.FC = (props: any) => {
                   title={item.name}
                   description={item.description}
                   navigateTo={{
-                    routeName: 'Core Strength', // Adjust route as needed
-                    params: { video_id: item.id, type: item.name, category: 'Golf Drills' },
+                    routeName: 'Golf Drill',
+                    params: { id: item.id, type: item.name, description: item.description },
                   }}
                 />
               )}
