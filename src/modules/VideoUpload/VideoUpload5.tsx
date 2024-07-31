@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   StyleSheet,
   Text,
@@ -9,36 +9,35 @@ import {
 } from 'react-native';
 import * as Progress from 'react-native-progress';
 import CustomHeader from '../../shared/Component/CustomHeader';
-import { goBack } from '../../shared/Utils/navigationRef';
+import {goBack} from '../../shared/Utils/navigationRef';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../redux/store';
-import { CommonActions } from '@react-navigation/native';
-import { useLoader } from '../../config/LoaderContext';
-import { ShowToast } from '../../components/ShowToast';
+import {useSelector} from 'react-redux';
+import {RootState} from '../../redux/store';
+import {CommonActions} from '@react-navigation/native';
+import {useLoader} from '../../config/LoaderContext';
+import {ShowToast} from '../../components/ShowToast';
 import GetTipAPICall from '../Onboarding/Home/APICalls/TipAPI';
-import { ITipsResponse } from 'types/Tips';
+import {ITipsResponse} from 'types/Tips';
 import AnalysisVideoAPICall from '../Onboarding/Home/APICalls/AnalyiseVideoAPI';
-import { isNotEmptyObject } from '../../shared/Utils/CommonUtils';
+import {isNotEmptyObject} from '../../shared/Utils/CommonUtils';
 
 const VideoUpload5: React.FC = (props: any) => {
-  const { navigation } = props;
-  const { uploadedVideo } = useSelector((state: RootState) => state.onboarding);
-  const { loading, setLoading } = useLoader();
+  const {navigation} = props;
+  const {uploadedVideo} = useSelector((state: RootState) => state.onboarding);
+  const {loading, setLoading} = useLoader();
   const [getTip, setGetTip] = useState<ITipsResponse | null>(null);
 
   const handleNextPress = async () => {
     if (uploadedVideo) {
-
       setLoading(true);
 
       const payload = {
         file_name: uploadedVideo.filename,
         mimetype: uploadedVideo.mimetype,
-      }
+      };
       try {
         const tipResponse = await GetTipAPICall();
 
@@ -47,7 +46,7 @@ const VideoUpload5: React.FC = (props: any) => {
         const uploadResponse = await AnalysisVideoAPICall(payload);
 
         if (uploadResponse.status === 200) {
-          setLoading(false)
+          setLoading(false);
           if (!isNotEmptyObject(uploadResponse.data.analysis)) {
             ShowToast('error', 'Invalid Video, Please upload a new one.');
             return;
@@ -75,7 +74,7 @@ const VideoUpload5: React.FC = (props: any) => {
     navigation.dispatch(
       CommonActions.reset({
         index: 0,
-        routes: [{ name: 'BottomTabStack' }],
+        routes: [{name: 'BottomTabStack'}],
       }),
     );
 
@@ -90,7 +89,9 @@ const VideoUpload5: React.FC = (props: any) => {
       <CustomHeader onBackPress={goBack} title="Analysing" />
       {loading && (
         <View style={styles.progressBarContainer}>
-          <Text style={styles.progressText}>Processing your upload. This may take a moment.</Text>
+          <Text style={styles.progressText}>
+            Processing your upload. This may take a moment.
+          </Text>
           <Progress.Bar
             width={null}
             height={20}
@@ -102,14 +103,11 @@ const VideoUpload5: React.FC = (props: any) => {
           />
         </View>
       )}
-      <ImageBackground
-        source={require('../../assets/Images/importSwing.png')}
-        style={styles.imageContainer}>
+      <View style={styles.imageContainer}>
         <Image
-          source={require('../../assets/Images/importSwing.png')}
-          style={styles.image}
-        />
-      </ImageBackground>
+          source={require('../../assets/Images/AnalysingTip.png')}
+          style={styles.imageContainer}></Image>
+      </View>
       <ImageBackground
         source={require('../../assets/Images/tipBackgroundImage.png')}
         style={styles.tipContainer}>
@@ -132,7 +130,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    padding: 20,
   },
   progressBarContainer: {
     marginTop: 20,
@@ -143,6 +140,8 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: 'black',
     fontFamily: 'Outfit-Regular',
+    textAlign:'center',
+    marginLeft: wp('2%'),
   },
   analyzingScore: {
     fontSize: 20,
@@ -160,25 +159,33 @@ const styles = StyleSheet.create({
     borderRadius: wp('5%'),
     marginTop: 10,
     marginBottom: 20,
+    marginLeft: wp('1%'),
+
   },
   imageContainer: {
     marginTop: 10,
-    width: wp('90%'),
-    height: hp('20%'),
+    marginLeft: wp('1%'),
+
+    width: wp('97%'),
+    height:hp('32%') , 
     borderRadius: wp('2%'),
-    overflow: 'hidden',
+    justifyContent: 'center', 
+    alignItems: 'center', 
   },
   image: {
     width: '100%',
     height: '100%',
     borderRadius: wp('2%'),
+    resizeMode: 'contain', 
   },
   tipContainer: {
     marginTop: wp('5%'),
     marginLeft: wp('2%'),
     width: '100%',
     height: '60%',
-    overflow: 'hidden',
+    // overflow: 'visible',
+    resizeMode: 'contain',
+    
   },
   tipTitle: {
     fontSize: 16,

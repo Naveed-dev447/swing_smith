@@ -215,7 +215,7 @@ const AnalysisView: React.FC = (props: any) => {
             {renderHeaderContent('Negatives')}
             {renderHeaderContent('Workout Drills')}
             {renderHeaderContent('Golf Drills')}
-            {renderHeaderContent('Video Suggestions')}
+            {renderHeaderContent('Video')}
           </>
         );
       default:
@@ -274,7 +274,7 @@ const AnalysisView: React.FC = (props: any) => {
                 'Negatives',
                 'Workout Drills',
                 'Golf Drills',
-                'Video Suggestions',
+                'Video',
               ].map(tab => (
                 <TouchableOpacity
                   key={tab}
