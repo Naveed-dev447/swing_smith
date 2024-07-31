@@ -15,6 +15,7 @@ import {
   fetchSwingAnalysis,
   resetSwingAnalysisState,
 } from '../../../redux/Slices/SwingAnalysisSlice';
+import { fetchProfile } from '../../../redux/Slices/ProfileSlice';
 import ProgressLoader from '../../../components/ProgressLoader';
 import VideoModal from '../../../components/VideoModal';
 import { isNotEmptyObject } from '../../../shared/Utils/CommonUtils';
@@ -40,6 +41,11 @@ const AnalysisView: React.FC = (props: any) => {
   const { swingAnalysis, loading, error } = useSelector(
     (state: RootState) => state.swingAnalysis,
   );
+  const { profiles, profileLoading, profileError } = useSelector(
+    (state: RootState) => state.profile,
+  );
+  const userName = profiles.length > 0 ? profiles[0].name : 'User';
+
 
   const analysis = swingAnalysis?.data.analysis;
 
@@ -246,7 +252,7 @@ const AnalysisView: React.FC = (props: any) => {
           <View style={styles.analysisCardContainer}>
             <Image source={profileImage} style={styles.profileImage} />
             <View style={styles.userInfo}>
-              <Text style={styles.userName}>Nora Achoia</Text>
+              <Text style={styles.userName}>{`${userName}`}</Text>
               <Text style={styles.userSkill}>DTF/Iron/Right Handed</Text>
             </View>
             <View style={styles.scoreContainer}>
