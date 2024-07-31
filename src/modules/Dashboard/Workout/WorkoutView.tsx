@@ -129,7 +129,7 @@ const WorkoutView = (props: any) => {
 
   return (
     <View style={styles.container}>
-      <CustomHeader onBackPress={goBack} title="Core Strength" />
+      <CustomHeader onBackPress={goBack} title={category || "Core Strength"} />
 
       <ScrollView contentContainerStyle={styles.contentContainer}
         scrollIndicatorInsets={{ right: 1 }}>

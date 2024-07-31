@@ -40,7 +40,7 @@ const AnalysisView: React.FC = (props: any) => {
   );
 
   const analysis = swingAnalysis?.data.analysis;
-  console.log("Analysis");
+  console.log("Analysis",analysis);
 
   const videoId = swingAnalysis?.data.id;
 
