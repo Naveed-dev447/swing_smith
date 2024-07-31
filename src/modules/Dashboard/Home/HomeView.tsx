@@ -23,6 +23,7 @@ import { fetchRecommendedWorkouts } from '../../../redux/Slices/RecommendedWorko
 import VideoModal from '../../../components/VideoModal';
 import ProgressLoader from '../../../components/ProgressLoader';
 import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import { useIsFocused } from '@react-navigation/native';
 
 
 // Define a fallback image URL
@@ -32,6 +33,7 @@ const LOCAL_FALLBACK_IMAGE = require('../../../assets/Images/DashBoard/RecentAna
 const HomeView = (props: any) => {
   const { route, navigation } = props;
   const dispatch = useDispatch<AppDispatch>();
+  const focused = useIsFocused();
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedVideo, setSelectedVideo] = useState<{
     uri: string;
@@ -55,12 +57,14 @@ const HomeView = (props: any) => {
 
 
   useEffect(() => {
-    dispatch(fetchRecommendedWorkouts()).unwrap();
-    dispatch(fetchProfile()).unwrap();
-    dispatch(fetchRecommendedDrills()).unwrap();
-    dispatch(fetchRecentAnalysis()).unwrap();
-    dispatch(fetchTutorials()).unwrap();
-  }, [dispatch]);
+    if (focused) {
+      dispatch(fetchRecommendedWorkouts()).unwrap();
+      dispatch(fetchProfile()).unwrap();
+      dispatch(fetchRecommendedDrills()).unwrap();
+      dispatch(fetchRecentAnalysis()).unwrap();
+      dispatch(fetchTutorials()).unwrap();
+    }
+  }, [dispatch, focused]);
 
   const toggleModal = () => {
     setModalVisible(!modalVisible);
@@ -116,16 +120,22 @@ const HomeView = (props: any) => {
             showsHorizontalScrollIndicator={false}
             data={workouts}
             keyExtractor={(item) => item.id.toString()}
-            renderItem={({ item }) => (
-              <WorkoutCard
-                title={item.type}
-                progress={`${item.done}/${item.total}`}
-                navigateTo={{ routeName: 'Core Strength', params: { video_id: item.id, type: item.type, category: 'Workout Drills' } }}
+            renderItem={({ item }) => {
+              const completedWorkouts = Object.keys(item?.workouts).filter((key) => item.workouts[key]);
+              const description = completedWorkouts.join(', ');
 
-              />
-            )}
+              return (
+                <WorkoutCard
+                  title={item.type}
+                  description={description}
+                  progress={`${item.done}/${item.total}`}
+                  navigateTo={{ routeName: 'Core Strength', params: { video_id: item.id, type: item.type, category: 'Workout Drills' } }}
+                />
+              );
+            }}
             contentContainerStyle={{ marginVertical: hp('1%') }}
           />
+
         </Section>
         <Section title="Recommended Drills">
           <FlatList
@@ -138,8 +148,8 @@ const HomeView = (props: any) => {
                 title={item.name}
                 description={item.description}
                 navigateTo={{
-                  routeName: 'Core Strength', // Adjust route as needed
-                  params: { video_id: item.id, type: item.name, category: 'Golf Drills' },
+                  routeName: 'Golf Drill',
+                  params: { id: item.id, type: item.name, description: item.description },
                 }}
               />
             )}

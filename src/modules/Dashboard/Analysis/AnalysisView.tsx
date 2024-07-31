@@ -18,6 +18,7 @@ import {
 import ProgressLoader from '../../../components/ProgressLoader';
 import VideoModal from '../../../components/VideoModal';
 import { isNotEmptyObject } from '../../../shared/Utils/CommonUtils';
+import { useIsFocused } from '@react-navigation/native';
 
 const workoutImage = require('../../../assets/Images/swingAnalysis.png');
 const profileImage = require('../../../assets/Images/profilePicture.png');
@@ -28,6 +29,7 @@ const wind = require('../../../assets/Images/fast-wind.png');
 const AnalysisView: React.FC = (props: any) => {
   const { navigation, route } = props;
   const { params } = route;
+  const focused = useIsFocused();
   const [selectedTab, setSelectedTab] = useState('Overall');
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedVideo, setSelectedVideo] = useState<{
@@ -40,19 +42,17 @@ const AnalysisView: React.FC = (props: any) => {
   );
 
   const analysis = swingAnalysis?.data.analysis;
-  console.log("Analysis");
-
-  const videoId = swingAnalysis?.data.id;
 
   useEffect(() => {
     if (params) {
-      dispatch(fetchSwingAnalysis(params));
+      if (focused) {
+        dispatch(fetchSwingAnalysis(params));
+      }
     }
-
-    return () => {
-      dispatch(resetSwingAnalysisState());
-    };
-  }, [dispatch, params]);
+    // return () => {
+    //   dispatch(resetSwingAnalysisState());
+    // };
+  }, [dispatch, focused]);
 
   if (loading) {
     return <ProgressLoader />;
@@ -64,20 +64,22 @@ const AnalysisView: React.FC = (props: any) => {
     title: string,
     category: string
   ) => {
+
     if (category === 'Golf Drills') {
+
       if (Array.isArray(items) && items.length === 1) {
         const item = items[0];
         return (
           <Component
             key={0}
-            title={item.drill_name}
+            title={item.drill_name || item.name}
             description={item.description}
             navigateTo={{
-              routeName: 'Core Strength',
+              routeName: 'Golf Drill',
               params: {
-                video_id: item.id,
-                type: item.drill_name,
-                category: 'Golf Drills',
+                id: item.id,
+                type: item.drill_name || item.name,
+                description: item.description,
               },
             }}
           />
@@ -89,11 +91,11 @@ const AnalysisView: React.FC = (props: any) => {
             title={item.name}
             description={item.description}
             navigateTo={{
-              routeName: 'Core Strength',
+              routeName: 'Golf Drill',
               params: {
-                video_id: item.id,
+                id: item.id,
                 type: item.name,
-                category: 'Golf Drills',
+                description: item.description,
               },
             }}
           />
@@ -114,23 +116,26 @@ const AnalysisView: React.FC = (props: any) => {
             (value: boolean) => value
           ).length;
           const progress = `${completedWorkouts}/${totalWorkouts}`;
+          const trueFlagsDescription = Object.keys(parsedWorkout)
+            .filter((key) => parsedWorkout[key])
+            .join(', ');
 
-          return Object.keys(parsedWorkout).map((workoutKey, workoutIndex) => (
+          return (
             <Component
-              key={`${index}-${workoutIndex}`}
-              title={workoutKey}
-              description={item.description}
+              key={index}
+              title={item.type}
+              description={trueFlagsDescription || item.description}
               progress={progress}
               navigateTo={{
                 routeName: 'Core Strength',
                 params: {
                   video_id: item.id,
-                  type: workoutKey,
+                  type: item.type,
                   category: 'Workout Drills',
                 },
               }}
             />
-          ));
+          )
         });
       } else {
         return (

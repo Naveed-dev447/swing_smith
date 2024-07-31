@@ -25,8 +25,29 @@ export interface IUpdateWorkoutRequest {
     [key: string]: boolean;
   };
 }
+
 export interface IUpdateWorkoutResponse {
   status: number;
   data: any[];
   message: string;
+}
+
+
+export interface IWorkoutDrill {
+  id: number;
+  video_id: number;
+  name: string;
+  description: string;
+  status: number;
+  created_at: string;
+}
+
+export interface IWorkoutDrillResponse {
+  status: number;
+  data: IWorkoutDrill;
+}
+
+export interface IWorkoutDrillUpdatePayload {
+  id: number;
+  status: number;
 }

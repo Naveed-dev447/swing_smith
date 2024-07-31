@@ -30,6 +30,7 @@ import WorkoutView from '../modules/Dashboard/Workout/WorkoutView.tsx';
 import LowerBodyStrength from '../modules/Dashboard/Workout/LowerBodyStrength.tsx';
 import Flexibility from '../modules/Dashboard/Workout/Flexibility.tsx';
 import CongratulationModal from '../components/CongratulationModal.tsx';
+import WorkoutDrillView from '../modules/Dashboard/Workout/WorkoutDrillView.tsx';
 
 const Stack = createStackNavigator();
 
@@ -126,6 +127,11 @@ const RootNavigation = () => {
             options={{ headerShown: false }}
             name="Core Strength"
             component={WorkoutView}
+          />
+          <Stack.Screen
+            options={{ headerShown: false }}
+            name="Golf Drill"
+            component={WorkoutDrillView}
           />
           <Stack.Screen
             options={{ headerShown: false }}
