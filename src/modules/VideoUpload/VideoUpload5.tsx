@@ -165,9 +165,8 @@ const styles = StyleSheet.create({
   imageContainer: {
     marginTop: 10,
     marginLeft: wp('1%'),
-
     width: wp('97%'),
-    height:hp('32%') , 
+    height:hp('30%') , 
     borderRadius: wp('2%'),
     justifyContent: 'center', 
     alignItems: 'center', 
@@ -182,8 +181,7 @@ const styles = StyleSheet.create({
     marginTop: wp('5%'),
     marginLeft: wp('2%'),
     width: '100%',
-    height: '60%',
-    // overflow: 'visible',
+    height: '58%',
     resizeMode: 'contain',
     
   },
@@ -194,7 +192,7 @@ const styles = StyleSheet.create({
     color: 'black',
   },
   tipText: {
-    paddingHorizontal: 25,
+    paddingHorizontal: 30,
     fontSize: wp('5%'),
     textAlign: 'center',
     color: 'black',
