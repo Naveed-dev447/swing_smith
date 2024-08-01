@@ -22,7 +22,7 @@ import { isNotEmptyObject } from '../../../shared/Utils/CommonUtils';
 import { useIsFocused } from '@react-navigation/native';
 
 const workoutImage = require('../../../assets/Images/swingAnalysis.png');
-const profileImage = require('../../../assets/Images/profilePicture.png');
+const profileImage = require('../../../assets/Images/avatar.jpg');
 const flagImage = require('../../../assets/Images/flag.png');
 const ruler = require('../../../assets/Images/ruler.png');
 const wind = require('../../../assets/Images/fast-wind.png');
@@ -63,7 +63,6 @@ const AnalysisView: React.FC = (props: any) => {
   if (loading) {
     return <ProgressLoader />;
   }
-
   const renderCards = (
     items: any,
     Component: React.FC<any>,

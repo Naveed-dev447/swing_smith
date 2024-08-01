@@ -192,7 +192,7 @@ const styles = StyleSheet.create({
     color: 'black',
   },
   tipText: {
-    paddingHorizontal: 30,
+    paddingHorizontal: wp('7%'),
     fontSize: wp('5%'),
     textAlign: 'center',
     color: 'black',
@@ -218,6 +218,6 @@ const styles = StyleSheet.create({
   flagIcon: {
     width: 30,
     height: 30,
-    marginBottom: 5,
+    marginBottom: wp('1%'),
   },
 });

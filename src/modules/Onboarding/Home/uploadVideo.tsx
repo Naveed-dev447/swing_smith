@@ -1,21 +1,31 @@
-
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image, Platform } from 'react-native';
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-import { launchImageLibrary } from 'react-native-image-picker';
+import React, {useState} from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+  Platform,
+  ActivityIndicator,
+} from 'react-native';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
+import {launchImageLibrary} from 'react-native-image-picker';
 import Video from 'react-native-video';
-import { useDispatch } from 'react-redux';
-import { useForm, Controller } from 'react-hook-form';
+import {useDispatch} from 'react-redux';
+import {useForm, Controller} from 'react-hook-form';
 import * as yup from 'yup';
-import { yupResolver } from '@hookform/resolvers/yup';
+import {yupResolver} from '@hookform/resolvers/yup';
 import CustomButton from '../../../shared/Component/CustomButton';
 import CustomHeader from '../../../shared/Component/CustomHeader';
 import globalStyles from '../styles';
-import { setUploadedVideo } from '../../../redux/Slices/OnboardingSlice';
-import { useLoader } from '../../../config/LoaderContext';
+import {setUploadedVideo} from '../../../redux/Slices/OnboardingSlice';
+import {useLoader} from '../../../config/LoaderContext';
 import Progress from 'react-native-progress/Bar';
 import UploadVideoAPICall from './APICalls/UploadVideoAPI';
-import { ShowToast } from '../../../components/ShowToast';
+import {ShowToast} from '../../../components/ShowToast';
 
 const schema = yup.object().shape({
   video: yup.string().required('Please upload a video'),
@@ -41,13 +51,18 @@ interface Video {
 }
 
 const UploadVideo: React.FC = (props: any) => {
-  const { route, navigation } = props;
+  const {route, navigation} = props;
   const dispatch = useDispatch();
-  const { control, handleSubmit, formState: { errors }, setValue } = useForm({
+  const {
+    control,
+    handleSubmit,
+    formState: {errors},
+    setValue,
+  } = useForm({
     resolver: yupResolver(schema),
   });
   const [videoUri, setVideoUri] = useState<Video | null>(null);
-  const { loading, setLoading } = useLoader();
+  const {loading, setLoading} = useLoader();
 
   const handleUploadPress = () => {
     const options = {
@@ -55,7 +70,7 @@ const UploadVideo: React.FC = (props: any) => {
       includeBase64: false,
     };
 
-    launchImageLibrary(options, (response) => {
+    launchImageLibrary(options, response => {
       if (response.didCancel) {
         console.log('User cancelled video picker');
       } else if (response.errorCode) {
@@ -73,7 +88,10 @@ const UploadVideo: React.FC = (props: any) => {
       setLoading(true);
       const formData = new FormData();
       formData.append('fileName', {
-        uri: Platform.OS === 'android' ? videoUri.uri : videoUri.uri.replace('file://', ''),
+        uri:
+          Platform.OS === 'android'
+            ? videoUri.uri
+            : videoUri.uri.replace('file://', ''),
         name: videoUri.fileName || 'video.mp4',
         type: videoUri.type || 'video/mp4',
       });
@@ -101,11 +119,8 @@ const UploadVideo: React.FC = (props: any) => {
     <View style={globalStyles.container}>
       <CustomHeader onBackPress={navigation.goBack} />
       {loading && (
-        <View style={{ alignSelf: 'center', marginTop: hp('1%') }}>
-          <Progress
-            width={200}
-            indeterminate={true}
-          />
+        <View style={{alignSelf: 'center', marginTop: hp('1%')}}>
+          <Progress width={200} indeterminate={true} />
         </View>
       )}
       <View style={globalStyles.contentContainer}>
@@ -113,44 +128,85 @@ const UploadVideo: React.FC = (props: any) => {
           Upload your golf video to get an analysis 🪪
         </Text>
         <Text style={globalStyles.subTitle}>
-          Regulations require you to upload a high-quality video of you playing golf to get an instant analysis. Don't worry, we will guide you through it to show you improvements in game.
+          Regulations require you to upload a high-quality video of you playing
+          golf to get an instant analysis. Don't worry, we will guide you
+          through it to show you improvements in game.
         </Text>
         <Controller
           control={control}
           name="video"
-          render={({ field: { onChange } }) => (
+          render={({field: {onChange}}) => (
             <TouchableOpacity
               style={[
                 styles.uploadContainer,
-                videoUri && styles.uploadContainerWithoutBorder
+                videoUri && styles.uploadContainerWithoutBorder,
               ]}
-              onPress={handleUploadPress}
-            >
+              onPress={handleUploadPress}>
               {videoUri ? (
                 <Video
-                  source={{ uri: videoUri.uri }}
+                  source={{uri: videoUri.uri}}
                   style={styles.videoPlayer}
                   controls={true}
                 />
               ) : (
                 <>
-                  <Image source={require('../../../assets/Images/uploadVideo.png')} style={styles.uploadIcon} />
+                  <Image
+                    source={require('../../../assets/Images/uploadVideo.png')}
+                    style={styles.uploadIcon}
+                  />
                   <Text style={styles.uploadText}>Browse Gallery</Text>
                 </>
               )}
             </TouchableOpacity>
           )}
         />
-        {errors.video && <Text style={styles.errorText}>{errors.video.message}</Text>}
+        {errors.video && (
+          <Text style={styles.errorText}>{errors.video.message}</Text>
+        )}
       </View>
-      <View style={route?.params === 'HomeUpload' ? globalStyles.buttonContainerHome : globalStyles.buttonContainer}>
-        <CustomButton title="Next" onPress={handleSubmit(handleNextPress)} />
+      <View
+        style={
+          route?.params === 'HomeUpload'
+            ? globalStyles.buttonContainerHome
+            : globalStyles.buttonContainer
+        }>
+        <CustomButton
+          title="Next"
+          disabled={loading}
+          loading={loading}
+          onPress={handleSubmit(handleNextPress)}
+        />
       </View>
+      {/* <View
+        style={
+          route?.params === 'HomeUpload'
+            ? globalStyles.buttonContainerHome
+            : globalStyles.buttonContainer
+        }>
+        <TouchableOpacity
+          style={[
+            styles.nextButton,
+            {
+              backgroundColor: loading ? '#fff' : '#000',
+              borderColor: loading ? '#000' : 'transparent',
+              borderWidth: 1,
+            },
+          ]}
+          onPress={handleSubmit(handleNextPress)}
+          disabled={loading}>
+          {loading ? (
+            <ActivityIndicator
+              size="small"
+              color={loading ? '#000' : '#192126'}
+            />
+          ) : (
+            <Text style={styles.nextButtonText}>Next</Text>
+          )}
+        </TouchableOpacity>
+      </View> */}
     </View>
   );
 };
-
-
 
 const styles = StyleSheet.create({
   uploadContainer: {
@@ -189,6 +245,19 @@ const styles = StyleSheet.create({
     fontSize: wp('3%'),
     textAlign: 'center',
     marginTop: hp('1%'),
+  },
+  nextButton: {
+    borderRadius: 25,
+    paddingVertical: hp('1.5%'),
+    width: wp('80%'),
+    alignItems: 'center',
+    backgroundColor: '#000',
+    marginBottom: hp('1%'),
+  },
+  nextButtonText: {
+    fontFamily: 'Outfit-Medium',
+    color: '#FFFFFF',
+    fontSize: hp('2%'),
   },
 });
 
