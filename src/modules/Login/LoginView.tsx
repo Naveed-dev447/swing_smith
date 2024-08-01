@@ -19,18 +19,16 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { useTheme } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
-import { AppDispatch } from '../../redux/store'; // Import the typed dispatch
+import { AppDispatch } from '../../redux/store';
 import TextInput from '../../components/TextInput';
 import Button from '../../components/Button';
 import Checkbox from '../../components/Checkbox';
 import useLoginStyles from './styles';
 import LoginAPICall from './LoginAPI';
 import { fetchTutorials } from '../../redux/Slices/TutorialSlice';
-
 import { useLoader } from '../../config/LoaderContext';
 import { CommonActions } from '@react-navigation/native';
 import { ShowToast } from '../../components/ShowToast';
-
 
 const loginSchema = yup.object().shape({
   email: yup
@@ -45,7 +43,7 @@ const loginSchema = yup.object().shape({
 
 const LoginScreen: React.FC = (props: any) => {
   const { navigation } = props;
-  const dispatch = useDispatch<AppDispatch>(); // Use the typed dispatch
+  const dispatch = useDispatch<AppDispatch>();
   const {
     control,
     handleSubmit,
@@ -65,9 +63,6 @@ const LoginScreen: React.FC = (props: any) => {
     setLoading(true);
     try {
       const res = await LoginAPICall(data);
-      console.log("token",res.data);
-      
-
       if (res.status === 201) {
         await dispatch(fetchTutorials()).unwrap();
         navigation.replace('Onboard');
@@ -80,12 +75,13 @@ const LoginScreen: React.FC = (props: any) => {
     }
   };
   const handleNavigation = () => {
-    navigation.dispatch(
-      CommonActions.reset({
-        index: 0,
-        routes: [{ name: 'BottomTabStack' }],
-      })
-    );
+    // navigation.dispatch(
+    //   CommonActions.reset({
+    //     index: 0,
+    //     routes: [{ name: 'BottomTabStack' }],
+    //   })
+    // );
+    console.log("Google pressed");
   };
 
   return (
@@ -166,7 +162,7 @@ const LoginScreen: React.FC = (props: any) => {
                 />
                 <Button
                   title="Continue with Facebook"
-                  onPress={() => navigation.navigate('OnboardHome13')}
+                  onPress={() => console.log("Facebook pressed")}
                   buttonStyle={styles.socialButton}
                   textStyle={styles.socialButtonText}
                   icon={require('../../assets/Images/facebok3.png')}
