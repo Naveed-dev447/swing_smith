@@ -1,7 +1,8 @@
 export interface ILoginResponse {
     status: number;
     message: string;
-    data?: any; // Adjust based on actual API response structure
+    data?: any; 
+    isFirstLogin : boolean
   }
 
   export interface ILogin{

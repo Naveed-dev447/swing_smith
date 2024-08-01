@@ -63,9 +63,14 @@ const LoginScreen: React.FC = (props: any) => {
     setLoading(true);
     try {
       const res = await LoginAPICall(data);
+
       if (res.status === 201) {
         await dispatch(fetchTutorials()).unwrap();
-        navigation.replace('Onboard');
+        if (res.isFirstLogin) {
+          navigation.replace('Onboard');
+        } else {
+          navigation.replace('BottomTabStack');
+        }
       }
     } catch (error) {
       ShowToast('error', 'Login failed, Please try again');
