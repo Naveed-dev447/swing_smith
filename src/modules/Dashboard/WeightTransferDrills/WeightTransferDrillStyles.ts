@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -193,6 +193,23 @@ const styles = StyleSheet.create({
   buttonContainer: {
     paddingHorizontal: wp('4%'),
     paddingBottom: hp('5%'), // Ensure button is not hidden by navbar
+  },
+  logoutButton: {
+    marginTop: hp('60%'),
+    width: wp('80%'),
+    alignSelf: 'center',
+    padding: 12,
+    borderRadius: 25,
+    borderWidth: 2,
+    borderColor: 'white',
+    backgroundColor: 'red',
+    justifyContent: 'center',
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.8,
+    shadowRadius: 2,
+    elevation: 5,
   },
 });
 

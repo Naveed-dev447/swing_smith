@@ -1,13 +1,24 @@
 import React from 'react';
-import { View, Text, ImageBackground, TouchableOpacity, StatusBar } from 'react-native';
+import { View, Text, ImageBackground, StatusBar } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import styles from './styles';
 import Button from '../../components/Button';
 
 const SplashScreen = (props: any) => {
   const { route, navigation } = props
 
-  const handleGetStarted = () => {
-    navigation.navigate('Login');
+  const handleGetStarted = async () => {
+    try {
+      const token = await AsyncStorage.getItem('Token');
+      if (token) {
+        navigation.navigate('BottomTabStack');
+      } else {
+        navigation.navigate('Login');
+      }
+    } catch (error) {
+      console.error('Error reading token from AsyncStorage:', error);
+      navigation.navigate('Login');
+    }
   };
 
   return (

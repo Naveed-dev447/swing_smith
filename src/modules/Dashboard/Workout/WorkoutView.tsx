@@ -141,7 +141,7 @@ const WorkoutView = (props: any) => {
           />
         </View>
         <Text style={styles.workoutTitle}>
-          {'Workout Drills'}
+          {'Workout Detail'}
         </Text>
         <Text style={styles.detail}>
           The lower abdomen and hips are the most difficult areas of the body to

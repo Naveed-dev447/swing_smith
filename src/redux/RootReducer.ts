@@ -8,8 +8,10 @@ import ProfileReducer from './Slices/ProfileSlice';
 import RecommendedDrillsReducer from './Slices/RecommendedDrillsSlice';
 import RecentAnalysisReducer from './Slices/RecentAnalysisSlice';
 import RecommendedWorkoutsReducer from './Slices/RecommendedWorkouts';
+import AuthSlice from './Slices/AuthSlice';
 
 const appReducer = combineReducers({
+  auth: AuthSlice,
   tutorials: TutorialReducer,
   onboarding: OnboardingReducer,
   swingLogs: SwingLogReducer,

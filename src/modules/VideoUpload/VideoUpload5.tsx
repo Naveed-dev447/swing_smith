@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   StyleSheet,
   Text,
@@ -9,25 +9,25 @@ import {
 } from 'react-native';
 import * as Progress from 'react-native-progress';
 import CustomHeader from '../../shared/Component/CustomHeader';
-import {goBack} from '../../shared/Utils/navigationRef';
+import { goBack } from '../../shared/Utils/navigationRef';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import {useSelector} from 'react-redux';
-import {RootState} from '../../redux/store';
-import {CommonActions} from '@react-navigation/native';
-import {useLoader} from '../../config/LoaderContext';
-import {ShowToast} from '../../components/ShowToast';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../redux/store';
+import { CommonActions } from '@react-navigation/native';
+import { useLoader } from '../../config/LoaderContext';
+import { ShowToast } from '../../components/ShowToast';
 import GetTipAPICall from '../Onboarding/Home/APICalls/TipAPI';
-import {ITipsResponse} from 'types/Tips';
+import { ITipsResponse } from 'types/Tips';
 import AnalysisVideoAPICall from '../Onboarding/Home/APICalls/AnalyiseVideoAPI';
-import {isNotEmptyObject} from '../../shared/Utils/CommonUtils';
+import { isNotEmptyObject } from '../../shared/Utils/CommonUtils';
 
 const VideoUpload5: React.FC = (props: any) => {
-  const {navigation} = props;
-  const {uploadedVideo} = useSelector((state: RootState) => state.onboarding);
-  const {loading, setLoading} = useLoader();
+  const { navigation } = props;
+  const { uploadedVideo } = useSelector((state: RootState) => state.onboarding);
+  const { loading, setLoading } = useLoader();
   const [getTip, setGetTip] = useState<ITipsResponse | null>(null);
 
   const handleNextPress = async () => {
@@ -74,7 +74,7 @@ const VideoUpload5: React.FC = (props: any) => {
     navigation.dispatch(
       CommonActions.reset({
         index: 0,
-        routes: [{name: 'BottomTabStack'}],
+        routes: [{ name: 'BottomTabStack' }],
       }),
     );
 
@@ -93,7 +93,7 @@ const VideoUpload5: React.FC = (props: any) => {
             Processing your upload. This may take a moment.
           </Text>
           <Progress.Bar
-            width={null}
+            width={wp('90%')}
             height={20}
             style={styles.progressBar}
             color="#BBF246"
@@ -140,7 +140,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: 'black',
     fontFamily: 'Outfit-Regular',
-    textAlign:'center',
+    textAlign: 'center',
     marginLeft: wp('2%'),
   },
   analyzingScore: {
@@ -154,6 +154,7 @@ const styles = StyleSheet.create({
     color: 'black',
   },
   progressBar: {
+    alignSelf: 'center',
     borderColor: '#939393',
     borderWidth: 0.5,
     borderRadius: wp('5%'),
@@ -166,16 +167,16 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginLeft: wp('1%'),
     width: wp('97%'),
-    height:hp('30%') , 
+    height: hp('30%'),
     borderRadius: wp('2%'),
-    justifyContent: 'center', 
-    alignItems: 'center', 
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   image: {
     width: '100%',
     height: '100%',
     borderRadius: wp('2%'),
-    resizeMode: 'contain', 
+    resizeMode: 'contain',
   },
   tipContainer: {
     marginTop: wp('5%'),
@@ -183,7 +184,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '58%',
     resizeMode: 'contain',
-    
+
   },
   tipTitle: {
     fontSize: 16,
@@ -214,6 +215,7 @@ const styles = StyleSheet.create({
   tipContent: {
     marginTop: wp('10%'),
     alignItems: 'center',
+    right: Platform.OS === 'ios' ? wp('1.5%') : 0
   },
   flagIcon: {
     width: 30,
