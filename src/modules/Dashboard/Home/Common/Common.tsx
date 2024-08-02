@@ -9,23 +9,21 @@ import {
   ImageBackground,
   ImageSourcePropType,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import LinearGradient from 'react-native-linear-gradient';
 import globalStyles from '../styles';
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import recommandedStyles from '../../../../modules/Dashboard/Recommended/styles';
+import {Circle, Svg} from 'react-native-svg';
+import * as Progress from 'react-native-progress';
 
 export const Header: React.FC<{
   toggleModal: () => void;
   name: string;
   address?: string;
-}> = ({ toggleModal, name, address }) => (
+}> = ({toggleModal, name, address}) => (
   <View>
     <View style={globalStyles.headerContainer}>
       <TouchableOpacity onPress={toggleModal}>
@@ -63,7 +61,7 @@ export const Banner: React.FC = () => (
       overflow: 'hidden',
     }}
     resizeMode="stretch">
-    <View style={{ flex: 1, justifyContent: 'center', padding: wp('4%') }}>
+    <View style={{flex: 1, justifyContent: 'center', padding: wp('4%')}}>
       <Image
         source={require('../../../../assets/Images/DashBoard/overlay.png')}
         style={{
@@ -82,20 +80,20 @@ export const Banner: React.FC = () => (
 
 export const RecentAnalysis: React.FC = () => (
   <View>
-    <Text style={[globalStyles.sectionTitle, { marginTop: hp('2%') }]}>
+    <Text style={[globalStyles.sectionTitle, {marginTop: hp('2%')}]}>
       Recent Analysis
     </Text>
     <ScrollView
       horizontal
       showsHorizontalScrollIndicator={false}
-      style={{ marginVertical: hp('2%') }}>
-      <View style={[globalStyles.analysisCard, { marginRight: wp('2%') }]}>
+      style={{marginVertical: hp('2%')}}>
+      <View style={[globalStyles.analysisCard, {marginRight: wp('2%')}]}>
         <ImageBackground
           source={{
             uri: 'https://images.unsplash.com/photo-1570129477492-45c003edd2be',
           }}
           style={globalStyles.analysisCardImage}
-          imageStyle={{ borderRadius: wp('2%') }}>
+          imageStyle={{borderRadius: wp('2%')}}>
           <View style={globalStyles.analysisCardContent}>
             <Text style={globalStyles.cardSubtitle}>Score: 7.2</Text>
             <Text>Posture Score: 8.4</Text>
@@ -109,8 +107,8 @@ export const RecentAnalysis: React.FC = () => (
             uri: 'https://images.unsplash.com/photo-1580587771525-78b9dba3b914',
           }}
           style={globalStyles.analysisCardImage}
-          imageStyle={{ borderRadius: wp('2%') }}>
-          <Text style={[globalStyles.cardSubtitle, { paddingLeft: wp('4%') }]}>
+          imageStyle={{borderRadius: wp('2%')}}>
+          <Text style={[globalStyles.cardSubtitle, {paddingLeft: wp('4%')}]}>
             Score: 6.2
           </Text>
           <View style={globalStyles.analysisCardContent}>
@@ -129,15 +127,15 @@ export const AnalysisCard: React.FC<{
   swingRhythm: string;
   source: ImageSourcePropType;
   onPress: () => void;
-}> = ({ score, postureScore, swingRhythm, source, onPress }) => (
+}> = ({score, postureScore, swingRhythm, source, onPress}) => (
   <View>
     <TouchableOpacity
       onPress={onPress}
-      style={[styles.analysisCard, { marginRight: wp('2%') }]}>
+      style={[styles.analysisCard, {marginRight: wp('2%')}]}>
       <ImageBackground
         source={source}
         style={styles.analysisCardImage}
-        imageStyle={{ borderRadius: wp('2%') }}>
+        imageStyle={{borderRadius: wp('2%')}}>
         <View style={styles.overlay}>
           <Text style={styles.scoreText}>Score</Text>
           <Text style={styles.scoreValue}>{score}</Text>
@@ -167,12 +165,12 @@ export const AnalysisCard: React.FC<{
   </View>
 );
 
-export const UploadSwing: React.FC<{ onClick: () => void }> = ({ onClick }) => (
+export const UploadSwing: React.FC<{onClick: () => void}> = ({onClick}) => (
   <ImageBackground
     source={require('../../../../assets/Images/DashBoard/swingsImage.png')}
     style={globalStyles.uploadSwingImage}
     resizeMode="cover"
-    imageStyle={{ borderRadius: wp('2%') }}>
+    imageStyle={{borderRadius: wp('2%')}}>
     <View style={styles.overlaySwing}>
       <Text style={globalStyles.uploadSwingText}>Import Swing</Text>
       <Text style={globalStyles.swingDesText}>
@@ -190,7 +188,7 @@ interface SectionProps {
   children: React.ReactNode;
 }
 
-export const Section: React.FC<SectionProps> = ({ title, children }) => (
+export const Section: React.FC<SectionProps> = ({title, children}) => (
   <View style={globalStyles.recommendedSection}>
     <View style={globalStyles.recommendedHeader}>
       <Text style={globalStyles.recommendedTitle}>{title}</Text>
@@ -221,7 +219,7 @@ interface WorkoutCardProps {
   icon: string;
   description: string;
   score: string;
-  navigateTo: { routeName: string; params?: object };
+  navigateTo: {routeName: string; params?: object};
 }
 
 export const WorkoutCard: React.FC<WorkoutCardProps> = ({
@@ -232,25 +230,35 @@ export const WorkoutCard: React.FC<WorkoutCardProps> = ({
   navigateTo,
 }) => {
   const navigation = useNavigation();
-
+  const [completedWorkouts, totalWorkouts] = progress.split('/').map(Number);
+  const progressPercentage = completedWorkouts / totalWorkouts;
   return (
     <TouchableOpacity
       onPress={() =>
         navigation.navigate(navigateTo?.routeName, navigateTo.params)
       }
-      style={[globalStyles.card, { width: wp('40%'), marginRight: wp('4%') }]}>
-      <View style={{ marginVertical: '2%' }}>
-        <Image
-          source={require('../../../../assets/Images/GraphPie.png')}
-          style={globalStyles.graphPieIcon}
-        />
+      style={[globalStyles.card, {width: wp('40%'), marginRight: wp('4%')}]}>
+      <View style={{marginVertical: '2%'}}>
+         <View style={styles.progressCircle}>
+          <Progress.Circle
+            size={60}
+            progress={progressPercentage}
+            color="#BBF246"
+            unfilledColor="#F0FFD1"
+            borderWidth={0}
+          />
+          <Image
+            source={require('../../../../assets/Images/power.png')}
+            style={styles.imageOverlay}
+          />
+        </View>
       </View>
-      <View style={{ marginVertical: '2%' }}>
-        <Text style={{ color: '#192126', fontFamily: 'Outfit-Regular' }}>
+      <View style={{marginVertical: '2%'}}> 
+        <Text style={{color: '#192126', fontFamily: 'Outfit-Regular'}}>
           {progress}
         </Text>
       </View>
-      <View style={{ marginVertical: '1%' }}>
+      <View style={{marginVertical: '1%'}}>
         <Text
           style={{
             color: '#192126',
@@ -258,12 +266,11 @@ export const WorkoutCard: React.FC<WorkoutCardProps> = ({
             textAlign: 'center',
           }}
           numberOfLines={1}
-          ellipsizeMode="tail"
-        >
+          ellipsizeMode="tail">
           {title}
         </Text>
       </View>
-      <View style={{ marginVertical: '1%' }}>
+      <View style={{marginVertical: '1%'}}>
         <Text
           style={{
             color: '#192126',
@@ -271,8 +278,7 @@ export const WorkoutCard: React.FC<WorkoutCardProps> = ({
             textAlign: 'center',
           }}
           numberOfLines={2}
-          ellipsizeMode="tail"
-        >
+          ellipsizeMode="tail">
           {description}
         </Text>
       </View>
@@ -282,7 +288,7 @@ export const WorkoutCard: React.FC<WorkoutCardProps> = ({
 
 interface DrillCardProps {
   title: string;
-  description: string
+  description: string;
   navigateTo: {
     routeName: string;
     params: {
@@ -293,7 +299,11 @@ interface DrillCardProps {
   };
 }
 
-export const DrillCard: React.FC<DrillCardProps> = ({ title, description, navigateTo }) => {
+export const DrillCard: React.FC<DrillCardProps> = ({
+  title,
+  description,
+  navigateTo,
+}) => {
   const navigation = useNavigation();
 
   const handlePress = () => {
@@ -303,18 +313,14 @@ export const DrillCard: React.FC<DrillCardProps> = ({ title, description, naviga
   return (
     <TouchableOpacity
       style={recommandedStyles.cardContainer}
-      onPress={handlePress}
-    >
+      onPress={handlePress}>
       <Image
         source={require('../../../../assets/Images/DashBoard/golfman.png')}
         style={recommandedStyles.cardIcon}
       />
       <View style={recommandedStyles.cardContent}>
-        <Text style={recommandedStyles.cardText}>
-          {title}
-        </Text>
-        <Text style={recommandedStyles.cardSmallText} numberOfLines={3}
-        >
+        <Text style={recommandedStyles.cardText}>{title}</Text>
+        <Text style={recommandedStyles.cardSmallText} numberOfLines={3}>
           {description}
         </Text>
       </View>
@@ -342,7 +348,7 @@ export const TutorialCard: React.FC<TutorialCardProps> = ({
   </View>
 );
 
-export const HorizontalScroll: React.FC<{ children: React.ReactNode }> = ({
+export const HorizontalScroll: React.FC<{children: React.ReactNode}> = ({
   children,
 }) => (
   <ScrollView horizontal showsHorizontalScrollIndicator={false}>
@@ -403,7 +409,7 @@ export const SwingCard: React.FC<SwingCardProps> = ({
           <Text style={globalStyles.detailText}>{type}</Text>
           <Image
             source={require('../../../../assets/Images/swingIron.png')}
-            style={[globalStyles.swinglogGolfIcon, { marginLeft: '10%' }]}
+            style={[globalStyles.swinglogGolfIcon, {marginLeft: '10%'}]}
           />
           <Text style={globalStyles.detailText}>{shot}</Text>
           <TouchableOpacity style={styles.button} onPress={navigate}>
@@ -512,5 +518,15 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     width: wp('100%'),
+  },
+  progressCircle: {
+    position: 'relative',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  imageOverlay: {
+    position: 'absolute',
+    width: 30,
+    height: 30,
   },
 });

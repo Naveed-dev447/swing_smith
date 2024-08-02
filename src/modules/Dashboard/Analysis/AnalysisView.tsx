@@ -121,6 +121,8 @@ const AnalysisView: React.FC = (props: any) => {
             (value: boolean) => value
           ).length;
           const progress = `${completedWorkouts}/${totalWorkouts}`;
+          console.log("progress",progress);
+          
           const trueFlagsDescription = Object.keys(parsedWorkout)
             .filter((key) => parsedWorkout[key])
             .join(', ');
