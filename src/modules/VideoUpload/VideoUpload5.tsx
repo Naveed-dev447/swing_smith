@@ -48,7 +48,7 @@ const VideoUpload5: React.FC = (props: any) => {
         if (uploadResponse.status === 200) {
           setLoading(false);
           if (!isNotEmptyObject(uploadResponse.data.analysis)) {
-            ShowToast('error', 'Invalid Video, Please upload a new one.');
+            ShowToast('error', 'Please upload a golf related video.');
             return;
           }
           ShowToast('success', uploadResponse.message);

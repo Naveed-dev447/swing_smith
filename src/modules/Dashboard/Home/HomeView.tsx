@@ -78,7 +78,9 @@ const HomeView = (props: any) => {
   if (tutorialsLoading || profileLoading || recentAnalysisLoading || recWorkoutLoading || drillsLoading) {
     return <ProgressLoader />;
   }
-
+  // if (tutorialsError || profileError || analysisError || recWorkoutError || drillsError) {
+  //   console.error({ tutorialsError, profileError, analysisError, recWorkoutError, drillsError });
+  // }
   return (
     <View style={globalStyles.container}>
       <Header toggleModal={toggleModal} name={`Hello, ${userName}`} />
@@ -156,17 +158,19 @@ const HomeView = (props: any) => {
           />
         </Section>
         <Section title="Recommended Tutorials">
-          <HorizontalScroll>
-            {tutorials?.map((item, index) => (
+          <FlatList
+            data={tutorials}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            keyExtractor={(item) => item.id.toString()}
+            renderItem={({ item, index }) => (
               <TutorialCard
-                key={index}
+                id={index}
                 data={item}
-                onPress={() =>
-                  handleVideoPress(item.file_name, item.description)
-                }
+                onPress={() => handleVideoPress(item.file_name, item.description, modalVisible)}
               />
-            ))}
-          </HorizontalScroll>
+            )}
+          />
         </Section>
       </ScrollView>
       {selectedVideo && (
