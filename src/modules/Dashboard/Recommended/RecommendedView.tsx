@@ -194,7 +194,7 @@ const RecommendedView: React.FC = (props: any) => {
                     key={index}
                     data={item}
                     onPress={() =>
-                      handleVideoPress(item.file_name, item.description)
+                      handleVideoPress(item.file_name, item.description, modalVisible)
                     }
                   />
                 ))}
