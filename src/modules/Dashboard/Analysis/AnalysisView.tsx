@@ -47,7 +47,7 @@ const AnalysisView: React.FC = (props: any) => {
   const userName = profiles.length > 0 ? profiles[0].name : 'User';
 
 
-  const analysis = swingAnalysis?.data.analysis;
+  const analysis = swingAnalysis && swingAnalysis?.data?.analysis;
 
   useEffect(() => {
     if (params) {
@@ -200,7 +200,7 @@ const AnalysisView: React.FC = (props: any) => {
             </Section>
           </View>
         );
-      case 'Video Suggestions':
+      case 'Video':
         return (
           <View style={styles.workOutContainer}>
             <Section title="Recommended Tutorials">
@@ -211,7 +211,7 @@ const AnalysisView: React.FC = (props: any) => {
                       key={index}
                       data={item}
                       onPress={() =>
-                        handleVideoPress(item.file_name, item.title)
+                        handleVideoPress(item.file_name, item.title, modalVisible)
                       }
                     />
                   ),

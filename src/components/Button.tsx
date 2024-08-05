@@ -18,8 +18,8 @@ const Button: React.FC<ButtonProps> = ({ title, onPress, buttonStyle, textStyle,
       activeOpacity={disabled ? 1 : 0.7}
       disabled={disabled}
     >
-      {icon && <Image source={icon} style={styles.icon} />}
       <Text style={[textStyle, disabled && styles.disabledText]} numberOfLines={1} adjustsFontSizeToFit>{title}</Text>
+      {icon && <Image source={icon} style={styles.icon} />}
     </TouchableOpacity>
   );
 };
@@ -46,8 +46,8 @@ const styles = StyleSheet.create({
   icon: {
     width: 20,
     height: 20,
-    alignSelf:'center',
-    marginRight: 10,
+    alignSelf: 'center',
+    marginLeft: 10,
   },
 });
 

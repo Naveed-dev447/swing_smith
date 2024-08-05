@@ -18,14 +18,22 @@ import Button from '../../../components/Button';
 import ProgressLoader from '../../../components/ProgressLoader';
 import { useLoader } from '../../../config/LoaderContext';
 import { IWorkoutDrill } from 'types/Workout';
+import debounce from 'lodash/debounce';
 
+const checkIconSelected = require('../../../assets/Images/selectedCheckIcon.png');
 
 const WorkoutDrillView = (props: any) => {
     const { route } = props;
     const { id, type, description } = route.params;
     const [workouts, setWorkouts] = useState<IWorkoutDrill[] | null>(null);
     const { loading, setLoading } = useLoader();
-    console.log("Workout screeen params", route.params);
+    const isCompleted = workouts?.status === 1;
+    const buttonTitle = isCompleted ? "Completed" : "Mark as Done";
+    const buttonIcon = isCompleted ? checkIconSelected : null;
+    const buttonStyles = [
+        styles.markAsDoneButton,
+        isCompleted && styles.completedButton,
+    ];
 
     useEffect(() => {
         const fetchData = async () => {
@@ -47,7 +55,6 @@ const WorkoutDrillView = (props: any) => {
         };
     }, [id]);
 
-
     if (loading) {
         return <ProgressLoader />;
     }
@@ -58,8 +65,6 @@ const WorkoutDrillView = (props: any) => {
             status: 1
         };
         const response = await UpdateWorkoutDrillAPICall(payload);
-        console.log("Response", response);
-
         if (response.status === 200 && response.message !== 'Unable to update workout.') {
             ShowToast('success', `${response.message}`);
             goBack();
@@ -69,6 +74,7 @@ const WorkoutDrillView = (props: any) => {
         }
     };
 
+    const debouncedHandleMarkAsDone = debounce(handleMarkAsDone, 300);
 
     return (
         <View style={styles.container}>
@@ -92,10 +98,11 @@ const WorkoutDrillView = (props: any) => {
                 </Text>
                 <View style={styles.buttonContainer}>
                     <Button
-                        title="Mark as Done"
-                        onPress={handleMarkAsDone}
-                        buttonStyle={styles.markAsDoneButton}
+                        title={buttonTitle}
+                        onPress={isCompleted ? null : debouncedHandleMarkAsDone}
+                        buttonStyle={buttonStyles}
                         textStyle={styles.buttonText}
+                        icon={buttonIcon}
                     />
                 </View>
             </ScrollView>
@@ -140,7 +147,7 @@ const styles = StyleSheet.create({
     buttonContainer: {
         width: '100%',
         alignItems: 'center',
-        marginTop: hp('25%')
+        marginTop: hp('20%')
     },
     markAsDoneButton: {
         backgroundColor: '#c5f048',
@@ -152,6 +159,11 @@ const styles = StyleSheet.create({
         color: '#192126',
         fontFamily: 'Outfit-SemiBold',
         fontSize: wp('4.2%'),
+    },
+    completedButton: {
+        flexDirection: 'row',
+        borderColor: '#c5f048',
+        borderWidth: 2,
     },
 });
 
