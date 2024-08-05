@@ -29,16 +29,20 @@
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
-		<false/>
+		<true/>
 		<key>NSAllowsLocalNetworking</key>
 		<true/>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string></string>
+	<key>NSCameraUsageDescription</key>
+	<key>Enable Swing Smith to access your Camera to upload your photos/Video and save ones you have taken with the app</key>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>Enable Swing Smith to access your Photo Library roll to upload your photos/Video and save ones you have taken with the app</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Enable Smith Smith to access your Photo Library roll to upload your photos/Video and save ones you have taken with the app</string>
+	<key>NSMicrophoneUsageDescription</key>
+    <string>Enable Smith Smith to accessto the microphone</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>AntDesign.ttf</string>
