@@ -1,68 +1,53 @@
-import React, { useState, useRef } from 'react';
-import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
-import Video, { VideoRef } from 'react-native-video';
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-import { ITutorial } from '../../../types/Tutorial';
-import * as Progress from 'react-native-progress';
-
+import React, {useState} from 'react';
+import {View, Text, TouchableOpacity, Image, StyleSheet} from 'react-native';
+import Video from 'react-native-video';
+import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
+import {ITutorial} from '../../../types/Tutorial';
 
 interface TutorialCardProps {
   data: ITutorial;
   onPress: () => void;
-  isPlay: boolean
 }
 
-const TutorialCard: React.FC<TutorialCardProps> = ({ isPlay, data, onPress }) => {
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  const videoRef = useRef<VideoRef>(null);
-  console.log("Image data", data);
-  const handlePress = () => {
-    onPress();
+const TutorialCard: React.FC<TutorialCardProps> = ({data, onPress}) => {
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  const handlePlayPausePress = () => {
+    setIsPlaying(prevIsPlaying => !prevIsPlaying);
   };
+
   return (
     <View style={styles.mainContainer}>
-      <TouchableOpacity onPress={handlePress}>
+      <TouchableOpacity onPress={onPress} style={styles.videoWrapper}>
         <View style={styles.videoContainer}>
           <Video
-            source={{ uri: data?.file_name }}
-            ref={videoRef}
+            source={{uri: data?.file_name}}
             style={styles.videoPlayer}
+            paused={!isPlaying}
             resizeMode="cover"
-            onError={(error) => {
-              setIsLoading(false)
-              console.error('Video error:', error)
-            }}
-            onBuffer={({ isBuffering }) => console.log('Buffering:', isBuffering)}
-            onLoadStart={() => setIsLoading(true)}
-            onReadyForDisplay={() => setIsLoading(false)}
-            controls={false}
-            paused={!isPlay}
           />
-          {isLoading && (
-            <View style={{ alignSelf: 'center' }}>
-              <Progress.Bar width={200} indeterminate={true} />
-            </View>
+          {!isPlaying && (
+            <Image
+              source={require('../../../assets/Images/play.png')}
+              style={styles.playIcon}
+            />
           )}
-          {!isLoading && (
-            <>
+          <View style={styles.overlayTop}>
+            <Text style={styles.tutorialTitleOverlay}>{data?.description}</Text>
+          </View>
+          <View style={styles.tutorialFooterOverlay}>
+            <View style={styles.tutorialDuration}>
               <Image
-                source={require('../../../assets/Images/play.png')}
-                style={styles.playIcon} /><View style={styles.overlayTop}>
-                <Text style={styles.tutorialTitleOverlay}>{data?.description}</Text>
-              </View><View style={styles.tutorialFooterOverlay}>
-                <View style={styles.tutorialDuration}>
-                  <Image
-                    source={require('../../../assets/Images/clock.png')}
-                    style={{
-                      width: wp('4%'),
-                      height: wp('4%'),
-                      marginRight: wp('1%'),
-                    }} />
-                  <Text style={styles.time}>{data?.duration} sec</Text>
-                </View>
-              </View>
-            </>
-          )}
+                source={require('../../../assets/Images/clock.png')}
+                style={{
+                  width: wp('4%'),
+                  height: wp('4%'),
+                  marginRight: wp('1%'),
+                }}
+              />
+              <Text style={styles.time}>{data?.duration} sec</Text>
+            </View>
+          </View>
         </View>
       </TouchableOpacity>
     </View>
@@ -70,9 +55,13 @@ const TutorialCard: React.FC<TutorialCardProps> = ({ isPlay, data, onPress }) =>
 };
 
 const styles = StyleSheet.create({
-  mainContainer: {
-    width: wp('85%'),
-    marginRight: 20
+  mainContainer:{
+    width:wp('85%'),
+   marginRight:20
+  },
+  videoWrapper: {
+    // marginLeft: wp('5%'),
+    // position: 'relative',
   },
   videoContainer: {
     borderRadius: wp('2%'),
@@ -86,7 +75,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: '50%',
     left: '50%',
-    transform: [{ translateX: -wp('4%') }, { translateY: -wp('4%') }],
+    transform: [{translateX: -wp('4%')}, {translateY: -wp('4%')}],
     width: wp('8%'),
     height: wp('8%'),
   },
@@ -136,15 +125,6 @@ const styles = StyleSheet.create({
   time: {
     color: '#192126',
     fontFamily: 'Outfit-Regular',
-  },
-  loadingProgressBar: {
-    alignSelf: 'center',
-    borderColor: '#939393',
-    borderWidth: 0.5,
-    borderRadius: wp('5%'),
-    marginTop: 10,
-    marginBottom: 20,
-    marginLeft: wp('1%'),
   },
 });
 
