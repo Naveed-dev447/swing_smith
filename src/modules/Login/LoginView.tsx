@@ -29,6 +29,10 @@ import { fetchTutorials } from '../../redux/Slices/TutorialSlice';
 import { useLoader } from '../../config/LoaderContext';
 import { CommonActions } from '@react-navigation/native';
 import { ShowToast } from '../../components/ShowToast';
+import {
+  GoogleSignin,
+  statusCodes,
+} from '@react-native-google-signin/google-signin';
 
 const loginSchema = yup.object().shape({
   email: yup
@@ -79,14 +83,29 @@ const LoginScreen: React.FC = (props: any) => {
       setLoading(false);
     }
   };
-  const handleNavigation = () => {
-    // navigation.dispatch(
-    //   CommonActions.reset({
-    //     index: 0,
-    //     routes: [{ name: 'BottomTabStack' }],
-    //   })
-    // );
-    console.log("Google pressed");
+
+  const handleGoogleLogin = async () => {
+    try {
+      GoogleSignin.configure({
+        webClientId:"992746895436-pluiel8flrb3sg5tl830ja5eloiqhn73.apps.googleusercontent.com",
+        offlineAccess: true,
+      });
+      await GoogleSignin.hasPlayServices();
+      const userInfo = await GoogleSignin.signIn();
+      console.log(userInfo);
+      
+    } catch (error:any) {
+      if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+        ShowToast('info', 'User cancelled the login');
+      } else if (error.code === statusCodes.IN_PROGRESS) {
+        ShowToast('info', 'Signin in progress');
+      } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+        ShowToast('error', 'Play services not available');
+      } else {
+        ShowToast('error', 'Something went wrong');
+      }
+      console.error(error);
+    }
   };
 
   return (
@@ -160,7 +179,7 @@ const LoginScreen: React.FC = (props: any) => {
                 <Text style={styles.orText}>Or</Text>
                 <Button
                   title="Continue with Google"
-                  onPress={handleNavigation}
+                  onPress={handleGoogleLogin}
                   buttonStyle={styles.socialButton}
                   textStyle={styles.socialButtonText}
                   icon={require('../../assets/Images/google_ic.png')}

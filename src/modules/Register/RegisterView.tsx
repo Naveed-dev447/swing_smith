@@ -25,6 +25,11 @@ import { RootStackParamList } from '../../navigation/types';
 import { RegisterAPICall } from './RegisterAPI';
 import { useLoader } from '../../config/LoaderContext';
 import { ShowToast } from '../../components/ShowToast';
+import {
+  GoogleSignin,
+  statusCodes,
+} from '@react-native-google-signin/google-signin';
+
 
 const registerSchema = yup.object().shape({
   name: yup.string().required('Name is required'),
@@ -64,6 +69,29 @@ const RegisterView: React.FC = (props: any) => {
       console.error(error);
     } finally {
       setLoading(false);
+    }
+  };
+  const handleGoogleRegister = async () => {
+    try {
+      GoogleSignin.configure({
+        webClientId:"992746895436-pluiel8flrb3sg5tl830ja5eloiqhn73.apps.googleusercontent.com",
+        offlineAccess: true,
+      });
+      await GoogleSignin.hasPlayServices();
+      const userInfo = await GoogleSignin.signIn();
+      console.log(userInfo);
+
+    } catch (error:any) {
+      if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+        ShowToast('info', 'User cancelled the Register');
+      } else if (error.code === statusCodes.IN_PROGRESS) {
+        ShowToast('info', 'SignUp in progress');
+      } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+        ShowToast('error', 'Play services not available');
+      } else {
+        ShowToast('error', 'Something went wrong');
+      }
+      console.error(error);
     }
   };
 
@@ -168,7 +196,7 @@ const RegisterView: React.FC = (props: any) => {
                   </TouchableOpacity>
                   <TouchableOpacity
                     style={styles.socialButton}
-                    onPress={() => console.log('Continue with Google')}>
+                    onPress={handleGoogleRegister}>
                     <Image
                       source={require('../../assets/Images/google_ic.png')}
                       style={styles.socialIcon}
