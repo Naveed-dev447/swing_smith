@@ -147,7 +147,7 @@ const styles = StyleSheet.create({
     buttonContainer: {
         width: '100%',
         alignItems: 'center',
-        marginTop: hp('20%')
+        marginTop: hp('15%')
     },
     markAsDoneButton: {
         backgroundColor: '#c5f048',

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "320360764204",
+    "project_id": "swingsmith-ed5f6",
+    "storage_bucket": "swingsmith-ed5f6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:320360764204:android:383855194b8f48a1ecd289",
+        "android_client_info": {
+          "package_name": "com.swing_smith"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAQMOefqkqRVLEs8iYzamIqTPpmkmJX9mI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
