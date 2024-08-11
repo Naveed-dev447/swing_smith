@@ -97,9 +97,9 @@ const HomeView = (props: any) => {
             keyExtractor={(item) => item.id.toString()}
             renderItem={({ item }) => (
               <AnalysisCard
-                score={item.swing_rating.toString()}
-                postureScore={item.posture.toString()}
-                swingRhythm={item.swing_rhythm.toString()}
+                score={item.swing_rating?.toString()}
+                postureScore={item.posture?.toString()}
+                swingRhythm={item.swing_rhythm?.toString()}
                 source={require('../../../assets/Images/DashBoard/RecentAna1.png')}
                 onPress={() => navigation.navigate('AnalysisView', item.id)}
               />
