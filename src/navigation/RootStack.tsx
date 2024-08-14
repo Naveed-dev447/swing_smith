@@ -72,10 +72,10 @@ const RootNavigation = () => {
             component={BottomTabNavigator}
           />
           <Stack.Screen
-           options={{headerShown: false}}
-           name="OnboardHome3"
-           component={SkillLevel}
-           />
+            options={{ headerShown: false }}
+            name="OnboardHome3"
+            component={SkillLevel}
+          />
           <Stack.Screen
             options={{ headerShown: false }}
             name="OnboardHome7"
@@ -91,7 +91,7 @@ const RootNavigation = () => {
             name="OnboardHome9"
             component={VideoUpload2}
           />
-             <Stack.Screen
+          <Stack.Screen
             options={{ headerShown: false }}
             name="playerType"
             component={PlayerTypes}

@@ -1,10 +1,10 @@
-import React, {useState} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
-import {useForm, Controller} from 'react-hook-form';
+import React, { useState } from 'react';
+import { View, Text, StyleSheet } from 'react-native';
+import { useForm, Controller } from 'react-hook-form';
 import * as yup from 'yup';
-import {yupResolver} from '@hookform/resolvers/yup';
+import { yupResolver } from '@hookform/resolvers/yup';
 import CustomHeader from '../../../shared/Component/CustomHeader';
-import {goBack} from '../../../shared/Utils/navigationRef';
+import { goBack } from '../../../shared/Utils/navigationRef';
 import globalStyles from '../styles';
 import CustomButton from '../../../shared/Component/CustomButton';
 import SelectedTouchableButton from '../../../components/SelectedTouchableButton';
@@ -23,12 +23,12 @@ const schema = yup.object().shape({
   swingTimeDuration: yup.string().required('Please select a Time Duration'),
 });
 
-const SwingTimeDuration: React.FC<TimeDurationProps> = ({navigation}) => {
+const SwingTimeDuration: React.FC<TimeDurationProps> = ({ navigation }) => {
   const dispatch = useDispatch();
   const {
     control,
     handleSubmit,
-    formState: {errors},
+    formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
   });
@@ -39,8 +39,8 @@ const SwingTimeDuration: React.FC<TimeDurationProps> = ({navigation}) => {
   const onSubmit = () => {
     dispatch(setDurationGolf(selectedTimeDuration));
     console.log("duration", selectedTimeDuration);
-    
-     navigation.navigate('OnboardHome3');
+
+    navigation.navigate('OnboardHome3');
   };
 
   return (
@@ -48,7 +48,7 @@ const SwingTimeDuration: React.FC<TimeDurationProps> = ({navigation}) => {
       <CustomHeader onBackPress={goBack} />
       <View style={globalStyles.contentContainer}>
         <Text style={globalStyles.title}>
-        How often do you practice your golf swing?
+          How often do you practice your golf swing?
         </Text>
         <Text style={globalStyles.subTitle}>
           Analyzing video recorded diagonally or from the back may result in
@@ -57,7 +57,7 @@ const SwingTimeDuration: React.FC<TimeDurationProps> = ({navigation}) => {
         <Controller
           control={control}
           name="swingTimeDuration"
-          render={({field: {onChange}}) => (
+          render={({ field: { onChange } }) => (
             <View style={styles.levelContainer}>
               {levels.map((level, index) => (
                 <SelectedTouchableButton
@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
     marginTop: hp('5%'),
   },
   errorText: {
-   fontFamily: 'Poppins-Regular',
+    fontFamily: 'Poppins-Regular',
     color: 'red',
     fontSize: wp('3%'),
     textAlign: 'center',
