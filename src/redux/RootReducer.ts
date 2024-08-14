@@ -9,6 +9,7 @@ import RecommendedDrillsReducer from './Slices/RecommendedDrillsSlice';
 import RecentAnalysisReducer from './Slices/RecentAnalysisSlice';
 import RecommendedWorkoutsReducer from './Slices/RecommendedWorkouts';
 import AuthSlice from './Slices/AuthSlice';
+import FirstLogin from './Slices/FirstLogin';
 
 const appReducer = combineReducers({
   auth: AuthSlice,
@@ -19,7 +20,8 @@ const appReducer = combineReducers({
   profile: ProfileReducer,
   recommendedDrills: RecommendedDrillsReducer,
   recentAnalysis: RecentAnalysisReducer,
-  recommendedWorkout: RecommendedWorkoutsReducer
+  recommendedWorkout: RecommendedWorkoutsReducer,
+  firstLogin: FirstLogin
 });
 
 const RootReducer = (state: ReturnType<typeof appReducer> | undefined, action: AnyAction) => {

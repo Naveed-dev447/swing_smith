@@ -25,8 +25,10 @@ import AnalysisVideoAPICall from '../Onboarding/Home/APICalls/AnalyiseVideoAPI';
 import { isNotEmptyObject } from '../../shared/Utils/CommonUtils';
 
 const VideoUpload5: React.FC = (props: any) => {
-  const { navigation } = props;
-  const { uploadedVideo } = useSelector((state: RootState) => state.onboarding);
+  const { navigation, route } = props;
+  const { contact, ball_flight } = route.params;
+
+  const { uploadedVideo, skillLevel, dtlSelectedOption } = useSelector((state: RootState) => state.onboarding);
   const { loading, setLoading } = useLoader();
   const [getTip, setGetTip] = useState<ITipsResponse | null>(null);
 
@@ -37,11 +39,18 @@ const VideoUpload5: React.FC = (props: any) => {
       const payload = {
         file_name: uploadedVideo.filename,
         mimetype: uploadedVideo.mimetype,
+        "prompt": {
+          "type": skillLevel,
+          "contact": contact,
+          "ball_flight": ball_flight,
+          "face_direction": dtlSelectedOption === 'Down the Line' ? 'down' : 'up'
+        }
       };
       try {
         const tipResponse = await GetTipAPICall();
 
         setGetTip(tipResponse);
+        console.log("Gimi API payload", payload);
 
         const uploadResponse = await AnalysisVideoAPICall(payload);
 
@@ -86,7 +95,7 @@ const VideoUpload5: React.FC = (props: any) => {
 
   return (
     <View style={styles.container}>
-      <CustomHeader onBackPress={goBack} title="Analysing" />
+      <CustomHeader onBackPress={goBack} title="Analyzing" />
       {loading && (
         <View style={styles.progressBarContainer}>
           <Text style={styles.progressText}>

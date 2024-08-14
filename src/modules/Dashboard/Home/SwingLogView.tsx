@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, ScrollView, TouchableOpacity, Image } from 'react-native';
 import { SwingCard } from './Common/Common';
 import globalStyles from './styles';
@@ -8,9 +8,8 @@ import FilterModal from './Common/FilterModal';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from 'redux/store';
 import { fetchSwingLogs } from '../../../redux/Slices/SwingLogSlice';
-import * as Progress from 'react-native-progress';
-import * as util from '../../../shared/Utils/CommonUtils';
 import ProgressLoader from '../../../components/ProgressLoader';
+import * as util from '../../../shared/Utils/CommonUtils';
 
 const SwingLogView: React.FC = (props: any) => {
   const { routes, navigation } = props;
@@ -20,7 +19,7 @@ const SwingLogView: React.FC = (props: any) => {
     (state: RootState) => state.swingLogs,
   );
 
-  React.useEffect(() => {
+  useEffect(() => {
     dispatch(fetchSwingLogs());
   }, [dispatch]);
 
@@ -48,19 +47,30 @@ const SwingLogView: React.FC = (props: any) => {
           />
         </TouchableOpacity>
       </View>
-      {swingLogs.length > 0 ? (
+      {swingLogs && swingLogs.length > 0 ? (
         <ScrollView contentContainerStyle={globalStyles.SwingLogScrollView}>
-          {swingLogs.map((item, index) => (
-            <SwingCard
-              key={index}
-              score={item.swing_rating}
-              date={util.formatDate(item.created_at)}
-              description={item.swing_analysis}
-              type={'Iron'}
-              shot={'DTL'}
-              navigate={() => navigation.navigate('AnalysisView', item.id)}
-            />
-          ))}
+          {swingLogs.map((item, index) => {
+            let swingAnalysisText;
+            if (typeof item.swing_analysis === 'object') {
+              swingAnalysisText = Object.entries(item.swing_analysis)
+                .map(([key, value]) => `${key}: ${value}`)
+                .join(', ');
+            } else {
+              swingAnalysisText = item.swing_analysis;
+            }
+
+            return (
+              <SwingCard
+                key={index}
+                score={item.swing_rating}
+                date={util.formatDate(item.created_at)}
+                description={swingAnalysisText} // Render the formatted string
+                type={'Iron'}
+                shot={'DTL'}
+                navigate={() => navigation.navigate('AnalysisView', item.id)}
+              />
+            );
+          })}
         </ScrollView>
       ) : (
         <View

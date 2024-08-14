@@ -7,13 +7,14 @@ interface OnboardingState {
   aspectToImprove: string | null;
   coachingLesson: string | null;
   equipmentType: string | null;
-  practiceDuration: number;
+  practiceDuration: string | null;
   scoringAverage: number;
   uploadedVideo: IVideoData | null;
   dtlSelectedOption: string | null;
   videoHandedness: string | null;
   selectedEquipment: string | null;
   selectedEquipment2: string | null;
+  durationGolf: string;
 
 }
 
@@ -22,13 +23,14 @@ const initialState: OnboardingState = {
   aspectToImprove: null,
   coachingLesson: null,
   equipmentType: null,
-  practiceDuration: 0,
+  practiceDuration: null,
   scoringAverage: 0,
   uploadedVideo: null,
   dtlSelectedOption: null,
   videoHandedness: null,
   selectedEquipment: null,
-  selectedEquipment2: null
+  selectedEquipment2: null,
+  durationGolf: ''
 };
 
 const onboardingSlice = createSlice({
@@ -47,7 +49,10 @@ const onboardingSlice = createSlice({
     setEquipmentType: (state, action: PayloadAction<string>) => {
       state.equipmentType = action.payload;
     },
-    setPracticeDuration: (state, action: PayloadAction<number>) => {
+    setDurationGolf: (state, action: PayloadAction<string>) => {
+      state.durationGolf = action.payload;
+    },
+    setPracticeDuration: (state, action: PayloadAction<string>) => {
       state.practiceDuration = action.payload;
     },
     setScoringAverage: (state, action: PayloadAction<number>) => {
@@ -76,6 +81,7 @@ export const {
   setAspectToImprove,
   setCoachingLesson,
   setEquipmentType,
+  setDurationGolf,
   setPracticeDuration,
   setScoringAverage,
   setUploadedVideo,

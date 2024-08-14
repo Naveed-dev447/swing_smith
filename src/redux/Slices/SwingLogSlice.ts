@@ -18,7 +18,6 @@ export const fetchSwingLogs = createAsyncThunk(
   'swingLogs/fetchSwingLogs',
   async () => {
     const response = await apiClient.get<SwingLogApiResponse>('/video/all');
-
     return response.data.data;
   },
 );

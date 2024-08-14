@@ -31,6 +31,9 @@ import LowerBodyStrength from '../modules/Dashboard/Workout/LowerBodyStrength.ts
 import Flexibility from '../modules/Dashboard/Workout/Flexibility.tsx';
 import CongratulationModal from '../components/CongratulationModal.tsx';
 import WorkoutDrillView from '../modules/Dashboard/Workout/WorkoutDrillView.tsx';
+import SkillLevel from '../modules/Onboarding/Home/SkillLevel.tsx';
+import PlayerTypes from '../modules/VideoUpload/PlayerTypes.tsx';
+import BallFlightTypes from '../modules/VideoUpload/BallFlightType.tsx';
 
 const Stack = createStackNavigator();
 
@@ -70,6 +73,11 @@ const RootNavigation = () => {
           />
           <Stack.Screen
             options={{ headerShown: false }}
+            name="OnboardHome3"
+            component={SkillLevel}
+          />
+          <Stack.Screen
+            options={{ headerShown: false }}
             name="OnboardHome7"
             component={DTLView}
           />
@@ -82,6 +90,16 @@ const RootNavigation = () => {
             options={{ headerShown: false }}
             name="OnboardHome9"
             component={VideoUpload2}
+          />
+          <Stack.Screen
+            options={{ headerShown: false }}
+            name="playerType"
+            component={PlayerTypes}
+          />
+          <Stack.Screen
+            options={{ headerShown: false }}
+            name="ballFlightType"
+            component={BallFlightTypes}
           />
           <Stack.Screen
             options={{ headerShown: false }}
