@@ -33,14 +33,12 @@
 		<key>NSAllowsLocalNetworking</key>
 		<true/>
 	</dict>
-	<key>FirebaseAppDelegateProxyEnabled</key>
-    <false/>
+	<key>NSAppleMusicUsageDescription</key>
+    <string>Enable Swing Smith to access your Apple Music library to enhance your music experience by allowing you to play, manage, and browse your music within the app.</string>
 	<key>NSCameraUsageDescription</key>
 	<string>Enable Swing Smith to access your Camera to upload your photos/Video and save ones you have taken with the app</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>Enable Smith Smith to accessto the microphone</string>
+    <string>Enable Smith Smith to access the microphone for notifications.</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>Enable Swing Smith to access your Photo Library roll to upload your photos/Video and save ones you have taken with the app</string>
 	<key>NSPhotoLibraryUsageDescription</key>

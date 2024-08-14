@@ -16,8 +16,8 @@ const GolfDurationView: React.FC = (props: any) => {
 
   const handleSliderChange = (value: number) => {
     setScore(value);
-    dispatch(setPracticeDuration(value));
-    console.log('Golf duration value dispatched:', value);
+    let duration = getDurationLabel(value)
+    dispatch(setPracticeDuration(duration));
   };
 
   const getDurationLabel = (value: number) => {

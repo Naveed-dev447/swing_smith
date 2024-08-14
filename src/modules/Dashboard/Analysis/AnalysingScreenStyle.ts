@@ -102,23 +102,23 @@ export const styles = StyleSheet.create({
     height: wp('5%'),
   },
   instructionContainer: {
-    width: wp('90%'),
-    backgroundColor: '#FFFFFF',
-    borderWidth: 1,
-    borderColor: '#F0F0F0',
-    borderRadius: wp('3%'),
-    padding: wp('4%'),
-    marginBottom: hp('3%'),
-    // Shadow for iOS
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    // Shadow for Android
-    elevation: 5,
+    width: wp('89%'),
+    // backgroundColor: '#FFFFFF',
+    // borderWidth: 1,
+    // borderColor: '#F0F0F0',
+    // borderRadius: wp('3%'),
+      padding: wp('1%'),
+      marginBottom: hp('2%'),
+    // // Shadow for iOS
+    // shadowColor: '#000',
+    // shadowOffset: {
+    //   width: 0,
+    //   height: 2,
+    // },
+    // shadowOpacity: 0.25,
+    // shadowRadius: 3.84,
+    // // Shadow for Android
+    // elevation: 5,
   },
   instructionHeader: {
     flexDirection: 'row',
@@ -127,13 +127,13 @@ export const styles = StyleSheet.create({
   },
 
   instructionTitle: {
-    fontSize: wp('5%'),
+    fontSize: wp('4%'),
     fontFamily:'Outfit-Bold',
     marginRight: wp('1%'),
     color: '#192126',
   },
   subInstructionText: {
-    fontSize: wp('4%'),
+    fontSize: wp('3.5%'),
     fontFamily:'Outfit-SemiBold',
     marginBottom: hp('1%'),
     color: '#192126',

@@ -9,8 +9,12 @@ import { useForm, Controller } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-import { useDispatch } from 'react-redux';
-import { setEquipmentType } from '../../../redux/Slices/OnboardingSlice';
+import { useSelector } from 'react-redux';
+import Progress from 'react-native-progress/Bar';
+import { RootState } from 'redux/store';
+import { IFormUpsert } from '../../../types/FormUpsert';
+import formUpsertAPICall from './APICalls/FormUpsert';
+import { useLoader } from '../../../config/LoaderContext'
 
 const schema = yup.object().shape({
   equipment: yup.string().required('Please select an equipment type'),
@@ -21,7 +25,8 @@ const EquipmentsView: React.FC = (props: any) => {
   const { control, handleSubmit, formState: { errors } } = useForm({
     resolver: yupResolver(schema),
   });
-  const dispatch = useDispatch();
+  const { loading, setLoading } = useLoader();
+  const { durationGolf, skillLevel, aspectToImprove, coachingLesson, practiceDuration, scoringAverage } = useSelector((state: RootState) => state.onboarding);
   const [selectedEquipment, setSelectedEquipment] = useState<string | null>(null);
   const [dispatchSuccessful, setDispatchSuccessful] = useState(false);
 
@@ -31,16 +36,32 @@ const EquipmentsView: React.FC = (props: any) => {
     'Advanced technology clubs (e.g., smart clubs)'
   ];
 
-  // const onSubmit = (data: { equipment: string }) => {
-  //   // navigation.navigate('OnboardHome7');
-  //   navigation.navigate('OnboardHome12');
-  // };
 
-  const onSubmit = (data: {equipment: string}) => {
-    dispatch(setEquipmentType(data.equipment));
-    console.log('Equipment type dispatched:', data.equipment);
-    setDispatchSuccessful(true);
+  const onSubmit = async (data: { equipment: string }) => {
+    try {
+      const payload: IFormUpsert = {
+        playing_since: durationGolf,
+        practice_info: practiceDuration,
+        skill_level: skillLevel,
+        want_to_improve: aspectToImprove,
+        have_coach: coachingLesson,
+        equipment_use: data.equipment,
+        content_medium: '' // Assuming this will be populated from another screen or a default value
+      };
+      setLoading(true);
+
+      const response = await formUpsertAPICall(payload);
+      console.log('Form Upsert API response:', response);
+
+      setDispatchSuccessful(true);
+    } catch (error) {
+      console.error('Error in form upsert:', error);
+    }
+    finally {
+      setLoading(false);
+    }
   };
+
 
   useEffect(() => {
     if (dispatchSuccessful) {
@@ -84,6 +105,8 @@ const EquipmentsView: React.FC = (props: any) => {
       <View style={globalStyles.buttonContainer}>
         <CustomButton
           title="Next"
+          disabled={loading}
+          loading={loading}
           onPress={handleSubmit(onSubmit)}
         />
       </View>

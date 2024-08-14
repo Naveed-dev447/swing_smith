@@ -12,6 +12,8 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
+import { setDurationGolf } from '../../../redux/Slices/OnboardingSlice';
+import { useDispatch } from 'react-redux';
 
 interface TimeDurationProps {
   navigation: any;
@@ -22,6 +24,7 @@ const schema = yup.object().shape({
 });
 
 const SwingTimeDuration: React.FC<TimeDurationProps> = ({navigation}) => {
+  const dispatch = useDispatch();
   const {
     control,
     handleSubmit,
@@ -30,14 +33,14 @@ const SwingTimeDuration: React.FC<TimeDurationProps> = ({navigation}) => {
     resolver: yupResolver(schema),
   });
 
-  const [selectedTimeDuration, setSelectedTimeDuration] = useState<
-    string | null
-  >(null);
+  const [selectedTimeDuration, setSelectedTimeDuration] = useState<string>('');
   const levels = ['Daily', 'Several times a week', 'Once a week', 'A few times a month'];
 
-  const onSubmit = (data: {swingTimeDuration: string}) => {
-    console.log('Time Duration:', data);
-    navigation.navigate('OnboardHome3');
+  const onSubmit = () => {
+    dispatch(setDurationGolf(selectedTimeDuration));
+    console.log("duration", selectedTimeDuration);
+    
+     navigation.navigate('OnboardHome3');
   };
 
   return (

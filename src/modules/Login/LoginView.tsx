@@ -19,7 +19,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { useTheme } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
-import { AppDispatch } from '../../redux/store';
+import { AppDispatch } from 'redux/store';
 import TextInput from '../../components/TextInput';
 import Button from '../../components/Button';
 import Checkbox from '../../components/Checkbox';
@@ -27,8 +27,8 @@ import useLoginStyles from './styles';
 import LoginAPICall from './LoginAPI';
 import { fetchTutorials } from '../../redux/Slices/TutorialSlice';
 import { useLoader } from '../../config/LoaderContext';
-import { CommonActions } from '@react-navigation/native';
 import { ShowToast } from '../../components/ShowToast';
+import { fetchFirstLoginStatus } from '../../redux/Slices/FirstLogin';
 
 const loginSchema = yup.object().shape({
   email: yup
@@ -57,6 +57,7 @@ const LoginScreen: React.FC = (props: any) => {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
 
+
   const onSubmit = async (data: any) => {
     Keyboard.dismiss();
     data.rememberMe = rememberMe;
@@ -65,8 +66,11 @@ const LoginScreen: React.FC = (props: any) => {
       const res = await LoginAPICall(data);
 
       if (res.status === 201) {
+
+        const isFirstLogin = await dispatch(fetchFirstLoginStatus()).unwrap();
         await dispatch(fetchTutorials()).unwrap();
-        if (res.isFirstLogin) {
+
+        if (isFirstLogin) {
           navigation.replace('Onboard');
         } else {
           navigation.replace('BottomTabStack');

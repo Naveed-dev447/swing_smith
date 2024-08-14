@@ -3,26 +3,26 @@ import { View, Text, StyleSheet } from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import CustomHeader from '../../../shared/Component/CustomHeader';
-import { goBack } from '../../../shared/Utils/navigationRef';
-import globalStyles from '../styles';
-import CustomButton from '../../../shared/Component/CustomButton';
-import SelectedTouchableButton from '../../../components/SelectedTouchableButton';
+import CustomHeader from '../../shared/Component/CustomHeader';
+import { goBack } from '../../shared/Utils/navigationRef';
+import globalStyles from '../Onboarding/styles';
+import CustomButton from '../../shared/Component/CustomButton';
+import SelectedTouchableButton from '../../components/SelectedTouchableButton';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import { useDispatch } from 'react-redux';
-import { setSkillLevel } from '../../../redux/Slices/OnboardingSlice';
+import { useSelector } from 'react-redux';
+import { RootState } from 'redux/store';
 interface SkillLevelProps {
   navigation: any;
 }
 
 const schema = yup.object().shape({
-  skillLevel: yup.string().required('Please select a skill level'),
+  playerType: yup.string().required('Please select a contact level'),
 });
 
-const SkillLevel: React.FC<SkillLevelProps> = (props: any) => {
+const PlayerTypes: React.FC<SkillLevelProps> = (props: any) => {
   const { navigation, route } = props;
   const {
     control,
@@ -31,34 +31,35 @@ const SkillLevel: React.FC<SkillLevelProps> = (props: any) => {
   } = useForm({
     resolver: yupResolver(schema),
   });
-  const dispatch = useDispatch();
-  const [selectedLevel, setSelectedLevel] = useState<string | null>(null);
-  const [dispatchSuccessful, setDispatchSuccessful] = useState(false);
-  const levels = ['Beginner', 'Intermediate', 'Advanced', 'Professional'];
+  const { skillLevel } = useSelector((state: RootState) => state.onboarding);
 
-  const onSubmit = (data: { skillLevel: string }) => {
-    dispatch(setSkillLevel(data.skillLevel));
-    setDispatchSuccessful(true);
+  const [selectedLevel, setSelectedLevel] = useState<string | null>(null);
+
+  const beginnerLevel = ['Solid', 'Poor'];
+  const otherLevel = ['Toe', 'Heel', 'Fat', 'Thin', 'Center'];
+  const levels = skillLevel === 'Beginner' ? beginnerLevel : otherLevel;
+
+  let data = {
+    "contact": selectedLevel,
+    "ball_flight": "",
+  }
+  const onSubmit = () => {
+    if (skillLevel === 'Beginner') {
+      navigation.navigate('OnboardHome13', data)
+    }
+    else {
+      navigation.navigate('ballFlightType', selectedLevel)
+    }
+
   };
 
-  useEffect(() => {
-    if (dispatchSuccessful) {
-      if (route.params === 'videoStack') {
-        navigation.navigate('playerType');
-      } else {
-        navigation.navigate('OnboardHome4');
-      }
-
-      setDispatchSuccessful(false);
-    }
-  }, [dispatchSuccessful, navigation]);
 
   return (
     <View style={globalStyles.container}>
       <CustomHeader onBackPress={goBack} />
       <View style={globalStyles.contentContainer}>
         <Text style={globalStyles.title}>
-          What is your current handicap or skill level?
+          What is your current Contact level?
         </Text>
         <Text style={globalStyles.subTitle}>
           Analyzing video recorded diagonally or from the back may result in
@@ -66,7 +67,7 @@ const SkillLevel: React.FC<SkillLevelProps> = (props: any) => {
         </Text>
         <Controller
           control={control}
-          name="skillLevel"
+          name="playerType"
           render={({ field: { onChange } }) => (
             <View style={styles.levelContainer}>
               {levels.map((level, index) => (
@@ -83,8 +84,8 @@ const SkillLevel: React.FC<SkillLevelProps> = (props: any) => {
             </View>
           )}
         />
-        {errors.skillLevel && (
-          <Text style={styles.errorText}>{errors.skillLevel.message}</Text>
+        {errors.playerType && (
+          <Text style={styles.errorText}>{errors.playerType.message}</Text>
         )}
       </View>
       <View style={globalStyles.buttonContainer}>
@@ -94,7 +95,7 @@ const SkillLevel: React.FC<SkillLevelProps> = (props: any) => {
   );
 };
 
-export default SkillLevel;
+export default PlayerTypes;
 
 const styles = StyleSheet.create({
   levelContainer: {

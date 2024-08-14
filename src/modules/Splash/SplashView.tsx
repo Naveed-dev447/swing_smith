@@ -3,15 +3,25 @@ import { View, Text, ImageBackground, StatusBar } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import styles from './styles';
 import Button from '../../components/Button';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from 'redux/store';
+import { fetchFirstLoginStatus } from '../../redux/Slices/FirstLogin';
 
 const SplashScreen = (props: any) => {
   const { route, navigation } = props
+  const dispatch = useDispatch<AppDispatch>();
 
   const handleGetStarted = async () => {
     try {
       const token = await AsyncStorage.getItem('Token');
       if (token) {
-        navigation.navigate('BottomTabStack');
+        const isFirstLogin = await dispatch(fetchFirstLoginStatus()).unwrap();
+
+        if (isFirstLogin) {
+          navigation.replace('Onboard');
+        } else {
+          navigation.replace('BottomTabStack');
+        }
       } else {
         navigation.navigate('Login');
       }

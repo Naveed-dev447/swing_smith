@@ -121,8 +121,6 @@ const AnalysisView: React.FC = (props: any) => {
             (value: boolean) => value
           ).length;
           const progress = `${completedWorkouts}/${totalWorkouts}`;
-          console.log("progress",progress);
-          
           const trueFlagsDescription = Object.keys(parsedWorkout)
             .filter((key) => parsedWorkout[key])
             .join(', ');
@@ -165,21 +163,33 @@ const AnalysisView: React.FC = (props: any) => {
 
   const renderHeaderContent = (header: string) => {
     switch (header) {
-      case 'Positives':
-      case 'Negatives':
-        return (
-          <View style={styles.instructionContainer}>
-            <View style={styles.instructionHeader}>
-              <Text style={styles.instructionTitle}>{header}</Text>
-            </View>
-            {Object.entries(analysis?.[header]).map(([key, value]) => (
-              <Text style={styles.headerTitle} key={key}>
-                <Text style={styles.subTitle}>{key}: </Text>
-                {value}
+      case 'Head Sway':
+      case 'Hip Sway':
+      case 'Impact':
+      case 'Head Stability':
+      case 'Hip Turn':
+      case 'Pivot':
+      case 'Shoulder Tilt':
+      case 'Spine Inclination':
+      case 'Weight Forward':
+      case 'Shoulder Turn':
+      case 'Straight Arms':
+      case 'Shoulder Turn':
+
+
+        if (analysis?.[header]) {
+          return (
+            <View style={styles.instructionContainer} key={header}>
+              <View style={styles.instructionHeader}>
+                <Text style={styles.instructionTitle}>{header}</Text>
+              </View>
+              <Text style={styles.headerTitle}>
+                {analysis[header]}
               </Text>
-            ))}
-          </View>
-        );
+            </View>
+          );
+        }
+        return null;
       case 'Workout Drills':
         return (
           <View style={styles.workOutContainer}>
@@ -223,8 +233,17 @@ const AnalysisView: React.FC = (props: any) => {
       case 'Overall':
         return (
           <>
-            {renderHeaderContent('Positives')}
-            {renderHeaderContent('Negatives')}
+            {renderHeaderContent('Head Stability')}
+            {renderHeaderContent('Hip Turn')}
+            {renderHeaderContent('Pivot')}
+            {renderHeaderContent('Shoulder Tilt')}
+            {renderHeaderContent('Spine Inclination')}
+            {renderHeaderContent('Head Sway')}
+            {renderHeaderContent('Hip Sway')}
+            {renderHeaderContent('Impact')}
+            {renderHeaderContent('Weight Forward')}
+            {renderHeaderContent('Shoulder Turn')}
+            {renderHeaderContent('Straight Arms')}
             {renderHeaderContent('Workout Drills')}
             {renderHeaderContent('Golf Drills')}
             {renderHeaderContent('Video')}
@@ -282,8 +301,6 @@ const AnalysisView: React.FC = (props: any) => {
             <HorizontalScroll>
               {[
                 'Overall',
-                'Positives',
-                'Negatives',
                 'Workout Drills',
                 'Golf Drills',
                 'Video',

@@ -15,7 +15,7 @@ import {
 import { CommonActions } from '@react-navigation/native';
 
 const VideoUpload1: React.FC = (props: any) => {
-  const {route, navigation} = props;
+  const { route, navigation } = props;
 
 
   const handleSkip = () => {
@@ -31,8 +31,7 @@ const VideoUpload1: React.FC = (props: any) => {
         locations={[0.4, 1]}
         style={styles.gradient}>
         <View style={styles.container}>
-          <TouchableOpacity onPress={handleSkip}>
-            <Text style={styles.skipText}>Skip</Text>
+          <TouchableOpacity>
           </TouchableOpacity>
           <Text style={styles.centerText}>
             Upon answering a few questions, you’ll receive a more accurate
@@ -75,7 +74,7 @@ const styles = StyleSheet.create({
   skipText: {
     alignSelf: 'flex-end',
     color: '#FFFFFF',
-    fontFamily:'Outfit-Regular',
+    fontFamily: 'Outfit-Regular',
     marginTop: hp('6%'),
     marginRight: wp('2.5%'),
   },

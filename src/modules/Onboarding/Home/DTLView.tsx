@@ -27,8 +27,7 @@ const DTLView: React.FC = (props: any) => {
 
   const onSubmit = (data: { option: string }) => {
     dispatch(setDtlSelectedOption(data.option));
-    console.log("Dtl selection dispatched:",data.option)
-    navigation.navigate('OnboardHome9');   
+    navigation.navigate('OnboardHome3', 'videoStack');
   };
 
   const handleOptionSelect = (option: string) => {
