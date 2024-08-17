@@ -15,6 +15,7 @@ interface OnboardingState {
   selectedEquipment: string | null;
   selectedEquipment2: string | null;
   durationGolf: string;
+  clubType: string
 
 }
 
@@ -30,7 +31,8 @@ const initialState: OnboardingState = {
   videoHandedness: null,
   selectedEquipment: null,
   selectedEquipment2: null,
-  durationGolf: ''
+  durationGolf: '',
+  clubType: ''
 };
 
 const onboardingSlice = createSlice({
@@ -49,6 +51,9 @@ const onboardingSlice = createSlice({
     setEquipmentType: (state, action: PayloadAction<string>) => {
       state.equipmentType = action.payload;
     },
+    setClubType: (state, action: PayloadAction<string>) => {
+      state.clubType = action.payload;
+    },
     setDurationGolf: (state, action: PayloadAction<string>) => {
       state.durationGolf = action.payload;
     },
@@ -58,7 +63,7 @@ const onboardingSlice = createSlice({
     setScoringAverage: (state, action: PayloadAction<number>) => {
       state.scoringAverage = action.payload;
     },
-    setUploadedVideo: (state, action: PayloadAction<string>) => {
+    setUploadedVideo: (state, action: PayloadAction<any>) => {
       state.uploadedVideo = action.payload;
     },
     setDtlSelectedOption: (state, action: PayloadAction<string>) => {
@@ -81,6 +86,7 @@ export const {
   setAspectToImprove,
   setCoachingLesson,
   setEquipmentType,
+  setClubType,
   setDurationGolf,
   setPracticeDuration,
   setScoringAverage,

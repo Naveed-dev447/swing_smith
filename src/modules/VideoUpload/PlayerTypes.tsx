@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, FlatList } from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -14,6 +14,7 @@ import {
 } from 'react-native-responsive-screen';
 import { useSelector } from 'react-redux';
 import { RootState } from 'redux/store';
+
 interface SkillLevelProps {
   navigation: any;
 }
@@ -23,7 +24,7 @@ const schema = yup.object().shape({
 });
 
 const PlayerTypes: React.FC<SkillLevelProps> = (props: any) => {
-  const { navigation, route } = props;
+  const { navigation } = props;
   const {
     control,
     handleSubmit,
@@ -33,26 +34,35 @@ const PlayerTypes: React.FC<SkillLevelProps> = (props: any) => {
   });
   const { skillLevel } = useSelector((state: RootState) => state.onboarding);
 
-  const [selectedLevel, setSelectedLevel] = useState<string | null>(null);
+  const [selectedPlayerType, setSelectedPlayerType] = useState<string | null>(null);
 
   const beginnerLevel = ['Solid', 'Poor'];
   const otherLevel = ['Toe', 'Heel', 'Fat', 'Thin', 'Center'];
   const levels = skillLevel === 'Beginner' ? beginnerLevel : otherLevel;
 
-  let data = {
-    "contact": selectedLevel,
-    "ball_flight": "",
-  }
-  const onSubmit = () => {
-    if (skillLevel === 'Beginner') {
-      navigation.navigate('OnboardHome13', data)
-    }
-    else {
-      navigation.navigate('ballFlightType', selectedLevel)
-    }
-
+  const data = {
+    contact: selectedPlayerType,
+    ball_flight: "",
   };
 
+  const onSubmit = () => {
+    if (skillLevel === 'Beginner') {
+      navigation.navigate('OnboardHome13', data);
+    } else {
+      navigation.navigate('ballFlightType', selectedPlayerType);
+    }
+  };
+
+  const renderItem = ({ item, onChange }: { item: string, onChange: (value: string) => void }) => (
+    <SelectedTouchableButton
+      text={item}
+      isSelected={selectedPlayerType === item}
+      onPress={() => {
+        setSelectedPlayerType(item);
+        onChange(item);
+      }}
+    />
+  );
 
   return (
     <View style={globalStyles.container}>
@@ -69,19 +79,13 @@ const PlayerTypes: React.FC<SkillLevelProps> = (props: any) => {
           control={control}
           name="playerType"
           render={({ field: { onChange } }) => (
-            <View style={styles.levelContainer}>
-              {levels.map((level, index) => (
-                <SelectedTouchableButton
-                  key={index}
-                  text={level}
-                  isSelected={selectedLevel === level}
-                  onPress={() => {
-                    setSelectedLevel(level);
-                    onChange(level);
-                  }}
-                />
-              ))}
-            </View>
+            <FlatList
+              data={levels}
+              renderItem={({ item }) => renderItem({ item, onChange })}
+              keyExtractor={(item) => item}
+              numColumns={2}
+              contentContainerStyle={styles.levelContainer}
+            />
           )}
         />
         {errors.playerType && (
@@ -99,10 +103,8 @@ export default PlayerTypes;
 
 const styles = StyleSheet.create({
   levelContainer: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
     marginTop: hp('5%'),
+    alignItems: 'center'
   },
   errorText: {
     color: 'red',

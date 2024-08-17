@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -9,7 +9,7 @@ export const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'white',
     alignItems: 'center',
-    marginBottom:'20 %'
+    marginBottom: '20 %'
   },
   headerContainer: {
     flexDirection: 'row',
@@ -20,8 +20,8 @@ export const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   image: {
-    width: wp('90%'), 
-    height: hp('25%'), 
+    width: wp('90%'),
+    height: hp('25%'),
     marginBottom: hp('2%'),
     justifyContent: 'center',
     borderRadius: wp('2%'),
@@ -107,8 +107,8 @@ export const styles = StyleSheet.create({
     // borderWidth: 1,
     // borderColor: '#F0F0F0',
     // borderRadius: wp('3%'),
-      padding: wp('1%'),
-      marginBottom: hp('2%'),
+    padding: wp('1%'),
+    marginBottom: hp('2%'),
     // // Shadow for iOS
     // shadowColor: '#000',
     // shadowOffset: {
@@ -128,37 +128,37 @@ export const styles = StyleSheet.create({
 
   instructionTitle: {
     fontSize: wp('4%'),
-    fontFamily:'Outfit-Bold',
+    fontFamily: 'Outfit-Bold',
     marginRight: wp('1%'),
     color: '#192126',
   },
   subInstructionText: {
     fontSize: wp('3.5%'),
-    fontFamily:'Outfit-SemiBold',
+    fontFamily: 'Outfit-SemiBold',
     marginBottom: hp('1%'),
     color: '#192126',
   },
-  headerTitle:{
+  headerTitle: {
     fontSize: wp('3.8%'),
-    fontFamily:'Outfit-Regular',
+    fontFamily: 'Outfit-Regular',
     color: '#192126',
   },
-  subTitle:{
+  subTitle: {
     fontSize: wp('4%'),
-    fontFamily:'Outfit-SemiBold',
+    fontFamily: 'Outfit-SemiBold',
     color: '#192126',
   },
   infoIcon: {
     width: wp('6%'),
     height: wp('5%'),
     resizeMode: 'contain',
-  },  
+  },
   instructionText: {
     fontSize: wp('4%'),
     color: '#192126',
-    fontFamily:'Outfit-Regular',
+    fontFamily: 'Outfit-Regular',
   },
-  workOutContainer:{
+  workOutContainer: {
     width: wp('90%'),
   },
   tabContainer: {
@@ -173,13 +173,19 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderBottomWidth: 2,
-    borderColor: 'transparent', 
+    borderColor: 'transparent',
   },
   selectedTab: {
-    borderColor: '#232732', 
+    borderColor: '#232732',
   },
   tabText: {
     fontSize: wp('3.5%'),
     fontFamily: 'Overpass-Bold',
+  },
+  noDataText: {
+    textAlign: 'center',
+    fontSize: 16,
+    color: '#888',
+    marginVertical: 20,
   },
 });

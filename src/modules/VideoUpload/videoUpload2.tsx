@@ -26,9 +26,9 @@ const VideoUpload2: React.FC = (props: any) => {
   const options = ['Right Handed', 'Left Handed'];
 
   const onSubmit = (data: { option: string }) => {
-    dispatch(setVideoHandedness(data.option)); 
-    console.log("Postion selection dispatched:",data.option)
-    navigation.navigate('OnboardHome10');
+    dispatch(setVideoHandedness(data.option));
+    console.log("Postion selection dispatched:", data.option)
+    navigation.navigate('OnboardHome7');
   };
 
   return (
@@ -56,7 +56,7 @@ const VideoUpload2: React.FC = (props: any) => {
                   ]}
                   onPress={() => {
                     setSelectedOption(option);
-                    onChange(option); 
+                    onChange(option);
                   }}>
                   <Text
                     style={[

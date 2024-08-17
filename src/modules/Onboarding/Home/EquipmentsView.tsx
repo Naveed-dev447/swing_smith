@@ -32,8 +32,7 @@ const EquipmentsView: React.FC = (props: any) => {
 
   const equipmentOptions = [
     'Standard clubs',
-    'Custom-fitted clubs',
-    'Advanced technology clubs (e.g., smart clubs)'
+    'Custom-fitted clubs'
   ];
 
 

@@ -46,7 +46,6 @@ const AnalysisView: React.FC = (props: any) => {
   );
   const userName = profiles.length > 0 ? profiles[0].name : 'User';
 
-
   const analysis = swingAnalysis && swingAnalysis?.data?.analysis;
 
   useEffect(() => {
@@ -55,81 +54,59 @@ const AnalysisView: React.FC = (props: any) => {
         dispatch(fetchSwingAnalysis(params));
       }
     }
-    // return () => {
-    //   dispatch(resetSwingAnalysisState());
-    // };
+    return () => {
+      dispatch(resetSwingAnalysisState());
+    };
   }, [dispatch, focused]);
 
   if (loading) {
     return <ProgressLoader />;
   }
+
   const renderCards = (
-    items: any,
+    items: any[],
     Component: React.FC<any>,
     title: string,
     category: string
   ) => {
+    if (!items || items.length === 0) {
+      const messages: { [key: string]: string } = {
+        'Golf Drills': 'No golf drills available.',
+        'Workout Drills': 'No workout drills available.',
+      };
+      return <Text style={styles.noDataText}>{messages[category] || 'No data available.'}</Text>;
+    }
 
-    if (category === 'Golf Drills') {
-
-      if (Array.isArray(items) && items.length === 1) {
-        const item = items[0];
-        return (
-          <Component
-            key={0}
-            title={item.drill_name || item.name}
-            description={item.description}
-            navigateTo={{
-              routeName: 'Golf Drill',
-              params: {
-                id: item.id,
-                type: item.drill_name || item.name,
-                description: item.description,
-              },
-            }}
-          />
-        );
-      } else if (Array.isArray(items)) {
-        return items.map((item, index) => (
-          <Component
-            key={index}
-            title={item.name}
-            description={item.description}
-            navigateTo={{
-              routeName: 'Golf Drill',
-              params: {
-                id: item.id,
-                type: item.name,
-                description: item.description,
-              },
-            }}
-          />
-        ));
-      } else {
-        return (
-          <Text style={{ fontFamily: 'Outfit-Regular', color: '#192126' }}>
-            No {title.toLowerCase()} available
-          </Text>
-        );
-      }
-    } else if (category === 'Workout Drills') {
-      if (Array.isArray(items)) {
-        return items.map((item, index) => {
+    return items.map((item, index) => {
+      try {
+        if (category === 'Golf Drills') {
+          return (
+            <Component
+              key={index}
+              title={item.drill_name || item.name}
+              description={item.description || ''}
+              navigateTo={{
+                routeName: 'Golf Drill',
+                params: {
+                  id: item.id,
+                  type: item.drill_name || item.name,
+                  description: item.description || '',
+                },
+              }}
+            />
+          );
+        } else if (category === 'Workout Drills') {
           const parsedWorkout = item.workout ? JSON.parse(item.workout) : {};
           const totalWorkouts = Object.keys(parsedWorkout).length;
-          const completedWorkouts = Object.values(parsedWorkout).filter(
-            (value: boolean) => value
-          ).length;
+          const completedWorkouts = Object.values(parsedWorkout).filter((value: boolean) => value).length;
           const progress = `${completedWorkouts}/${totalWorkouts}`;
-          const trueFlagsDescription = Object.keys(parsedWorkout)
-            .filter((key) => parsedWorkout[key])
-            .join(', ');
+          const trueFlagsDescription = Object.keys(parsedWorkout).filter(key => parsedWorkout[key]).join(', ');
 
           return (
             <Component
               key={index}
               title={item.type}
-              description={trueFlagsDescription || item.description}
+              description={trueFlagsDescription || item.description || ''}
               progress={progress}
               navigateTo={{
                 routeName: 'Core Strength',
@@ -140,121 +117,134 @@ const AnalysisView: React.FC = (props: any) => {
                 },
               }}
             />
-          )
-        });
-      } else {
-        return (
-          <Text style={{ fontFamily: 'Outfit-Regular', color: '#192126' }}>
-            No {title.toLowerCase()} available
-          </Text>
-        );
-      }
-
-    } else {
-      return (
-        <Text style={{ fontFamily: 'Outfit-Regular', color: '#192126' }}>
-          No {title.toLowerCase()} available
-        </Text>
-      );
-    }
-  };
-
-
-
-  const renderHeaderContent = (header: string) => {
-    switch (header) {
-      case 'Head Sway':
-      case 'Hip Sway':
-      case 'Impact':
-      case 'Head Stability':
-      case 'Hip Turn':
-      case 'Pivot':
-      case 'Shoulder Tilt':
-      case 'Spine Inclination':
-      case 'Weight Forward':
-      case 'Shoulder Turn':
-      case 'Straight Arms':
-      case 'Shoulder Turn':
-
-
-        if (analysis?.[header]) {
-          return (
-            <View style={styles.instructionContainer} key={header}>
-              <View style={styles.instructionHeader}>
-                <Text style={styles.instructionTitle}>{header}</Text>
-              </View>
-              <Text style={styles.headerTitle}>
-                {analysis[header]}
-              </Text>
-            </View>
           );
         }
-        return null;
-      case 'Workout Drills':
-        return (
-          <View style={styles.workOutContainer}>
-            <Section title="Recommended Workouts">
-              <HorizontalScroll>
-                {renderCards(analysis['Workout Drills'], WorkoutCard, 'Core Strength', 'Workout Drills')}
-              </HorizontalScroll>
-            </Section>
-          </View>
-        );
-      case 'Golf Drills':
-        return (
-          <View style={styles.workOutContainer}>
-            <Section title="Recommended Drills">
-              <HorizontalScroll>
-                {renderCards(analysis['Golf Drills'], DrillCard, 'Core Strength', 'Golf Drills')}
-              </HorizontalScroll>
-            </Section>
-          </View>
-        );
-      case 'Video':
-        return (
-          <View style={styles.workOutContainer}>
-            <Section title="Recommended Tutorials">
-              <HorizontalScroll>
-                {swingAnalysis?.data?.recomended_tutorials?.map(
-                  (item, index) => (
-                    <TutorialCard
-                      key={index}
-                      data={item}
-                      onPress={() =>
-                        handleVideoPress(item.file_name, item.title, modalVisible)
-                      }
-                    />
-                  ),
-                )}
-              </HorizontalScroll>
-            </Section>
-          </View>
-        );
-      case 'Overall':
-        return (
-          <>
-            {renderHeaderContent('Head Stability')}
-            {renderHeaderContent('Hip Turn')}
-            {renderHeaderContent('Pivot')}
-            {renderHeaderContent('Shoulder Tilt')}
-            {renderHeaderContent('Spine Inclination')}
-            {renderHeaderContent('Head Sway')}
-            {renderHeaderContent('Hip Sway')}
-            {renderHeaderContent('Impact')}
-            {renderHeaderContent('Weight Forward')}
-            {renderHeaderContent('Shoulder Turn')}
-            {renderHeaderContent('Straight Arms')}
-            {renderHeaderContent('Workout Drills')}
-            {renderHeaderContent('Golf Drills')}
-            {renderHeaderContent('Video')}
-          </>
-        );
-      default:
-        return (
-          <Text style={styles.instructionText}>
-            No data available for this category.
-          </Text>
-        );
+      } catch (error) {
+        console.error(`Error rendering card: ${error}`);
+        return <Text style={styles.noDataText}>Error rendering data.</Text>;
+      }
+      return null;
+    });
+  };
+
+  const renderHeaderContent = (header: string) => {
+    try {
+      switch (header) {
+        case 'Head Sway':
+        case 'Hip Sway':
+        case 'Impact':
+        case 'Head Stability':
+        case 'Hip Turn':
+        case 'Pivot':
+        case 'Shoulder Tilt':
+        case 'Spine Inclination':
+        case 'Weight Forward':
+        case 'Shoulder Turn':
+        case 'Straight Arms':
+          if (analysis?.[header]) {
+            return (
+              <View style={styles.instructionContainer} key={header}>
+                <View style={styles.instructionHeader}>
+                  <Text style={styles.instructionTitle}>{header}</Text>
+                </View>
+                <Text style={styles.headerTitle}>{analysis[header]}</Text>
+              </View>
+            );
+          }
+          return null;
+
+        case 'Workout Drills':
+          if (analysis?.['Workout Drills'] && Array.isArray(analysis['Workout Drills']) && analysis['Workout Drills'].length) {
+            return (
+              <View style={styles.workOutContainer}>
+                <Section title="Recommended Workouts">
+                  <HorizontalScroll>
+                    {renderCards(analysis['Workout Drills'], WorkoutCard, 'Core Strength', 'Workout Drills')}
+                  </HorizontalScroll>
+                </Section>
+              </View>
+            );
+          }
+          return (
+            <View style={styles.workOutContainer}>
+              <Section title="Recommended Workouts">
+                <Text style={styles.noDataText}>No workout drills available.</Text>
+              </Section>
+            </View>
+          )
+
+        case 'Golf Drills':
+          if (analysis?.['Golf Drills'] && Array.isArray(analysis['Golf Drills']) && analysis['Golf Drills'].length) {
+            return (
+              <View style={styles.workOutContainer}>
+                <Section title="Recommended Drills">
+                  <HorizontalScroll>
+                    {renderCards(analysis['Golf Drills'], DrillCard, 'Core Strength', 'Golf Drills')}
+                  </HorizontalScroll>
+                </Section>
+              </View>
+            );
+          }
+          return (
+            <View style={styles.workOutContainer}>
+              <Section title="Recommended Drills">
+                <Text style={styles.noDataText}>No golf drills available.</Text>
+              </Section>
+            </View>
+          )
+
+        case 'Video':
+          if (swingAnalysis?.data?.recomended_tutorials && Array.isArray(swingAnalysis.data.recomended_tutorials) && swingAnalysis.data.recomended_tutorials.length) {
+            return (
+              <View style={styles.workOutContainer}>
+                <Section title="Recommended Tutorials">
+                  <HorizontalScroll>
+                    {swingAnalysis.data.recomended_tutorials.map((item, index) => (
+                      <TutorialCard
+                        key={index}
+                        data={item}
+                        onPress={() => handleVideoPress(item.file_name, item.title)}
+                      />
+                    ))}
+                  </HorizontalScroll>
+                </Section>
+              </View>
+            );
+          }
+          return (
+            <View style={styles.workOutContainer}>
+              <Section title="Recommended Tutorials">
+                <Text style={styles.noDataText}>No videos available.</Text>
+              </Section>
+            </View>
+          )
+
+        case 'Overall':
+          return (
+            <>
+              {renderHeaderContent('Head Stability')}
+              {renderHeaderContent('Hip Turn')}
+              {renderHeaderContent('Pivot')}
+              {renderHeaderContent('Shoulder Tilt')}
+              {renderHeaderContent('Spine Inclination')}
+              {renderHeaderContent('Head Sway')}
+              {renderHeaderContent('Hip Sway')}
+              {renderHeaderContent('Impact')}
+              {renderHeaderContent('Weight Forward')}
+              {renderHeaderContent('Shoulder Turn')}
+              {renderHeaderContent('Straight Arms')}
+              {renderHeaderContent('Workout Drills')}
+              {renderHeaderContent('Golf Drills')}
+              {renderHeaderContent('Video')}
+            </>
+          );
+
+        default:
+          return <Text style={styles.noDataText}>No data available for this category.</Text>;
+      }
+    } catch (error) {
+      console.error(`Error rendering header content: ${error}`);
+      return <Text style={styles.noDataText}>Error displaying data.</Text>;
     }
   };
 
@@ -272,29 +262,18 @@ const AnalysisView: React.FC = (props: any) => {
           <View style={styles.analysisCardContainer}>
             <Image source={profileImage} style={styles.profileImage} />
             <View style={styles.userInfo}>
-              <Text style={styles.userName}>{`${userName}`}</Text>
+              <Text style={styles.userName}>{userName}</Text>
               <Text style={styles.userSkill}>DTF/Iron/Right Handed</Text>
             </View>
             <View style={styles.scoreContainer}>
               <Image source={flagImage} style={styles.flagImage} />
               <Text style={styles.scoreText}>
-                {analysis && analysis['Swing Rating']}
+                {analysis?.SwingRating ? analysis.SwingRating : 'N/A'}
               </Text>
-              <Text style={styles.scoreLabel}>SCORE</Text>
             </View>
-          </View>
-          <View style={styles.scoreCardContainer}>
-            <View style={styles.scoreCard}>
-              <Text style={styles.scoreCardText}>Posture Score</Text>
+            <View style={styles.scoreContainer}>
               <Image source={ruler} style={styles.scoreCardIcon} />
-              <Text style={styles.scoreCardValue}>{analysis?.Posture}/10</Text>
-            </View>
-            <View style={styles.scoreCard}>
-              <Text style={styles.scoreCardText}>Swing Rhythm</Text>
-              <Image source={wind} style={styles.scoreCardIcon} />
-              <Text style={styles.scoreCardValue}>
-                {analysis && analysis['Swing Rhythm']}/10
-              </Text>
+              <Text style={styles.scoreCardValue}>{analysis?.SwingRhythm}/10</Text>
             </View>
           </View>
           <View style={styles.tabContainer}>
@@ -311,24 +290,24 @@ const AnalysisView: React.FC = (props: any) => {
                     styles.tab,
                     selectedTab === tab && styles.selectedTab,
                   ]}
-                  onPress={() => setSelectedTab(tab)}>
+                  onPress={() => setSelectedTab(tab)}
+                >
                   <Text
                     style={[
                       styles.tabText,
-                      { color: selectedTab === tab ? '#232732' : '#7E7E7E' },
-                    ]}>
+                      selectedTab === tab && styles.selectedTabText,
+                    ]}
+                  >
                     {tab}
                   </Text>
                 </TouchableOpacity>
               ))}
             </HorizontalScroll>
           </View>
-          {selectedTab && renderHeaderContent(selectedTab)}
+          {renderHeaderContent(selectedTab)}
         </ScrollView>
       ) : (
-        <View style={{ flex: 1, justifyContent: 'center', alignContent: 'center', alignItems: 'center' }}>
-          <Text>No Swing Analysis found</Text>
-        </View>
+        <Text style={styles.noDataText}>No Analysis Data Available</Text>
       )}
       {selectedVideo && (
         <VideoModal

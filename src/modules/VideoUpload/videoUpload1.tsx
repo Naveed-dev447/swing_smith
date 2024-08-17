@@ -40,7 +40,7 @@ const VideoUpload1: React.FC = (props: any) => {
           <View>
             <CustomButton
               title="Next"
-              onPress={() => navigation.navigate('OnboardHome7')}
+              onPress={() => navigation.navigate('clubType')}
             />
           </View>
         </View>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, ScrollView, TouchableOpacity, Image } from 'react-native';
+import { View, Text, TouchableOpacity, Image, FlatList } from 'react-native';
 import { SwingCard } from './Common/Common';
 import globalStyles from './styles';
 import { Header } from './Common/Common';
@@ -12,10 +12,14 @@ import ProgressLoader from '../../../components/ProgressLoader';
 import * as util from '../../../shared/Utils/CommonUtils';
 
 const SwingLogView: React.FC = (props: any) => {
-  const { routes, navigation } = props;
+  const { navigation } = props;
   const [modalVisible, setModalVisible] = useState(false);
+  const [filteredLogs, setFilteredLogs] = useState<any>([]);
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const [selectedClub, setSelectedClub] = useState<string | null>(null);
+
   const dispatch = useDispatch<AppDispatch>();
-  const { swingLogs, loading, error } = useSelector(
+  const { swingLogs, loading } = useSelector(
     (state: RootState) => state.swingLogs,
   );
 
@@ -23,18 +27,61 @@ const SwingLogView: React.FC = (props: any) => {
     dispatch(fetchSwingLogs());
   }, [dispatch]);
 
+  useEffect(() => {
+    setFilteredLogs(swingLogs); // Initially show all logs
+  }, [swingLogs]);
+
   const toggleModal = () => {
     setModalVisible(!modalVisible);
+  };
+
+  const applyFilters = () => {
+    let filtered = swingLogs;
+
+    if (selectedDate) {
+      filtered = filtered.filter(log =>
+        util.formatDate(log.created_at) === util.formatDate(selectedDate)
+      );
+    }
+
+    if (selectedClub) {
+      filtered = filtered.filter(log => log.club === selectedClub);
+    }
+
+    setFilteredLogs(filtered);
+    toggleModal();
   };
 
   if (loading) {
     return <ProgressLoader />;
   }
 
+  const renderItem = ({ item }: { item: any }) => {
+    let swingAnalysisText;
+    if (typeof item.swing_analysis === 'object') {
+      swingAnalysisText = Object.entries(item.swing_analysis)
+        .map(([key, value]) => `${key}: ${value}`)
+        .join(', ');
+    } else {
+      swingAnalysisText = item.swing_analysis;
+    }
+
+    return (
+      <SwingCard
+        score={item.swing_rating}
+        date={util.formatDate(item.created_at)}
+        description={swingAnalysisText}
+        type={'Iron'}
+        shot={'DTL'}
+        navigate={() => navigation.navigate('AnalysisView', item.id)}
+      />
+    );
+  };
+
   return (
     <View style={globalStyles.container}>
       <Header
-        toggleModal={() => console.log('tiles pressed')}
+        toggleModal={() => setFilteredLogs(swingLogs)}
         name={''}
         address={''}
       />
@@ -47,31 +94,13 @@ const SwingLogView: React.FC = (props: any) => {
           />
         </TouchableOpacity>
       </View>
-      {swingLogs && swingLogs.length > 0 ? (
-        <ScrollView contentContainerStyle={globalStyles.SwingLogScrollView}>
-          {swingLogs.map((item, index) => {
-            let swingAnalysisText;
-            if (typeof item.swing_analysis === 'object') {
-              swingAnalysisText = Object.entries(item.swing_analysis)
-                .map(([key, value]) => `${key}: ${value}`)
-                .join(', ');
-            } else {
-              swingAnalysisText = item.swing_analysis;
-            }
-
-            return (
-              <SwingCard
-                key={index}
-                score={item.swing_rating}
-                date={util.formatDate(item.created_at)}
-                description={swingAnalysisText} // Render the formatted string
-                type={'Iron'}
-                shot={'DTL'}
-                navigate={() => navigation.navigate('AnalysisView', item.id)}
-              />
-            );
-          })}
-        </ScrollView>
+      {filteredLogs && filteredLogs.length > 0 ? (
+        <FlatList
+          data={filteredLogs}
+          keyExtractor={(item, index) => index.toString()}
+          renderItem={renderItem}
+          contentContainerStyle={globalStyles.SwingLogScrollView}
+        />
       ) : (
         <View
           style={{
@@ -89,7 +118,13 @@ const SwingLogView: React.FC = (props: any) => {
         swipeDirection="down"
         onSwipeComplete={toggleModal}
         style={globalStyles.modal}>
-        <FilterModal closeModal={toggleModal} />
+        <FilterModal
+          closeModal={applyFilters}
+          selectedDate={selectedDate}
+          setSelectedDate={setSelectedDate}
+          selectedClub={selectedClub}
+          setSelectedClub={setSelectedClub}
+        />
       </Modal>
     </View>
   );

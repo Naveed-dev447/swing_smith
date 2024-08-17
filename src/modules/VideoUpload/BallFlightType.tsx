@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, FlatList } from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -12,7 +12,6 @@ import {
     widthPercentageToDP as wp,
     heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-
 
 const schema = yup.object().shape({
     ballType: yup.string().required('Please select a Ball flight'),
@@ -30,24 +29,23 @@ const BallFlightTypes = (props: any) => {
 
     const [selectedLevel, setSelectedLevel] = useState<string | null>(null);
 
-
     const levels = ['Push', 'Pull', 'Slice', 'Hook', 'Fade', 'Draw', 'Straight'];
 
     let data = {
         "contact": route.params,
         "ball_flight": selectedLevel,
-    }
+    };
+
     const onSubmit = () => {
         navigation.navigate('OnboardHome13', data);
     };
-
 
     return (
         <View style={globalStyles.container}>
             <CustomHeader onBackPress={goBack} />
             <View style={globalStyles.contentContainer}>
                 <Text style={globalStyles.title}>
-                    What is your current Ball flight ?
+                    What is your current Ball flight?
                 </Text>
                 <Text style={globalStyles.subTitle}>
                     Analyzing video recorded diagonally or from the back may result in
@@ -57,19 +55,22 @@ const BallFlightTypes = (props: any) => {
                     control={control}
                     name="ballType"
                     render={({ field: { onChange } }) => (
-                        <View style={styles.levelContainer}>
-                            {levels.map((level, index) => (
+                        <FlatList
+                            data={levels}
+                            numColumns={2}
+                            contentContainerStyle={styles.levelContainer}
+                            keyExtractor={(item) => item}
+                            renderItem={({ item }) => (
                                 <SelectedTouchableButton
-                                    key={index}
-                                    text={level}
-                                    isSelected={selectedLevel === level}
+                                    text={item}
+                                    isSelected={selectedLevel === item}
                                     onPress={() => {
-                                        setSelectedLevel(level);
-                                        onChange(level);
+                                        setSelectedLevel(item);
+                                        onChange(item);
                                     }}
                                 />
-                            ))}
-                        </View>
+                            )}
+                        />
                     )}
                 />
                 {errors.ballType && (
@@ -87,10 +88,9 @@ export default BallFlightTypes;
 
 const styles = StyleSheet.create({
     levelContainer: {
-        flexDirection: 'row',
-        flexWrap: 'wrap',
         justifyContent: 'space-between',
         marginTop: hp('5%'),
+        paddingBottom: hp('10%')
     },
     errorText: {
         color: 'red',

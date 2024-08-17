@@ -34,6 +34,7 @@ import WorkoutDrillView from '../modules/Dashboard/Workout/WorkoutDrillView.tsx'
 import SkillLevel from '../modules/Onboarding/Home/SkillLevel.tsx';
 import PlayerTypes from '../modules/VideoUpload/PlayerTypes.tsx';
 import BallFlightTypes from '../modules/VideoUpload/BallFlightType.tsx';
+import ClubType from '../modules/VideoUpload/ClubType.tsx';
 
 const Stack = createStackNavigator();
 
@@ -75,6 +76,11 @@ const RootNavigation = () => {
             options={{ headerShown: false }}
             name="OnboardHome3"
             component={SkillLevel}
+          />
+          <Stack.Screen
+            options={{ headerShown: false }}
+            name="clubType"
+            component={ClubType}
           />
           <Stack.Screen
             options={{ headerShown: false }}

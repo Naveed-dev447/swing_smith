@@ -28,7 +28,7 @@ const VideoUpload5: React.FC = (props: any) => {
   const { navigation, route } = props;
   const { contact, ball_flight } = route.params;
 
-  const { uploadedVideo, skillLevel, dtlSelectedOption } = useSelector((state: RootState) => state.onboarding);
+  const { clubType, videoHandedness, uploadedVideo, skillLevel, dtlSelectedOption } = useSelector((state: RootState) => state.onboarding);
   const { loading, setLoading } = useLoader();
   const [getTip, setGetTip] = useState<ITipsResponse | null>(null);
 
@@ -43,7 +43,9 @@ const VideoUpload5: React.FC = (props: any) => {
           "type": skillLevel,
           "contact": contact,
           "ball_flight": ball_flight,
-          "face_direction": dtlSelectedOption === 'Down the Line' ? 'down' : 'up'
+          "face_direction": dtlSelectedOption === 'Down the Line' ? 'down' : 'up',
+          "hand": videoHandedness === 'Right Handed' ? 'right' : 'left',
+          "club": clubType
         }
       };
       try {
