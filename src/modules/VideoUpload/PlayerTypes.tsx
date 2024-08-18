@@ -69,11 +69,10 @@ const PlayerTypes: React.FC<SkillLevelProps> = (props: any) => {
       <CustomHeader onBackPress={goBack} />
       <View style={globalStyles.contentContainer}>
         <Text style={globalStyles.title}>
-          What is your current Contact level?
+        How was your contact in this video?        
         </Text>
         <Text style={globalStyles.subTitle}>
-          Analyzing video recorded diagonally or from the back may result in
-          lower accuracy
+        How was your ball flight in this video and remove the paragraph. And position the straight box in the center of the screen.
         </Text>
         <Controller
           control={control}

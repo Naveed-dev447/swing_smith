@@ -1,22 +1,31 @@
-import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
+import React, {useState} from 'react';
+import {View, Text, TouchableOpacity, Image, StyleSheet} from 'react-native';
 import CustomHeader from '../../../shared/Component/CustomHeader';
 import CustomButton from '../../../shared/Component/CustomButton';
 import globalStyles from '../styles';
-import { goBack } from '../../../shared/Utils/navigationRef';
-import { useForm, Controller } from 'react-hook-form';
+import {goBack} from '../../../shared/Utils/navigationRef';
+import {useForm, Controller} from 'react-hook-form';
 import * as yup from 'yup';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-import { useDispatch } from 'react-redux';
-import { setDtlSelectedOption } from '../../../redux/Slices/OnboardingSlice';
+import {yupResolver} from '@hookform/resolvers/yup';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
+import {useDispatch} from 'react-redux';
+import {setDtlSelectedOption} from '../../../redux/Slices/OnboardingSlice';
 const schema = yup.object().shape({
   option: yup.string().required('Please select an option'),
 });
 
 const DTLView: React.FC = (props: any) => {
-  const { route, navigation } = props;
-  const { control, handleSubmit, formState: { errors }, setValue, clearErrors } = useForm({
+  const {route, navigation} = props;
+  const {
+    control,
+    handleSubmit,
+    formState: {errors},
+    setValue,
+    clearErrors,
+  } = useForm({
     resolver: yupResolver(schema),
   });
 
@@ -25,7 +34,7 @@ const DTLView: React.FC = (props: any) => {
 
   const options = ['Down the Line', 'Face On'];
 
-  const onSubmit = (data: { option: string }) => {
+  const onSubmit = (data: {option: string}) => {
     dispatch(setDtlSelectedOption(data.option));
     navigation.navigate('OnboardHome3', 'videoStack');
   };
@@ -41,31 +50,32 @@ const DTLView: React.FC = (props: any) => {
       <CustomHeader onBackPress={goBack} />
       <View style={globalStyles.contentContainer}>
         <Text style={globalStyles.title}>
-          Please select a video that is close to face on or DTL
+          which camera angle was used in this video?
         </Text>
         <Text style={globalStyles.subTitle}>
-          Analyzing video recorder diagonally or from the back may result in lower accuracy
+          Analyzing video recorder diagonally or from the back may result in
+          lower accuracy
         </Text>
         <Controller
           control={control}
           name="option"
-          render={({ field: { onChange } }) => (
+          render={({field: {onChange}}) => (
             <View style={globalStyles.dtlOptionContainer}>
               {options.map((option, index) => (
                 <TouchableOpacity
                   key={index}
                   style={[
                     globalStyles.dtlOptionButton,
-                    selectedOption === option && globalStyles.selectedOptionButton
+                    selectedOption === option &&
+                      globalStyles.selectedOptionButton,
                   ]}
-                  onPress={() => handleOptionSelect(option)}
-                >
+                  onPress={() => handleOptionSelect(option)}>
                   <Text
                     style={[
                       globalStyles.optionText,
-                      selectedOption === option && globalStyles.dtlSelectedOptionText
-                    ]}
-                  >
+                      selectedOption === option &&
+                        globalStyles.dtlSelectedOptionText,
+                    ]}>
                     {option}
                   </Text>
                 </TouchableOpacity>
@@ -73,17 +83,16 @@ const DTLView: React.FC = (props: any) => {
             </View>
           )}
         />
-        {errors.option && <Text style={styles.errorText}>{errors.option.message}</Text>}
+        {errors.option && (
+          <Text style={styles.errorText}>{errors.option.message}</Text>
+        )}
         <Image
           source={require('../../../assets/Images/DTL.png')}
           style={globalStyles.golferImage}
         />
       </View>
       <View style={globalStyles.buttonContainer}>
-        <CustomButton
-          title="Next"
-          onPress={handleSubmit(onSubmit)}
-        />
+        <CustomButton title="Next" onPress={handleSubmit(onSubmit)} />
       </View>
     </View>
   );
