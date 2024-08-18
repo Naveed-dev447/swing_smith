@@ -31,7 +31,7 @@ const AnalysisView: React.FC = (props: any) => {
   const { navigation, route } = props;
   const { params } = route;
   const focused = useIsFocused();
-  const [selectedTab, setSelectedTab] = useState('Overall');
+  const [selectedTab, setSelectedTab] = useState('Analysis ');
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedVideo, setSelectedVideo] = useState<{
     uri: string;
@@ -153,7 +153,7 @@ const AnalysisView: React.FC = (props: any) => {
           }
           return null;
 
-        case 'Workout Drills':
+        case 'Exercise Drills':
           if (analysis?.['Workout Drills'] && Array.isArray(analysis['Workout Drills']) && analysis['Workout Drills'].length) {
             return (
               <View style={styles.workOutContainer}>
@@ -173,7 +173,7 @@ const AnalysisView: React.FC = (props: any) => {
             </View>
           )
 
-        case 'Golf Drills':
+        case 'Swing Drills':
           if (analysis?.['Golf Drills'] && Array.isArray(analysis['Golf Drills']) && analysis['Golf Drills'].length) {
             return (
               <View style={styles.workOutContainer}>
@@ -219,7 +219,7 @@ const AnalysisView: React.FC = (props: any) => {
             </View>
           )
 
-        case 'Overall':
+        case 'Analysis ':
           return (
             <>
               {renderHeaderContent('Head Stability')}
@@ -233,8 +233,8 @@ const AnalysisView: React.FC = (props: any) => {
               {renderHeaderContent('Weight Forward')}
               {renderHeaderContent('Shoulder Turn')}
               {renderHeaderContent('Straight Arms')}
-              {renderHeaderContent('Workout Drills')}
-              {renderHeaderContent('Golf Drills')}
+              {renderHeaderContent('Exercise Drills')}
+              {renderHeaderContent('Swing Drills')}
               {renderHeaderContent('Video')}
             </>
           );
@@ -279,9 +279,9 @@ const AnalysisView: React.FC = (props: any) => {
           <View style={styles.tabContainer}>
             <HorizontalScroll>
               {[
-                'Overall',
-                'Workout Drills',
-                'Golf Drills',
+                'Analysis ',
+                'Exercise Drills',
+                'Swing Drills',
                 'Video',
               ].map(tab => (
                 <TouchableOpacity
