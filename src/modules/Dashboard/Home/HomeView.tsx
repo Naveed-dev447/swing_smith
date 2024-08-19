@@ -116,7 +116,7 @@ const HomeView = (props: any) => {
             )
           }
         />
-        <Section title="Recommended Workouts">
+        <Section title="Recommended Exercise Drills">
           <FlatList
             horizontal
             showsHorizontalScrollIndicator={false}
@@ -139,7 +139,7 @@ const HomeView = (props: any) => {
           />
 
         </Section>
-        <Section title="Recommended Drills">
+        <Section title="Recommended Swing Drills">
           <FlatList
             data={drills}
             horizontal
