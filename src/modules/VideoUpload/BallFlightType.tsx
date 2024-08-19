@@ -45,11 +45,7 @@ const BallFlightTypes = (props: any) => {
             <CustomHeader onBackPress={goBack} />
             <View style={globalStyles.contentContainer}>
                 <Text style={globalStyles.title}>
-                    What is your current Ball flight?
-                </Text>
-                <Text style={globalStyles.subTitle}>
-                    Analyzing video recorded diagonally or from the back may result in
-                    lower accuracy
+                    How was your ball flight in this video ?
                 </Text>
                 <Controller
                     control={control}
