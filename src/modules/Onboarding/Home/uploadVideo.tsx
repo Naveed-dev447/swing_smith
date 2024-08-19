@@ -210,16 +210,18 @@ const UploadVideo: React.FC = (props: any) => {
 
 const styles = StyleSheet.create({
   uploadContainer: {
-    width: wp('90%'),
-    height: hp('25%'),
+    width: wp('70%'),
+    height: hp('45%'),
     borderWidth: 2,
-    borderColor: '#B2FF59',
+    borderColor: '#F8F8F8',
     borderRadius: wp('5%'),
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#F8F8F8',
     marginBottom: hp('5%'),
     paddingHorizontal: 2,
+    alignSelf: 'center',  
+
   },
   uploadContainerWithoutBorder: {
     borderWidth: 0,

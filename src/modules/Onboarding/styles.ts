@@ -141,6 +141,13 @@ const globalStyles = StyleSheet.create({
     alignSelf: 'center',
     marginTop: hp('5%'),
   },
+  golferImage1: {
+    width: wp('80%'),
+    height: hp('40%'),
+    resizeMode: 'contain',
+    alignSelf: 'center',
+    // marginTop: hp('1%'),
+  },
   sliderContainer: {
     alignItems: 'center',
     flex: 1,
