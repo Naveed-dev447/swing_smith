@@ -186,7 +186,7 @@ const globalStyles = StyleSheet.create({
     color: '#192126',
   },
   card: {
-    marginLeft: wp('1%'),
+    marginLeft: wp('1.5%'),
     backgroundColor: 'white',
     borderRadius: wp('2%'),
     padding: wp('3%'),

@@ -71,9 +71,9 @@ const SwingLogView: React.FC = (props: any) => {
         score={item.swing_rating}
         date={util.formatDate(item.created_at)}
         description={swingAnalysisText}
-        type={'Iron'}
-        shot={'DTL'}
-        navigate={() => navigation.navigate('AnalysisView', item.id)}
+        type={item.club ? item.club : 'Iron'}
+        shot={item.face_direction === 'up' ? 'FO' : 'DTL'}
+        navigate={() => navigation.navigate('AnalysisView', item)}
       />
     );
   };

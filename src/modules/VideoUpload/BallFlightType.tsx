@@ -88,6 +88,7 @@ export default BallFlightTypes;
 
 const styles = StyleSheet.create({
     levelContainer: {
+        alignItems: 'center',
         justifyContent: 'space-between',
         marginTop: hp('5%'),
         paddingBottom: hp('10%')
