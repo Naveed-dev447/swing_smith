@@ -34,8 +34,13 @@ const DTLView: React.FC = (props: any) => {
 
   const options = ['Down the Line', 'Face On'];
 
+  const pic1 = require('../../../assets/Images/DTL/pic1.png');
+  const pic2 = require('../../../assets/Images/DTL/pic2.png');
+
   const onSubmit = (data: {option: string}) => {
     dispatch(setDtlSelectedOption(data.option));
+    console.log("camera angle:",data.option);
+    
     navigation.navigate('OnboardHome3', 'videoStack');
   };
 
@@ -50,11 +55,7 @@ const DTLView: React.FC = (props: any) => {
       <CustomHeader onBackPress={goBack} />
       <View style={globalStyles.contentContainer}>
         <Text style={globalStyles.title}>
-          which camera angle was used in this video?
-        </Text>
-        <Text style={globalStyles.subTitle}>
-          Analyzing video recorder diagonally or from the back may result in
-          lower accuracy
+          Which camera angle was used in this video?
         </Text>
         <Controller
           control={control}
@@ -83,13 +84,15 @@ const DTLView: React.FC = (props: any) => {
             </View>
           )}
         />
-        {errors.option && (
+       {errors.option && (
           <Text style={styles.errorText}>{errors.option.message}</Text>
         )}
-        <Image
-          source={require('../../../assets/Images/DTL.png')}
-          style={globalStyles.golferImage}
-        />
+                {selectedOption && (
+          <Image
+            source={selectedOption === 'Down the Line' ? pic1 : pic2}
+            style={globalStyles.golferImage1}
+          />
+        )}
       </View>
       <View style={globalStyles.buttonContainer}>
         <CustomButton title="Next" onPress={handleSubmit(onSubmit)} />

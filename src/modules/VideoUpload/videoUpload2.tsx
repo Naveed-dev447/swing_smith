@@ -36,11 +36,7 @@ const VideoUpload2: React.FC = (props: any) => {
       <CustomHeader onBackPress={goBack} />
       <View style={styles.contentContainer}>
         <Text style={styles.title}>
-          Make sure your swing angle and Headedness is in correct position{' '}
-        </Text>
-        <Text style={styles.subTitle}>
-          Check out the example image below on how to set your camera ( Set up
-          using me the back camera ){' '}
+        Was this swing right handed or left handed?
         </Text>
         <Controller
           control={control}
@@ -112,11 +108,11 @@ const styles = StyleSheet.create({
     marginBottom: hp('3%'),
   },
   selectedEquipmentButton: {
-    backgroundColor: '#192126',
+    backgroundColor: '#ADFF2F',
   },
   dtlSelectedOptionText: {
     fontFamily: 'Outfit-Regular',
-    color: '#ffff',
+    color: '#192126',
     lineHeight: 22,
   },
   errorText: {

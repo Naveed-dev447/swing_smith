@@ -157,7 +157,7 @@ const AnalysisView: React.FC = (props: any) => {
           if (analysis?.['Workout Drills'] && Array.isArray(analysis['Workout Drills']) && analysis['Workout Drills'].length) {
             return (
               <View style={styles.workOutContainer}>
-                <Section title="Recommended Workouts">
+                <Section title="Recommended Exercise Drills">
                   <HorizontalScroll>
                     {renderCards(analysis['Workout Drills'], WorkoutCard, 'Core Strength', 'Workout Drills')}
                   </HorizontalScroll>
@@ -167,8 +167,8 @@ const AnalysisView: React.FC = (props: any) => {
           }
           return (
             <View style={styles.workOutContainer}>
-              <Section title="Recommended Workouts">
-                <Text style={styles.noDataText}>No workout drills available.</Text>
+              <Section title="Recommended Exercise Drills">
+                <Text style={styles.noDataText}>No exercise drills available.</Text>
               </Section>
             </View>
           )
@@ -177,7 +177,7 @@ const AnalysisView: React.FC = (props: any) => {
           if (analysis?.['Golf Drills'] && Array.isArray(analysis['Golf Drills']) && analysis['Golf Drills'].length) {
             return (
               <View style={styles.workOutContainer}>
-                <Section title="Recommended Drills">
+                <Section title="Recommended Swing Drills">
                   <HorizontalScroll>
                     {renderCards(analysis['Golf Drills'], DrillCard, 'Core Strength', 'Golf Drills')}
                   </HorizontalScroll>
@@ -187,8 +187,8 @@ const AnalysisView: React.FC = (props: any) => {
           }
           return (
             <View style={styles.workOutContainer}>
-              <Section title="Recommended Drills">
-                <Text style={styles.noDataText}>No golf drills available.</Text>
+              <Section title="Recommended Swing Drills">
+                <Text style={styles.noDataText}>No swing drills available.</Text>
               </Section>
             </View>
           )

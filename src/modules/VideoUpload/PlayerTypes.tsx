@@ -71,9 +71,6 @@ const PlayerTypes: React.FC<SkillLevelProps> = (props: any) => {
         <Text style={globalStyles.title}>
         How was your contact in this video?        
         </Text>
-        <Text style={globalStyles.subTitle}>
-        How was your ball flight in this video and remove the paragraph. And position the straight box in the center of the screen.
-        </Text>
         <Controller
           control={control}
           name="playerType"
