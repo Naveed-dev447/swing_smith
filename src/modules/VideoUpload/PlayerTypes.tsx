@@ -69,7 +69,7 @@ const PlayerTypes: React.FC<SkillLevelProps> = (props: any) => {
       <CustomHeader onBackPress={goBack} />
       <View style={globalStyles.contentContainer}>
         <Text style={globalStyles.title}>
-          What is your current contact level?
+        What is your current contact level?       
         </Text>
         <Controller
           control={control}

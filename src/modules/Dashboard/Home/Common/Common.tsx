@@ -167,7 +167,7 @@ export const AnalysisCard: React.FC<{
 
 export const UploadSwing: React.FC<{onClick: () => void}> = ({onClick}) => (
   <ImageBackground
-    source={require('../../../../assets/Images/DashBoard/swingsImage.png')}
+    source={require('../../../../assets/Images/importSwing2.png')}
     style={globalStyles.uploadSwingImage}
     resizeMode="cover"
     imageStyle={{borderRadius: wp('2%')}}>
