@@ -128,9 +128,9 @@ const UploadVideo: React.FC = (props: any) => {
           Upload your golf video to get an analysis 🪪
         </Text>
         <Text style={globalStyles.subTitle}>
-          Regulations require you to upload a high-quality video of you playing
-          golf to get an instant analysis. Don't worry, we will guide you
-          through it to show you improvements in game.
+          In order to achieve the best results, please upload high-quality
+          videos from either face on or down the line camera angles at chest
+          height.
         </Text>
         <Controller
           control={control}

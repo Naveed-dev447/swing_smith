@@ -22,20 +22,14 @@ const ClubType: React.FC = ({ route, navigation }: any) => {
   });
   const dispatch = useDispatch();
   const [selectedClub, setSelectedClub] = useState<string | null>(null);
-  const [dispatchSuccessful, setDispatchSuccessful] = useState(false);
 
   const clubOptions = ['Driver', 'Woods', 'Irons', 'Wedges', 'Putter'];
 
-  const onSubmit = (data: { club: string }) => {    
+  const onSubmit = (data: { club: string }) => {
     dispatch(setClubType(data.club));
-    setDispatchSuccessful(true);
+    navigation.navigate('OnboardHome9');
   };
 
-  useEffect(() => {
-    if (dispatchSuccessful) {
-      navigation.navigate('OnboardHome9');
-    }
-  }, [dispatchSuccessful, navigation]);
 
   const renderClubOption = ({ item, onChange }: { item: string, onChange: (value: string) => void }) => (
     <SelectedTouchableButton
@@ -72,14 +66,14 @@ const ClubType: React.FC = ({ route, navigation }: any) => {
             />
           )}
         />
-       {errors.club && <Text style={globalStyles.errorText}>{errors.club.message}</Text>}
-        </View>
-        <View style={globalStyles.buttonContainer}>
-          <CustomButton
-            title="Next"
-            onPress={handleSubmit(onSubmit)}
-          />
-        </View>
+        {errors.club && <Text style={globalStyles.errorText}>{errors.club.message}</Text>}
+      </View>
+      <View style={globalStyles.buttonContainer}>
+        <CustomButton
+          title="Next"
+          onPress={handleSubmit(onSubmit)}
+        />
+      </View>
     </View>
   );
 };
@@ -89,6 +83,6 @@ export default ClubType;
 const styles = StyleSheet.create({
   clubContainer: {
     marginTop: hp('5%'),
-    alignItems:'center'
+    alignItems: 'center'
   },
 });

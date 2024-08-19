@@ -60,10 +60,6 @@ const SkillLevel: React.FC<SkillLevelProps> = (props: any) => {
         <Text style={globalStyles.title}>
           What is your current handicap or skill level?
         </Text>
-        <Text style={globalStyles.subTitle}>
-          Analyzing video recorded diagonally or from the back may result in
-          lower accuracy
-        </Text>
         <Controller
           control={control}
           name="skillLevel"

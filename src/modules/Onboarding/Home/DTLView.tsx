@@ -7,7 +7,10 @@ import { goBack } from '../../../shared/Utils/navigationRef';
 import { useForm, Controller } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 import { useDispatch } from 'react-redux';
 import { setDtlSelectedOption } from '../../../redux/Slices/OnboardingSlice';
 const schema = yup.object().shape({
@@ -16,7 +19,13 @@ const schema = yup.object().shape({
 
 const DTLView: React.FC = (props: any) => {
   const { route, navigation } = props;
-  const { control, handleSubmit, formState: { errors }, setValue, clearErrors } = useForm({
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+    setValue,
+    clearErrors,
+  } = useForm({
     resolver: yupResolver(schema),
   });
 
@@ -41,10 +50,11 @@ const DTLView: React.FC = (props: any) => {
       <CustomHeader onBackPress={goBack} />
       <View style={globalStyles.contentContainer}>
         <Text style={globalStyles.title}>
-          Please select a video that is close to face on or DTL
+          Which camera angle was used in this video?
         </Text>
         <Text style={globalStyles.subTitle}>
-          Analyzing video recorder diagonally or from the back may result in lower accuracy
+          Analyzing video recorder diagonally or from the back may result in
+          lower accuracy
         </Text>
         <Controller
           control={control}
@@ -56,16 +66,16 @@ const DTLView: React.FC = (props: any) => {
                   key={index}
                   style={[
                     globalStyles.dtlOptionButton,
-                    selectedOption === option && globalStyles.selectedOptionButton
+                    selectedOption === option &&
+                    globalStyles.selectedOptionButton,
                   ]}
-                  onPress={() => handleOptionSelect(option)}
-                >
+                  onPress={() => handleOptionSelect(option)}>
                   <Text
                     style={[
                       globalStyles.optionText,
-                      selectedOption === option && globalStyles.dtlSelectedOptionText
-                    ]}
-                  >
+                      selectedOption === option &&
+                      globalStyles.dtlSelectedOptionText,
+                    ]}>
                     {option}
                   </Text>
                 </TouchableOpacity>
@@ -73,17 +83,16 @@ const DTLView: React.FC = (props: any) => {
             </View>
           )}
         />
-        {errors.option && <Text style={styles.errorText}>{errors.option.message}</Text>}
+        {errors.option && (
+          <Text style={styles.errorText}>{errors.option.message}</Text>
+        )}
         <Image
           source={require('../../../assets/Images/DTL.png')}
           style={globalStyles.golferImage}
         />
       </View>
       <View style={globalStyles.buttonContainer}>
-        <CustomButton
-          title="Next"
-          onPress={handleSubmit(onSubmit)}
-        />
+        <CustomButton title="Next" onPress={handleSubmit(onSubmit)} />
       </View>
     </View>
   );
