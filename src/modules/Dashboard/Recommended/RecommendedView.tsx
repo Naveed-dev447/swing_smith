@@ -94,6 +94,47 @@ const RecommendedView: React.FC = (props: any) => {
           </HorizontalScroll>
         </View>
 
+
+        {/* Recommended Drills */}
+        {selectedTab === 'All' ? (
+          <Section title="Recommended Drills">
+            <FlatList
+              data={drills}
+              keyExtractor={(item) => item.id.toString()}
+              horizontal
+              renderItem={({ item }) => (
+                <DrillCard
+                  title={item.name}
+                  description={item.description}
+                  navigateTo={{
+                    routeName: 'Golf Drill',
+                    params: { id: item.id, type: item.name, description: item.description },
+                  }}
+                />
+              )}
+            />
+          </Section>
+        ) : selectedTab === 'Drills' ? (
+          <Section title="Recommended Drills">
+            <FlatList
+              data={drills}
+              keyExtractor={(item) => item.id.toString()}
+              horizontal
+              renderItem={({ item }) => (
+                <DrillCard
+                  title={item.name}
+                  description={item.description}
+                  navigateTo={{
+                    routeName: 'Golf Drill',
+                    params: { id: item.id, type: item.name, description: item.description },
+                  }}
+                />
+              )}
+            />
+          </Section>
+        ) : null}
+
+
         {/* Recommended Workouts */}
         {selectedTab === 'All' ? (
           <Section title="Recommended Workouts">
@@ -142,45 +183,6 @@ const RecommendedView: React.FC = (props: any) => {
               contentContainerStyle={{ marginVertical: hp('1%') }}
             />
 
-          </Section>
-        ) : null}
-
-        {/* Recommended Drills */}
-        {selectedTab === 'All' ? (
-          <Section title="Recommended Drills">
-            <FlatList
-              data={drills}
-              keyExtractor={(item) => item.id.toString()}
-              horizontal
-              renderItem={({ item }) => (
-                <DrillCard
-                  title={item.name}
-                  description={item.description}
-                  navigateTo={{
-                    routeName: 'Golf Drill',
-                    params: { id: item.id, type: item.name, description: item.description },
-                  }}
-                />
-              )}
-            />
-          </Section>
-        ) : selectedTab === 'Drills' ? (
-          <Section title="Recommended Drills">
-            <FlatList
-              data={drills}
-              keyExtractor={(item) => item.id.toString()}
-              horizontal
-              renderItem={({ item }) => (
-                <DrillCard
-                  title={item.name}
-                  description={item.description}
-                  navigateTo={{
-                    routeName: 'Golf Drill',
-                    params: { id: item.id, type: item.name, description: item.description },
-                  }}
-                />
-              )}
-            />
           </Section>
         ) : null}
 

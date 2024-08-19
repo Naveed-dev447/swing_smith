@@ -116,6 +116,24 @@ const HomeView = (props: any) => {
             )
           }
         />
+        <Section title="Recommended Drills">
+          <FlatList
+            data={drills}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            keyExtractor={(item) => item.id.toString()}
+            renderItem={({ item }) => (
+              <DrillCard
+                title={item.name}
+                description={item.description}
+                navigateTo={{
+                  routeName: 'Golf Drill',
+                  params: { id: item.id, type: item.name, description: item.description },
+                }}
+              />
+            )}
+          />
+        </Section>
         <Section title="Recommended Workouts">
           <FlatList
             horizontal
@@ -138,24 +156,6 @@ const HomeView = (props: any) => {
             contentContainerStyle={{ marginVertical: hp('1%') }}
           />
 
-        </Section>
-        <Section title="Recommended Drills">
-          <FlatList
-            data={drills}
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            keyExtractor={(item) => item.id.toString()}
-            renderItem={({ item }) => (
-              <DrillCard
-                title={item.name}
-                description={item.description}
-                navigateTo={{
-                  routeName: 'Golf Drill',
-                  params: { id: item.id, type: item.name, description: item.description },
-                }}
-              />
-            )}
-          />
         </Section>
         <Section title="Recommended Tutorials">
           <FlatList

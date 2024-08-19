@@ -55,7 +55,9 @@ const recommandedStyles = StyleSheet.create({
   },
   cardContainer: {
     width: wp('44%'),
-    margin: wp('2%'),
+    margin: wp('1%'),
+    marginRight: (wp('3%')),
+    marginTop: hp('2%'),
     height: hp('22%'),
     marginBottom: wp('5%'),
     borderRadius: wp('2%'),

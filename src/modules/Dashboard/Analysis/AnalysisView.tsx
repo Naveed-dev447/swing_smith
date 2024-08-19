@@ -30,6 +30,24 @@ const wind = require('../../../assets/Images/fast-wind.png');
 const AnalysisView: React.FC = (props: any) => {
   const { navigation, route } = props;
   const { params } = route;
+  const {
+    ball_flight,
+    club,
+    contact,
+    created_at,
+    face_direction,
+    file_url,
+    hand,
+    id,
+    posture,
+    swing_analysis,
+    swing_rating,
+    swing_rhythm,
+    thumbnail,
+    type
+  } = params;
+
+
   const focused = useIsFocused();
   const [selectedTab, setSelectedTab] = useState('Analysis ');
   const [modalVisible, setModalVisible] = useState(false);
@@ -49,9 +67,9 @@ const AnalysisView: React.FC = (props: any) => {
   const analysis = swingAnalysis && swingAnalysis?.data?.analysis;
 
   useEffect(() => {
-    if (params) {
+    if (id) {
       if (focused) {
-        dispatch(fetchSwingAnalysis(params));
+        dispatch(fetchSwingAnalysis(id));
       }
     }
     return () => {
@@ -233,8 +251,8 @@ const AnalysisView: React.FC = (props: any) => {
               {renderHeaderContent('Weight Forward')}
               {renderHeaderContent('Shoulder Turn')}
               {renderHeaderContent('Straight Arms')}
-              {renderHeaderContent('Exercise Drills')}
               {renderHeaderContent('Swing Drills')}
+              {renderHeaderContent('Exercise Drills')}
               {renderHeaderContent('Video')}
             </>
           );
@@ -252,6 +270,7 @@ const AnalysisView: React.FC = (props: any) => {
     setSelectedVideo({ uri, title });
     setModalVisible(true);
   };
+  console.log("Analysis", swingAnalysis);
 
   return (
     <View style={styles.container}>
@@ -263,12 +282,12 @@ const AnalysisView: React.FC = (props: any) => {
             <Image source={profileImage} style={styles.profileImage} />
             <View style={styles.userInfo}>
               <Text style={styles.userName}>{userName}</Text>
-              <Text style={styles.userSkill}>DTF/Iron/Right Handed</Text>
+              <Text style={styles.userSkill}>{face_direction === 'up' ? 'FO' : 'DTL'}/{club}/{hand} Handed</Text>
             </View>
             <View style={styles.scoreContainer}>
               <Image source={flagImage} style={styles.flagImage} />
               <Text style={styles.scoreText}>
-                {analysis?.SwingRating ? analysis.SwingRating : 'N/A'}
+                {analysis?.['Swing Rating'] ? analysis?.['Swing Rating'] : 'N/A'}
               </Text>
             </View>
             <View style={styles.scoreContainer}>
