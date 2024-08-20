@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
 import CustomHeader from '../../../shared/Component/CustomHeader';
 import CustomButton from '../../../shared/Component/CustomButton';
@@ -13,6 +13,7 @@ import {
 } from 'react-native-responsive-screen';
 import { useDispatch } from 'react-redux';
 import { setDtlSelectedOption } from '../../../redux/Slices/OnboardingSlice';
+
 const schema = yup.object().shape({
   option: yup.string().required('Please select an option'),
 });
@@ -30,16 +31,20 @@ const DTLView: React.FC = (props: any) => {
   });
 
   const dispatch = useDispatch();
-  const [selectedOption, setSelectedOption] = useState<string | null>(null);
+  const [selectedOption, setSelectedOption] = useState<string>('Down the Line');
 
   const options = ['Down the Line', 'Face On'];
 
   const pic1 = require('../../../assets/Images/DTL/pic1.png');
   const pic2 = require('../../../assets/Images/DTL/pic2.png');
 
+  useEffect(() => {
+    setValue('option', 'Down the Line'); // Set the default form value
+  }, [setValue]);
+
   const onSubmit = (data: {option: string}) => {
     dispatch(setDtlSelectedOption(data.option));
-    console.log("camera angle:",data.option);
+    console.log("camera angle:", data.option);
     
     navigation.navigate('OnboardHome3', 'videoStack');
   };
@@ -56,10 +61,6 @@ const DTLView: React.FC = (props: any) => {
       <View style={globalStyles.contentContainer}>
         <Text style={globalStyles.title}>
           Which camera angle was used in this video?
-        </Text>
-        <Text style={globalStyles.subTitle}>
-          Analyzing video recorder diagonally or from the back may result in
-          lower accuracy
         </Text>
         <Controller
           control={control}
@@ -91,7 +92,7 @@ const DTLView: React.FC = (props: any) => {
        {errors.option && (
           <Text style={styles.errorText}>{errors.option.message}</Text>
         )}
-                {selectedOption && (
+        {selectedOption && (
           <Image
             source={selectedOption === 'Down the Line' ? pic1 : pic2}
             style={globalStyles.golferImage1}

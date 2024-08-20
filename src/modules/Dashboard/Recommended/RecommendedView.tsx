@@ -73,7 +73,7 @@ const RecommendedView: React.FC = (props: any) => {
       <ScrollView contentContainerStyle={recommandedStyles.scrollViewContent}>
         <View style={recommandedStyles.tabContainer}>
           <HorizontalScroll>
-            {['All', 'Workouts', 'Drills', 'Tutorials'].map(tab => (
+            {['All', 'Exercise', 'Swings', 'Tutorials'].map(tab => (
               <TouchableOpacity
                 key={tab}
                 style={[
@@ -97,7 +97,7 @@ const RecommendedView: React.FC = (props: any) => {
 
         {/* Recommended Drills */}
         {selectedTab === 'All' ? (
-          <Section title="Recommended Drills">
+          <Section title="Recommended Swings Drills">
             <FlatList
               data={drills}
               keyExtractor={(item) => item.id.toString()}
@@ -114,8 +114,8 @@ const RecommendedView: React.FC = (props: any) => {
               )}
             />
           </Section>
-        ) : selectedTab === 'Drills' ? (
-          <Section title="Recommended Drills">
+        ) : selectedTab === 'Swings' ? (
+          <Section title="Recommended Swings Drills">
             <FlatList
               data={drills}
               keyExtractor={(item) => item.id.toString()}
@@ -137,7 +137,7 @@ const RecommendedView: React.FC = (props: any) => {
 
         {/* Recommended Workouts */}
         {selectedTab === 'All' ? (
-          <Section title="Recommended Workouts">
+          <Section title="Recommended Exercise Drills">
             <FlatList
               horizontal
               showsHorizontalScrollIndicator={false}
@@ -160,8 +160,8 @@ const RecommendedView: React.FC = (props: any) => {
             />
 
           </Section>
-        ) : selectedTab === 'Workouts' ? (
-          <Section title="Recommended Workouts">
+        ) : selectedTab === 'Exercise' ? (
+          <Section title="Recommended Exercise Drills">
             <FlatList
               horizontal
               showsHorizontalScrollIndicator={false}
