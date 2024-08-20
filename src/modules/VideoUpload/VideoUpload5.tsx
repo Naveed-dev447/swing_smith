@@ -63,7 +63,7 @@ const VideoUpload5: React.FC = (props: any) => {
             return;
           }
           ShowToast('success', uploadResponse.message);
-          handleNavigation(uploadResponse.data?.id);
+          handleNavigation(uploadResponse.data);
         }
       } catch (error) {
         ShowToast('error', 'Vidoe Analysis failed, Please try again');

@@ -101,7 +101,7 @@ const HomeView = (props: any) => {
                 postureScore={item.posture?.toString()}
                 swingRhythm={item.swing_rhythm?.toString()}
                 source={require('../../../assets/Images/DashBoard/RecentAna1.png')}
-                onPress={() => navigation.navigate('AnalysisView', item.id)}
+                onPress={() => navigation.navigate('AnalysisView', item)}
               />
             )}
             contentContainerStyle={{ marginVertical: hp('1%') }}
