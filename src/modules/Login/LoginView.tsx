@@ -85,18 +85,27 @@ const LoginScreen: React.FC = (props: any) => {
       setLoading(false);
     }
   };
-  
+
   const handleGoogleLogin = async () => {
     try {
       GoogleSignin.configure({
-        webClientId:"992746895436-pluiel8flrb3sg5tl830ja5eloiqhn73.apps.googleusercontent.com",
+        iosClientId: '992746895436-fnhp0s0m6ptfmgd100mu6tb7kd7h5m28.apps.googleusercontent.com',
+        webClientId: "992746895436-pluiel8flrb3sg5tl830ja5eloiqhn73.apps.googleusercontent.com",
         offlineAccess: true,
       });
       await GoogleSignin.hasPlayServices();
       const userInfo = await GoogleSignin.signIn();
-      console.log(userInfo);
-      
-    } catch (error:any) {
+
+      const payload = {
+        plateform: 'google',
+        email: userInfo.user.email,
+        name: userInfo.user.name,
+        device_token: userInfo.idToken,
+      };
+
+      onSubmit(payload);
+
+    } catch (error: any) {
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
         ShowToast('info', 'User cancelled the login');
       } else if (error.code === statusCodes.IN_PROGRESS) {
@@ -107,8 +116,9 @@ const LoginScreen: React.FC = (props: any) => {
         ShowToast('error', 'Something went wrong');
       }
       console.error(error);
-    }
-  };
+    }
+  };
+
 
   return (
     <>
