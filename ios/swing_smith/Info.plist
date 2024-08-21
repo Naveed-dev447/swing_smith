@@ -118,5 +118,26 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+
+
+		<!-- Google Sign-In Configuration -->
+	<key>CFBundleURLTypes</key>
+<array>
+  <dict>
+    <key>CFBundleTypeRole</key>
+    <string>Editor</string>
+    <key>CFBundleURLSchemes</key>
+    <array>
+      <string>com.googleusercontent.apps.992746895436-fnhp0s0m6ptfmgd100mu6tb7kd7h5m28</string>
+    </array>
+  </dict>
+</array>
+
+<key>LSApplicationQueriesSchemes</key>
+<array>
+  <string>google</string>
+  <string>googlechrome</string>
+</array>
+
 </dict>
 </plist>
