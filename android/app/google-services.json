@@ -12,7 +12,20 @@
           "package_name": "com.swing_smith"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "320360764204-dq3spq6ld5s1o20fatlv55iqnucrc76q.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.swing_smith",
+            "certificate_hash": "acc184af1632b7ea6dc1db523c57ba1a87d60d9c"
+          }
+        },
+        {
+          "client_id": "320360764204-u87tan1oqdsphl0vug9vv1eqohq5kq4e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyAQMOefqkqRVLEs8iYzamIqTPpmkmJX9mI"
@@ -20,7 +33,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "320360764204-34n559uddvvn65su8eaoum8o2m91un54.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "320360764204-77apiqhigrdi7dnkmdae7829m8kjil43.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.swingapp.swingsmith"
+              }
+            }
+          ]
         }
       }
     }

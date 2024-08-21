@@ -89,8 +89,8 @@ const LoginScreen: React.FC = (props: any) => {
   const handleGoogleLogin = async () => {
     try {
       GoogleSignin.configure({
-        iosClientId: '992746895436-fnhp0s0m6ptfmgd100mu6tb7kd7h5m28.apps.googleusercontent.com',
-        webClientId: "992746895436-pluiel8flrb3sg5tl830ja5eloiqhn73.apps.googleusercontent.com",
+        iosClientId: '320360764204-77apiqhigrdi7dnkmdae7829m8kjil43.apps.googleusercontent.com',
+        webClientId:'320360764204-u87tan1oqdsphl0vug9vv1eqohq5kq4e.apps.googleusercontent.com',
         offlineAccess: true,
       });
       await GoogleSignin.hasPlayServices();
