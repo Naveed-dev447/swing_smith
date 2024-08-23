@@ -18,6 +18,7 @@ import {useNavigation} from '@react-navigation/native';
 import recommandedStyles from '../../../../modules/Dashboard/Recommended/styles';
 import {Circle, Svg} from 'react-native-svg';
 import * as Progress from 'react-native-progress';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 export const Header: React.FC<{
   toggleModal: () => void;
@@ -197,136 +198,126 @@ export const Section: React.FC<SectionProps> = ({title, children}) => (
   </View>
 );
 
-interface WorkoutCardProps {
-  title: string;
-  progress: string;
-  icon?: string;
-  description: string;
-  score: string;
-  navigateTo: {
-    routeName: string;
-    params: {
-      video_id: string;
-      type: string;
-      category: string;
-    };
-  };
-}
+
+
 
 interface WorkoutCardProps {
   title: string;
-  progress: string;
-  icon: string;
   description: string;
-  score: string;
-  navigateTo: {routeName: string; params?: object};
+  navigateTo: {
+    routeName: string;
+    params: any;
+  };
+  url: string; // Assuming the URL of the video or thumbnail is passed as a prop
 }
 
 export const WorkoutCard: React.FC<WorkoutCardProps> = ({
   title,
-  progress,
-  icon,
   description,
   navigateTo,
+  url,
 }) => {
   const navigation = useNavigation();
-  const [completedWorkouts, totalWorkouts] = progress.split('/').map(Number);
-  const progressPercentage = completedWorkouts / totalWorkouts;
+
+  const playVideo = (url: string) => {
+    // Implement video play logic here
+  };
+
   return (
     <TouchableOpacity
+      style={recommandedStyles.cardContainer}
       onPress={() =>
         navigation.navigate(navigateTo?.routeName, navigateTo.params)
       }
-      style={[globalStyles.card, {width: wp('40%'), marginRight: wp('4%')}]}>
-      <View style={{marginVertical: '2%'}}>
-         <View style={styles.progressCircle}>
-          <Progress.Circle
-            size={60}
-            progress={progressPercentage}
-            color="#BBF246"
-            unfilledColor="#F0FFD1"
-            borderWidth={0}
+    >
+      <ImageBackground
+        source={{ uri: 'https://images.unsplash.com/photo-1570129477492-45c003edd2be' }} // Use the actual video URL or thumbnail URL
+        style={recommandedStyles.cardImage}
+        imageStyle={{ borderRadius: 10 }}
+      >
+         <TouchableOpacity onPress={() => playVideo(url)} style={recommandedStyles.playIcon}> 
+          <Icon
+            name="play-circle"
+            size={wp('10%')}
+            color="white"
           />
-          <Image
-            source={require('../../../../assets/Images/power.png')}
-            style={styles.imageOverlay}
-          />
-        </View>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => navigation.navigate(navigateTo?.routeName, navigateTo.params)}
+        >
+          <Text style={recommandedStyles.cardTitle}>{title}</Text>
+        </TouchableOpacity>
+      <View style={recommandedStyles.cardContent}>
+        <Text style={recommandedStyles.smallText} numberOfLines={2}>{description || ''}</Text>
       </View>
-      <View style={{marginVertical: '2%'}}> 
-        <Text style={{color: '#192126', fontFamily: 'Outfit-Regular'}}>
-          {progress}
-        </Text>
-      </View>
-      <View style={{marginVertical: '1%'}}>
-        <Text
-          style={{
-            color: '#192126',
-            fontFamily: 'Outfit-SemiBold',
-            textAlign: 'center',
-          }}
-          numberOfLines={1}
-          ellipsizeMode="tail">
-          {title}
-        </Text>
-      </View>
-      <View style={{marginVertical: '1%'}}>
-        <Text
-          style={{
-            color: '#192126',
-            fontFamily: 'Outfit-Regular',
-            textAlign: 'center',
-          }}
-          numberOfLines={2}
-          ellipsizeMode="tail">
-          {description}
-        </Text>
-      </View>
+      </ImageBackground>
     </TouchableOpacity>
   );
 };
+
+
+
+
 
 interface DrillCardProps {
   title: string;
   description: string;
   navigateTo: {
     routeName: string;
-    params: {
-      video_id: string;
-      type: string;
-      category: string;
-    };
+    params: any;
   };
+  url: string; // Assuming the URL of the video or thumbnail is passed as a prop
 }
 
 export const DrillCard: React.FC<DrillCardProps> = ({
   title,
   description,
   navigateTo,
+  url,
 }) => {
   const navigation = useNavigation();
 
-  const handlePress = () => {
-    navigation.navigate(navigateTo.routeName, navigateTo.params);
+  const playVideo = (url: string) => {
+    // Implement video play logic here
   };
-
+  
   return (
     <TouchableOpacity
       style={recommandedStyles.cardContainer}
-      onPress={handlePress}>
-      <Image
-        source={require('../../../../assets/Images/DashBoard/golfman.png')}
-        style={recommandedStyles.cardIcon}
-      />
+      onPress={() =>
+        navigation.navigate(navigateTo?.routeName, navigateTo.params)
+      }
+    >
+      <ImageBackground
+        source={{ uri: 'https://images.unsplash.com/photo-1570129477492-45c003edd2be' }} // Use the actual video URL or thumbnail URL
+        style={recommandedStyles.cardImage}
+        imageStyle={{ borderRadius: 10 }}
+      >
+         <TouchableOpacity onPress={() => playVideo(url)} style={recommandedStyles.playIcon}> 
+          <Icon
+            name="play-circle"
+            size={wp('10%')}
+            color="white"
+          />
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => navigation.navigate(navigateTo?.routeName, navigateTo.params)}
+        >
+          <Text style={recommandedStyles.cardTitle}>{title}</Text>
+        </TouchableOpacity>
       <View style={recommandedStyles.cardContent}>
-        <Text style={recommandedStyles.cardText}>{title}</Text>
-        <Text style={recommandedStyles.cardSmallText} numberOfLines={3}>
-          {description}
-        </Text>
+        <Text style={recommandedStyles.smallText} numberOfLines={2}>{description || ''}</Text>
       </View>
+      </ImageBackground>
     </TouchableOpacity>
   );
 };
+
+
+
+
+
+
 
 interface TutorialCardProps {
   title: string;
@@ -530,3 +521,161 @@ const styles = StyleSheet.create({
     height: 30,
   },
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Old Golf Drill and workout methods
+
+
+// interface WorkoutCardProps {
+//   title: string;
+//   progress: string;
+//   icon: string;
+//   description: string;
+//   score: string;
+//   navigateTo: {routeName: string; params?: object};
+// }
+
+// export const WorkoutCard: React.FC<WorkoutCardProps> = ({
+//   title,
+//   progress,
+//   icon,
+//   description,
+//   navigateTo,
+// }) => {
+//   const navigation = useNavigation();
+//   const [completedWorkouts, totalWorkouts] = progress.split('/').map(Number);
+//   const progressPercentage = completedWorkouts / totalWorkouts;
+//   return (
+//     <TouchableOpacity
+//       onPress={() =>
+//         navigation.navigate(navigateTo?.routeName, navigateTo.params)
+//       }
+//       style={[globalStyles.card, {width: wp('40%'), marginRight: wp('4%')}]}>
+//       <View style={{marginVertical: '2%'}}>
+//          <View style={styles.progressCircle}>
+//           <Progress.Circle
+//             size={60}
+//             progress={progressPercentage}
+//             color="#BBF246"
+//             unfilledColor="#F0FFD1"
+//             borderWidth={0}
+//           />
+//           <Image
+//             source={require('../../../../assets/Images/power.png')}
+//             style={styles.imageOverlay}
+//           />
+//         </View>
+//       </View>
+//       <View style={{marginVertical: '2%'}}> 
+//         <Text style={{color: '#192126', fontFamily: 'Outfit-Regular'}}>
+//           {progress}
+//         </Text>
+//       </View>
+//       <View style={{marginVertical: '1%'}}>
+//         <Text
+//           style={{
+//             color: '#192126',
+//             fontFamily: 'Outfit-SemiBold',
+//             textAlign: 'center',
+//           }}
+//           numberOfLines={1}
+//           ellipsizeMode="tail">
+//           {title}
+//         </Text>
+//       </View>
+//       <View style={{marginVertical: '1%'}}>
+//         <Text
+//           style={{
+//             color: '#192126',
+//             fontFamily: 'Outfit-Regular',
+//             textAlign: 'center',
+//           }}
+//           numberOfLines={2}
+//           ellipsizeMode="tail">
+//           {description}
+//         </Text>
+//       </View>
+//     </TouchableOpacity>
+//   );
+// };
+
+// interface DrillCardProps {
+//   title: string;
+//   description: string;
+//   navigateTo: {
+//     routeName: string;
+//     params: {
+//       video_id: string;
+//       type: string;
+//       category: string;
+//     };
+//   };
+// }
+
+// export const DrillCard: React.FC<DrillCardProps> = ({
+//   title,
+//   description,
+//   navigateTo,
+// }) => {
+//   const navigation = useNavigation();
+
+//   const handlePress = () => {
+//     navigation.navigate(navigateTo.routeName, navigateTo.params);
+//   };
+
+//   return (
+//     <TouchableOpacity
+//       style={recommandedStyles.cardContainer}
+//       onPress={handlePress}>
+//       <Image
+//         source={require('../../../../assets/Images/DashBoard/golfman.png')}
+//         style={recommandedStyles.cardIcon}
+//       />
+//       <View style={recommandedStyles.cardContent}>
+//         <Text style={recommandedStyles.cardText}>{title}</Text>
+//         <Text style={recommandedStyles.cardSmallText} numberOfLines={3}>
+//           {description}
+//         </Text>
+//       </View>
+//     </TouchableOpacity>
+//   );
+// };

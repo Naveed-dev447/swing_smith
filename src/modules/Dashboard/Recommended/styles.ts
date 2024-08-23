@@ -97,6 +97,11 @@ const recommandedStyles = StyleSheet.create({
   cardContent: {
     padding: wp('2%'),
   },
+  smallText:{
+    fontFamily: 'Outfit',
+    textAlign: 'center',
+    color: '#fff',
+  },
   cardIcon: {
     alignSelf: 'center',
     marginTop: wp('7%'),
