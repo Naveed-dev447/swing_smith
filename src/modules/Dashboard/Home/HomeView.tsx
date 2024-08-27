@@ -134,6 +134,7 @@ const HomeView = (props: any) => {
                     id: item.id, type: item.name, description: item.description,
                     title: item?.title,
                     status: item.status,
+                    screen: 'drill',
                     file_name: item.file_url
                   }
                 }}
@@ -161,6 +162,7 @@ const HomeView = (props: any) => {
                       description: item.description || '',
                       title: item?.title,
                       status: item.status,
+                      screen: 'workout',
                       file_name: item.file_name
                     },
                   }} isPlay={false} />

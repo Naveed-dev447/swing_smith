@@ -13,7 +13,7 @@ import {
 import CustomHeader from '../../../shared/Component/CustomHeader';
 import { goBack } from '../../../shared/Utils/navigationRef';
 import LottieView from 'lottie-react-native';
-import { GetWorkoutDrillAPICall, UpdateWorkoutDrillAPICall } from './APICalls/WorkoutAPI';
+import { GetWorkoutDrillAPICall, UpdateWorkoutDrillAPICall, UpdateWorkoutListAPICall } from './APICalls/WorkoutAPI';
 import { ShowToast } from '../../../components/ShowToast';
 import Button from '../../../components/Button';
 import ProgressLoader from '../../../components/ProgressLoader';
@@ -29,7 +29,7 @@ const WorkoutDrillView = (props: any) => {
     const { route } = props;
     console.log("Params =======?", route.params);
 
-    const { id, type, description, title, file_name, status } = route.params;
+    const { id, type, description, title, file_name, status, screen } = route.params;
 
     const [workouts, setWorkouts] = useState<IWorkoutDrill[] | null>(null);
     const { loading, setLoading } = useLoader();
@@ -71,19 +71,31 @@ const WorkoutDrillView = (props: any) => {
     }
 
     const handleMarkAsDone = async () => {
-        const payload = {
-            id: id,
-            status: 1
-        };
-        const response = await UpdateWorkoutDrillAPICall(payload);
-        if (response.status === 200 && response.message !== 'Unable to update workout.') {
-            ShowToast('success', `${response.message}`);
-            goBack();
-        } else {
-            ShowToast('error', response.message);
-            console.error(response.message);
+        try {
+            const payload = {
+                id,
+                status: 1,
+            };
+
+            const updateFunction = screen === 'workout' ? UpdateWorkoutListAPICall : UpdateWorkoutDrillAPICall;
+            const response = await updateFunction(payload);
+
+            if (response.status === 200 && response.message !== 'Unable to update workout.') {
+                ShowToast('success', response.message);
+                goBack();
+            } else {
+                handleError(response.message);
+            }
+        } catch (error) {
+            handleError(error.message);
         }
     };
+
+    const handleError = (message) => {
+        ShowToast('error', message);
+        console.error(message);
+    };
+
 
     const debouncedHandleMarkAsDone = debounce(handleMarkAsDone, 300);
 

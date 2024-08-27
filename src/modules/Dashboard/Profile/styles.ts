@@ -64,7 +64,7 @@ export const styles = StyleSheet.create({
     flex: 1,
   },
   arrowIcon: {
-    fontSize: wp('4.5%'),
+    fontSize: wp('3%'),
     color: '#B0B0B0',
   },
   lastOption: {

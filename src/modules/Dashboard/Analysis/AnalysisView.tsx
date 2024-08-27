@@ -111,6 +111,7 @@ const AnalysisView: React.FC = (props: any) => {
                     description: item.description || '',
                     title: item?.title,
                     file_name: item.file_url,
+                    screen: 'drill',
                     status: item.status
                   },
                 }} isPlay={false}/>
@@ -129,6 +130,7 @@ const AnalysisView: React.FC = (props: any) => {
                 description: item.description || '',
                 title: item?.title,
                 file_name: item.file_url,
+                screen: 'workout',
                 status: item.status
               },
             }} isPlay={false}/>
