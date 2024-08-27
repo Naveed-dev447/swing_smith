@@ -1,15 +1,22 @@
 import { StyleSheet } from 'react-native';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import { Colors } from '../../../theme/colors';
 
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#f5f5f5',
+    paddingBottom:hp('10%')
+
   },
   profileContainer: {
     alignItems: 'center',
     paddingHorizontal: wp('5%'),
+    paddingVertical:hp('5%'),
     marginVertical: hp('2.5%'),
+    marginHorizontal:wp('5%'),
+    borderRadius:10,
+    backgroundColor:'#ffff'
   },
   profileImage: {
     width: wp('30%'),
@@ -19,30 +26,40 @@ export const styles = StyleSheet.create({
   cameraIconContainer: {
     position: 'absolute',
     bottom: 0,
-    // right: wp('8%'),
-    backgroundColor: '#A5D939',
+    right: wp('3%'),
+    backgroundColor: '#BBF246',
     padding: wp('2%'),
     borderRadius: wp('5%'),
   },
   profileName: {
     fontSize: wp('5.5%'),
-    fontWeight: 'bold',
+    fontFamily:'Outfit-Bold',
+    color: Colors.black,
+    textAlign:'center',
     marginTop: hp('1.25%'),
   },
   profileEmail: {
     fontSize: wp('3.5%'),
-    color: '#7E7E7E',
+    color: "#8F9BB3",
+    fontFamily:'Outfit-Regular',
+    textAlign:'center',
+
+  },
+  optionMainContainer:{
+    paddingVertical:hp('2.5%'),
+    marginHorizontal:wp('5%'),
+    borderRadius:10,
+    backgroundColor:'#ffff',
+    marginBottom:hp('2.5')
   },
   optionContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: wp('5%'),
     paddingVertical: hp('1%'),
-    borderBottomWidth: 1,
-    borderBottomColor: '#ECECEC',
   },
   optionIcon: {
-    backgroundColor: '#A5D939',
+    backgroundColor: '#BBF246',
     borderRadius: wp('20%'),
     width: wp('8.5%'),
     height: hp('4%'),
@@ -53,19 +70,20 @@ export const styles = StyleSheet.create({
   optionText: {
     fontSize: wp('4%'),
     fontWeight: '600',
-    fontFamily: 'outfit',
+    fontFamily: 'Outfit-SemiBold',
     flex: 1,
+    color:'#222B45'
   },
   optionRightText: {
-    fontSize: wp('4%'),
+    fontSize: wp('3.5%'),
     fontWeight: '400',
     color: '#222B45',
-    fontFamily: 'outfit',
+    fontFamily: 'Outfit-Regular',
     flex: 1,
   },
   arrowIcon: {
-    fontSize: wp('3%'),
-    color: '#B0B0B0',
+    fontSize: wp('2.5%'),
+    color: '#C5CEE0',
   },
   lastOption: {
     borderBottomWidth: 0,
