@@ -1,6 +1,6 @@
 import React from 'react';
-import {StyleSheet, View, Platform} from 'react-native';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import { StyleSheet, View, Platform } from 'react-native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import AnalysisView from '../modules/Dashboard/Recommended/RecommendedView';
 import UploadVideo from '../modules/Onboarding/Home/uploadVideo';
@@ -18,18 +18,18 @@ const Tab = createBottomTabNavigator();
 const BottomTabNavigator = () => {
   return (
     <Tab.Navigator
-      screenOptions={({route}) => ({
-        tabBarIcon: ({focused}) => {
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused }) => {
           let iconName;
           if (route.name === 'Home') {
             iconName = 'home';
-          } 
+          }
           // else if (route.name === 'Analysis') {
           //   iconName = 'replay';
           // }
           else if (route.name === 'SwingLog') {
             iconName = 'replay';
-          } 
+          }
           else if (route.name === 'UploadVideo') {
             iconName = 'add';
           } else if (route.name === 'Workouts') {
@@ -50,7 +50,7 @@ const BottomTabNavigator = () => {
           );
         },
         tabBarShowLabel: false,
-          tabBarStyle: [
+        tabBarStyle: [
           Platform.OS === 'ios' ? styles.tabBarIOS : styles.tabBar,
           route.name === 'UploadVideo' ? { display: 'none' } : null,
         ],
@@ -58,11 +58,11 @@ const BottomTabNavigator = () => {
       })}>
       <Tab.Screen name="Home" component={HomeStack} />
       <Tab.Screen name="SwingLog" component={SwingLogView} />
-      <Tab.Screen name="UploadVideo" component={UploadVideo} /> 
+      <Tab.Screen name="UploadVideo" component={UploadVideo} />
       <Tab.Screen name="Workouts" component={AnalysisView} />
       <Tab.Screen name="Profile" component={ProfileScreen} />
     </Tab.Navigator>
-    
+
   );
 };
 
@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
     bottom: hp('1.5%'),
     elevation: 5,
     shadowColor: '#000',
-    shadowOffset: {width: 0, height: hp('0.5%')},
+    shadowOffset: { width: 0, height: hp('0.5%') },
     shadowOpacity: 0.3,
     shadowRadius: hp('1%'),
   },
@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
     bottom: hp('1%'),
     elevation: 5,
     shadowColor: '#000',
-    shadowOffset: {width: 0, height: hp('0.5%')},
+    shadowOffset: { width: 0, height: hp('0.5%') },
     shadowOpacity: 0.3,
     shadowRadius: hp('1%'),
     paddingBottom: hp('0.5%'),
