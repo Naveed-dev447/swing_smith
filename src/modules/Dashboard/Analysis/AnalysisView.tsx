@@ -80,7 +80,6 @@ const AnalysisView: React.FC = (props: any) => {
   if (loading) {
     return <ProgressLoader />;
   }
-console.log("JSON", JSON.stringify(analysis), swingAnalysis?.data);
 
   const renderCards = (
     items: any[],
@@ -100,39 +99,39 @@ console.log("JSON", JSON.stringify(analysis), swingAnalysis?.data);
       try {
         if (category === 'Golf Drills') {
           return (
-            <Component
-              key={index}
-              title={item.drill_name || item.name}
-              description={item.description || ''}
-              navigateTo={{
-                routeName: 'Golf Drill',
-                params: {
-                  id: item.id,
-                  type: item.drill_name || item.name,
-                  description: item.description || '',
-                },
-              }}
-            />
+            <TutorialCard
+                key={index}
+                data={item}
+                onPress={()=> console.log("Test")}
+                navigateTo={{
+                  routeName: 'Golf Drill',
+                  params: {
+                    id: item.id,
+                    type: item.drill_name || item.name,
+                    description: item.description || '',
+                    title: item?.title,
+                    file_name: item.file_url,
+                    status: item.status
+                  },
+                }} isPlay={false}/>
           );
         } else if (category === 'Workout Drills') {
-          
-          const parsedWorkout = item.workout ? JSON.parse(item.workout) : {};
-          const trueFlagsDescription = Object.keys(parsedWorkout).filter(key => parsedWorkout[key]).join(', ');
-
           return (
-            <Component
-              key={index}
-              title={item.type}
-              description={trueFlagsDescription || item.description || ''}
-              navigateTo={{
-                routeName: 'Core Strength',
-                params: {
-                  video_id: item.id,
-                  type: item.type,
-                  category: 'Workout Drills',
-                },
-              }}
-            />
+            <TutorialCard
+            key={index}
+            data={item}
+            onPress={()=> console.log("Test")}
+            navigateTo={{
+              routeName: 'Golf Drill',
+              params: {
+                id: item.id,
+                type: item.drill_name || item.name,
+                description: item.description || '',
+                title: item?.title,
+                file_name: item.file_url,
+                status: item.status
+              },
+            }} isPlay={false}/>
           );
         }
       } catch (error) {
@@ -170,12 +169,12 @@ console.log("JSON", JSON.stringify(analysis), swingAnalysis?.data);
           return null;
 
         case 'Exercise Drills':
-          if (analysis?.['Workout Drills'] && Array.isArray(analysis['Workout Drills']) && analysis['Workout Drills'].length) {
+          if (analysis?.['Workouts'] && Array.isArray(analysis['Workouts']) && analysis['Workouts'].length) {
             return (
               <View style={styles.workOutContainer}>
                 <Section title="Recommended Exercise Drills">
                   <HorizontalScroll>
-                    {renderCards(analysis['Workout Drills'], WorkoutCard, 'Core Strength', 'Workout Drills')}
+                    {renderCards(analysis['Workouts'], WorkoutCard, 'Core Strength', 'Workout Drills')}
                   </HorizontalScroll>
                 </Section>
               </View>
@@ -216,10 +215,21 @@ console.log("JSON", JSON.stringify(analysis), swingAnalysis?.data);
                 <Section title="Recommended Tutorials">
                   <HorizontalScroll>
                     {swingAnalysis.data.recomended_tutorials.map((item, index) => (
-                      <TutorialCard
+                     <TutorialCard
                         key={index}
                         data={item}
-                        onPress={() => handleVideoPress(item.file_name, item.title)}
+                        onPress={()=> console.log("Test")}
+                        navigateTo={{
+                          routeName: 'Golf Drill',
+                          params: {
+                            id: item.id,
+                            type: item.drill_name || item.name,
+                            description: item.description || '',
+                            title: item.title,
+                            status: item.status,
+                            file_name: item.file_name
+                          },
+                        }} isPlay={false}
                       />
                     ))}
                   </HorizontalScroll>
@@ -415,7 +425,7 @@ export default AnalysisView;
 
 
 
-// Old Stablee Analysis Design
+// Old Analysis Design
 
 // import React, { useState, useEffect } from 'react';
 // import { ScrollView, View, Text, Image, TouchableOpacity } from 'react-native';

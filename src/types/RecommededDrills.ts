@@ -1,4 +1,7 @@
 export interface IRecommendedDrill {
+  file_url: any;
+  title: any;
+  drill_name: string;
   id: number;
   video_id: number;
   name: string;

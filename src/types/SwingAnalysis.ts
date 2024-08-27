@@ -32,6 +32,10 @@ interface Swing {
 }
 
 interface RecommendedTutorial {
+  description: string;
+  name: any;
+  drill_name: any;
+  status: any;
   id: number;
   title: string;
   short_des: string;

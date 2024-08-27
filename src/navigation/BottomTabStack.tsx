@@ -11,6 +11,7 @@ import {
 import HomeStack from './HomeStack';
 import WeightTransferDrill from '../modules/Dashboard/WeightTransferDrills/WeightTransferDrills';
 import SwingLogView from '../modules/Dashboard/Home/SwingLogView';
+import ProfileScreen from '../modules/Dashboard/Profile/ProfileView';
 
 const Tab = createBottomTabNavigator();
 
@@ -59,7 +60,7 @@ const BottomTabNavigator = () => {
       <Tab.Screen name="SwingLog" component={SwingLogView} />
       <Tab.Screen name="UploadVideo" component={UploadVideo} /> 
       <Tab.Screen name="Workouts" component={AnalysisView} />
-      <Tab.Screen name="Profile" component={WeightTransferDrill} />
+      <Tab.Screen name="Profile" component={ProfileScreen} />
     </Tab.Navigator>
     
   );

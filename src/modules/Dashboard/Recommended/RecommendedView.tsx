@@ -102,15 +102,21 @@ const RecommendedView: React.FC = (props: any) => {
               data={drills}
               keyExtractor={(item) => item.id.toString()}
               horizontal
-              renderItem={({ item }) => (
-                <DrillCard
-                  title={item.name}
-                  description={item.description}
+              renderItem={({ item, index }) => (
+                <TutorialCard
+                  key={index}
+                  data={item}
+                  onPress={() => console.log("Test")}
                   navigateTo={{
                     routeName: 'Golf Drill',
-                    params: { id: item.id, type: item.name, description: item.description },
+                    params: {
+                      id: item.id, type: item.name, description: item.description,
+                      title: item?.title,
+                      status: item.status,
+                      file_name: item.file_url
+                    }
                   }}
-                />
+                  isPlay={false} />
               )}
             />
           </Section>
@@ -120,15 +126,21 @@ const RecommendedView: React.FC = (props: any) => {
               data={drills}
               keyExtractor={(item) => item.id.toString()}
               horizontal
-              renderItem={({ item }) => (
-                <DrillCard
-                  title={item.name}
-                  description={item.description}
+              renderItem={({ item, index }) => (
+                <TutorialCard
+                  key={index}
+                  data={item}
+                  onPress={() => console.log("Test")}
                   navigateTo={{
                     routeName: 'Golf Drill',
-                    params: { id: item.id, type: item.name, description: item.description },
+                    params: {
+                      id: item.id, type: item.name, description: item.description,
+                      title: item?.title,
+                      status: item.status,
+                      file_name: item.file_url
+                    }
                   }}
-                />
+                  isPlay={false} />
               )}
             />
           </Section>
@@ -143,19 +155,22 @@ const RecommendedView: React.FC = (props: any) => {
               showsHorizontalScrollIndicator={false}
               data={workouts}
               keyExtractor={(item) => item.id.toString()}
-              renderItem={({ item }) => {
-                const completedWorkouts = Object.keys(item.workouts).filter((key) => item.workouts[key]);
-                const description = completedWorkouts.join(', ');
-
-                return (
-                  <WorkoutCard
-                    title={item.type}
-                    description={description}
-                    progress={`${item.done}/${item.total}`}
-                    navigateTo={{ routeName: 'Core Strength', params: { video_id: item.id, type: item.type, category: 'Workout Drills' } }}
-                  />
-                );
-              }}
+              renderItem={({ item, index }) => (
+                <TutorialCard
+                  key={index}
+                  data={item}
+                  onPress={() => console.log("Test")}
+                  navigateTo={{
+                    routeName: 'Golf Drill',
+                    params: {
+                      id: item.id, type: item.name, description: item.description,
+                      title: item?.title,
+                      file_name: item.file_url,
+                      status: item.status,
+                    }
+                  }}
+                  isPlay={false} />
+              )}
               contentContainerStyle={{ marginVertical: hp('1%') }}
             />
 
@@ -167,19 +182,22 @@ const RecommendedView: React.FC = (props: any) => {
               showsHorizontalScrollIndicator={false}
               data={workouts}
               keyExtractor={(item) => item.id.toString()}
-              renderItem={({ item }) => {
-                const completedWorkouts = Object.keys(item.workouts).filter((key) => item.workouts[key]);
-                const description = completedWorkouts.join(', ');
-
-                return (
-                  <WorkoutCard
-                    title={item.type}
-                    description={description}
-                    progress={`${item.done}/${item.total}`}
-                    navigateTo={{ routeName: 'Core Strength', params: { video_id: item.id, type: item.type, category: 'Workout Drills' } }}
-                  />
-                );
-              }}
+              renderItem={({ item, index }) => (
+                <TutorialCard
+                  key={index}
+                  data={item}
+                  onPress={() => console.log("Test")}
+                  navigateTo={{
+                    routeName: 'Golf Drill',
+                    params: {
+                      id: item.id, type: item.name, description: item.description,
+                      title: item?.title,
+                      status: item.status,
+                      file_name: item.file_url
+                    }
+                  }}
+                  isPlay={false} />
+              )}
               contentContainerStyle={{ marginVertical: hp('1%') }}
             />
 
@@ -195,9 +213,18 @@ const RecommendedView: React.FC = (props: any) => {
                   <TutorialCard
                     key={index}
                     data={item}
-                    onPress={() =>
-                      handleVideoPress(item.file_name, item.description, modalVisible)
-                    }
+                    onPress={() => console.log("Test")}
+                    navigateTo={{
+                      routeName: 'Golf Drill',
+                      params: {
+                        id: item.id,
+                        type: item.drill_name || item.name,
+                        description: item.description || '',
+                        title: item.title,
+                        status: item.status,
+                        file_name: item.file_name
+                      },
+                    }} isPlay={false}
                   />
                 ))}
               </HorizontalScroll>

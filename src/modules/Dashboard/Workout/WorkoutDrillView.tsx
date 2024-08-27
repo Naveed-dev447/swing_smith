@@ -3,7 +3,8 @@ import {
     StyleSheet,
     Text,
     View,
-    ScrollView
+    ScrollView,
+    FlatList
 } from 'react-native';
 import {
     widthPercentageToDP as wp,
@@ -19,15 +20,25 @@ import ProgressLoader from '../../../components/ProgressLoader';
 import { useLoader } from '../../../config/LoaderContext';
 import { IWorkoutDrill } from 'types/Workout';
 import debounce from 'lodash/debounce';
+import VideoModal from '../../../components/VideoModal';
+import TutorialCard from '../../../shared/Component/TutorialCard/TutorialCard';
 
 const checkIconSelected = require('../../../assets/Images/selectedCheckIcon.png');
 
 const WorkoutDrillView = (props: any) => {
     const { route } = props;
-    const { id, type, description } = route.params;
+    console.log("Params =======?", route.params);
+
+    const { id, type, description, title, file_name, status } = route.params;
+
     const [workouts, setWorkouts] = useState<IWorkoutDrill[] | null>(null);
     const { loading, setLoading } = useLoader();
-    const isCompleted = workouts?.status === 1;
+    const [modalVisible, setModalVisible] = useState(false);
+    const [selectedVideo, setSelectedVideo] = useState<{
+        uri: string;
+        title: string;
+    } | null>(null);
+    const isCompleted = status === 1 ? true : false;
     const buttonTitle = isCompleted ? "Completed" : "Mark as Done";
     const buttonIcon = isCompleted ? checkIconSelected : null;
     const buttonStyles = [
@@ -49,7 +60,7 @@ const WorkoutDrillView = (props: any) => {
                 console.error(response.message);
             }
         };
-        fetchData();
+        // fetchData();
         return () => {
             setWorkouts(null);
         };
@@ -61,7 +72,7 @@ const WorkoutDrillView = (props: any) => {
 
     const handleMarkAsDone = async () => {
         const payload = {
-            id: workouts.id,
+            id: id,
             status: 1
         };
         const response = await UpdateWorkoutDrillAPICall(payload);
@@ -76,9 +87,16 @@ const WorkoutDrillView = (props: any) => {
 
     const debouncedHandleMarkAsDone = debounce(handleMarkAsDone, 300);
 
+
+    const handleVideoPress = (uri: string, title: string) => {
+        setSelectedVideo({ uri, title });
+        setModalVisible(true);
+
+    };
+
     return (
         <View style={styles.container}>
-            <CustomHeader onBackPress={goBack} title={type} />
+            <CustomHeader onBackPress={goBack} title={title || type} />
 
             <ScrollView contentContainerStyle={styles.contentContainer}
                 scrollIndicatorInsets={{ right: 1 }}>
@@ -90,22 +108,36 @@ const WorkoutDrillView = (props: any) => {
                         loop
                     />
                 </View>
-                <Text style={styles.workoutTitle}>
+                {/* <Text style={styles.workoutTitle}>
                     {'Drills Detail'}
-                </Text>
+                </Text> */}
                 <Text style={styles.detail}>
                     {description}
                 </Text>
-                <View style={styles.buttonContainer}>
-                    <Button
-                        title={buttonTitle}
-                        onPress={isCompleted ? null : debouncedHandleMarkAsDone}
-                        buttonStyle={buttonStyles}
-                        textStyle={styles.buttonText}
-                        icon={buttonIcon}
-                    />
-                </View>
+                <TutorialCard
+                    data={route.params}
+                    onPress={() => handleVideoPress(file_name, description, modalVisible)}
+                    navigateTo={null} />
+                {status !== undefined &&
+                    <View style={styles.buttonContainer}>
+                        <Button
+                            title={buttonTitle}
+                            onPress={isCompleted ? null : debouncedHandleMarkAsDone}
+                            buttonStyle={buttonStyles}
+                            textStyle={styles.buttonText}
+                            icon={buttonIcon}
+                        />
+                    </View>
+                }
             </ScrollView>
+            {selectedVideo && (
+                <VideoModal
+                    visible={modalVisible}
+                    onClose={() => setModalVisible(false)}
+                    videoUri={selectedVideo.uri}
+                    title={selectedVideo.title}
+                />
+            )}
         </View>
     );
 };

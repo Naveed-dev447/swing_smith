@@ -4,26 +4,38 @@ import Video, { VideoRef } from 'react-native-video';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { ITutorial } from '../../../types/Tutorial';
 import * as Progress from 'react-native-progress';
+import { useNavigation } from '@react-navigation/native';
 
 
 interface TutorialCardProps {
+  key: number;
   data: ITutorial;
+  isPlay: boolean,
   onPress: () => void;
-  isPlay: boolean
+  navigateTo: {
+    routeName: string;
+    params: any;
+  };
 }
 
-const TutorialCard: React.FC<TutorialCardProps> = ({ isPlay, data, onPress }) => {
+const TutorialCard: React.FC<TutorialCardProps> = ({ key, onPress, isPlay, data, navigateTo }) => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const videoRef = useRef<VideoRef>(null);
+  const navigation = useNavigation();
   const handlePress = () => {
-    onPress();
+    if (navigateTo !== null) {
+      navigation.navigate(navigateTo?.routeName, navigateTo.params)
+    } else {
+      onPress();
+    }
   };
   return (
     <View style={styles.mainContainer}>
-      <TouchableOpacity onPress={handlePress}>
+      <TouchableOpacity key={key}
+        onPress={handlePress}>
         <View style={styles.videoContainer}>
           <Video
-            source={{ uri: data?.file_name }}
+            source={{ uri: data?.file_name || data.fileURL }}
             ref={videoRef}
             style={styles.videoPlayer}
             resizeMode="cover"

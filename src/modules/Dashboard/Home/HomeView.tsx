@@ -81,6 +81,7 @@ const HomeView = (props: any) => {
   // if (tutorialsError || profileError || analysisError || recWorkoutError || drillsError) {
   //   console.error({ tutorialsError, profileError, analysisError, recWorkoutError, drillsError });
   // }
+
   return (
     <View style={globalStyles.container}>
       <Header toggleModal={toggleModal} name={`Hello, ${userName}`} />
@@ -122,15 +123,21 @@ const HomeView = (props: any) => {
             horizontal
             showsHorizontalScrollIndicator={false}
             keyExtractor={(item) => item.id.toString()}
-            renderItem={({ item }) => (
-              <DrillCard
-                title={item.name}
-                description={item.description}
+            renderItem={({ item, index }) => (
+              <TutorialCard
+                key={index}
+                data={item}
+                onPress={() => console.log("Test")}
                 navigateTo={{
                   routeName: 'Golf Drill',
-                  params: { id: item.id, type: item.name, description: item.description },
+                  params: {
+                    id: item.id, type: item.name, description: item.description,
+                    title: item?.title,
+                    status: item.status,
+                    file_name: item.file_url
+                  }
                 }}
-              />
+                isPlay={false} />
             )}
           />
         </Section>
@@ -140,17 +147,23 @@ const HomeView = (props: any) => {
             showsHorizontalScrollIndicator={false}
             data={workouts}
             keyExtractor={(item) => item.id.toString()}
-            renderItem={({ item }) => {
-              const completedWorkouts = Object.keys(item?.workouts).filter((key) => item.workouts[key]);
-              const description = completedWorkouts.join(', ');
-
+            renderItem={({ item, index }) => {
               return (
-                <WorkoutCard
-                  title={item.type}
-                  description={description}
-                  progress={`${item.done}/${item.total}`}
-                  navigateTo={{ routeName: 'Core Strength', params: { video_id: item.id, type: item.type, category: 'Workout Drills' } }}
-                />
+                <TutorialCard
+                  key={index}
+                  data={item}
+                  onPress={() => console.log("Test")}
+                  navigateTo={{
+                    routeName: 'Golf Drill',
+                    params: {
+                      id: item.id,
+                      type: item.drill_name || item.name,
+                      description: item.description || '',
+                      title: item?.title,
+                      status: item.status,
+                      file_name: item.file_name
+                    },
+                  }} isPlay={false} />
               );
             }}
             contentContainerStyle={{ marginVertical: hp('1%') }}
@@ -165,9 +178,20 @@ const HomeView = (props: any) => {
             keyExtractor={(item) => item.id.toString()}
             renderItem={({ item, index }) => (
               <TutorialCard
-                id={index}
+                key={index}
                 data={item}
-                onPress={() => handleVideoPress(item.file_name, item.description, modalVisible)}
+                onPress={() => console.log("Test")}
+                navigateTo={{
+                  routeName: 'Golf Drill',
+                  params: {
+                    id: item.id,
+                    type: item.drill_name || item.name,
+                    description: item.description || '',
+                    title: item.title,
+                    status: item.status,
+                    file_name: item.file_name
+                  },
+                }} isPlay={false}
               />
             )}
           />
