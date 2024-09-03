@@ -49,6 +49,7 @@ const AnalysisView: React.FC = (props: any) => {
   const focused = useIsFocused();
   const [selectedTab, setSelectedTab] = useState('Analysis ');
   const [modalVisible, setModalVisible] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
   const [selectedVideo, setSelectedVideo] = useState<{
     uri: string;
     title: string;
@@ -65,19 +66,33 @@ const AnalysisView: React.FC = (props: any) => {
   const analysis = swingAnalysis && swingAnalysis?.data?.analysis;
   
   useEffect(() => {
-    if (id) {
-      if (focused) {
+    if (id && focused) {
         dispatch(fetchSwingAnalysis(id));
-      }
     }
+
     return () => {
-      dispatch(resetSwingAnalysisState());
+        dispatch(resetSwingAnalysisState()); // Reset state on unmount
     };
-  }, [dispatch, focused]);
+}, [dispatch, id, focused]);
+  useEffect(() => {
+    if (swingAnalysis) {
+      console.log('Swing Analysis Data for video check:', swingAnalysis);
+    }
+  }, [swingAnalysis]);
 
   if (loading) {
     return <ProgressLoader />;
   }
+    // If there's an error, show the error message
+    if (error) {
+      return <Text style={styles.errorText}>Error loading analysis data: {error}</Text>;
+  }
+     // If no analysis data, show a message
+     if (!isNotEmptyObject(analysis)) {
+      return <Text style={styles.noDataText}>No Analysis Data Available</Text>;
+  }
+
+
 
   const renderCards = (
     items: any[],
@@ -112,7 +127,9 @@ const AnalysisView: React.FC = (props: any) => {
                     screen: 'drill',
                     status: item.status
                   },
-                }} isPlay={false}/>
+                }} 
+                isPlay={!isPaused}                
+                />
           );
         } else if (category === 'Workout Drills') {
           return (
@@ -131,7 +148,8 @@ const AnalysisView: React.FC = (props: any) => {
                 screen: 'workout',
                 status: item.status
               },
-            }} isPlay={false}/>
+            }} 
+            isPlay={!isPaused}            />
           );
         }
       } catch (error) {
@@ -276,6 +294,7 @@ const AnalysisView: React.FC = (props: any) => {
 
   const handleVideoPress = (uri: string, title: string) => {
     setSelectedVideo({ uri, title });
+    setIsPaused(false); // Set to false to auto-play
     setModalVisible(true);
   };
 
@@ -338,7 +357,8 @@ const AnalysisView: React.FC = (props: any) => {
       {selectedVideo && (
         <VideoModal
           visible={modalVisible}
-          onClose={() => setModalVisible(false)}
+          onClose={() =>
+             setModalVisible(false)}
           videoUri={selectedVideo.uri}
           title={selectedVideo.title}
         />
