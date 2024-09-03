@@ -140,6 +140,7 @@ export const AnalysisCard: React.FC<{
         <View style={styles.overlay}>
           <Text style={styles.scoreText}>Score</Text>
           <Text style={styles.scoreValue}>{score}</Text>
+          {postureScore &&
           <View style={styles.scoreDetail}>
             <Image
               source={require('../../../../assets/Images/DashBoard/fire.png')}
@@ -150,6 +151,8 @@ export const AnalysisCard: React.FC<{
               <Text style={styles.detailScoreText}>{postureScore}</Text>
             </Text>
           </View>
+          }
+          {swingRhythm &&
           <View style={styles.scoreDetail}>
             <Image
               source={require('../../../../assets/Images/DashBoard/clock.png')}
@@ -160,6 +163,7 @@ export const AnalysisCard: React.FC<{
               <Text style={styles.detailScoreText}>{swingRhythm}</Text>
             </Text>
           </View>
+          }
         </View>
       </ImageBackground>
     </TouchableOpacity>

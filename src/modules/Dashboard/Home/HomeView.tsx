@@ -99,8 +99,8 @@ const HomeView = (props: any) => {
             renderItem={({ item }) => (
               <AnalysisCard
                 score={item.swing_rating?.toString()}
-                postureScore={item.posture?.toString()}
-                swingRhythm={item.swing_rhythm?.toString()}
+                postureScore={""}
+                swingRhythm={""}
                 source={require('../../../assets/Images/DashBoard/RecentAna1.png')}
                 onPress={() => navigation.navigate('AnalysisView', item)}
               />

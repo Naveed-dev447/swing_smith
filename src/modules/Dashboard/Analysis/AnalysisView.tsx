@@ -15,10 +15,9 @@ import {
   fetchSwingAnalysis,
   resetSwingAnalysisState,
 } from '../../../redux/Slices/SwingAnalysisSlice';
-import { fetchProfile } from '../../../redux/Slices/ProfileSlice';
 import ProgressLoader from '../../../components/ProgressLoader';
 import VideoModal from '../../../components/VideoModal';
-import { isNotEmptyObject } from '../../../shared/Utils/CommonUtils';
+import { formatSkillText, isNotEmptyObject } from '../../../shared/Utils/CommonUtils';
 import { useIsFocused } from '@react-navigation/native';
 
 const workoutImage = require('../../../assets/Images/swingAnalysis.png');
@@ -46,8 +45,7 @@ const AnalysisView: React.FC = (props: any) => {
     thumbnail,
     type
   } = params;
-
-
+  
   const focused = useIsFocused();
   const [selectedTab, setSelectedTab] = useState('Analysis ');
   const [modalVisible, setModalVisible] = useState(false);
@@ -210,7 +208,7 @@ const AnalysisView: React.FC = (props: any) => {
             </View>
           )
 
-        case 'Video':
+        case 'Tutorials':
           if (swingAnalysis?.data?.recomended_tutorials && Array.isArray(swingAnalysis.data.recomended_tutorials) && swingAnalysis.data.recomended_tutorials.length) {
             return (
               <View style={styles.workOutContainer}>
@@ -263,7 +261,7 @@ const AnalysisView: React.FC = (props: any) => {
               {renderHeaderContent('Straight Arms')}
               {renderHeaderContent('Swing Drills')}
               {renderHeaderContent('Exercise Drills')}
-              {renderHeaderContent('Video')}
+              {renderHeaderContent('Tutorials')}
             </>
           );
 
@@ -291,7 +289,7 @@ const AnalysisView: React.FC = (props: any) => {
             <Image source={profileImage} style={styles.profileImage} />
             <View style={styles.userInfo}>
               <Text style={styles.userName}>{userName}</Text>
-              <Text style={styles.userSkill}>{face_direction === 'up' ? 'FO' : 'DTL'}/{club}/{hand} Handed</Text>
+              <Text style={styles.userSkill}>{formatSkillText(face_direction, club, hand, ball_flight, contact)}</Text>
             </View>
             <View style={styles.scoreContainer}>
               <Image source={flagImage} style={styles.flagImage} />
@@ -310,7 +308,7 @@ const AnalysisView: React.FC = (props: any) => {
                 'Analysis ',
                 'Exercise Drills',
                 'Swing Drills',
-                'Video',
+                'Tutorials',
               ].map(tab => (
                 <TouchableOpacity
                   key={tab}

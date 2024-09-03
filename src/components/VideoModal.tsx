@@ -1,7 +1,7 @@
 import React from 'react';
-import {Modal, View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import { Modal, View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import Video from 'react-native-video';
-import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
+import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 
 interface VideoModalProps {
   visible: boolean;
@@ -27,11 +27,11 @@ const VideoModal: React.FC<VideoModalProps> = ({
           <Text style={styles.closeButtonText}>X</Text>
         </TouchableOpacity>
         <Video
-          source={{uri: videoUri}}
+          source={{ uri: videoUri }}
           style={styles.videoPlayer}
           controls={true}
         />
-        <Text style={styles.title}>{title}</Text>
+        {/* <Text style={styles.title}>{title}</Text> */}
       </View>
     </Modal>
   );
@@ -51,8 +51,8 @@ const styles = StyleSheet.create({
     zIndex: 1,
     backgroundColor: 'rgba(0,0,0,0.8)',
     borderRadius: wp('6%'),
-    paddingHorizontal:wp('3%'),
-    paddingVertical:wp('1%'),
+    paddingHorizontal: wp('3%'),
+    paddingVertical: wp('1%'),
   },
   closeButtonText: {
     color: 'white',
