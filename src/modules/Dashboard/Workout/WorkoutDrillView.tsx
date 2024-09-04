@@ -108,7 +108,6 @@ const WorkoutDrillView = (props: any) => {
         setModalVisible(true);
 
     };
-    console.log("Route.parms", route.params);
 
     return (
         <View style={styles.container}>
@@ -131,9 +130,9 @@ const WorkoutDrillView = (props: any) => {
                     data={route.params}
                     onPress={() => handleVideoPress(file_name, description, modalVisible)}
                     navigateTo={null} />
-                    <View style={styles.headerStyle}>
-                <Text style={styles.header}>{screen === 'workout' ? 'Workout' : screen === 'drill' ? 'Drill' : 'Tutorial'} Instructions </Text>
-                <Image source={headerIcon} style={styles.headerImage}/>
+                <View style={styles.headerStyle}>
+                    <Text style={styles.header}>{screen === 'workout' ? 'Workout' : screen === 'drill' ? 'Drill' : 'Tutorial'} Instructions </Text>
+                    <Image source={headerIcon} style={styles.headerImage} />
                 </View>
                 <Text style={styles.detail}>
                     {description}
@@ -186,9 +185,9 @@ const styles = StyleSheet.create({
         marginBottom: hp('2%'),
         color: '#192126',
     },
-    headerStyle:{
-        flexDirection:'row',
-        alignItems:'center',
+    headerStyle: {
+        flexDirection: 'row',
+        alignItems: 'center',
         marginTop: hp('4%'),
     },
     header: {
@@ -197,7 +196,7 @@ const styles = StyleSheet.create({
         fontWeight: '500',
         color: '#192126',
     },
-    headerImage:{
+    headerImage: {
         marginLeft: wp('2%'),
         width: Platform.OS === 'android' ? wp('6.2%') : wp('6.5%'),
         height: hp('3.2%')
