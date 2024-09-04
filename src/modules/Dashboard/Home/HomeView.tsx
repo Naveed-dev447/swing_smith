@@ -135,7 +135,8 @@ const HomeView = (props: any) => {
                     title: item?.title,
                     status: item.status,
                     screen: 'drill',
-                    file_name: item.file_url
+                    file_name: item.file_url,
+                    duration: item.duration || '',
                   }
                 }}
                 isPlay={false} />
@@ -163,7 +164,8 @@ const HomeView = (props: any) => {
                       title: item?.title,
                       status: item.status,
                       screen: 'workout',
-                      file_name: item.file_name
+                      file_name: item.file_name,
+                      duration: item.duration || '',
                     },
                   }} isPlay={false} />
               );
@@ -191,7 +193,8 @@ const HomeView = (props: any) => {
                     description: item.description || '',
                     title: item.title,
                     status: item.status,
-                    file_name: item.file_name
+                    file_name: item.file_name,
+                    duration: item.duration || '',
                   },
                 }} isPlay={false}
               />

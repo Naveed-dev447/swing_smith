@@ -4,7 +4,9 @@ import {
     Text,
     View,
     ScrollView,
-    FlatList
+    FlatList,
+    Image,
+    Platform
 } from 'react-native';
 import {
     widthPercentageToDP as wp,
@@ -24,10 +26,11 @@ import VideoModal from '../../../components/VideoModal';
 import TutorialCard from '../../../shared/Component/TutorialCard/TutorialCard';
 
 const checkIconSelected = require('../../../assets/Images/selectedCheckIcon.png');
+const headerIcon = require('../../../assets/Images/vector.png');
+
 
 const WorkoutDrillView = (props: any) => {
     const { route } = props;
-    console.log("Params =======?", route.params);
 
     const { id, type, description, title, file_name, status, screen } = route.params;
 
@@ -105,6 +108,7 @@ const WorkoutDrillView = (props: any) => {
         setModalVisible(true);
 
     };
+    console.log("Route.parms", route.params);
 
     return (
         <View style={styles.container}>
@@ -112,24 +116,28 @@ const WorkoutDrillView = (props: any) => {
 
             <ScrollView contentContainerStyle={styles.contentContainer}
                 scrollIndicatorInsets={{ right: 1 }}>
-                <View style={styles.imageView}>
+                {/* <View style={styles.imageView}>
                     <LottieView
                         style={styles.image}
                         source={require('../../../assets/animations/Plank.json')}
                         autoPlay
                         loop
                     />
-                </View>
+                </View> */}
                 {/* <Text style={styles.workoutTitle}>
                     {'Drills Detail'}
                 </Text> */}
-                <Text style={styles.detail}>
-                    {description}
-                </Text>
                 <TutorialCard
                     data={route.params}
                     onPress={() => handleVideoPress(file_name, description, modalVisible)}
                     navigateTo={null} />
+                    <View style={styles.headerStyle}>
+                <Text style={styles.header}>{screen === 'workout' ? 'Workout' : screen === 'drill' ? 'Drill' : 'Tutorial'} Instructions </Text>
+                <Image source={headerIcon} style={styles.headerImage}/>
+                </View>
+                <Text style={styles.detail}>
+                    {description}
+                </Text>
                 {status !== undefined &&
                     <View style={styles.buttonContainer}>
                         <Button
@@ -178,11 +186,28 @@ const styles = StyleSheet.create({
         marginBottom: hp('2%'),
         color: '#192126',
     },
+    headerStyle:{
+        flexDirection:'row',
+        alignItems:'center',
+        marginTop: hp('4%'),
+    },
+    header: {
+        fontSize: wp('4.5%'),
+        fontFamily: 'Outfit-Regular',
+        fontWeight: '500',
+        color: '#192126',
+    },
+    headerImage:{
+        marginLeft: wp('2%'),
+        width: Platform.OS === 'android' ? wp('6.2%') : wp('6.5%'),
+        height: hp('3.2%')
+    },
     detail: {
-        fontSize: wp('4%'),
+        marginTop: hp('1%'),
+        fontSize: wp('4.2%'),
         fontFamily: 'Outfit-Regular',
         marginBottom: hp('4%'),
-        color: '#192126CC',
+        color: '#192126',
     },
     workoutsContainer: {
         width: '100%',
