@@ -2,10 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, ScrollView, FlatList, Image, StyleSheet } from 'react-native';
 import globalStyles from './styles';
 import {
-  DrillCard,
   HorizontalScroll,
   Section,
-  WorkoutCard,
   Header,
   Banner,
   UploadSwing,
@@ -24,6 +22,8 @@ import VideoModal from '../../../components/VideoModal';
 import ProgressLoader from '../../../components/ProgressLoader';
 import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { useIsFocused } from '@react-navigation/native';
+import { DrillCard } from './Common/DrillCard';
+import { WorkoutCard } from '../Home/Common/WorkOutCards';
 
 
 // Define a fallback image URL
@@ -117,60 +117,63 @@ const HomeView = (props: any) => {
             )
           }
         />
-        <Section title="Recommended Swing Drills">
+      <Section title="Recommended Swing Drills">
           <FlatList
             data={drills}
             horizontal
             showsHorizontalScrollIndicator={false}
             keyExtractor={(item) => item.id.toString()}
-            renderItem={({ item, index }) => (
-              <TutorialCard
-                key={index}
-                data={item}
-                onPress={() => console.log("Test")}
+            renderItem={({ item }) => (
+              <DrillCard
+                key={item.id}
+                title={item.name}
+                description={item.description}
                 navigateTo={{
                   routeName: 'Golf Drill',
                   params: {
-                    id: item.id, type: item.name, description: item.description,
-                    title: item?.title,
-                    status: item.status,
+                    id: item.id,
+                    type: item.name,
+                    description: item.description,
+                    title: item.name,
+                    file_name: item.file_url,
                     screen: 'drill',
-                    file_name: item.file_url
-                  }
+                    status: item.status,
+                  },
                 }}
-                isPlay={false} />
+                url={item.file_url}
+              />
             )}
+            contentContainerStyle={styles.flatListContent}
           />
         </Section>
         <Section title="Recommended Exercise Drills">
           <FlatList
+            data={workouts}
             horizontal
             showsHorizontalScrollIndicator={false}
-            data={workouts}
             keyExtractor={(item) => item.id.toString()}
-            renderItem={({ item, index }) => {
-              return (
-                <TutorialCard
-                  key={index}
-                  data={item}
-                  onPress={() => console.log("Test")}
-                  navigateTo={{
-                    routeName: 'Golf Drill',
-                    params: {
-                      id: item.id,
-                      type: item.drill_name || item.name,
-                      description: item.description || '',
-                      title: item?.title,
-                      status: item.status,
-                      screen: 'workout',
-                      file_name: item.file_name
-                    },
-                  }} isPlay={false} />
-              );
-            }}
-            contentContainerStyle={{ marginVertical: hp('1%') }}
+            renderItem={({ item }) => (
+              <WorkoutCard
+                key={item.id}
+                title={item.name}
+                description={item.description}
+                navigateTo={{
+                  routeName: 'Golf Drill',
+                  params: {
+                    id: item.id,
+                    type: item.drill_name || item.name,
+                    description: item.description || '',
+                    title: item.title,
+                    status: item.status,
+                    screen: 'workout',
+                    file_name: item.file_name
+                  },
+                }}
+                url={item.file_name} // Adjust URL if necessary
+              />
+            )}
+            contentContainerStyle={styles.flatListContent}
           />
-
         </Section>
         <Section title="Recommended Tutorials">
           <FlatList
@@ -213,3 +216,11 @@ const HomeView = (props: any) => {
 
 
 export default HomeView;
+const styles = StyleSheet.create({
+  sectionContainer: {
+    width: '100%',
+  },
+  flatListContent: {
+    marginVertical: hp('1%'),
+  },
+});

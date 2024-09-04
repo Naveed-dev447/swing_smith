@@ -1,7 +1,6 @@
 import React from 'react';
-import { Modal, View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { Modal, View, Text, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
 import Video from 'react-native-video';
-import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 
 interface VideoModalProps {
   visible: boolean;
@@ -21,7 +20,8 @@ const VideoModal: React.FC<VideoModalProps> = ({
       animationType="slide"
       transparent={true}
       visible={visible}
-      onRequestClose={onClose}>
+      onRequestClose={onClose}
+    >
       <View style={styles.modalView}>
         <TouchableOpacity style={styles.closeButton} onPress={onClose}>
           <Text style={styles.closeButtonText}>X</Text>
@@ -30,12 +30,15 @@ const VideoModal: React.FC<VideoModalProps> = ({
           source={{ uri: videoUri }}
           style={styles.videoPlayer}
           controls={true}
+          resizeMode="contain"
         />
-        {/* <Text style={styles.title}>{title}</Text> */}
+        {title ? <Text style={styles.title}>{title}</Text> : null}
       </View>
     </Modal>
   );
 };
+
+const { width, height } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
   modalView: {
@@ -46,26 +49,26 @@ const styles = StyleSheet.create({
   },
   closeButton: {
     position: 'absolute',
-    top: wp('30%'),
-    right: wp('5%'),
+    top: 40,
+    right: 20,
     zIndex: 1,
     backgroundColor: 'rgba(0,0,0,0.8)',
-    borderRadius: wp('6%'),
-    paddingHorizontal: wp('3%'),
-    paddingVertical: wp('1%'),
+    borderRadius: 20,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
   },
   closeButtonText: {
     color: 'white',
-    fontSize: wp('6%'),
+    fontSize: 24,
   },
   videoPlayer: {
-    width: wp('90%'),
-    height: wp('70%'),
+    width: width,  // Full width
+    height: height, // Full height
   },
   title: {
     color: 'white',
-    fontSize: wp('5%'),
-    marginTop: wp('2%'),
+    fontSize: 20,
+    marginTop: 10,
     textAlign: 'center',
   },
 });

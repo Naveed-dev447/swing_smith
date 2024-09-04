@@ -58,7 +58,7 @@ const recommandedStyles = StyleSheet.create({
     margin: wp('1%'),
     marginRight: (wp('3%')),
     marginTop: hp('2%'),
-    height: hp('22%'),
+    height: hp('50%'),
     marginBottom: wp('5%'),
     borderRadius: wp('2%'),
     backgroundColor: '#fff',

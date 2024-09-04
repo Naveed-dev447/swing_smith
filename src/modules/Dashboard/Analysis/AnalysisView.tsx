@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { ScrollView, View, Text, Image, TouchableOpacity } from 'react-native';
+import { ScrollView, View, Text, Image, TouchableOpacity, StyleSheet, ImageBackground } from 'react-native';
 import { styles } from './AnalysingScreenStyle';
 import CustomHeader from '../../../shared/Component/CustomHeader';
 import {
-  DrillCard,
   HorizontalScroll,
   Section,
-  WorkoutCard,
+  
 } from '../../Dashboard/Home/Common/Common';
 import TutorialCard from '../../../shared/Component/TutorialCard/TutorialCard';
 import { AppDispatch, RootState } from 'redux/store';
@@ -19,6 +18,9 @@ import ProgressLoader from '../../../components/ProgressLoader';
 import VideoModal from '../../../components/VideoModal';
 import { formatSkillText, isNotEmptyObject } from '../../../shared/Utils/CommonUtils';
 import { useIsFocused } from '@react-navigation/native';
+import { Icon } from 'react-native-vector-icons/Icon';
+import { DrillCard } from '../Home/Common/DrillCard';
+import { WorkoutCard } from '../Home/Common/WorkOutCards';
 
 const workoutImage = require('../../../assets/Images/swingAnalysis.png');
 const profileImage = require('../../../assets/Images/avatar.jpg');
@@ -63,6 +65,8 @@ const AnalysisView: React.FC = (props: any) => {
   const userName = profiles.length > 0 ? profiles[0].name : 'User';
 
   const analysis = swingAnalysis && swingAnalysis?.data?.analysis;
+  console.log("analysis:", analysis);
+  
   
   useEffect(() => {
     if (id) {
@@ -167,47 +171,83 @@ const AnalysisView: React.FC = (props: any) => {
             );
           }
           return null;
-
-        case 'Exercise Drills':
-          if (analysis?.['Workouts'] && Array.isArray(analysis['Workouts']) && analysis['Workouts'].length) {
-            return (
-              <View style={styles.workOutContainer}>
-                <Section title="Recommended Exercise Drills">
-                  <HorizontalScroll>
-                    {renderCards(analysis['Workouts'], WorkoutCard, 'Core Strength', 'Workout Drills')}
-                  </HorizontalScroll>
-                </Section>
-              </View>
-            );
-          }
-          return (
-            <View style={styles.workOutContainer}>
-              <Section title="Recommended Exercise Drills">
-                <Text style={styles.noDataText}>No exercise drills available.</Text>
-              </Section>
-            </View>
-          )
-
-        case 'Swing Drills':
-          if (analysis?.['Golf Drills'] && Array.isArray(analysis['Golf Drills']) && analysis['Golf Drills'].length) {
+          case 'Swing Drills':
+            if (analysis?.['Golf Drills'] && Array.isArray(analysis['Golf Drills']) && analysis['Golf Drills'].length) {
+              return (
+                <View style={styles.workOutContainer}>
+                  <Section title="Recommended Swing Drills">
+                    <HorizontalScroll>
+                      {analysis['Golf Drills'].map((item, index) => (
+                        <DrillCard
+                          key={index}
+                          title={item.name}
+                          description={item.description}
+                          navigateTo={{
+                            routeName: 'Golf Drill',
+                            params: {
+                              id: item.id,
+                              type: item.name,
+                              description: item.description,
+                              title: item.name,
+                              file_name: item.file_url,
+                              screen: 'drill',
+                              status: item.status,
+                            },
+                          }}
+                          url={item.file_url} // Make sure this URL is a valid image URL or video thumbnail URL
+                        />
+                      ))}
+                    </HorizontalScroll>
+                  </Section>
+                </View>
+              );
+            }
             return (
               <View style={styles.workOutContainer}>
                 <Section title="Recommended Swing Drills">
-                  <HorizontalScroll>
-                    {renderCards(analysis['Golf Drills'], DrillCard, 'Core Strength', 'Golf Drills')}
-                  </HorizontalScroll>
+                  <Text style={styles.noDataText}>No swing drills available.</Text>
                 </Section>
               </View>
             );
-          }
-          return (
-            <View style={styles.workOutContainer}>
-              <Section title="Recommended Swing Drills">
-                <Text style={styles.noDataText}>No swing drills available.</Text>
-              </Section>
-            </View>
-          )
-
+            case 'Exercise Drills':
+              if (analysis?.['Workouts'] && Array.isArray(analysis['Workouts']) && analysis['Workouts'].length) {
+                return (
+                  <View style={styles.workOutContainer}>
+                    <Section title="Recommended Exercise Drills">
+                      <HorizontalScroll>
+                        {analysis['Workouts'].map((item, index) => (
+                          <WorkoutCard
+                            key={index}
+                            title={item.name}
+                            description={item.description}
+                            navigateTo={{
+                              routeName: 'Golf Drill',
+                              params: {
+                                id: item.id,
+                                type: item.name,
+                                description: item.description,
+                                title: item.name,
+                                file_name: item.file_url,
+                                screen: 'workout',
+                                status: item.status,
+                              },
+                            }}
+                            url={item.file_url}
+                          />
+                        ))}
+                      </HorizontalScroll>
+                    </Section>
+                  </View>
+                );
+              }
+              return (
+                <View style={styles.workOutContainer}>
+                  <Section title="Recommended Exercise Drills">
+                    <Text style={styles.noDataText}>No exercise drills available.</Text>
+                  </Section>
+                </View>
+              );
+            
         case 'Tutorials':
           if (swingAnalysis?.data?.recomended_tutorials && Array.isArray(swingAnalysis.data.recomended_tutorials) && swingAnalysis.data.recomended_tutorials.length) {
             return (
@@ -348,59 +388,7 @@ const AnalysisView: React.FC = (props: any) => {
 };
 
 export default AnalysisView;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+ 
 
 
 

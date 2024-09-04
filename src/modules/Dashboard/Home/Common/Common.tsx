@@ -235,8 +235,8 @@ export const WorkoutCard: React.FC<WorkoutCardProps> = ({
       }
     >
       <ImageBackground
-        source={{ uri: 'https://images.unsplash.com/photo-1570129477492-45c003edd2be' }} // Use the actual video URL or thumbnail URL
-        style={recommandedStyles.cardImage}
+      source={require('../../../../assets/Images/onBoarding.jpg')} // Replace with the actual path to your local image
+      style={recommandedStyles.cardImage}
         imageStyle={{ borderRadius: 10 }}
       >
          <TouchableOpacity onPress={() => playVideo(url)} style={recommandedStyles.playIcon}> 
@@ -273,6 +273,49 @@ interface DrillCardProps {
   url: string; // Assuming the URL of the video or thumbnail is passed as a prop
 }
 
+// export const DrillCard: React.FC<DrillCardProps> = ({
+//   title,
+//   description,
+//   navigateTo,
+//   url,
+// }) => {
+//   const navigation = useNavigation();
+
+//   const playVideo = (url: string) => {
+//     // Implement video play logic here
+//   };
+  
+//   return (
+//     <TouchableOpacity
+//       style={recommandedStyles.cardContainer}
+//       onPress={() =>
+//         navigation.navigate(navigateTo?.routeName, navigateTo.params)
+//       }
+//     >
+//       <ImageBackground
+//       source={require('../../../../assets/Images/onBoarding.jpg')} // Replace with the actual path to your local image
+//       style={recommandedStyles.cardImage}
+//         imageStyle={{ borderRadius: 10 }}
+//       >
+//          <TouchableOpacity onPress={() => playVideo(url)} style={recommandedStyles.playIcon}> 
+//           <Icon
+//             name="play-circle"
+//             size={wp('10%')}
+//             color="white"
+//           />
+//         </TouchableOpacity>
+//         <TouchableOpacity
+//           onPress={() => navigation.navigate(navigateTo?.routeName, navigateTo.params)}
+//         >
+//           <Text style={recommandedStyles.cardTitle}>{title}</Text>
+//         </TouchableOpacity>
+//       <View style={recommandedStyles.cardContent}>
+//         <Text style={recommandedStyles.smallText} numberOfLines={2}>{description || ''}</Text>
+//       </View>
+//       </ImageBackground>
+//     </TouchableOpacity>
+//   );
+// };
 export const DrillCard: React.FC<DrillCardProps> = ({
   title,
   description,
@@ -281,41 +324,34 @@ export const DrillCard: React.FC<DrillCardProps> = ({
 }) => {
   const navigation = useNavigation();
 
-  const playVideo = (url: string) => {
-    // Implement video play logic here
+  const playVideo = () => {
+    if (navigateTo) {
+      navigation.navigate(navigateTo.routeName, navigateTo.params);
+    }
   };
-  
+
   return (
     <TouchableOpacity
       style={recommandedStyles.cardContainer}
-      onPress={() =>
-        navigation.navigate(navigateTo?.routeName, navigateTo.params)
-      }
+      onPress={playVideo}
     >
       <ImageBackground
-        source={{ uri: 'https://images.unsplash.com/photo-1570129477492-45c003edd2be' }} // Use the actual video URL or thumbnail URL
+       source={{ uri: url }}
         style={recommandedStyles.cardImage}
         imageStyle={{ borderRadius: 10 }}
       >
-         <TouchableOpacity onPress={() => playVideo(url)} style={recommandedStyles.playIcon}> 
+        <TouchableOpacity onPress={playVideo} style={recommandedStyles.playIcon}>
           <Icon
             name="play-circle"
             size={wp('10%')}
             color="white"
           />
         </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => navigation.navigate(navigateTo?.routeName, navigateTo.params)}
-        >
-          <Text style={recommandedStyles.cardTitle}>{title}</Text>
-        </TouchableOpacity>
-      <View style={recommandedStyles.cardContent}>
-        <Text style={recommandedStyles.smallText} numberOfLines={2}>{description || ''}</Text>
-      </View>
       </ImageBackground>
     </TouchableOpacity>
   );
 };
+
 
 
 
