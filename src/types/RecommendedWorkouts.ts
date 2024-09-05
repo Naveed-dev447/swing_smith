@@ -1,5 +1,6 @@
 // interfaces/Workout.ts
 export interface IRecommendedWorkout {
+    duration: string;
     status: any;
     file_name: any;
     file_url: any;

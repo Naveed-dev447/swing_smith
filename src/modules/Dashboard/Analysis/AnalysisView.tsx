@@ -47,6 +47,7 @@ const AnalysisView: React.FC = (props: any) => {
     thumbnail,
     type
   } = params;
+  console.log("Params", params);
   
   const focused = useIsFocused();
   const [selectedTab, setSelectedTab] = useState('Analysis ');
@@ -65,8 +66,7 @@ const AnalysisView: React.FC = (props: any) => {
   const userName = profiles.length > 0 ? profiles[0].name : 'User';
 
   const analysis = swingAnalysis && swingAnalysis?.data?.analysis;
-  console.log("analysis:", analysis);
-  
+
   
   useEffect(() => {
     if (id) {
@@ -114,7 +114,8 @@ const AnalysisView: React.FC = (props: any) => {
                     title: item?.title,
                     file_name: item.file_url,
                     screen: 'drill',
-                    status: item.status
+                    status: item.status,
+                    duration: item.duration || '',
                   },
                 }} isPlay={false}/>
           );
@@ -133,7 +134,8 @@ const AnalysisView: React.FC = (props: any) => {
                 title: item?.title,
                 file_name: item.file_url,
                 screen: 'workout',
-                status: item.status
+                status: item.status,
+                duration: item.duration || '',
               },
             }} isPlay={false}/>
           );
@@ -267,7 +269,8 @@ const AnalysisView: React.FC = (props: any) => {
                             description: item.description || '',
                             title: item.title,
                             status: item.status,
-                            file_name: item.file_name
+                            file_name: item.file_name,
+                            duration: item.duration || '',
                           },
                         }} isPlay={false}
                       />
@@ -329,7 +332,7 @@ const AnalysisView: React.FC = (props: any) => {
             <Image source={profileImage} style={styles.profileImage} />
             <View style={styles.userInfo}>
               <Text style={styles.userName}>{userName}</Text>
-              <Text style={styles.userSkill}>{formatSkillText(face_direction, club, hand, ball_flight, contact)}</Text>
+              <Text style={styles.userSkill}>{formatSkillText(face_direction, club, hand)}</Text>
             </View>
             <View style={styles.scoreContainer}>
               <Image source={flagImage} style={styles.flagImage} />

@@ -138,7 +138,9 @@ const HomeView = (props: any) => {
                     file_name: item.file_url,
                     screen: 'drill',
                     status: item.status,
-                  },
+                    file_name: item.file_url,
+                    duration: item.duration || '',
+                  }
                 }}
                 url={item.file_url}
               />
@@ -152,27 +154,28 @@ const HomeView = (props: any) => {
             horizontal
             showsHorizontalScrollIndicator={false}
             keyExtractor={(item) => item.id.toString()}
-            renderItem={({ item }) => (
-              <WorkoutCard
-                key={item.id}
-                title={item.name}
-                description={item.description}
-                navigateTo={{
-                  routeName: 'Golf Drill',
-                  params: {
-                    id: item.id,
-                    type: item.drill_name || item.name,
-                    description: item.description || '',
-                    title: item.title,
-                    status: item.status,
-                    screen: 'workout',
-                    file_name: item.file_name
-                  },
-                }}
-                url={item.file_name} // Adjust URL if necessary
-              />
-            )}
-            contentContainerStyle={styles.flatListContent}
+            renderItem={({ item, index }) => {
+              return (
+                <TutorialCard
+                  key={index}
+                  data={item}
+                  onPress={() => console.log("Test")}
+                  navigateTo={{
+                    routeName: 'Golf Drill',
+                    params: {
+                      id: item.id,
+                      type: item.drill_name || item.name,
+                      description: item.description || '',
+                      title: item?.title,
+                      status: item.status,
+                      screen: 'workout',
+                      file_name: item.file_name,
+                      duration: item.duration || '',
+                    },
+                  }} isPlay={false} />
+              );
+            }}
+            contentContainerStyle={{ marginVertical: hp('1%') }}
           />
         </Section>
         <Section title="Recommended Tutorials">
@@ -194,7 +197,8 @@ const HomeView = (props: any) => {
                     description: item.description || '',
                     title: item.title,
                     status: item.status,
-                    file_name: item.file_name
+                    file_name: item.file_name,
+                    duration: item.duration || '',
                   },
                 }} isPlay={false}
               />

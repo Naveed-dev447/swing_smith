@@ -26,7 +26,7 @@ export const formatSkillText = (
 ): string => {
     const faceDirectionText = face_direction === 'up' ? 'FO' : face_direction ? 'DTL' : '';
     const clubText = club ? `/${club}` : '';
-    const handText = hand ? `/${hand}` : '';
+    const handText = hand ? `/${hand.charAt(0).toUpperCase() + hand.slice(1)} handed` : '';
     const ballFlightText = ball_flight ? `/${ball_flight}` : '';
     const contactText = contact ? `/${contact}` : '';
 

@@ -1,4 +1,5 @@
 export interface IRecommendedDrill {
+  duration: string;
   file_url: any;
   title: any;
   drill_name: string;

@@ -58,9 +58,11 @@ const RegisterView: React.FC = (props: any) => {
       if (res.status === 201) {
         ShowToast('success', res.message);
         navigation.navigate('Login');
+      } else {
+        ShowToast('error', `${res.message}`)
       }
     } catch (error) {
-      ShowToast('error', "Registration failed, Please try again");
+      ShowToast('error', `${error}`);
       console.error(error);
     } finally {
       setLoading(false);
