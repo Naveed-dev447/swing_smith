@@ -35,6 +35,7 @@ import SkillLevel from '../modules/Onboarding/Home/SkillLevel.tsx';
 import PlayerTypes from '../modules/VideoUpload/PlayerTypes.tsx';
 import BallFlightTypes from '../modules/VideoUpload/BallFlightType.tsx';
 import ClubType from '../modules/VideoUpload/ClubType.tsx';
+import SubscriptionScreen from '../modules/Payment/Payment.tsx';
 
 const Stack = createStackNavigator();
 
@@ -171,6 +172,11 @@ const RootNavigation = () => {
             options={{ headerShown: false }}
             name="Congratulation"
             component={CongratulationModal}
+          />
+             <Stack.Screen
+            options={{ headerShown: false }}
+            name="subscription"
+            component={SubscriptionScreen}
           />
         </Stack.Navigator>
         <Toast config={toastConfig} />

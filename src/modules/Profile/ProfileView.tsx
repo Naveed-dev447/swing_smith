@@ -2,13 +2,13 @@ import React from 'react';
 import { View, Text, Image, TouchableOpacity, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { styles } from './styles';
-import CustomHeader from '../../../shared/Component/CustomHeader';
-import { goBack } from '../../../shared/Utils/navigationRef';
+import CustomHeader from '../../shared/Component/CustomHeader';
+import { goBack } from '../../shared/Utils/navigationRef';
 import { useDispatch, useSelector } from 'react-redux';
-import { logout } from '../../../redux/Slices/AuthSlice';
-import { AppDispatch, RootState } from '../../../redux/store';
+import { logout } from '../../redux/Slices/AuthSlice';
+import { AppDispatch, RootState } from '../../redux/store';
 
-const profile = require('../../../assets/Images/avatar.jpg');
+const profile = require('../../assets/Images/avatar.jpg');
 
 const ProfileScreen: React.FC = (props: any) => {
   const { navigation } = props;
@@ -47,8 +47,13 @@ const ProfileScreen: React.FC = (props: any) => {
             icon="credit-card"
             text="Subscription"
             rightText="Get Full Access"
+            onPress={() => navigation.navigate('subscription')}
           />
-          <OptionRow icon="lock" text="Change Password" />
+          <OptionRow
+            icon="lock"
+            text="Change Password"
+            onPress={() => navigation.navigate('ChangePassword')} // Add navigation for Change Password
+          />
         </View>
         <View style={styles.optionMainContainer}>
 
@@ -72,6 +77,7 @@ interface OptionRowProps {
   text: string;
   rightText?: string;
   isLast?: boolean;
+  onPress: () => void;
 }
 
 const OptionRow: React.FC<OptionRowProps> = ({
@@ -79,9 +85,10 @@ const OptionRow: React.FC<OptionRowProps> = ({
   text,
   rightText,
   isLast,
+  onPress
 }) => {
   return (
-    <TouchableOpacity
+    <TouchableOpacity onPress={onPress}
       style={[styles.optionContainer, isLast && styles.lastOption]}>
       <View style={styles.optionIcon}>
         <Icon name={icon} size={16} color='#192126' />

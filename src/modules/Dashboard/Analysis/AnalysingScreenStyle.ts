@@ -103,22 +103,22 @@ export const styles = StyleSheet.create({
   },
   instructionContainer: {
     width: wp('89%'),
-    // backgroundColor: '#FFFFFF',
-    // borderWidth: 1,
-    // borderColor: '#F0F0F0',
-    // borderRadius: wp('3%'),
+    backgroundColor: '#FFFFFF',
+    borderWidth: 1,
+    borderColor: '#F0F0F0',
+    borderRadius: wp('3%'),
     padding: wp('1%'),
     marginBottom: hp('2%'),
-    // // Shadow for iOS
-    // shadowColor: '#000',
-    // shadowOffset: {
-    //   width: 0,
-    //   height: 2,
-    // },
-    // shadowOpacity: 0.25,
-    // shadowRadius: 3.84,
-    // // Shadow for Android
-    // elevation: 5,
+    // Shadow for iOS
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    // Shadow for Android
+    elevation: 5,
   },
   instructionHeader: {
     flexDirection: 'row',

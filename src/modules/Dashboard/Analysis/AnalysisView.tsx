@@ -162,7 +162,7 @@ const AnalysisView: React.FC = (props: any) => {
         case 'Straight Arms':
           if (analysis?.[header]) {
             return (
-              <View style={styles.instructionContainer} key={header}>
+              <View style={{padding:10}} key={header}>
                 <View style={styles.instructionHeader}>
                   <Text style={styles.instructionTitle}>{header}</Text>
                 </View>
@@ -253,6 +253,7 @@ const AnalysisView: React.FC = (props: any) => {
         case 'Analysis ':
           return (
             <>
+             <View style={styles.instructionContainer}>
               {renderHeaderContent('Head Stability')}
               {renderHeaderContent('Hip Turn')}
               {renderHeaderContent('Pivot')}
@@ -264,6 +265,7 @@ const AnalysisView: React.FC = (props: any) => {
               {renderHeaderContent('Weight Forward')}
               {renderHeaderContent('Shoulder Turn')}
               {renderHeaderContent('Straight Arms')}
+              </View>
               {renderHeaderContent('Swing Drills')}
               {renderHeaderContent('Exercise Drills')}
               {renderHeaderContent('Tutorials')}
@@ -301,6 +303,7 @@ const AnalysisView: React.FC = (props: any) => {
               <Text style={styles.scoreText}>
                 {analysis?.['Swing Rating'] ? analysis?.['Swing Rating'] : 'N/A'}
               </Text>
+              <Text style={styles.userSkill}>SCORE</Text>
             </View>
             <View style={styles.scoreContainer}>
               <Image source={ruler} style={styles.scoreCardIcon} />
