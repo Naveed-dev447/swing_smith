@@ -99,10 +99,10 @@ const AnalysisView: React.FC = (props: any) => {
       try {
         if (category === 'Golf Drills') {
           return (
-            <TutorialCard
+            <DrillCard
                 key={index}
-                data={item}
-                onPress={()=> console.log("Test")}
+                title={item.name}
+                description={item.description}
                 navigateTo={{
                   routeName: 'Golf Drill',
                   params: {
@@ -115,14 +115,14 @@ const AnalysisView: React.FC = (props: any) => {
                     status: item.status,
                     duration: item.duration || '',
                   },
-                }} isPlay={false}/>
+                }} />
           );
         } else if (category === 'Workout Drills') {
           return (
-            <TutorialCard
+            <WorkoutCard
             key={index}
-            data={item}
-            onPress={()=> console.log("Test")}
+            title={item.name}
+            description={item.description}
             navigateTo={{
               routeName: 'Golf Drill',
               params: {
@@ -135,7 +135,7 @@ const AnalysisView: React.FC = (props: any) => {
                 status: item.status,
                 duration: item.duration || '',
               },
-            }} isPlay={false}/>
+            }} />
           );
         }
       } catch (error) {

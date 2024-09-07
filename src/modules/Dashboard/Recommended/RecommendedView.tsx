@@ -4,11 +4,8 @@ import {
   Text,
   ScrollView,
   TouchableOpacity,
-  ImageBackground,
-  Image,
   FlatList
 } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -103,22 +100,23 @@ const RecommendedView: React.FC = (props: any) => {
               keyExtractor={(item) => item.id.toString()}
               horizontal
               renderItem={({ item, index }) => (
-                <TutorialCard
+                <DrillCard
                   key={index}
-                  data={item}
-                  onPress={() => console.log("Test")}
+                  title={item.name}
+                  description={item.description}
                   navigateTo={{
                     routeName: 'Golf Drill',
                     params: {
-                      id: item.id, type: item.name, description: item.description,
+                      id: item.id,
+                      type: item.drill_name || item.name,
+                      description: item.description || '',
                       title: item?.title,
-                      status: item.status,
-                      screen: 'drill',
                       file_name: item.file_url,
+                      screen: 'drill',
+                      status: item.status,
                       duration: item.duration || '',
-                    }
-                  }}
-                  isPlay={false} />
+                    },
+                  }} />
               )}
             />
           </Section>
@@ -129,22 +127,23 @@ const RecommendedView: React.FC = (props: any) => {
               keyExtractor={(item) => item.id.toString()}
               horizontal
               renderItem={({ item, index }) => (
-                <TutorialCard
+                <DrillCard
                   key={index}
-                  data={item}
-                  onPress={() => console.log("Test")}
+                  title={item.name}
+                  description={item.description}
                   navigateTo={{
                     routeName: 'Golf Drill',
                     params: {
-                      id: item.id, type: item.name, description: item.description,
+                      id: item.id,
+                      type: item.drill_name || item.name,
+                      description: item.description || '',
                       title: item?.title,
-                      status: item.status,
-                      screen: 'drill',
                       file_name: item.file_url,
+                      screen: 'drill',
+                      status: item.status,
                       duration: item.duration || '',
-                    }
-                  }}
-                  isPlay={false} />
+                    },
+                  }} />
               )}
             />
           </Section>
@@ -160,22 +159,23 @@ const RecommendedView: React.FC = (props: any) => {
               data={workouts}
               keyExtractor={(item) => item.id.toString()}
               renderItem={({ item, index }) => (
-                <TutorialCard
+                <WorkoutCard
                   key={index}
-                  data={item}
-                  onPress={() => console.log("Test")}
+                  title={item.name}
+                  description={item.description}
                   navigateTo={{
                     routeName: 'Golf Drill',
                     params: {
-                      id: item.id, type: item.name, description: item.description,
+                      id: item.id,
+                      type: item.drill_name || item.name,
+                      description: item.description || '',
                       title: item?.title,
                       file_name: item.file_url,
                       screen: 'workout',
                       status: item.status,
                       duration: item.duration || '',
-                    }
-                  }}
-                  isPlay={false} />
+                    },
+                  }} />
               )}
               contentContainerStyle={{ marginVertical: hp('1%') }}
             />
@@ -189,22 +189,23 @@ const RecommendedView: React.FC = (props: any) => {
               data={workouts}
               keyExtractor={(item) => item.id.toString()}
               renderItem={({ item, index }) => (
-                <TutorialCard
+                <WorkoutCard
                   key={index}
-                  data={item}
-                  onPress={() => console.log("Test")}
+                  title={item.name}
+                  description={item.description}
                   navigateTo={{
                     routeName: 'Golf Drill',
                     params: {
-                      id: item.id, type: item.name, description: item.description,
+                      id: item.id,
+                      type: item.drill_name || item.name,
+                      description: item.description || '',
                       title: item?.title,
-                      status: item.status,
-                      screen: 'workout',
                       file_name: item.file_url,
+                      screen: 'workout',
+                      status: item.status,
                       duration: item.duration || '',
-                    }
-                  }}
-                  isPlay={false} />
+                    },
+                  }} />
               )}
               contentContainerStyle={{ marginVertical: hp('1%') }}
             />

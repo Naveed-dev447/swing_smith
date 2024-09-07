@@ -54,7 +54,7 @@ const recommandedStyles = StyleSheet.create({
     justifyContent: 'space-around',
   },
   cardContainer: {
-    width: wp('44%'),
+    width: wp('85%'),
     margin: wp('1%'),
     marginRight: (wp('3%')),
     marginTop: hp('2%'),
@@ -81,11 +81,11 @@ const recommandedStyles = StyleSheet.create({
   },
   cardTitle: {
     color: 'white',
-    fontSize: wp('4%'),
+    fontSize: wp('4.2%'),
     fontWeight: 'bold',
     fontFamily: 'Outfit-Regular',
     textAlign: 'center',
-    marginBottom: wp('2%'),
+    marginBottom: wp('1%'),
   },
   cardDescription: {
     color: 'white',
@@ -95,10 +95,12 @@ const recommandedStyles = StyleSheet.create({
     marginBottom: wp('7%'),
   },
   cardContent: {
-    padding: wp('2%'),
+    marginBottom: wp('8%'),
+    padding: wp('1%')
   },
   smallText: {
-    fontFamily: 'Outfit',
+    fontSize: wp('3.7%'),
+    fontFamily: 'Outfit-Regular',
     textAlign: 'center',
     color: '#fff',
   },

@@ -16,9 +16,8 @@ import {
 import globalStyles from '../styles';
 import { useNavigation } from '@react-navigation/native';
 import recommandedStyles from '../../../../modules/Dashboard/Recommended/styles';
-import { Circle, Svg } from 'react-native-svg';
-import * as Progress from 'react-native-progress';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import thumbnail from '../../../../assets/Images/recommendedVideoIcon.png'
 
 export const Header: React.FC<{
   toggleModal: () => void;
@@ -206,51 +205,45 @@ export const Section: React.FC<SectionProps> = ({ title, children }) => (
 
 
 interface WorkoutCardProps {
+  key: number;
   title: string;
   description: string;
   navigateTo: {
     routeName: string;
     params: any;
   };
-  url: string; // Assuming the URL of the video or thumbnail is passed as a prop
 }
 
 export const WorkoutCard: React.FC<WorkoutCardProps> = ({
+  key,
   title,
   description,
   navigateTo,
-  url,
 }) => {
   const navigation = useNavigation();
 
-  const playVideo = (url: string) => {
-    // Implement video play logic here
-  };
-
+  const onPress = () => {
+    navigation.navigate(navigateTo?.routeName, navigateTo.params)
+  }
   return (
     <TouchableOpacity
-      style={recommandedStyles.cardContainer}
-      onPress={() =>
-        navigation.navigate(navigateTo?.routeName, navigateTo.params)
-      }
-    >
+      style={recommandedStyles.cardContainer} key={key}
+      onPress={onPress}>
       <ImageBackground
-        source={{ uri: 'https://images.unsplash.com/photo-1570129477492-45c003edd2be' }} // Use the actual video URL or thumbnail URL
+        source={thumbnail} // Use the actual video URL or thumbnail URL
         style={recommandedStyles.cardImage}
         imageStyle={{ borderRadius: 10 }}
       >
-        <TouchableOpacity onPress={() => playVideo(url)} style={recommandedStyles.playIcon}>
+        <TouchableOpacity style={recommandedStyles.playIcon} onPress={onPress}>
           <Icon
             name="play-circle"
             size={wp('10%')}
             color="white"
           />
         </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => navigation.navigate(navigateTo?.routeName, navigateTo.params)}
-        >
+        <View>
           <Text style={recommandedStyles.cardTitle}>{title}</Text>
-        </TouchableOpacity>
+        </View>
         <View style={recommandedStyles.cardContent}>
           <Text style={recommandedStyles.smallText} numberOfLines={2}>{description || ''}</Text>
         </View>
@@ -264,51 +257,45 @@ export const WorkoutCard: React.FC<WorkoutCardProps> = ({
 
 
 interface DrillCardProps {
+  key: number;
   title: string;
   description: string;
   navigateTo: {
     routeName: string;
     params: any;
   };
-  url: string; // Assuming the URL of the video or thumbnail is passed as a prop
 }
 
 export const DrillCard: React.FC<DrillCardProps> = ({
+  key,
   title,
   description,
   navigateTo,
-  url,
 }) => {
   const navigation = useNavigation();
-
-  const playVideo = (url: string) => {
-    // Implement video play logic here
-  };
+  const onPress = () => {
+    navigation.navigate(navigateTo?.routeName, navigateTo.params)
+  }
 
   return (
     <TouchableOpacity
-      style={recommandedStyles.cardContainer}
-      onPress={() =>
-        navigation.navigate(navigateTo?.routeName, navigateTo.params)
-      }
-    >
+      style={recommandedStyles.cardContainer} key={key}
+      onPress={onPress}>
       <ImageBackground
-        source={{ uri: 'https://images.unsplash.com/photo-1570129477492-45c003edd2be' }} // Use the actual video URL or thumbnail URL
+        source={thumbnail} // Use the actual video URL or thumbnail URL
         style={recommandedStyles.cardImage}
         imageStyle={{ borderRadius: 10 }}
       >
-        <TouchableOpacity onPress={() => playVideo(url)} style={recommandedStyles.playIcon}>
+        <TouchableOpacity style={recommandedStyles.playIcon} onPress={onPress}>
           <Icon
             name="play-circle"
             size={wp('10%')}
             color="white"
           />
         </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => navigation.navigate(navigateTo?.routeName, navigateTo.params)}
-        >
+        <View>
           <Text style={recommandedStyles.cardTitle}>{title}</Text>
-        </TouchableOpacity>
+        </View>
         <View style={recommandedStyles.cardContent}>
           <Text style={recommandedStyles.smallText} numberOfLines={2}>{description || ''}</Text>
         </View>

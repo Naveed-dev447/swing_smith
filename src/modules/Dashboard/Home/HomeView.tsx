@@ -124,22 +124,23 @@ const HomeView = (props: any) => {
             showsHorizontalScrollIndicator={false}
             keyExtractor={(item) => item.id.toString()}
             renderItem={({ item, index }) => (
-              <TutorialCard
+              <DrillCard
                 key={index}
-                data={item}
-                onPress={() => console.log("Test")}
+                title={item.name}
+                description={item.description}
                 navigateTo={{
                   routeName: 'Golf Drill',
                   params: {
-                    id: item.id, type: item.name, description: item.description,
+                    id: item.id,
+                    type: item.drill_name || item.name,
+                    description: item.description || '',
                     title: item?.title,
-                    status: item.status,
-                    screen: 'drill',
                     file_name: item.file_url,
+                    screen: 'drill',
+                    status: item.status,
                     duration: item.duration || '',
-                  }
-                }}
-                isPlay={false} />
+                  },
+                }} />
             )}
           />
         </Section>
@@ -151,10 +152,10 @@ const HomeView = (props: any) => {
             keyExtractor={(item) => item.id.toString()}
             renderItem={({ item, index }) => {
               return (
-                <TutorialCard
+                <WorkoutCard
                   key={index}
-                  data={item}
-                  onPress={() => console.log("Test")}
+                  title={item.name}
+                  description={item.description}
                   navigateTo={{
                     routeName: 'Golf Drill',
                     params: {
@@ -162,12 +163,12 @@ const HomeView = (props: any) => {
                       type: item.drill_name || item.name,
                       description: item.description || '',
                       title: item?.title,
-                      status: item.status,
+                      file_name: item.file_url,
                       screen: 'workout',
-                      file_name: item.file_name,
+                      status: item.status,
                       duration: item.duration || '',
                     },
-                  }} isPlay={false} />
+                  }} />
               );
             }}
             contentContainerStyle={{ marginVertical: hp('1%') }}
