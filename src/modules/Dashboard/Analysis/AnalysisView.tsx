@@ -290,7 +290,7 @@ const AnalysisView: React.FC = (props: any) => {
     <View style={styles.container}>
       <CustomHeader onBackPress={navigation.goBack} title="Swing Analysis" />
       {isNotEmptyObject(analysis) ? (
-        <ScrollView style={{ flex: 1, paddingBottom: 70, marginTop: 30 }}>
+        <ScrollView style={{ flexGrow: 1, paddingBottom: 70,marginTop: 20}}>
           <Image source={workoutImage} style={styles.image} />
           <View style={styles.analysisCardContainer}>
             <Image source={profileImage} style={styles.profileImage} />

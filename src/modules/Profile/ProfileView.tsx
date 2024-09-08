@@ -61,9 +61,10 @@ const ProfileScreen: React.FC = (props: any) => {
           <OptionRow icon="file-text" text="Term of Use" />
           <OptionRow icon="shield" text="Privacy Policy" />
           <OptionRow icon="thumbs-o-up" text="Rate on the App Store" />
-          <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
+          <OptionRow icon="sign-out" text="Log out" onPress={handleLogout} />
+          {/* <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
             <Icon name="sign-out" size={24} color="white" />
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
 
 
@@ -95,7 +96,8 @@ const OptionRow: React.FC<OptionRowProps> = ({
       </View>
       <Text style={styles.optionText}>{text}</Text>
       {rightText && <Text style={styles.optionRightText}>{rightText}</Text>}
-      <Icon name="chevron-right" style={styles.arrowIcon} />
+      {text !== 'Log out' &&
+        <Icon name="chevron-right" style={styles.arrowIcon} />}
     </TouchableOpacity>
   );
 };

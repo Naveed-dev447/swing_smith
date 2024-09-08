@@ -28,10 +28,8 @@ import TutorialCard from '../../../shared/Component/TutorialCard/TutorialCard';
 const checkIconSelected = require('../../../assets/Images/selectedCheckIcon.png');
 const headerIcon = require('../../../assets/Images/vector.png');
 
-
 const WorkoutDrillView = (props: any) => {
     const { route } = props;
-
     const { id, type, description, title, file_name, status, screen } = route.params;
 
     const [workouts, setWorkouts] = useState<IWorkoutDrill[] | null>(null);
@@ -63,7 +61,7 @@ const WorkoutDrillView = (props: any) => {
                 console.error(response.message);
             }
         };
-        // fetchData();
+        fetchData();
         return () => {
             setWorkouts(null);
         };
@@ -99,14 +97,11 @@ const WorkoutDrillView = (props: any) => {
         console.error(message);
     };
 
-
     const debouncedHandleMarkAsDone = debounce(handleMarkAsDone, 300);
-
 
     const handleVideoPress = (uri: string, title: string) => {
         setSelectedVideo({ uri, title });
         setModalVisible(true);
-
     };
 
     return (
@@ -115,28 +110,20 @@ const WorkoutDrillView = (props: any) => {
 
             <ScrollView contentContainerStyle={styles.contentContainer}
                 scrollIndicatorInsets={{ right: 1 }}>
-                {/* <View style={styles.imageView}>
-                    <LottieView
-                        style={styles.image}
-                        source={require('../../../assets/animations/Plank.json')}
-                        autoPlay
-                        loop
-                    />
-                </View> */}
-                {/* <Text style={styles.workoutTitle}>
-                    {'Drills Detail'}
-                </Text> */}
                 <TutorialCard
                     data={route.params}
                     onPress={() => handleVideoPress(file_name, description, modalVisible)}
-                    navigateTo={null} />
-                <View style={styles.headerStyle}>
-                    <Text style={styles.header}>{screen === 'workout' ? 'Workout' : screen === 'drill' ? 'Drill' : 'Tutorial'} Instructions </Text>
-                    <Image source={headerIcon} style={styles.headerImage} />
+                    navigateTo={null}
+                />
+                <View style={styles.shadowBox}>
+                    <View style={styles.headerStyle}>
+                        <Text style={styles.header}>{screen === 'workout' ? 'Workout' : screen === 'drill' ? 'Drill' : 'Tutorial'} Instructions</Text>
+                        <Image source={headerIcon} style={styles.headerImage} />
+                    </View>
+                    <Text style={styles.detail}>
+                        {description}
+                    </Text>
                 </View>
-                <Text style={styles.detail}>
-                    {description}
-                </Text>
                 {status !== undefined &&
                     <View style={styles.buttonContainer}>
                         <Button
@@ -169,26 +156,27 @@ const styles = StyleSheet.create({
     contentContainer: {
         padding: wp('5%'),
     },
-    imageView: {
+    shadowBox: {
         width: wp('90%'),
-        height: wp('50%'),
-        backgroundColor: '#F6FFE7',
-        marginBottom: hp('2%'),
-    },
-    image: {
-        width: '100%',
-        height: '100%',
-    },
-    workoutTitle: {
-        fontSize: wp('5%'),
-        fontFamily: 'Outfit-Bold',
-        marginBottom: hp('2%'),
-        color: '#192126',
+        alignSelf: 'center',
+        backgroundColor: '#fff',
+        padding: 10,
+        marginVertical: 20,
+        borderRadius: 10,
+        shadowColor: '#000',
+        // For iOS
+        shadowOffset: {
+            width: 0,
+            height: 1,
+        },
+        shadowOpacity: 0.22,
+        shadowRadius: 2.22,
+        // For Android
+        elevation: 2
     },
     headerStyle: {
         flexDirection: 'row',
-        alignItems: 'center',
-        marginTop: hp('4%'),
+        alignItems: 'center'
     },
     header: {
         fontSize: wp('4.5%'),
@@ -199,23 +187,20 @@ const styles = StyleSheet.create({
     headerImage: {
         marginLeft: wp('2%'),
         width: Platform.OS === 'android' ? wp('6.2%') : wp('6.5%'),
-        height: hp('3.2%')
+        height: hp('3.2%'),
     },
     detail: {
+        width: wp('80%'),
         marginTop: hp('1%'),
         fontSize: wp('4.2%'),
         fontFamily: 'Outfit-Regular',
         marginBottom: hp('4%'),
         color: '#192126',
     },
-    workoutsContainer: {
-        width: '100%',
-        marginBottom: hp('4%'),
-    },
     buttonContainer: {
         width: '100%',
         alignItems: 'center',
-        marginTop: hp('15%')
+        marginTop: hp('15%'),
     },
     markAsDoneButton: {
         backgroundColor: '#c5f048',

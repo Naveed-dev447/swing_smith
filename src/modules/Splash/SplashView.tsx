@@ -6,13 +6,17 @@ import Button from '../../components/Button';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from 'redux/store';
 import { fetchFirstLoginStatus } from '../../redux/Slices/FirstLogin';
+import { useLoader } from '../../config/LoaderContext';
 
 const SplashScreen = (props: any) => {
   const { route, navigation } = props
   const dispatch = useDispatch<AppDispatch>();
+  const { loading, setLoading } = useLoader();
+
 
   const handleGetStarted = async () => {
     try {
+      setLoading(true);
       const token = await AsyncStorage.getItem('Token');
       if (token) {
         const isFirstLogin = await dispatch(fetchFirstLoginStatus()).unwrap();
@@ -28,6 +32,8 @@ const SplashScreen = (props: any) => {
     } catch (error) {
       console.error('Error reading token from AsyncStorage:', error);
       navigation.navigate('Login');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -45,7 +51,10 @@ const SplashScreen = (props: any) => {
           onPress={handleGetStarted}
           buttonStyle={styles.button}
           textStyle={styles.buttonText}
+          disabled={loading}
+          loading={loading}
         />
+
       </View>
     </ImageBackground>
   );

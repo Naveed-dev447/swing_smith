@@ -54,7 +54,7 @@ const recommandedStyles = StyleSheet.create({
     justifyContent: 'space-around',
   },
   cardContainer: {
-    width: wp('85%'),
+    width: wp('70%'),
     margin: wp('1%'),
     marginRight: (wp('3%')),
     marginTop: hp('2%'),
@@ -70,9 +70,8 @@ const recommandedStyles = StyleSheet.create({
   },
   cardImage: {
     width: '100%',
-    height: wp('45%'),
+    height: '100%', 
     justifyContent: 'flex-end',
-    borderRadius: 10,
   },
   playIcon: {
     position: 'absolute',

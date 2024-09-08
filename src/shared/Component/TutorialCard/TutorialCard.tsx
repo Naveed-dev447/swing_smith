@@ -29,8 +29,11 @@ const TutorialCard: React.FC<TutorialCardProps> = ({ key, onPress, isPlay, data,
       onPress();
     }
   };
+  const mainContainerStyle = navigateTo
+    ? styles.mainContainer
+    : styles.mainContainer2
   return (
-    <View style={styles.mainContainer}>
+    <View style={mainContainerStyle}>
       <TouchableOpacity key={key}
         onPress={handlePress}>
         <View style={styles.videoContainer}>
@@ -82,8 +85,14 @@ const TutorialCard: React.FC<TutorialCardProps> = ({ key, onPress, isPlay, data,
 
 const styles = StyleSheet.create({
   mainContainer: {
-    width: wp('85%'),
+    marginTop: hp('2%'),
+    width: wp('70%'),
+    marginLeft: wp('2%'),
     marginRight: 20
+  },
+  mainContainer2: {
+    alignSelf: 'center',
+    width: wp('85%')
   },
   videoContainer: {
     borderRadius: wp('2%'),

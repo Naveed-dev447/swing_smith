@@ -8,8 +8,7 @@ export const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'white',
-    alignItems: 'center',
-    marginBottom: '20 %'
+    marginBottom: hp('1%')
   },
   headerContainer: {
     flexDirection: 'row',
@@ -20,6 +19,7 @@ export const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   image: {
+    alignSelf: 'center',
     width: wp('90%'),
     height: hp('25%'),
     marginBottom: hp('2%'),
@@ -31,6 +31,7 @@ export const styles = StyleSheet.create({
     borderRadius: wp('2%'),
     padding: wp('4%'),
     flexDirection: 'row',
+    alignSelf: 'center',
     alignItems: 'center',
     width: wp('90%'),
     marginBottom: hp('2%'),
@@ -102,10 +103,11 @@ export const styles = StyleSheet.create({
     height: wp('5%'),
   },
   instructionContainer: {
+    alignSelf: 'center',
     width: wp('89%'),
     backgroundColor: '#FFFFFF',
-    borderWidth: 1,
-    borderColor: '#F0F0F0',
+    // borderWidth: 1,
+    // borderColor: '#F0F0F0',
     borderRadius: wp('3%'),
     padding: wp('1%'),
     marginBottom: hp('2%'),
@@ -159,9 +161,11 @@ export const styles = StyleSheet.create({
     fontFamily: 'Outfit-Regular',
   },
   workOutContainer: {
-    width: wp('90%'),
+    width: wp('100%'),
+    marginLeft: 10
   },
   tabContainer: {
+    alignSelf: 'center',
     width: '90%',
     flexDirection: 'row',
     justifyContent: 'space-between',

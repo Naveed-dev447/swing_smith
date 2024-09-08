@@ -42,10 +42,10 @@ const DTLView: React.FC = (props: any) => {
     setValue('option', 'Down the Line'); // Set the default form value
   }, [setValue]);
 
-  const onSubmit = (data: {option: string}) => {
+  const onSubmit = (data: { option: string }) => {
     dispatch(setDtlSelectedOption(data.option));
     console.log("camera angle:", data.option);
-    
+
     navigation.navigate('OnboardHome3', 'videoStack');
   };
 
@@ -71,7 +71,7 @@ const DTLView: React.FC = (props: any) => {
                 <TouchableOpacity
                   key={index}
                   style={[
-                    globalStyles.dtlOptionButton,
+                    styles.dtlOptionButton,
                     selectedOption === option &&
                     globalStyles.selectedOptionButton,
                   ]}
@@ -89,7 +89,7 @@ const DTLView: React.FC = (props: any) => {
             </View>
           )}
         />
-       {errors.option && (
+        {errors.option && (
           <Text style={styles.errorText}>{errors.option.message}</Text>
         )}
         {selectedOption && (
@@ -115,5 +115,12 @@ const styles = StyleSheet.create({
     fontSize: wp('3%'),
     textAlign: 'center',
     marginTop: hp('1%'),
+  },
+  dtlOptionButton: {
+    paddingVertical: hp('2%'),
+    paddingHorizontal: wp('11%'),
+    borderRadius: 30,
+    marginHorizontal: wp('.5%'),
+    alignItems: 'center',
   },
 });
