@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">swing_smith</string>
+     <string name="facebook_app_id">2058549371213928</string>
+     <string name="facebook_client_token">2ff90443c4b6c4557ebda50276440f45</string>
+    <!-- Set login protocol scheme -->
+    <string name="fb_login_protocol_scheme">fb2058549371213928</string>
 </resources>

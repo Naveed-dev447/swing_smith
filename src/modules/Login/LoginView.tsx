@@ -30,7 +30,10 @@ import { useLoader } from '../../config/LoaderContext';
 import { ShowToast } from '../../components/ShowToast';
 import { fetchFirstLoginStatus } from '../../redux/Slices/FirstLogin';
 import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin';
-
+import {
+  LoginManager,
+  AccessToken
+} from 'react-native-fbsdk-next';
 
 const loginSchema = yup.object().shape({
   email: yup
@@ -118,6 +121,34 @@ const LoginScreen: React.FC = (props: any) => {
       console.error(error);
     }
   };
+  const handleFacebookLogin = async () => {
+    try {
+      const result = await LoginManager.logInWithPermissions(['public_profile', 'email']);
+      
+      if (result.isCancelled) {
+        ShowToast('info', 'User cancelled the login');
+        return;
+      }
+  
+      const data = await AccessToken.getCurrentAccessToken();
+  
+      if (!data) {
+        ShowToast('error', 'Something went wrong obtaining access token');
+        return;
+      }
+  
+      // Use the token to send a request to your backend
+      const payload = {
+        platform: 'facebook',
+        token: data.accessToken.toString(),
+      };
+  
+      onSubmit(payload); // Call the onSubmit function to handle login
+    } catch (error) {
+      ShowToast('error', 'Login failed, please try again');
+      console.error(error);
+    }
+  };
 
 
   return (
@@ -198,7 +229,7 @@ const LoginScreen: React.FC = (props: any) => {
                 />
                 <Button
                   title="Continue with Facebook"
-                  onPress={() => console.log("Facebook pressed")}
+                  onPress={handleFacebookLogin}
                   buttonStyle={styles.socialButton}
                   textStyle={styles.socialButtonText}
                   icon={require('../../assets/Images/facebok3.png')}
