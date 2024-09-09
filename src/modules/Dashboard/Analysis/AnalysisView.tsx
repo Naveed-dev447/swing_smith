@@ -16,7 +16,6 @@ import {
   resetSwingAnalysisState,
 } from '../../../redux/Slices/SwingAnalysisSlice';
 import ProgressLoader from '../../../components/ProgressLoader';
-import VideoModal from '../../../components/VideoModal';
 import { formatSkillText, isNotEmptyObject } from '../../../shared/Utils/CommonUtils';
 import { useIsFocused } from '@react-navigation/native';
 
@@ -29,31 +28,10 @@ const wind = require('../../../assets/Images/fast-wind.png');
 const AnalysisView: React.FC = (props: any) => {
   const { navigation, route } = props;
   const { params } = route;
-  const {
-    ball_flight,
-    club,
-    contact,
-    created_at,
-    face_direction,
-    file_url,
-    hand,
-    id,
-    posture,
-    swing_analysis,
-    swing_rating,
-    swing_rhythm,
-    thumbnail,
-    type
-  } = params;
-  console.log("Params", params);
+  const { id } = params;
   
   const focused = useIsFocused();
   const [selectedTab, setSelectedTab] = useState('Analysis ');
-  const [modalVisible, setModalVisible] = useState(false);
-  const [selectedVideo, setSelectedVideo] = useState<{
-    uri: string;
-    title: string;
-  } | null>(null);
   const dispatch = useDispatch<AppDispatch>();
   const { swingAnalysis, loading, error } = useSelector(
     (state: RootState) => state.swingAnalysis,
@@ -64,8 +42,10 @@ const AnalysisView: React.FC = (props: any) => {
   const userName = profiles.length > 0 ? profiles[0].name : 'User';
 
   const analysis = swingAnalysis && swingAnalysis?.data?.analysis;
-  console.log("Swing Analysis ======>", swingAnalysis);
-  
+  const club = swingAnalysis?.data?.club;
+  const face_direction = swingAnalysis?.data?.face_direction;
+  const hand = swingAnalysis?.data?.hand
+   
   useEffect(() => {
     if (id) {
       if (focused) {
@@ -281,16 +261,14 @@ const AnalysisView: React.FC = (props: any) => {
     }
   };
 
-  const handleVideoPress = (uri: string, title: string) => {
-    setSelectedVideo({ uri, title });
-    setModalVisible(true);
-  };
+
+
 
   return (
     <View style={styles.container}>
       <CustomHeader onBackPress={navigation.goBack} title="Swing Analysis" />
       {isNotEmptyObject(analysis) ? (
-        <ScrollView style={{ flexGrow: 1, paddingBottom: 70,marginTop: 20}}>
+        <ScrollView contentContainerStyle={{flexGrow: 1, paddingBottom: 70}} style={{  marginTop: 20}}>
           <Image source={workoutImage} style={styles.image} />
           <View style={styles.analysisCardContainer}>
             <Image source={profileImage} style={styles.profileImage} />
@@ -342,14 +320,6 @@ const AnalysisView: React.FC = (props: any) => {
         </ScrollView>
       ) : (
         <Text style={styles.noDataText}>No Analysis Data Available</Text>
-      )}
-      {selectedVideo && (
-        <VideoModal
-          visible={modalVisible}
-          onClose={() => setModalVisible(false)}
-          videoUri={selectedVideo.uri}
-          title={selectedVideo.title}
-        />
       )}
     </View>
   );

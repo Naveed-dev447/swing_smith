@@ -216,29 +216,27 @@ const RecommendedView: React.FC = (props: any) => {
         {/* Recommended Tutorials */}
         {selectedTab === 'All' || selectedTab === 'Tutorials' ? (
           <Section title="Recommended Tutorials">
-            <View style={{ marginLeft: wp('5%') }}>
-              <HorizontalScroll>
-                {tutorials?.map((item, index) => (
-                  <TutorialCard
-                    key={index}
-                    data={item}
-                    onPress={() => console.log("Test")}
-                    navigateTo={{
-                      routeName: 'Golf Drill',
-                      params: {
-                        id: item.id,
-                        type: item.drill_name || item.name,
-                        description: item.description || '',
-                        title: item.title,
-                        status: item.status,
-                        file_name: item.file_name,
-                        duration: item.duration || '',
-                      },
-                    }} isPlay={false}
-                  />
-                ))}
-              </HorizontalScroll>
-            </View>
+            <HorizontalScroll>
+              {tutorials?.map((item, index) => (
+                <TutorialCard
+                  key={index}
+                  data={item}
+                  onPress={() => console.log("Test")}
+                  navigateTo={{
+                    routeName: 'Golf Drill',
+                    params: {
+                      id: item.id,
+                      type: item.drill_name || item.name,
+                      description: item.description || '',
+                      title: item.title,
+                      status: item.status,
+                      file_name: item.file_name,
+                      duration: item.duration || '',
+                    },
+                  }} isPlay={false}
+                />
+              ))}
+            </HorizontalScroll>
           </Section>
         ) : null}
       </ScrollView>

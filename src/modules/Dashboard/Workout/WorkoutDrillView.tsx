@@ -42,42 +42,12 @@ const WorkoutDrillView = (props: any) => {
     const isCompleted = status === 1 ? true : false;
     const buttonTitle = isCompleted ? "Completed" : "Mark as Done";
     const buttonIcon = isCompleted ? checkIconSelected : null;
-    const buttonStyles = [
-        styles.markAsDoneButton,
-        isCompleted && styles.completedButton,
-    ];
-
-    useEffect(() => {
-        const fetchData = async () => {
-            setLoading(true);
-            const response = await GetWorkoutDrillAPICall(id);
-
-            if (response.status === 200) {
-                setWorkouts(response.data);
-                setLoading(false);
-            } else {
-                ShowToast('error', response.message);
-                setLoading(false);
-                console.error(response.message);
-            }
-        };
-        fetchData();
-        return () => {
-            setWorkouts(null);
-        };
-    }, [id]);
-
-    if (loading) {
-        return <ProgressLoader />;
-    }
+    const buttonStyles = [isCompleted ? styles.completedButton : styles.markAsDoneButton];
 
     const handleMarkAsDone = async () => {
         try {
-            const payload = {
-                id,
-                status: 1,
-            };
-
+            const payload = { id, status: 1 };
+            setLoading(true)
             const updateFunction = screen === 'workout' ? UpdateWorkoutListAPICall : UpdateWorkoutDrillAPICall;
             const response = await updateFunction(payload);
 
@@ -89,12 +59,13 @@ const WorkoutDrillView = (props: any) => {
             }
         } catch (error) {
             handleError(error.message);
+        } finally {
+            setLoading(false)
         }
     };
 
-    const handleError = (message) => {
+    const handleError = (message: string) => {
         ShowToast('error', message);
-        console.error(message);
     };
 
     const debouncedHandleMarkAsDone = debounce(handleMarkAsDone, 300);
@@ -132,6 +103,8 @@ const WorkoutDrillView = (props: any) => {
                             buttonStyle={buttonStyles}
                             textStyle={styles.buttonText}
                             icon={buttonIcon}
+                            disabled={loading}
+                            loading={loading}
                         />
                     </View>
                 }
@@ -203,21 +176,32 @@ const styles = StyleSheet.create({
         marginTop: hp('15%'),
     },
     markAsDoneButton: {
-        backgroundColor: '#c5f048',
+        backgroundColor: '#FFFFFF',
         borderRadius: 25,
         paddingVertical: hp('1.5%'),
-        paddingHorizontal: wp('31%'),
+        width: wp('90%'),
+        justifyContent: 'center',
+        flexDirection: 'row',
+        borderColor: 'black',
+        borderWidth: 1,
+    },
+    completedButton: {
+        backgroundColor: '#BBF246',
+        borderRadius: 25,
+        paddingVertical: hp('1.5%'),
+        width: wp('90%'), // Set a fixed width
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexDirection: 'row',
+        borderColor: '#c5f048',
+        borderWidth: 2,
     },
     buttonText: {
         color: '#192126',
         fontFamily: 'Outfit-SemiBold',
         fontSize: wp('4.2%'),
     },
-    completedButton: {
-        flexDirection: 'row',
-        borderColor: '#c5f048',
-        borderWidth: 2,
-    },
+
 });
 
 export default WorkoutDrillView;

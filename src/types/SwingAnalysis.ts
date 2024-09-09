@@ -48,6 +48,9 @@ export interface SwingAnalysis {
   id: number;
   file_url: string;
   analysis: Swing;
+  hand: string,
+  face_direction: string,
+  club: string,
   recomended_tutorials: RecommendedTutorial[];
   created_at: string;
 }
