@@ -1,8 +1,8 @@
 // SubscriptionScreen.tsx
-import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, ImageBackground, ScrollView } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, TouchableOpacity, ImageBackground, ScrollView, Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
-import { CardField, useStripe } from '@stripe/stripe-react-native';
+import { CardField, usePaymentSheet, useStripe } from '@stripe/stripe-react-native';
 import styles from './style';
 import CustomButton from '../../shared/Component/CustomButton';
 import globalStyles from '../../modules/Onboarding/styles';
@@ -13,15 +13,66 @@ const paymentImage = require('../../assets/Images/pay_icon.png');
 
 const SubscriptionScreen: React.FC = () => {
   const { confirmPayment } = useStripe();
-  const [showCardField, setShowCardField] = useState(false);
+  const { initPaymentSheet, presentPaymentSheet, loading } = usePaymentSheet()
+  const [ready, setReady] = useState(false);
+
+
+  useEffect(() => {
+    initialisePaymentSheet();
+  }, [])
+
+  const initialisePaymentSheet = async () => {
+    const paymentIntentClientSecret = 'pi_3PxFJECNNJb7RDVD0xmlW5nf_secret_GDoxfZdnchyMQtQeonQBhTZUB';
+
+    const { error } = await initPaymentSheet({
+      paymentIntentClientSecret,
+      merchantDisplayName: 'Swing Smith',
+      allowsDelayedPaymentMethods: true,
+      returnURL: 'stripe-example://stripe-redirect',
+    });
+    console.log("jdskjdsklgjs test eerrorr", error);
+
+    if (!error) {
+      Alert.alert(`Error code: ${error.code}`, error.message)
+    } else {
+      setReady(true);
+    }
+    // const {paymentIntent, empheralKey, customer} = await fetchPaymentSheetParams();
+
+    // const {error} = await initPaymentSheet({
+    //   customerId: customer,
+    //   customerEphemeralKeySecret: empheralKey,
+    //   paymentIntentClientSecret: paymentIntent,
+    //   merchantDisplayName: "Swing Smith",
+    //   allowsDelayedPaymentMethods: true,
+    //   returnURL: 'stripe-example://stripe-redirect',
+    // })
+    // if (!error) {
+    //   Alert.alert(`Error code: ${error.code}`, error.message)
+    // } else {
+    //   setReady(true);
+    // }
+  }
+
+  const fetchPaymentSheetParams = async () => {
+    const response = await fetch('API_URL', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    const { paymentIntent, empheralKey, customer } = await response.json();
+    return { paymentIntent, empheralKey, customer };
+  }
 
   const handlePayment = async () => {
-    // Toggle the visibility of the CardField
-    setShowCardField(!showCardField);
+    const { error } = await presentPaymentSheet();
 
-    if (showCardField) {
-      // Implement payment processing logic here
-      console.log('Processing payment...');
+    if (error) {
+      Alert.alert(`Error code: ${error.code}`, error.message)
+    } else {
+      Alert.alert(`Success: The payment was confirmed successfully`);
+      setReady(false)
     }
   };
 
@@ -71,7 +122,7 @@ const SubscriptionScreen: React.FC = () => {
               <Text style={styles.billing}>Free 1 Week Trial</Text>
             </View>
           </View>
-          {showCardField && (
+          {/* {showCardField && (
             <CardField
               postalCodeEnabled={false}
               placeholders={{
@@ -90,7 +141,7 @@ const SubscriptionScreen: React.FC = () => {
                 console.log('cardDetails', cardDetails);
               }}
             />
-          )}
+          )} */}
           <Text style={styles.agreement}>
             By continuing, you agree to
             <Text style={styles.link}> Privacy Policy </Text>

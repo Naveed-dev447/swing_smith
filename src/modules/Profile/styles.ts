@@ -5,9 +5,7 @@ import { Colors } from '../../theme/colors';
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
-    paddingBottom:hp('10%')
-
+    backgroundColor: '#f5f5f5'
   },
   profileContainer: {
     alignItems: 'center',

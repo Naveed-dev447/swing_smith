@@ -33,8 +33,8 @@ const TutorialCard: React.FC<TutorialCardProps> = ({ key, onPress, isPlay, data,
     ? styles.mainContainer
     : styles.mainContainer2
   return (
-    <View style={mainContainerStyle}>
-      <TouchableOpacity key={key}
+    <View style={mainContainerStyle} key={key}>
+      <TouchableOpacity
         onPress={handlePress}>
         <View style={styles.videoContainer}>
           <Video

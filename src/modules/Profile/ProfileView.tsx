@@ -27,7 +27,7 @@ const ProfileScreen: React.FC = (props: any) => {
   return (
     <View style={styles.container}>
       <CustomHeader onBackPress={goBack} title={'Profile'} />
-      <ScrollView contentContainerStyle={{ flexGrow: 1 }} showsVerticalScrollIndicator={false}>
+      <ScrollView contentContainerStyle={{ flexGrow: 1, paddingBottom:60 }} showsVerticalScrollIndicator={false}>
 
         <View style={styles.profileContainer}>
           <View>

@@ -23,13 +23,12 @@ const workoutImage = require('../../../assets/Images/swingAnalysis.png');
 const profileImage = require('../../../assets/Images/avatar.jpg');
 const flagImage = require('../../../assets/Images/flag.png');
 const ruler = require('../../../assets/Images/ruler.png');
-const wind = require('../../../assets/Images/fast-wind.png');
 
 const AnalysisView: React.FC = (props: any) => {
   const { navigation, route } = props;
   const { params } = route;
   const { id } = params;
-  
+
   const focused = useIsFocused();
   const [selectedTab, setSelectedTab] = useState('Analysis ');
   const dispatch = useDispatch<AppDispatch>();
@@ -44,8 +43,8 @@ const AnalysisView: React.FC = (props: any) => {
   const analysis = swingAnalysis && swingAnalysis?.data?.analysis;
   const club = swingAnalysis?.data?.club;
   const face_direction = swingAnalysis?.data?.face_direction;
-  const hand = swingAnalysis?.data?.hand
-   
+  const hand = swingAnalysis?.data?.hand;
+
   useEffect(() => {
     if (id) {
       if (focused) {
@@ -80,42 +79,44 @@ const AnalysisView: React.FC = (props: any) => {
         if (category === 'Golf Drills') {
           return (
             <DrillCard
-                key={index}
-                title={item.name}
-                description={item.description}
-                navigateTo={{
-                  routeName: 'Golf Drill',
-                  params: {
-                    id: item.id,
-                    type: item.drill_name || item.name,
-                    description: item.description || '',
-                    title: item?.title,
-                    file_name: item.file_url,
-                    screen: 'drill',
-                    status: item.status,
-                    duration: item.duration || '',
-                  },
-                }} />
+              key={index}
+              title={item.name}
+              description={item.description}
+              navigateTo={{
+                routeName: 'Golf Drill',
+                params: {
+                  id: item.id,
+                  type: item.drill_name || item.name,
+                  description: item.description || '',
+                  title: item?.title,
+                  file_name: item.file_url,
+                  screen: 'drill',
+                  status: item.status,
+                  duration: item.duration || '',
+                },
+              }} 
+            />
           );
         } else if (category === 'Workout Drills') {
           return (
             <WorkoutCard
-            key={index}
-            title={item.name}
-            description={item.description}
-            navigateTo={{
-              routeName: 'Golf Drill',
-              params: {
-                id: item.id,
-                type: item.drill_name || item.name,
-                description: item.description || '',
-                title: item?.title,
-                file_name: item.file_url,
-                screen: 'workout',
-                status: item.status,
-                duration: item.duration || '',
-              },
-            }} />
+              key={index}
+              title={item.name}
+              description={item.description}
+              navigateTo={{
+                routeName: 'Golf Drill',
+                params: {
+                  id: item.id,
+                  type: item.drill_name || item.name,
+                  description: item.description || '',
+                  title: item?.title,
+                  file_name: item.file_url,
+                  screen: 'workout',
+                  status: item.status,
+                  duration: item.duration || '',
+                },
+              }} 
+            />
           );
         }
       } catch (error) {
@@ -142,7 +143,7 @@ const AnalysisView: React.FC = (props: any) => {
         case 'Straight Arms':
           if (analysis?.[header]) {
             return (
-              <View style={{padding:10}} key={header}>
+              <View style={{ padding: 10 }} key={header}>
                 <View style={styles.instructionHeader}>
                   <Text style={styles.instructionTitle}>{header}</Text>
                 </View>
@@ -155,7 +156,7 @@ const AnalysisView: React.FC = (props: any) => {
         case 'Exercise Drills':
           if (analysis?.['Workouts'] && Array.isArray(analysis['Workouts']) && analysis['Workouts'].length) {
             return (
-              <View style={styles.workOutContainer}>
+              <View style={styles.workOutContainer} key={header}>
                 <Section title="Recommended Exercise Drills">
                   <HorizontalScroll>
                     {renderCards(analysis['Workouts'], WorkoutCard, 'Core Strength', 'Workout Drills')}
@@ -164,18 +165,12 @@ const AnalysisView: React.FC = (props: any) => {
               </View>
             );
           }
-          return (
-            <View style={styles.workOutContainer}>
-              <Section title="Recommended Exercise Drills">
-                <Text style={styles.noDataText}>No exercise drills available.</Text>
-              </Section>
-            </View>
-          )
+          return null;
 
         case 'Swing Drills':
           if (analysis?.['Golf Drills'] && Array.isArray(analysis['Golf Drills']) && analysis['Golf Drills'].length) {
             return (
-              <View style={styles.workOutContainer}>
+              <View style={styles.workOutContainer} key={header}>
                 <Section title="Recommended Swing Drills">
                   <HorizontalScroll>
                     {renderCards(analysis['Golf Drills'], DrillCard, 'Core Strength', 'Golf Drills')}
@@ -184,25 +179,19 @@ const AnalysisView: React.FC = (props: any) => {
               </View>
             );
           }
-          return (
-            <View style={styles.workOutContainer}>
-              <Section title="Recommended Swing Drills">
-                <Text style={styles.noDataText}>No swing drills available.</Text>
-              </Section>
-            </View>
-          )
+          return null;
 
         case 'Tutorials':
           if (swingAnalysis?.data?.recomended_tutorials && Array.isArray(swingAnalysis.data.recomended_tutorials) && swingAnalysis.data.recomended_tutorials.length) {
             return (
-              <View style={styles.workOutContainer}>
+              <View style={styles.workOutContainer} key={header}>
                 <Section title="Recommended Tutorials">
                   <HorizontalScroll>
                     {swingAnalysis.data.recomended_tutorials.map((item, index) => (
-                     <TutorialCard
+                      <TutorialCard
                         key={index}
                         data={item}
-                        onPress={()=> console.log("Test")}
+                        onPress={() => console.log("Test")}
                         navigateTo={{
                           routeName: 'Golf Drill',
                           params: {
@@ -214,7 +203,8 @@ const AnalysisView: React.FC = (props: any) => {
                             file_name: item.file_name,
                             duration: item.duration || '',
                           },
-                        }} isPlay={false}
+                        }} 
+                        isPlay={false}
                       />
                     ))}
                   </HorizontalScroll>
@@ -222,18 +212,12 @@ const AnalysisView: React.FC = (props: any) => {
               </View>
             );
           }
-          return (
-            <View style={styles.workOutContainer}>
-              <Section title="Recommended Tutorials">
-                <Text style={styles.noDataText}>No videos available.</Text>
-              </Section>
-            </View>
-          )
+          return null;
 
         case 'Analysis ':
           return (
             <>
-             <View style={styles.instructionContainer}>
+            <View style={styles.instructionContainer} key={header}>
               {renderHeaderContent('Head Stability')}
               {renderHeaderContent('Hip Turn')}
               {renderHeaderContent('Pivot')}
@@ -253,17 +237,35 @@ const AnalysisView: React.FC = (props: any) => {
           );
 
         default:
-          return <Text style={styles.noDataText}>No data available for this category.</Text>;
+          return <Text style={styles.noDataText} key={header}>No data available for this category.</Text>;
       }
     } catch (error) {
       console.error(`Error rendering header content: ${error}`);
-      return <Text style={styles.noDataText}>Error displaying data.</Text>;
+      return <Text style={styles.noDataText} key={header}>Error displaying data.</Text>;
     }
   };
 
+  const getAvailableTabs = () => {
+    const tabs = ['Analysis ', 'Exercise Drills', 'Swing Drills', 'Tutorials'];
+    const hasGolfDrills = analysis?.['Golf Drills'] && Array.isArray(analysis['Golf Drills']) && analysis['Golf Drills'].length;
+    const hasWorkoutDrills = analysis?.['Workouts'] && Array.isArray(analysis['Workouts']) && analysis['Workouts'].length;
+    const hasTutorials = swingAnalysis?.data?.recomended_tutorials && Array.isArray(swingAnalysis.data.recomended_tutorials) && swingAnalysis.data.recomended_tutorials.length;
+    return tabs.filter((tab) => {
+      switch (tab) {
+        case 'Swing Drills':
+          return hasGolfDrills;
+        case 'Exercise Drills':
+          return hasWorkoutDrills;
+        case 'Tutorials':
+          return hasTutorials;
+        default:
+          return true;
+      }
+    });
+  };
 
-
-
+  const availableTabs = getAvailableTabs();
+  
   return (
     <View style={styles.container}>
       <CustomHeader onBackPress={navigation.goBack} title="Swing Analysis" />
@@ -290,12 +292,7 @@ const AnalysisView: React.FC = (props: any) => {
           </View>
           <View style={styles.tabContainer}>
             <HorizontalScroll>
-              {[
-                'Analysis ',
-                'Exercise Drills',
-                'Swing Drills',
-                'Tutorials',
-              ].map(tab => (
+              {availableTabs.map(tab => (
                 <TouchableOpacity
                   key={tab}
                   style={[
@@ -326,6 +323,7 @@ const AnalysisView: React.FC = (props: any) => {
 };
 
 export default AnalysisView;
+
 
 
 

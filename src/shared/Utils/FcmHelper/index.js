@@ -15,7 +15,6 @@ export const getFcmToken = async () => {
       console.log("Error while fetching token", error);
       token = error
     });
-  console.log("Tokeen ", token);
   return token;
 };
 
