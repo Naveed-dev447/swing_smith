@@ -1,5 +1,5 @@
 // src/screens/LoginScreen.tsx
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -32,7 +32,8 @@ import { fetchFirstLoginStatus } from '../../redux/Slices/FirstLogin';
 import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin';
 import {
   LoginManager,
-  AccessToken
+  AccessToken,
+  Settings
 } from 'react-native-fbsdk-next';
 
 const loginSchema = yup.object().shape({
@@ -121,6 +122,9 @@ const LoginScreen: React.FC = (props: any) => {
       console.error(error);
     }
   };
+  useEffect(()=>{
+    Settings.initializeSDK();
+  },[])
   const handleFacebookLogin = async () => {
     try {
       const result = await LoginManager.logInWithPermissions(['public_profile', 'email']);
