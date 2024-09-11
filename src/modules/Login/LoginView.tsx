@@ -30,7 +30,8 @@ import { useLoader } from '../../config/LoaderContext';
 import { ShowToast } from '../../components/ShowToast';
 import { fetchFirstLoginStatus } from '../../redux/Slices/FirstLogin';
 import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin';
-
+import auth from '@react-native-firebase/auth';
+import { LoginManager, AccessToken } from 'react-native-fbsdk-next';
 
 const loginSchema = yup.object().shape({
   email: yup
@@ -85,6 +86,28 @@ const LoginScreen: React.FC = (props: any) => {
       setLoading(false);
     }
   };
+
+  async function onFacebookButtonPress() {
+    // Attempt login with permissions
+    const result = await LoginManager.logInWithPermissions(['public_profile', 'email']);
+  
+    if (result.isCancelled) {
+      throw 'User cancelled the login process';
+    }
+  
+    // Once signed in, get the users AccessToken
+    const data = await AccessToken.getCurrentAccessToken();
+  
+    if (!data) {
+      throw 'Something went wrong obtaining access token';
+    }
+  
+    // Create a Firebase credential with the AccessToken
+    const facebookCredential = auth.FacebookAuthProvider.credential(data.accessToken);
+  
+    // Sign-in the user with the credential
+    return auth().signInWithCredential(facebookCredential);
+  }
 
   const handleGoogleLogin = async () => {
     try {
@@ -198,7 +221,7 @@ const LoginScreen: React.FC = (props: any) => {
                 />
                 <Button
                   title="Continue with Facebook"
-                  onPress={() => console.log("Facebook pressed")}
+                  onPress={() => onFacebookButtonPress}
                   buttonStyle={styles.socialButton}
                   textStyle={styles.socialButtonText}
                   icon={require('../../assets/Images/facebok3.png')}
