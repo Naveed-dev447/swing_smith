@@ -8,7 +8,7 @@ type ToastType = 'success' | 'error' | 'warning' | 'info';
 const toastTypes: Record<ToastType, { backgroundColor: string; icon: string; textColor: string }> = {
   success: {
     backgroundColor: '#4CAF50', // Green
-    icon: require('../assets/Images/successIcon.png'),
+    icon: require('../assets/Images/success1.png'),
     textColor: '#FFFFFF',
   },
   error: {

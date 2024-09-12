@@ -7,6 +7,7 @@ import Store from './src/redux/Store';
 import { getFcmToken, registerListenerWithFCM } from './src/shared/Utils/FcmHelper/index';
 
 const App: React.FC = () => {
+  
   useEffect(() => {
     getFcmToken();
   }, []);
