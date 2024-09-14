@@ -2,79 +2,53 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, ImageBackground, ScrollView, Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
-import { CardField, usePaymentSheet, useStripe } from '@stripe/stripe-react-native';
+import { CardField, useStripe } from '@stripe/stripe-react-native';
 import styles from './style';
-import CustomButton from '../../shared/Component/CustomButton';
-import globalStyles from '../../modules/Onboarding/styles';
+import CustomButton from '../../../../shared/Component/CustomButton';
+import globalStyles from '../../../Onboarding/styles';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
-import { goBack } from '../../shared/Utils/navigationRef';
+import { goBack } from '../../../../shared/Utils/navigationRef';
+import SubscriptionAPICall from './SubscriptionAPICall';
 
-const paymentImage = require('../../assets/Images/pay_icon.png');
+const paymentImage = require('../../../../assets/Images/pay_icon.png');
 
-const SubscriptionScreen: React.FC = () => {
-  const { confirmPayment } = useStripe();
-  const { initPaymentSheet, presentPaymentSheet, loading } = usePaymentSheet()
-  const [ready, setReady] = useState(false);
+const SubscriptionScreen: React.FC = (props: any) => {
+  const { navigation, route } = props;
+  const { params } = route;
 
+  const { createPaymentMethod } = useStripe();
+  const [selectedPlan, setSelectedPlan] = useState('monthly');
+  const [email, setEmail] = useState('rizwan@gmail.com'); // Replace with the user's email
+  const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    initialisePaymentSheet();
-  }, [])
+  const handleSubscription = async () => {
+    setLoading(true);
 
-  const initialisePaymentSheet = async () => {
-    const paymentIntentClientSecret = 'pi_3PxFJECNNJb7RDVD0xmlW5nf_secret_GDoxfZdnchyMQtQeonQBhTZUB';
-
-    const { error } = await initPaymentSheet({
-      paymentIntentClientSecret,
-      merchantDisplayName: 'Swing Smith',
-      allowsDelayedPaymentMethods: true,
-      returnURL: 'stripe-example://stripe-redirect',
+    const { paymentMethod, error: createPaymentMethodError } = await createPaymentMethod({
+      paymentMethodType: 'Card'
     });
-    console.log("jdskjdsklgjs test eerrorr", error);
 
-    if (!error) {
-      Alert.alert(`Error code: ${error.code}`, error.message)
-    } else {
-      setReady(true);
+    if (createPaymentMethodError) {
+      Alert.alert(`Error: ${createPaymentMethodError.message}`);
+      setLoading(false);
+      return;
     }
-    // const {paymentIntent, empheralKey, customer} = await fetchPaymentSheetParams();
 
-    // const {error} = await initPaymentSheet({
-    //   customerId: customer,
-    //   customerEphemeralKeySecret: empheralKey,
-    //   paymentIntentClientSecret: paymentIntent,
-    //   merchantDisplayName: "Swing Smith",
-    //   allowsDelayedPaymentMethods: true,
-    //   returnURL: 'stripe-example://stripe-redirect',
-    // })
-    // if (!error) {
-    //   Alert.alert(`Error code: ${error.code}`, error.message)
-    // } else {
-    //   setReady(true);
-    // }
-  }
+    const paymentMethodId = paymentMethod.id;
 
-  const fetchPaymentSheetParams = async () => {
-    const response = await fetch('API_URL', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    const { paymentIntent, empheralKey, customer } = await response.json();
-    return { paymentIntent, empheralKey, customer };
-  }
+    try {
+      await SubscriptionAPICall({
+        plan: selectedPlan,
+        email: params.email,
+        paymentMethodId: paymentMethodId
+      });
 
-  const handlePayment = async () => {
-    const { error } = await presentPaymentSheet();
-
-    if (error) {
-      Alert.alert(`Error code: ${error.code}`, error.message)
-    } else {
-      Alert.alert(`Success: The payment was confirmed successfully`);
-      setReady(false)
+    } catch (error) {
+    } finally {
+      setLoading(false);
     }
   };
+
 
   return (
     <View style={styles.container}>
@@ -110,38 +84,46 @@ const SubscriptionScreen: React.FC = () => {
             </View>
           </View>
           <View style={styles.plansContainer}>
-            <View style={styles.plan}>
+            <TouchableOpacity
+              style={[styles.plan, selectedPlan === 'monthly' && styles.selectedPlan]}
+              onPress={() => setSelectedPlan('monthly')}
+            >
               <Text style={styles.planType}>Monthly</Text>
               <Text style={styles.price}>$20.00</Text>
               <Text style={styles.billing}>Billed Monthly</Text>
-            </View>
-            <View style={styles.plan}>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={[styles.plan, selectedPlan === 'yearly' && styles.selectedPlan]}
+              onPress={() => setSelectedPlan('yearly')}
+            >
               <Text style={styles.planType}>Yearly</Text>
               <Text style={styles.price}>$200.00</Text>
-              <Text style={styles.save}>Save $40.00</Text>
+              <Text style={[styles.save, { color: selectedPlan === 'yearly' ? '#192126' : '#4CAF50' }]}>Save $40.00</Text>
               <Text style={styles.billing}>Free 1 Week Trial</Text>
-            </View>
+            </TouchableOpacity>
           </View>
-          {/* {showCardField && (
+          <View style={styles.cardFieldContainer}>
             <CardField
               postalCodeEnabled={false}
               placeholders={{
                 number: '4242 4242 4242 4242',
+                expiry: 'MM/YY',
+                cvc: 'CVC'
               }}
               cardStyle={{
-                backgroundColor: '#FFFFFF',
-                textColor: '#000000',
+                backgroundColor: '#f8f9fa',
+                textColor: '#212529',
+                borderColor: '#ced4da',
+                borderWidth: 1,
+                borderRadius: 8,
               }}
-              style={{
-                width: '100%',
-                height: 50,
-                marginVertical: 30,
-              }}
+              style={styles.cardField}
               onCardChange={(cardDetails) => {
                 console.log('cardDetails', cardDetails);
               }}
             />
-          )} */}
+          </View>
+
           <Text style={styles.agreement}>
             By continuing, you agree to
             <Text style={styles.link}> Privacy Policy </Text>
@@ -150,7 +132,7 @@ const SubscriptionScreen: React.FC = () => {
           </Text>
         </View>
         <View style={globalStyles.buttonContainer}>
-          <CustomButton title="Start Plan For Free" onPress={handlePayment} />
+          <CustomButton title="Start Plan For Free" onPress={handleSubscription} loading={loading} />
         </View>
       </ScrollView>
     </View>

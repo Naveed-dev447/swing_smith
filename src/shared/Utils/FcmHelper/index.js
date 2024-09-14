@@ -74,19 +74,12 @@ export const checkApplicationNotificationPermission = async () => {
     if (enabled) {
       console.log('Authorization status:', authStatus);
     } else {
+      Alert.alert(
+        'Permissions required',
+        'Notifications permission is required for push notifications',
+      );
       console.log('Authorization not granted');
       return;
-    }
-
-    if (Platform.OS === 'ios') {
-      const permissionStatus = await request(PERMISSIONS.IOS.NOTIFICATIONS);
-      if (permissionStatus !== RESULTS.GRANTED) {
-        Alert.alert(
-          'Permissions required',
-          'Notifications permission is required for push notifications',
-        );
-      }
-      console.log('iOS NOTIFICATIONS status:', permissionStatus);
     }
   } catch (error) {
     console.log('Error checking notification permissions:', error);

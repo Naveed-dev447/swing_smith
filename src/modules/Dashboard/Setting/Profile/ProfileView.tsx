@@ -2,13 +2,13 @@ import React from 'react';
 import { View, Text, Image, TouchableOpacity, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { styles } from './styles';
-import CustomHeader from '../../shared/Component/CustomHeader';
-import { goBack } from '../../shared/Utils/navigationRef';
+import CustomHeader from '../../../../shared/Component/CustomHeader';
+import { goBack } from '../../../../shared/Utils/navigationRef';
 import { useDispatch, useSelector } from 'react-redux';
-import { logout } from '../../redux/Slices/AuthSlice';
-import { AppDispatch, RootState } from '../../redux/store';
+import { logout } from '../../../../redux/Slices/AuthSlice';
+import { AppDispatch, RootState } from '../../../../redux/store';
 
-const profile = require('../../assets/Images/avatar.jpg');
+const profile = require('../../../../assets/Images/avatar.jpg');
 
 const ProfileScreen: React.FC = (props: any) => {
   const { navigation } = props;
@@ -26,7 +26,7 @@ const ProfileScreen: React.FC = (props: any) => {
 
   return (
     <View style={styles.container}>
-      <CustomHeader onBackPress={goBack} title={'Profile'} />
+      <CustomHeader onBackPress={() => console.log('Back')} title={'Profile'} />
       <ScrollView contentContainerStyle={{ flexGrow: 1, paddingBottom:60 }} showsVerticalScrollIndicator={false}>
 
         <View style={styles.profileContainer}>
@@ -47,7 +47,7 @@ const ProfileScreen: React.FC = (props: any) => {
             icon="credit-card"
             text="Subscription"
             rightText="Get Full Access"
-            onPress={() => navigation.navigate('subscription')}
+            onPress={() => navigation.navigate('subscription',userName)}
           />
           <OptionRow
             icon="lock"

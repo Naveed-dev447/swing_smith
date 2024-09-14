@@ -35,7 +35,7 @@ import SkillLevel from '../modules/Onboarding/Home/SkillLevel.tsx';
 import PlayerTypes from '../modules/VideoUpload/PlayerTypes.tsx';
 import BallFlightTypes from '../modules/VideoUpload/BallFlightType.tsx';
 import ClubType from '../modules/VideoUpload/ClubType.tsx';
-import SubscriptionScreen from '../modules/Payment/Payment.tsx';
+import SubscriptionScreen from '../modules/Dashboard/Setting/Payment/SubscriptionView.tsx';
 
 const Stack = createStackNavigator();
 
@@ -173,7 +173,7 @@ const RootNavigation = () => {
             name="Congratulation"
             component={CongratulationModal}
           />
-             <Stack.Screen
+          <Stack.Screen
             options={{ headerShown: false }}
             name="subscription"
             component={SubscriptionScreen}

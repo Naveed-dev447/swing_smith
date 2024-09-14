@@ -24,21 +24,21 @@ const styles = StyleSheet.create({
   title: {
     width: wp('30%'),
     fontSize: wp('6%'),
-    color:"#FFFFFF",
+    color: "#FFFFFF",
     fontFamily: 'Outfit-Regular',
     fontWeight: '700',
   },
-  highlight:{
+  highlight: {
     width: wp('30%'),
     fontSize: wp('6%'),
-    color:"#BBF246",
+    color: "#BBF246",
     fontFamily: 'Outfit-Regular',
     fontWeight: '700',
   },
   subtitle: {
     fontSize: wp('3.8%'),
     marginTop: hp('1%'),
-    fontWeight:'400',
+    fontWeight: '400',
     fontFamily: 'Outfit-Regular',
     color: '#FFFFFF',
     width: wp('55%'),
@@ -55,8 +55,8 @@ const styles = StyleSheet.create({
   benefitText: {
     fontSize: wp('4%'),
     marginLeft: wp('2%'),
-    color:"#192126CC",
-    fontWeight:'600',
+    color: "#192126CC",
+    fontWeight: '600',
     fontFamily: 'Outfit-Regular',
   },
   plansContainer: {
@@ -71,11 +71,17 @@ const styles = StyleSheet.create({
     backgroundColor: '#f0f0f0',
     borderRadius: 10
   },
+  selectedPlan: {
+    width: '48%',
+    padding: wp('7%'),
+    backgroundColor: '#BBF246',
+    borderRadius: 10
+  },
   planType: {
     fontSize: wp('4.5%'),
     fontWeight: '500',
     fontFamily: 'Outfit-Regular',
-    color:'#192126'
+    color: '#192126'
   },
   price: {
     fontSize: wp('6%'),
@@ -87,14 +93,13 @@ const styles = StyleSheet.create({
   },
   billing: {
     fontSize: wp('3.5%'),
-    fontWeight:'500',
-    marginTop: 'auto', 
+    fontWeight: '500',
+    marginTop: 'auto',
     fontFamily: 'Outfit-Regular',
     color: '#192126',
   },
   save: {
     fontSize: wp('3.5%'),
-    color: '#4CAF50',
     marginBottom: hp('1%'),
   },
   trial: {
@@ -102,11 +107,11 @@ const styles = StyleSheet.create({
     color: '#777',
   },
   agreement: {
-    alignSelf:'center',
+    alignSelf: 'center',
     width: wp('50%'),
     fontSize: wp('3.5%'),
-    fontWeight:'400',
-    fontFamily:'Outfit-Regular',
+    fontWeight: '400',
+    fontFamily: 'Outfit-Regular',
     color: '#192126',
     textAlign: 'center',
     marginBottom: hp('2%'),
@@ -126,6 +131,31 @@ const styles = StyleSheet.create({
     fontSize: wp('4.5%'),
     color: '#fff',
     fontWeight: 'bold',
+  },
+  cardFieldContainer: {
+    marginVertical: hp('2%'),
+    borderRadius: wp('2%'),
+    backgroundColor: '#ffffff',
+    ...Platform.select({
+      ios: {
+        shadowColor: '#000000',
+        // shadowOpacity: 0.2,
+        shadowRadius: hp('2%'),
+        shadowOffset: {
+          width: 0,
+          height: hp('1%'),
+        },
+      },
+      android: {
+        elevation: 5,
+      },
+    }),
+  },
+  cardField: {
+    width: wp('90%'),
+    height: hp('7%'),
+    borderRadius: wp('2%'),
+    backgroundColor: '#f8f9fa',
   },
 });
 

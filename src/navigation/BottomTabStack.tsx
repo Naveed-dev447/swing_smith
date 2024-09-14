@@ -11,7 +11,7 @@ import {
 import HomeStack from './HomeStack';
 import WeightTransferDrill from '../modules/Dashboard/WeightTransferDrills/WeightTransferDrills';
 import SwingLogView from '../modules/Dashboard/Home/SwingLogView';
-import ProfileScreen from '../modules/Profile/ProfileView';
+import ProfileScreen from '../modules/Dashboard/Setting/Profile/ProfileView';
 
 const Tab = createBottomTabNavigator();
 

@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-import { Colors } from '../../theme/colors';
+import { Colors } from '../../../../theme/colors';
 
 export const styles = StyleSheet.create({
   container: {
@@ -10,11 +10,11 @@ export const styles = StyleSheet.create({
   profileContainer: {
     alignItems: 'center',
     paddingHorizontal: wp('5%'),
-    paddingVertical:hp('5%'),
+    paddingVertical: hp('5%'),
     marginVertical: hp('2.5%'),
-    marginHorizontal:wp('5%'),
-    borderRadius:10,
-    backgroundColor:'#ffff'
+    marginHorizontal: wp('5%'),
+    borderRadius: 10,
+    backgroundColor: '#ffff'
   },
   profileImage: {
     width: wp('30%'),
@@ -31,24 +31,24 @@ export const styles = StyleSheet.create({
   },
   profileName: {
     fontSize: wp('5.5%'),
-    fontFamily:'Outfit-Bold',
+    fontFamily: 'Outfit-Bold',
     color: Colors.black,
-    textAlign:'center',
+    textAlign: 'center',
     marginTop: hp('1.25%'),
   },
   profileEmail: {
     fontSize: wp('3.5%'),
     color: "#8F9BB3",
-    fontFamily:'Outfit-Regular',
-    textAlign:'center',
+    fontFamily: 'Outfit-Regular',
+    textAlign: 'center',
 
   },
-  optionMainContainer:{
-    paddingVertical:hp('2.5%'),
-    marginHorizontal:wp('5%'),
-    borderRadius:10,
-    backgroundColor:'#ffff',
-    marginBottom:hp('2.5')
+  optionMainContainer: {
+    paddingVertical: hp('2.5%'),
+    marginHorizontal: wp('5%'),
+    borderRadius: 10,
+    backgroundColor: '#ffff',
+    marginBottom: hp('2.5')
   },
   optionContainer: {
     flexDirection: 'row',
@@ -70,7 +70,7 @@ export const styles = StyleSheet.create({
     fontWeight: '600',
     fontFamily: 'Outfit-SemiBold',
     flex: 1,
-    color:'#222B45'
+    color: '#222B45'
   },
   optionRightText: {
     fontSize: wp('3.5%'),
