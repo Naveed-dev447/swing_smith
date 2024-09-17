@@ -52,7 +52,7 @@ const ProfileScreen: React.FC = (props: any) => {
           <OptionRow
             icon="lock"
             text="Change Password"
-            onPress={() => navigation.navigate('ChangePassword')} // Add navigation for Change Password
+            onPress={() => navigation.navigate('resetPassword')} // Add navigation for Change Password
           />
         </View>
         <View style={styles.optionMainContainer}>

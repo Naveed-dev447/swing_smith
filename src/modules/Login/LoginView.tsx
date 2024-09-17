@@ -118,8 +118,6 @@ const LoginScreen: React.FC = (props: any) => {
       console.error(error);
     }
   };
-
-
   return (
     <>
       <StatusBar backgroundColor="transparent" translucent={true} barStyle="light-content" />
@@ -173,7 +171,8 @@ const LoginScreen: React.FC = (props: any) => {
                     checked={rememberMe}
                     onPress={() => setRememberMe(!rememberMe)}
                   />
-                  <TouchableOpacity>
+                  <TouchableOpacity onPress={() => navigation.navigate('forgetPassword')}
+                  >
                     <Text style={styles.forgotText}>Forgot Password?</Text>
                   </TouchableOpacity>
                 </View>
