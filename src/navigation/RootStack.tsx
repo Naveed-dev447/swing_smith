@@ -36,6 +36,8 @@ import PlayerTypes from '../modules/VideoUpload/PlayerTypes.tsx';
 import BallFlightTypes from '../modules/VideoUpload/BallFlightType.tsx';
 import ClubType from '../modules/VideoUpload/ClubType.tsx';
 import SubscriptionScreen from '../modules/Dashboard/Setting/Payment/SubscriptionView.tsx';
+import ResetPassword from '../modules/ResetPassword/ResetPassword.tsx';
+import ForgetPassword from '../modules/ForgetPassword/ForgetPassword.tsx';
 
 const Stack = createStackNavigator();
 
@@ -178,6 +180,17 @@ const RootNavigation = () => {
             name="subscription"
             component={SubscriptionScreen}
           />
+          <Stack.Screen
+            options={{ headerShown: false }}
+            name="resetPassword"
+            component={ResetPassword}
+          />
+          <Stack.Screen
+            options={{ headerShown: false }}
+            name="forgetPassword"
+            component={ForgetPassword}
+          />
+          
         </Stack.Navigator>
         <Toast config={toastConfig} />
       </NavigationContainer>

@@ -16,12 +16,29 @@ import { useTheme } from '../../theme/theme';
     alignItems: 'center',
     backgroundColor: 'rgba(0,0,0,0.3)',
   },
+  forgetOverlay: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'white',
+  },
+  ResetPasswordOverlay: {
+    flex:1,
+    backgroundColor: 'white',
+  },
   scrollContainer: {
     flexGrow: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },
   loginContainer: {
+    width: '95%',
+    backgroundColor: 'rgba(255, 255, 255, 0.8)',
+    borderRadius: 10,
+    padding: hp('5%'),
+    alignItems: 'center',
+  },
+  forgetContainer: {
     width: '95%',
     backgroundColor: 'rgba(255, 255, 255, 0.8)',
     borderRadius: 10,
@@ -45,6 +62,16 @@ import { useTheme } from '../../theme/theme';
     fontWeight: '500',
     color: "#6C7278"
   },
+  forgetSubtitle: {
+    fontSize: hp('1.8%'),
+    fontFamily: 'Outfit-Regular',
+    fontWeight: '500',
+    color: "#6C7278",
+    textAlign:'center',
+    marginBottom:10,
+    marginTop:10,
+  },
+
   signUp: {
     fontSize: hp('2%'),
     color: '#192126',
