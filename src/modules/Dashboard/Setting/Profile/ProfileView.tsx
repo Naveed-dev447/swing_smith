@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, Image, TouchableOpacity, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { styles } from './styles';
@@ -6,8 +6,10 @@ import CustomHeader from '../../../../shared/Component/CustomHeader';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../../../redux/Slices/AuthSlice';
 import { AppDispatch, RootState } from '../../../../redux/store';
+import { launchImageLibrary } from 'react-native-image-picker'; // Import the image picker
 
-const profile = require('../../../../assets/Images/avatar.jpg');
+
+const defaultProfileImage = require('../../../../assets/Images/avatar.jpg');
 
 const ProfileScreen: React.FC = (props: any) => {
   const { navigation } = props;
@@ -15,12 +17,27 @@ const ProfileScreen: React.FC = (props: any) => {
   const { profiles, profileLoading, profileError } = useSelector(
     (state: RootState) => state.profile,
   );
+  const [profileImage, setProfileImage] = useState<any>(defaultProfileImage);
+
   const userName = profiles.length > 0 ? profiles[0] : { email: 'Fresslab88@gmail.com', name: 'Mikor Burton' };
 
   const handleLogout = () => {
     dispatch(logout()).then(() => {
       navigation.navigate('Login');
     });
+  };  
+
+  const handleImagePicker = () => {
+    // Launch image library to select a photo
+    launchImageLibrary(
+      { mediaType: 'photo', quality: 1 },
+      (response) => {
+        if (response.assets && response.assets.length > 0) {
+          const selectedImage = response.assets[0].uri;
+          setProfileImage({ uri: selectedImage }); // Update profile image
+        }
+      }
+    );
   };
 
   return (
@@ -30,8 +47,8 @@ const ProfileScreen: React.FC = (props: any) => {
 
         <View style={styles.profileContainer}>
           <View>
-            <Image source={profile} style={styles.profileImage} />
-            <TouchableOpacity style={styles.cameraIconContainer}>
+          <Image source={profileImage} style={styles.profileImage} />
+            <TouchableOpacity style={styles.cameraIconContainer} onPress={handleImagePicker}>
               <Icon name="camera" size={18} color="black" />
             </TouchableOpacity>
           </View>
