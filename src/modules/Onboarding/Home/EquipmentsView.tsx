@@ -62,7 +62,7 @@ const EquipmentsView: React.FC = (props: any) => {
 
 
 
-      // navigation.navigate('OnboardHome12');
+  // navigation.navigate('OnboardHome12');
 
 
   return (

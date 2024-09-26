@@ -9,7 +9,7 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 import { goBack } from '../../../../shared/Utils/navigationRef';
 import { SubscriptionAPICall, CouponValidationAPICall } from './SubscriptionAPICall';
 import { ShowToast } from '../../../../components/ShowToast';
-import {  useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { RootState } from '../../../../redux/store';
 import { useTheme } from '../../../../theme/theme';
 
@@ -17,7 +17,7 @@ import { useTheme } from '../../../../theme/theme';
 const paymentImage = require('../../../../assets/Images/pay_icon.png');
 
 const SubscriptionOneTimeScreen: React.FC = (props: any) => {
-  const {navigation} = props;
+  const { navigation } = props;
   const { colors } = useTheme();
   const colorScheme = useColorScheme();
 
@@ -56,8 +56,8 @@ const SubscriptionOneTimeScreen: React.FC = (props: any) => {
       if (couponId) {
         subscriptionPayload.couponCode = couponId;
       }
-   await SubscriptionAPICall(subscriptionPayload);
-    navigation.navigate('OnboardHome12')
+      await SubscriptionAPICall(subscriptionPayload);
+      navigation.navigate('OnboardHome12')
     } catch (error) {
     } finally {
       setLoading(false);
@@ -151,19 +151,19 @@ const SubscriptionOneTimeScreen: React.FC = (props: any) => {
             />
           </View>
           <View style={styles.couponView}>
-      <View style={[styles.inputContainer]}>
-        <TextInput
-          placeholder="Coupon Code"
-          value={coupon}
-          onChangeText={setCoupon}
-          style={[styles.inputStyle, { color: colors.text }]}
-          placeholderTextColor={colors.placeholder}
-        />
-        <TouchableOpacity style={styles.couponButton} onPress={handleCouponValidation}>
-          <Text style={styles.couponText}>Verify</Text>
-        </TouchableOpacity>
-      </View>
-    </View>
+            <View style={[styles.inputContainer]}>
+              <TextInput
+                placeholder="Coupon Code"
+                value={coupon}
+                onChangeText={setCoupon}
+                style={[styles.inputStyle, { color: colors.text }]}
+                placeholderTextColor={colors.placeholder}
+              />
+              <TouchableOpacity style={styles.couponButton} onPress={handleCouponValidation}>
+                <Text style={styles.couponText}>Verify</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
           <Text style={styles.agreement}>
             By continuing, you agree to
             <Text style={styles.link}> Privacy Policy </Text>

@@ -161,9 +161,9 @@ const styles = StyleSheet.create({
     bottom: wp('4%'),
     padding: wp('4%'),
   },
-  couponView: { 
-    flexDirection: 'row', 
-    alignItems: 'center', 
+  couponView: {
+    flexDirection: 'row',
+    alignItems: 'center',
     marginVertical: hp('2%'),
   },
   inputContainer: {
@@ -173,7 +173,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 8,
     padding: wp('1%'),
-    borderColor:'#ced4da'
+    borderColor: '#ced4da'
   },
   inputStyle: {
     flex: 1,
