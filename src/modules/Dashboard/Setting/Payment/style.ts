@@ -155,7 +155,44 @@ const styles = StyleSheet.create({
     width: wp('90%'),
     height: hp('7%'),
     borderRadius: wp('2%'),
-    backgroundColor: '#f8f9fa',
+    // backgroundColor: '#f8f9fa',
+  },
+  buttonContainer: {
+    bottom: wp('4%'),
+    padding: wp('4%'),
+  },
+  couponView: { 
+    flexDirection: 'row', 
+    alignItems: 'center', 
+    marginVertical: hp('2%'),
+  },
+  inputContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderWidth: 1,
+    borderRadius: 8,
+    padding: wp('1%'),
+    borderColor:'#ced4da'
+  },
+  inputStyle: {
+    flex: 1,
+    paddingVertical: hp('1.2%'),
+    paddingHorizontal: wp('2%'),
+  },
+  couponButton: {
+    borderRadius: 8,
+    paddingVertical: hp('1.2%'),
+    paddingHorizontal: wp('3%'),
+    backgroundColor: '#000',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginLeft: wp('2%'),
+  },
+  couponText: {
+    fontFamily: 'Outfit-Medium',
+    color: '#FFFFFF',
+    fontSize: hp('2%'),
   },
 });
 

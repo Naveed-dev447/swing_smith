@@ -28,7 +28,6 @@ const EquipmentsView: React.FC = (props: any) => {
   const { loading, setLoading } = useLoader();
   const { durationGolf, skillLevel, aspectToImprove, coachingLesson, practiceDuration, scoringAverage } = useSelector((state: RootState) => state.onboarding);
   const [selectedEquipment, setSelectedEquipment] = useState<string | null>(null);
-  const [dispatchSuccessful, setDispatchSuccessful] = useState(false);
 
   const equipmentOptions = [
     'Standard clubs',
@@ -51,8 +50,8 @@ const EquipmentsView: React.FC = (props: any) => {
 
       const response = await formUpsertAPICall(payload);
       console.log('Form Upsert API response:', response);
+      navigation.navigate('subscriptionOneTime');
 
-      setDispatchSuccessful(true);
     } catch (error) {
       console.error('Error in form upsert:', error);
     }
@@ -62,11 +61,9 @@ const EquipmentsView: React.FC = (props: any) => {
   };
 
 
-  useEffect(() => {
-    if (dispatchSuccessful) {
-      navigation.navigate('OnboardHome12');
-    }
-  }, [dispatchSuccessful, navigation]);
+
+      // navigation.navigate('OnboardHome12');
+
 
   return (
     <View style={globalStyles.container}>

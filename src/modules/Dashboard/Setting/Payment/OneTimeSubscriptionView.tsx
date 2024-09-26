@@ -30,7 +30,6 @@ const SubscriptionScreen: React.FC = () => {
       allowsDelayedPaymentMethods: true,
       returnURL: 'stripe-example://stripe-redirect',
     });
-    console.log("jdskjdsklgjs test eerrorr", error);
 
     if (!error) {
       Alert.alert(`Error code: ${error.code}`, error.message)

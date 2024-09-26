@@ -37,14 +37,14 @@ const GlobalButton: React.FC<CustomButtonProps> = ({
 
   return (
     <TouchableOpacity
-      style={[styles.button, disabled || loading ? styles.buttonDisabled : {}]}
+      style={[title === 'Skip' ? styles.skipButton : styles.button, disabled || loading ? styles.buttonDisabled : {}]}
       onPress={handlePress}
       disabled={disabled || loading}
     >
       {loading ? (
         <ActivityIndicator size="small" color={loading ? "#000" : '#192126'} />
       ) : (
-        <Text style={styles.buttonText}>{title}</Text>
+        <Text style={title === 'Skip' ? styles.skipButtonText : styles.buttonText}>{title}</Text>
       )}
     </TouchableOpacity>
   );
@@ -57,14 +57,25 @@ const styles = StyleSheet.create({
     borderRadius: wp('20%'),
     alignItems: 'center',
   },
+  skipButton: {
+    backgroundColor: '#BBF246',
+    padding: hp('2%'),
+    borderRadius: wp('20%'),
+    alignItems: 'center',
+  },
   buttonText: {
     color: '#fff',
     fontFamily: 'Inter-SemiBold',
     fontSize: wp('4%'),
   },
+  skipButtonText: {
+    color: '#000',
+    fontFamily: 'Inter-SemiBold',
+    fontSize: wp('4%'),
+  },
   buttonDisabled: {
-    backgroundColor:'#fff', 
-    borderColor:'#000',
+    backgroundColor: '#fff',
+    borderColor: '#000',
     borderWidth: 1
   },
 });

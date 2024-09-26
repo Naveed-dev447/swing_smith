@@ -1,6 +1,6 @@
 // SubscriptionScreen.tsx
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, ImageBackground, ScrollView, Alert, TextInput, useColorScheme, SafeAreaView } from 'react-native';
+import { View, Text, TouchableOpacity, ImageBackground, ScrollView, Alert, TextInput, useColorScheme } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import { CardField, useStripe } from '@stripe/stripe-react-native';
 import styles from './style';
@@ -9,16 +9,22 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 import { goBack } from '../../../../shared/Utils/navigationRef';
 import { SubscriptionAPICall, CouponValidationAPICall } from './SubscriptionAPICall';
 import { ShowToast } from '../../../../components/ShowToast';
+import {  useSelector } from 'react-redux';
+import { RootState } from '../../../../redux/store';
 import { useTheme } from '../../../../theme/theme';
+
 
 const paymentImage = require('../../../../assets/Images/pay_icon.png');
 
-const SubscriptionScreen: React.FC = (props: any) => {
-  const { navigation, route } = props;
-  const { params } = route;
+const SubscriptionOneTimeScreen: React.FC = (props: any) => {
+  const {navigation} = props;
   const { colors } = useTheme();
   const colorScheme = useColorScheme();
 
+  const { profiles, profileLoading, profileError } = useSelector(
+    (state: RootState) => state.profile,
+  );
+  const userName = profiles.length > 0 ? profiles[0] : { email: 'Fresslab88@gmail.com', name: 'Mikor Burton' };
   const { createPaymentMethod } = useStripe();
   const [selectedPlan, setSelectedPlan] = useState<string>('monthly');
   const [loading, setLoading] = useState<boolean>(false);
@@ -43,14 +49,15 @@ const SubscriptionScreen: React.FC = (props: any) => {
     try {
       const subscriptionPayload: any = {
         plan: selectedPlan,
-        email: params.email,
+        email: userName.email,
         paymentMethodId: paymentMethodId,
       };
 
       if (couponId) {
         subscriptionPayload.couponCode = couponId;
       }
-      await SubscriptionAPICall(subscriptionPayload);
+   await SubscriptionAPICall(subscriptionPayload);
+    navigation.navigate('OnboardHome12')
     } catch (error) {
     } finally {
       setLoading(false);
@@ -124,7 +131,7 @@ const SubscriptionScreen: React.FC = (props: any) => {
               <Text style={styles.billing}>Free 1 Week Trial</Text>
             </TouchableOpacity>
           </View>
-          <SafeAreaView style={styles.cardFieldContainer}>
+          <View style={styles.cardFieldContainer}>
             <CardField
               postalCodeEnabled={false}
               placeholders={{
@@ -142,21 +149,21 @@ const SubscriptionScreen: React.FC = (props: any) => {
                 // console.log('cardDetails', cardDetails);
               }}
             />
-          </SafeAreaView>
-          <View style={styles.couponView}>
-            <View style={[styles.inputContainer]}>
-              <TextInput
-                placeholder="Coupon Code"
-                value={coupon}
-                onChangeText={setCoupon}
-                style={[styles.inputStyle, { color: colors.text }]}
-                placeholderTextColor={colors.placeholder}
-              />
-              <TouchableOpacity style={styles.couponButton} onPress={handleCouponValidation}>
-                <Text style={styles.couponText}>Verify</Text>
-              </TouchableOpacity>
-            </View>
           </View>
+          <View style={styles.couponView}>
+      <View style={[styles.inputContainer]}>
+        <TextInput
+          placeholder="Coupon Code"
+          value={coupon}
+          onChangeText={setCoupon}
+          style={[styles.inputStyle, { color: colors.text }]}
+          placeholderTextColor={colors.placeholder}
+        />
+        <TouchableOpacity style={styles.couponButton} onPress={handleCouponValidation}>
+          <Text style={styles.couponText}>Verify</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
           <Text style={styles.agreement}>
             By continuing, you agree to
             <Text style={styles.link}> Privacy Policy </Text>
@@ -167,9 +174,12 @@ const SubscriptionScreen: React.FC = (props: any) => {
         <View style={styles.buttonContainer}>
           <CustomButton title="Pay" onPress={handleSubscription} loading={loading} />
         </View>
+        <View style={styles.buttonContainer}>
+          <CustomButton title="Skip" onPress={() => navigation.navigate('OnboardHome12')} />
+        </View>
       </ScrollView>
     </View>
   );
 };
 
-export default SubscriptionScreen;
+export default SubscriptionOneTimeScreen;

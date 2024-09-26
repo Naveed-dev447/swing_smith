@@ -38,6 +38,7 @@ import ClubType from '../modules/VideoUpload/ClubType.tsx';
 import SubscriptionScreen from '../modules/Dashboard/Setting/Payment/SubscriptionView.tsx';
 import ResetPassword from '../modules/ResetPassword/ResetPassword.tsx';
 import ForgetPassword from '../modules/ForgetPassword/ForgetPassword.tsx';
+import SubscriptionOneTimeScreen from '../modules/Dashboard/Setting/Payment/SubscriptionOneTimeScreen.tsx';
 
 const Stack = createStackNavigator();
 
@@ -182,6 +183,11 @@ const RootNavigation = () => {
           />
           <Stack.Screen
             options={{ headerShown: false }}
+            name="subscriptionOneTime"
+            component={SubscriptionOneTimeScreen}
+          />
+          <Stack.Screen
+            options={{ headerShown: false }}
             name="resetPassword"
             component={ResetPassword}
           />
@@ -190,7 +196,7 @@ const RootNavigation = () => {
             name="forgetPassword"
             component={ForgetPassword}
           />
-          
+
         </Stack.Navigator>
         <Toast config={toastConfig} />
       </NavigationContainer>

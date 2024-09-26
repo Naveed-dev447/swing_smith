@@ -62,8 +62,7 @@ const RegisterView: React.FC = (props: any) => {
         ShowToast('error', `${res.message}`)
       }
     } catch (error) {
-      ShowToast('error', `${error}`);
-      console.error(error);
+      ShowToast('error', `${error?.response?.data?.message}|| ${error?.message}`);
     } finally {
       setLoading(false);
     }
@@ -160,7 +159,7 @@ const RegisterView: React.FC = (props: any) => {
                 </TouchableOpacity>
                 <Text style={styles.orText}>Or Register with</Text>
                 <View style={styles.socialButtonsContainer}>
-                 <TouchableOpacity
+                  <TouchableOpacity
                     style={styles.socialButton}
                     onPress={() => console.log('Continue with Facebook')}>
                     <Image
@@ -244,7 +243,7 @@ const styles = StyleSheet.create({
   loginButton: {
     backgroundColor: '#000',
     paddingVertical: hp('1.8%'),
-    width:wp('80%'),
+    width: wp('80%'),
     borderRadius: 25,
     alignItems: 'center',
   },
@@ -258,7 +257,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Inter-Regular',
     marginVertical: hp('2%'),
   },
-   socialButtonsContainer: {
+  socialButtonsContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     width: '100%',

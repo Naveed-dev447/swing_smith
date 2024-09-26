@@ -55,7 +55,6 @@ const VideoUpload5: React.FC = (props: any) => {
         console.log("Gimi API payload", payload);
 
         const uploadResponse = await AnalysisVideoAPICall(payload);
-
         if (uploadResponse.status === 200) {
           setLoading(false);
           if (!isNotEmptyObject(uploadResponse.data.analysis)) {

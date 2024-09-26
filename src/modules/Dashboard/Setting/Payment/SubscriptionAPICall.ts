@@ -7,22 +7,27 @@ import { ShowToast } from "../../../../components/ShowToast";
 export const SubscriptionAPICall = async (payload: ISubscription) => {
   try {
     const response = await apiClient.post<ISubscriptionResponse>('account/subscribe', payload);
-
     if (response.data) {
-      ShowToast('success', 'Subscription Successful');
+      ShowToast('success', `${response.data.message}`);
     }
-
     return response.data;
+
   } catch (error) {
     const errorMessage = error.response?.data?.error?.message || 'An unexpected error occurred';
-
     ShowToast('error', `${errorMessage}`);
-
-    console.error('Subscription API call error:', errorMessage);
-
-    // Rethrow the error if needed for further handling up the call stack
     throw error;
   }
 }
 
-export default SubscriptionAPICall;
+// API call to validate the coupon
+export const CouponValidationAPICall = async (couponCode: string) => {
+  try {
+    const response = await apiClient.get(`account/coupon/${couponCode}`);
+    return response.data;
+
+  } catch (error) {
+    console.error('Coupon API error:', error);
+    throw error;
+  }
+};
+

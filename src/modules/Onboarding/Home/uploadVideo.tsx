@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -12,37 +12,25 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import {launchImageLibrary} from 'react-native-image-picker';
+import { launchImageLibrary } from 'react-native-image-picker';
 import Video from 'react-native-video';
-import {useDispatch} from 'react-redux';
-import {useForm, Controller} from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
+import { useForm, Controller } from 'react-hook-form';
 import * as yup from 'yup';
-import {yupResolver} from '@hookform/resolvers/yup';
+import { yupResolver } from '@hookform/resolvers/yup';
 import CustomButton from '../../../shared/Component/CustomButton';
 import CustomHeader from '../../../shared/Component/CustomHeader';
 import globalStyles from '../styles';
-import {setUploadedVideo} from '../../../redux/Slices/OnboardingSlice';
-import {useLoader} from '../../../config/LoaderContext';
+import { setUploadedVideo } from '../../../redux/Slices/OnboardingSlice';
+import { useLoader } from '../../../config/LoaderContext';
 import Progress from 'react-native-progress/Bar';
 import UploadVideoAPICall from './APICalls/UploadVideoAPI';
-import {ShowToast} from '../../../components/ShowToast';
+import { ShowToast } from '../../../components/ShowToast';
+import { RootState } from '../../../redux/Store';
 
 const schema = yup.object().shape({
   video: yup.string().required('Please upload a video'),
 });
-// const schema = yup.object().shape({
-//   video: yup.string().test(
-//     'required-if-not-empty',
-//     'Please upload a video',
-//     (value) => {
-//       // Check if the field has a value and ensure it's not empty
-//       if (value && value.length > 0) {
-//         return true; // Field is valid if it has a value
-//       }
-//       return true; // Field is valid if it is empty (not required)
-//     }
-//   ),
-// });
 interface Video {
   uri: string;
   fileName?: string;
@@ -51,19 +39,22 @@ interface Video {
 }
 
 const UploadVideo: React.FC = (props: any) => {
-  const {route, navigation} = props;
+  const { route, navigation } = props;
   const dispatch = useDispatch();
   const {
     control,
     handleSubmit,
-    formState: {errors},
+    formState: { errors },
     setValue,
   } = useForm({
     resolver: yupResolver(schema),
   });
   const [videoUri, setVideoUri] = useState<Video | null>(null);
-  const {loading, setLoading} = useLoader();
-
+  const { loading, setLoading } = useLoader();
+  const { profiles, profileLoading, profileError } = useSelector(
+    (state: RootState) => state.profile,
+  );
+  const userName = profiles.length > 0 ? profiles[0] : { email: 'Fresslab88@gmail.com', name: 'Mikor Burton' };
   const handleUploadPress = () => {
     const options = {
       mediaType: 'video',
@@ -99,27 +90,32 @@ const UploadVideo: React.FC = (props: any) => {
       try {
         const uploadResponse = await UploadVideoAPICall(formData);
 
-        if (uploadResponse.status === 400) {
+        if (uploadResponse?.status === 400) {
           dispatch(setUploadedVideo(uploadResponse.data));
           navigation.navigate('OnboardHome8');
-          ShowToast('success', uploadResponse.message);
+          ShowToast('success', uploadResponse.message || 'Video uploaded successfully');
         } else {
-          ShowToast('error', 'Video is not uploaded, Please try again');
+          ShowToast('error', uploadResponse.message || 'Video is not uploaded, Please try again');
+
+          if (uploadResponse.status === 422) {
+            navigation.navigate('subscription', userName);
+          }
         }
       } catch (error) {
         ShowToast('error', 'Video is not uploaded, Please try again');
-        console.error(error);
+        console.error('Unexpected Error:', error);
       } finally {
         setLoading(false);
       }
     }
   };
 
+
   return (
     <View style={globalStyles.container}>
       <CustomHeader onBackPress={navigation.goBack} />
       {loading && (
-        <View style={{alignSelf: 'center', marginTop: hp('1%')}}>
+        <View style={{ alignSelf: 'center', marginTop: hp('1%') }}>
           <Progress width={200} indeterminate={true} />
         </View>
       )}
@@ -135,7 +131,7 @@ const UploadVideo: React.FC = (props: any) => {
         <Controller
           control={control}
           name="video"
-          render={({field: {onChange}}) => (
+          render={({ field: { onChange } }) => (
             <TouchableOpacity
               style={[
                 styles.uploadContainer,
@@ -144,7 +140,7 @@ const UploadVideo: React.FC = (props: any) => {
               onPress={handleUploadPress}>
               {videoUri ? (
                 <Video
-                  source={{uri: videoUri.uri}}
+                  source={{ uri: videoUri.uri }}
                   style={styles.videoPlayer}
                   controls={true}
                 />
@@ -220,7 +216,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#F8F8F8',
     marginBottom: hp('5%'),
     paddingHorizontal: 2,
-    alignSelf: 'center',  
+    alignSelf: 'center',
 
   },
   uploadContainerWithoutBorder: {
