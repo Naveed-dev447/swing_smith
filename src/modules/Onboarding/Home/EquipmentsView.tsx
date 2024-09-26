@@ -10,14 +10,13 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { useSelector } from 'react-redux';
-import Progress from 'react-native-progress/Bar';
 import { RootState } from 'redux/store';
 import { IFormUpsert } from '../../../types/FormUpsert';
 import formUpsertAPICall from './APICalls/FormUpsert';
 import { useLoader } from '../../../config/LoaderContext'
 
 const schema = yup.object().shape({
-  equipment: yup.string().required('Please select an equipment type'),
+  equipment: yup.string().required('Please select an option'),
 });
 
 const EquipmentsView: React.FC = (props: any) => {
@@ -30,8 +29,8 @@ const EquipmentsView: React.FC = (props: any) => {
   const [selectedEquipment, setSelectedEquipment] = useState<string | null>(null);
 
   const equipmentOptions = [
-    'Standard clubs',
-    'Custom-fitted clubs'
+    'Yes',
+    'No'
   ];
 
 
@@ -47,9 +46,9 @@ const EquipmentsView: React.FC = (props: any) => {
         content_medium: '' // Assuming this will be populated from another screen or a default value
       };
       setLoading(true);
-
+       console.log("Payload of form", payload);
+       
       const response = await formUpsertAPICall(payload);
-      console.log('Form Upsert API response:', response);
       navigation.navigate('subscriptionOneTime');
 
     } catch (error) {
@@ -70,11 +69,7 @@ const EquipmentsView: React.FC = (props: any) => {
       <CustomHeader onBackPress={goBack} />
       <View style={globalStyles.contentContainer}>
         <Text style={globalStyles.title}>
-          What type of golf equipment do you primarily use?
-        </Text>
-        <Text style={globalStyles.subTitle}>
-          Analyzing video recorded diagonally or from the back may result in
-          lower accuracy
+          Do you play with custom fit clubs?
         </Text>
         <Controller
           control={control}
