@@ -1,6 +1,6 @@
 // SubscriptionScreen.tsx
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, ImageBackground, ScrollView, Alert, TextInput, useColorScheme, SafeAreaView } from 'react-native';
+import { View, Text, TouchableOpacity, ImageBackground, ScrollView, Alert, TextInput, useColorScheme, SafeAreaView, KeyboardAvoidingView, Platform } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import { CardField, useStripe } from '@stripe/stripe-react-native';
 import styles from './style';
@@ -74,6 +74,11 @@ const SubscriptionScreen: React.FC = (props: any) => {
   };
   return (
     <View style={styles.container}>
+        <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={{ flex: 1 }}
+        keyboardVerticalOffset={Platform.select({ ios: 0, android: 20 })}
+      >
       <ScrollView contentContainerStyle={{ paddingBottom: 60, flexGrow: 1 }}>
         <View style={{ padding: wp('5%'), }}>
           <TouchableOpacity style={styles.closeButton} onPress={goBack}>
@@ -168,6 +173,7 @@ const SubscriptionScreen: React.FC = (props: any) => {
           <CustomButton title="Pay" onPress={handleSubscription} loading={loading} />
         </View>
       </ScrollView>
+      </KeyboardAvoidingView>
     </View>
   );
 };
