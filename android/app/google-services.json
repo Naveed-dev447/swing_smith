@@ -1,51 +1,26 @@
 {
   "project_info": {
-    "project_number": "320360764204",
-    "project_id": "swingsmith-ed5f6",
-    "storage_bucket": "swingsmith-ed5f6.appspot.com"
+    "project_number": "270328010020",
+    "project_id": "swing-smith",
+    "storage_bucket": "swing-smith.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:320360764204:android:383855194b8f48a1ecd289",
+        "mobilesdk_app_id": "1:270328010020:android:744c21ceac8f21a49a0fb1",
         "android_client_info": {
           "package_name": "com.swing_smith"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "320360764204-dq3spq6ld5s1o20fatlv55iqnucrc76q.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.swing_smith",
-            "certificate_hash": "acc184af1632b7ea6dc1db523c57ba1a87d60d9c"
-          }
-        },
-        {
-          "client_id": "320360764204-u87tan1oqdsphl0vug9vv1eqohq5kq4e.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyAQMOefqkqRVLEs8iYzamIqTPpmkmJX9mI"
+          "current_key": "AIzaSyCkk3JZZFJ74qV59UR4jYRI7cWu7oFJYR4"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "320360764204-34n559uddvvn65su8eaoum8o2m91un54.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "320360764204-77apiqhigrdi7dnkmdae7829m8kjil43.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.swingapp.swingsmith"
-              }
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     }
