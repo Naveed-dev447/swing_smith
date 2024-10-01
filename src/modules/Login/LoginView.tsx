@@ -79,7 +79,7 @@ const LoginScreen: React.FC = (props: any) => {
         }
       }
     } catch (error) {
-      ShowToast('error', 'Login failed, Please try again');
+      ShowToast('error', error?.response?.data?.message || 'Login failed, Please try again');
       console.error(error);
     } finally {
       setLoading(false);
@@ -90,7 +90,7 @@ const LoginScreen: React.FC = (props: any) => {
     try {
       GoogleSignin.configure({
         iosClientId: '320360764204-77apiqhigrdi7dnkmdae7829m8kjil43.apps.googleusercontent.com',
-        webClientId:'320360764204-u87tan1oqdsphl0vug9vv1eqohq5kq4e.apps.googleusercontent.com',
+        webClientId: '320360764204-u87tan1oqdsphl0vug9vv1eqohq5kq4e.apps.googleusercontent.com',
         offlineAccess: true,
       });
       await GoogleSignin.hasPlayServices();

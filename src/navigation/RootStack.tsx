@@ -38,6 +38,7 @@ import ClubType from '../modules/VideoUpload/ClubType.tsx';
 import SubscriptionScreen from '../modules/Dashboard/Setting/Payment/SubscriptionView.tsx';
 import ResetPassword from '../modules/ResetPassword/ResetPassword.tsx';
 import ForgetPassword from '../modules/ForgetPassword/ForgetPassword.tsx';
+import ForgetResetPassword from '../modules/ForgetPassword/ResetPassword.tsx';
 import SubscriptionOneTimeScreen from '../modules/Dashboard/Setting/Payment/SubscriptionOneTimeScreen.tsx';
 
 const Stack = createStackNavigator();
@@ -65,6 +66,11 @@ const RootNavigation = () => {
             name="RegisterView"
             options={{ headerShown: false }}
             component={RegisterView}
+          />
+          <Stack.Screen
+            name="resetForgotPassword"
+            options={{ headerShown: false }}
+            component={ForgetResetPassword}
           />
           <Stack.Screen
             name="Onboard"
