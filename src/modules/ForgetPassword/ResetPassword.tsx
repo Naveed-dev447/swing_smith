@@ -58,9 +58,14 @@ const ResetPassword: React.FC = (props: any) => {
         };
         try {
             const response = await ForgotPasswordAPI(payload);
-            ShowToast('success', response.message)
-            console.log('Password reset successful:', response.message)
-            navigation.pop(2);
+            if (response.message === 'The code has expired, please try again.') {
+                ShowToast('error', response.message)
+            }
+            else {
+                ShowToast('success', response.message);
+                navigation.pop(2);
+            }
+            console.log('Password reset successful:', response)
         } catch (error) {
             ShowToast('error', `${error?.response?.data?.message}`)
             console.error('Network error:', error);
