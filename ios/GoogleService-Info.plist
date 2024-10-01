@@ -2,18 +2,24 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>CLIENT_ID</key>
+	<string>320360764204-77apiqhigrdi7dnkmdae7829m8kjil43.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.320360764204-77apiqhigrdi7dnkmdae7829m8kjil43</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>320360764204-b88ugghe2tt0ordmn8rm82hgqj2d4o4d.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
-	<string>AIzaSyC03nuL1KAMBxoYTUjnE6WcPOxygPTZEa4</string>
+	<string>AIzaSyCAFzB4nrQOulbEpEasvTRU5Y3cJ-fftsI</string>
 	<key>GCM_SENDER_ID</key>
-	<string>270328010020</string>
+	<string>320360764204</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.swingapp.swingsmith</string>
 	<key>PROJECT_ID</key>
-	<string>swing-smith</string>
+	<string>swingsmith-ed5f6</string>
 	<key>STORAGE_BUCKET</key>
-	<string>swing-smith.appspot.com</string>
+	<string>swingsmith-ed5f6.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -25,6 +31,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:270328010020:ios:39da551e130b51889a0fb1</string>
+	<string>1:320360764204:ios:89e0927ff85a2f2aecd289</string>
 </dict>
 </plist>
