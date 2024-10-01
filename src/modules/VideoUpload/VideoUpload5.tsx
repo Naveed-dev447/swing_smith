@@ -79,8 +79,6 @@ const VideoUpload5: React.FC = (props: any) => {
   }, []);
 
   const handleNavigation = (data: any) => {
-    console.log('Navigating with data:', data);
-
     navigation.dispatch(
       CommonActions.reset({
         index: 0,
