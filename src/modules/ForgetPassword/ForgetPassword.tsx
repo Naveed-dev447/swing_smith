@@ -69,7 +69,7 @@ const ForgetPassword: React.FC = (props: any) => {
       const response = await RequestOTPAPI({ email });
       ShowToast('success', 'OTP resent successfully');
     } catch (error) {
-      ShowToast('error',`${error?.response?.data?.message} || 'An error occurred while resending the OTP'`);
+      ShowToast('error', `${error?.response?.data?.message} || 'An error occurred while resending the OTP'`);
     } finally {
       setLoading(false);
     }
@@ -81,8 +81,8 @@ const ForgetPassword: React.FC = (props: any) => {
   };
 
   const handleOTPVerification = () => {
-    
-    const navigateObj = {email,otp};    
+
+    const navigateObj = { email, otp };
     if (otp.length === 5) {
       setShowOTP(false)
       navigate('resetForgotPassword', navigateObj); // Navigating to the next screen with email and OTP
