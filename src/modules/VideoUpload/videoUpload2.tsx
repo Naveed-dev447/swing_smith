@@ -23,7 +23,7 @@ const VideoUpload2: React.FC = (props: any) => {
   });
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
 
-  const options = ['Right Handed', 'Left Handed'];
+  const options = ['Left Handed','Right Handed'];
 
   const onSubmit = (data: { option: string }) => {
     dispatch(setVideoHandedness(data.option));

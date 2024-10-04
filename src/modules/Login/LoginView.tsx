@@ -67,7 +67,7 @@ const LoginScreen: React.FC = (props: any) => {
     try {
       const res = await LoginAPICall(data);
 
-      if (res.status === 201) {
+      if (res?.status === 201) {
 
         const isFirstLogin = await dispatch(fetchFirstLoginStatus()).unwrap();
         await dispatch(fetchTutorials()).unwrap();
@@ -77,6 +77,10 @@ const LoginScreen: React.FC = (props: any) => {
         } else {
           navigation.replace('BottomTabStack');
         }
+      }
+      else if (res?.status === 200) {
+        ShowToast('error', res?.message || 'Login failed, Please try again');
+        return;
       }
     } catch (error) {
       ShowToast('error', error?.response?.data?.message || 'Login failed, Please try again');

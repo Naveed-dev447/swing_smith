@@ -40,6 +40,7 @@ import ResetPassword from '../modules/ResetPassword/ResetPassword.tsx';
 import ForgetPassword from '../modules/ForgetPassword/ForgetPassword.tsx';
 import ForgetResetPassword from '../modules/ForgetPassword/ResetPassword.tsx';
 import SubscriptionOneTimeScreen from '../modules/Dashboard/Setting/Payment/SubscriptionOneTimeScreen.tsx';
+import CancelSubscriptionScreen from '../modules/Dashboard/Setting/Payment/CancelSubscription.tsx';
 
 const Stack = createStackNavigator();
 
@@ -57,11 +58,16 @@ const RootNavigation = () => {
             name="Splash"
             component={SplashView}
           />
-          <Stack.Screen
+           <Stack.Screen
+            name="Login"
+            options={{ headerShown: false }}
+            component={CancelSubscriptionScreen}
+          />
+          {/* <Stack.Screen
             name="Login"
             options={{ headerShown: false }}
             component={LogInView}
-          />
+          /> */}
           <Stack.Screen
             name="RegisterView"
             options={{ headerShown: false }}
