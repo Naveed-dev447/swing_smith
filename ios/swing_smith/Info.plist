@@ -131,8 +131,19 @@
     <string>com.googleusercontent.apps.320360764204-77apiqhigrdi7dnkmdae7829m8kjil43</string>
     </array>
   </dict>
+  <dict>
+    <key>CFBundleURLSchemes</key>
+    <array>
+    <string>923580829801495</string>
+    </array>
+  </dict>
 </array>
-
+ <key>FacebookAppID</key>
+  <string>923580829801495</string>
+  <key>FacebookClientToken</key>
+  <string>5642951ba62bca4e751a19ce437793c7</string>
+  <key>FacebookDisplayName</key>
+  <string>Swing Smith</string>
 <key>LSApplicationQueriesSchemes</key>
 <array>
   <string>google</string>

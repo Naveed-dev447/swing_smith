@@ -1,4 +1,3 @@
-// src/screens/LoginScreen.tsx
 import React, { useState } from 'react';
 import {
   View,
@@ -30,6 +29,8 @@ import { useLoader } from '../../config/LoaderContext';
 import { ShowToast } from '../../components/ShowToast';
 import { fetchFirstLoginStatus } from '../../redux/Slices/FirstLogin';
 import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin';
+import { LoginManager, AccessToken, AuthenticationToken } from 'react-native-fbsdk-next';
+
 
 
 const loginSchema = yup.object().shape({
@@ -118,6 +119,46 @@ const LoginScreen: React.FC = (props: any) => {
       console.error(error);
     }
   };
+
+  const handleFacebookLogin = () => {
+    console.log('Facebook login initiated');
+  
+    LoginManager.logInWithPermissions(["public_profile", "email"]).then(
+      function (result) {
+        console.log('Login result:', result);
+  
+        if (!result.isCancelled) {
+          console.log('Login successful, fetching access token');
+  
+          AccessToken.getCurrentAccessToken().then(data => {
+            const { accessToken } = data;
+            console.log('Access token received:', accessToken);
+  
+            // Prepare the payload for the API call
+            const payload = {
+              platform: 'facebook',
+              accessToken: accessToken,
+              // You may also send user profile info if needed
+            };
+  
+            console.log('Payload prepared for API call:', payload);
+  
+            // Call your onSubmit function to handle the API login with Facebook token
+            onSubmit(payload);
+          }).catch(error => {
+            console.error('Error fetching access token:', error);
+          });
+        } else {
+          console.log('Login was cancelled');
+        }
+      },
+      function (error) {
+        ShowToast('error', 'Login failed, Please try again');
+        console.error('Login failed with error:', error);
+      }
+    );
+  };
+  
   return (
     <>
       <StatusBar backgroundColor="transparent" translucent={true} barStyle="light-content" />
@@ -197,7 +238,7 @@ const LoginScreen: React.FC = (props: any) => {
                 />
                 <Button
                   title="Continue with Facebook"
-                  onPress={() => console.log("Facebook pressed")}
+                  onPress={handleFacebookLogin}
                   buttonStyle={styles.socialButton}
                   textStyle={styles.socialButtonText}
                   icon={require('../../assets/Images/facebok3.png')}
