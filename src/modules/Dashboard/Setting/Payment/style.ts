@@ -4,7 +4,7 @@ import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-nat
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: Platform.OS === 'ios' ? hp('5%') : hp('3%'),
+    // paddingTop: Platform.OS === 'ios' ? hp('5%') : hp('3%'),
     backgroundColor: '#fff',
   },
   closeButton: {
@@ -193,6 +193,65 @@ const styles = StyleSheet.create({
     fontFamily: 'Outfit-Medium',
     color: '#FFFFFF',
     fontSize: hp('2%'),
+  },
+
+
+
+  card: {
+    margin: wp('4%'),
+    padding: wp('4%'),
+    borderRadius: wp('2%'),
+    backgroundColor: '#000',
+    elevation: 2,
+  },
+  cardHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: wp('4%'),
+  },
+  logo: {
+    width: wp('10%'),
+    height: wp('10%'),
+    marginRight: wp('4%'),
+  },
+  planName: {
+    color: '#fff',
+    fontSize: wp('5%'),
+    fontWeight: 'bold',
+  },
+  planDetails: {
+    color: '#ccc',
+    fontSize: wp('4%'),
+  },
+  paymentDue: {
+    color: '#ccc',
+    fontSize: wp('4%'),
+  },
+  paymentDueHighlight: {
+    color: 'green',
+  },
+  price1: {
+    marginLeft: 'auto',
+    color: '#fff',
+    fontSize: wp('6%'),
+    fontWeight: 'bold',
+  },
+  missedPayment: {
+    color: 'red',
+  },
+  cancelButton: {
+    marginTop: hp('3%'),
+    backgroundColor: '#D9534F',
+    borderRadius: 25,
+    paddingVertical: hp('1.5%'),
+    width: wp('90%'),
+    alignSelf: 'center',
+    // paddingHorizontal: wp('31%'),
+  },
+  cancelButtonText: {
+    color: '#fff',
+    fontFamily: 'Outfit-SemiBold',
+    fontSize: wp('4.2%'),
   },
 });
 
