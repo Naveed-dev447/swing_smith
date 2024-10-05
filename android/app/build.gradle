@@ -90,6 +90,12 @@ android {
             keyAlias 'androiddebugkey'
             keyPassword 'android'
         }
+        release {
+            storeFile file(MYAPP_UPLOAD_STORE_FILE)    // Reference the keystore file from gradle.properties
+            storePassword 'android'                     // This should be your keystore password
+            keyAlias 'my-key-alias'                     // The key alias you found from keytool output
+            keyPassword 'android'                       // This should be the password for the key alias
+        }
     }
     buildTypes {
         debug {
@@ -98,7 +104,7 @@ android {
         release {
             // Caution! In production, you need to generate your own keystore file.
             // see https://reactnative.dev/docs/signed-apk-android.
-            signingConfig signingConfigs.debug
+            signingConfig signingConfigs.release
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
