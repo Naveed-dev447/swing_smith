@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>swing_smith</string>
+	<string>Swing Smith</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIconName</key>
@@ -34,11 +34,11 @@
 		<true/>
 	</dict>
 	<key>NSAppleMusicUsageDescription</key>
-    <string>Enable Swing Smith to access your Apple Music library to enhance your music experience by allowing you to play, manage, and browse your music within the app.</string>
+	<string>Enable Swing Smith to access your Apple Music library to enhance your music experience by allowing you to play, manage, and browse your music within the app.</string>
 	<key>NSCameraUsageDescription</key>
 	<string>Enable Swing Smith to access your Camera to upload your photos/Video and save ones you have taken with the app</string>
 	<key>NSMicrophoneUsageDescription</key>
-    <string>Enable Smith Smith to access the microphone for notifications.</string>
+	<string>Enable Smith Smith to access the microphone for notifications.</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>Enable Swing Smith to access your Photo Library roll to upload your photos/Video and save ones you have taken with the app</string>
 	<key>NSPhotoLibraryUsageDescription</key>
@@ -118,37 +118,33 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-
-
-		<!-- Google Sign-In Configuration -->
+	<!-- Google Sign-In Configuration -->
 	<key>CFBundleURLTypes</key>
-<array>
-  <dict>
-    <key>CFBundleTypeRole</key>
-    <string>Editor</string>
-    <key>CFBundleURLSchemes</key>
-    <array>
-    <string>com.googleusercontent.apps.320360764204-77apiqhigrdi7dnkmdae7829m8kjil43</string>
-    </array>
-  </dict>
-  <dict>
-    <key>CFBundleURLSchemes</key>
-    <array>
-    <string>923580829801495</string>
-    </array>
-  </dict>
-</array>
- <key>FacebookAppID</key>
-  <string>923580829801495</string>
-  <key>FacebookClientToken</key>
-  <string>5642951ba62bca4e751a19ce437793c7</string>
-  <key>FacebookDisplayName</key>
-  <string>Swing Smith</string>
-<key>LSApplicationQueriesSchemes</key>
-<array>
-  <string>google</string>
-  <string>googlechrome</string>
-</array>
-
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fb923580829801495</string> <!-- Facebook URL scheme -->
+				<string>com.googleusercontent.apps.320360764204-77apiqhigrdi7dnkmdae7829m8kjil43</string>
+			</array>
+		</dict>
+	</array>
+	<key>FacebookAppID</key>
+	<string>923580829801495</string>
+	<key>FacebookClientToken</key>
+	<string>5642951ba62bca4e751a19ce437793c7</string>
+	<key>FacebookDisplayName</key>
+	<string>Swing Smith</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>google</string>
+		<string>googlechrome</string>
+		<string>fbapi</string>
+		<string>fbauth2</string>
+		<string>fb-messenger-api</string>
+		<string>fbshareextension</string>
+	</array>
 </dict>
 </plist>
