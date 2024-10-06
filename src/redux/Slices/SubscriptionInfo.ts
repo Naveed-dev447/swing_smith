@@ -1,7 +1,7 @@
 
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import apiClient from '../../config/client';
-import {  IInfoSubscription,IInfoSubscriptionResponse } from '../../types/SubscriptionInfo';
+import { IInfoSubscription, IInfoSubscriptionResponse } from '../../types/SubscriptionInfo';
 import { ShowToast } from '../../components/ShowToast';
 
 interface SubscriptionState {
@@ -21,7 +21,7 @@ export const fetchSubscriptionInfo = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await apiClient.get<IInfoSubscriptionResponse>('account/subscription/info');
-      return response.data.subscription; 
+      return response.data.subscription;
     } catch (error: any) {
       ShowToast('error', `${error.response.data.message}`);
       const errorMessage = error.response?.data?.error?.message || 'An unexpected error occurred';

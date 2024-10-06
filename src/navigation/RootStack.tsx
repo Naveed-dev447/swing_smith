@@ -59,7 +59,7 @@ const RootNavigation = () => {
             name="Splash"
             component={SplashView}
           />
-           {/* <Stack.Screen
+          {/* <Stack.Screen
             name="Login"
             options={{ headerShown: false }}
             component={CancelSubscriptionScreen}
@@ -189,7 +189,7 @@ const RootNavigation = () => {
             name="Congratulation"
             component={CongratulationModal}
           />
-            <Stack.Screen
+          <Stack.Screen
             options={{ headerShown: false }}
             name="cancelSubs"
             component={CancelSubscriptionScreen}
@@ -214,7 +214,7 @@ const RootNavigation = () => {
             name="forgetPassword"
             component={ForgetPassword}
           />
-           <Stack.Screen
+          <Stack.Screen
             options={{ headerShown: false }}
             name="otpScreen"
             component={OTPView}
