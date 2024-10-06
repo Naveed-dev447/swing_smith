@@ -49,9 +49,7 @@ export const getSubscriptionInfo = async () => {
 export const cancelSubscription = async (customerId: string) => {
 
   try {
-    const response = await apiClient.post<any>(`account/cancel/subscription`, { customerId });
-    console.log("Reesponseee sd gmslgsks", response.data);
-
+    const response = await apiClient.post<any>(`account/cancel/subscription`, { subscriptionId: customerId });
     ShowToast('success', `${response.data.message}`);
     return response.data;
   } catch (error: any) {

@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useLoader } from '../../../../config/LoaderContext';
-import { View, Text, Image, TouchableOpacity, ScrollView } from 'react-native';
+import Image from 'react-native-image-progress';
+import ProgressBar from 'react-native-progress/Pie';
+import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { styles } from './styles';
 import CustomHeader from '../../../../shared/Component/CustomHeader';
@@ -12,7 +14,7 @@ import { launchImageLibrary } from 'react-native-image-picker'; // Import the im
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { updateProfilePicture } from './ProfileUpdateAPICall';
 import { heightPercentageToDP } from 'react-native-responsive-screen';
-import { fetchSubscriptionInfo } from '../../../../redux/Slices/SubscriptionInfo';
+import { fetchSubscriptionInfo, clearSubscriptions } from '../../../../redux/Slices/SubscriptionInfo';
 import { useIsFocused } from '@react-navigation/native';
 import { checkUserSubscribed } from '../../../../shared/Utils/CommonUtils';
 
@@ -32,7 +34,6 @@ const ProfileScreen: React.FC = (props: any) => {
   const { subscriptions, loading: subscriptionLoading, error: subscriptionError } = useSelector(
     (state: RootState) => state.subscription,
   );
-
 
 
   const userName = profiles.length > 0 ? profiles[0] : { email: 'Fresslab88@gmail.com', name: 'Mikor Burton' };
@@ -119,9 +120,8 @@ const ProfileScreen: React.FC = (props: any) => {
 
         <View style={styles.profileContainer}>
           <View>
-            <Image source={{ uri: profileImage }} style={styles.profileImage}
+            <Image source={{ uri: profileImage }} indicator={ProgressBar} style={styles.profileImage} borderRadius={58}
               onError={() => setProfileImage(defaultProfileImage)} />
-
             <TouchableOpacity style={styles.cameraIconContainer} onPress={handleImagePicker}>
               <Icon name="camera" size={18} color="black" />
             </TouchableOpacity>

@@ -53,6 +53,7 @@ const SubscriptionScreen: React.FC = (props: any) => {
         subscriptionPayload.couponCode = couponId;
       }
       await SubscriptionAPICall(subscriptionPayload);
+      navigation.pop(1);
     } catch (error) {
     } finally {
       setLoading(false);
@@ -117,6 +118,7 @@ const SubscriptionScreen: React.FC = (props: any) => {
               </View>
             </ImageBackground>
             <View style={styles.benefitsContainer}>
+              <Text style={styles.topCenterLabel}>Included with Plus</Text>
               <View style={styles.benefit}>
                 <Icon name="check-circle" size={20} color="green" />
                 <Text style={styles.benefitText}> Improve golf by AI generated analysis</Text>
@@ -129,6 +131,8 @@ const SubscriptionScreen: React.FC = (props: any) => {
                 <Icon name="check-circle" size={20} color="green" />
                 <Text style={styles.benefitText}> Boost your body confidence</Text>
               </View>
+              <Text style={styles.benefitSubText}>Get instant access and see how it can change your life.</Text>
+
             </View>
             <View style={styles.plansContainer}>
               <TouchableOpacity
@@ -161,6 +165,8 @@ const SubscriptionScreen: React.FC = (props: any) => {
                   borderColor: colorScheme === 'dark' ? '#FFFFFF' : '#ced4da', // Border color for dark mode
                   borderWidth: 1,
                   borderRadius: 8,
+                  fontFamily: 'Plus Jakarta Sans',
+                  fontSize: 16
                 }}
                 style={styles.cardField}
                 onCardChange={(cardDetails) => {
@@ -191,9 +197,6 @@ const SubscriptionScreen: React.FC = (props: any) => {
           </View>
           <View style={styles.buttonContainer}>
             <CustomButton title="Pay" onPress={handleSubscription} loading={loading} />
-          </View>
-          <View style={styles.buttonContainer}>
-            <CustomButton title="Cancel" onPress={() => navigation.navigate('cancelSubs', customerId)} />
           </View>
         </ScrollView>
       </KeyboardAvoidingView>
