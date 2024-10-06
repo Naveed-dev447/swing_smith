@@ -17,10 +17,7 @@ import * as yup from 'yup';
 import TextInput from '../../components/TextInput';
 import { useLoader } from '../../config/LoaderContext';
 import CustomHeader from '../../shared/Component/CustomHeader';
-import { goBack } from '../../shared/Utils/navigationRef';
-import { ForgotPasswordAPI } from './API/ForgotPasswordAPI';
-import { ShowToast } from '../../components/ShowToast';
-
+import { goBack, navigate } from '../../shared/Utils/navigationRef';
 const loginSchema = yup.object().shape({
     password: yup
         .string()
@@ -35,7 +32,6 @@ const loginSchema = yup.object().shape({
 const ResetPassword: React.FC = (props: any) => {
     const { navigation, route } = props;
     const { params } = route;
-    const { email, otp } = params;
 
     const {
         control,
@@ -49,30 +45,13 @@ const ResetPassword: React.FC = (props: any) => {
 
     const onSubmit = async (data: any) => {
         Keyboard.dismiss();
-        setLoading(true);
-
         const payload = {
-            email: email,
-            code: otp,
+            email: params,
             password: data.password
         };
-        try {
-            const response = await ForgotPasswordAPI(payload);
-            if (response.message === 'The code has expired, please try again.') {
-                ShowToast('error', response.message)
-            }
-            else {
-                ShowToast('success', response.message);
-                navigation.pop(2);
-            }
-            console.log('Password reset successful:', response)
-        } catch (error) {
-            ShowToast('error', `${error?.response?.data?.message}`)
-            console.error('Network error:', error);
-        } finally {
-            setLoading(false);
-        }
+        navigate('otpScreen', payload)
     };
+
 
     return (
         <>

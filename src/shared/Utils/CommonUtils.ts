@@ -1,5 +1,9 @@
 import { format } from 'date-fns';
+import _ from 'lodash';
 
+interface ISubscription {
+    [key: string]: any;
+}
 
 export const formatDate = (dateString: string) => {
     if (dateString) {
@@ -39,4 +43,8 @@ export const formatSkillText = (
     ].filter(Boolean).join('');
 
     return result ? `${result}` : '';
+};
+
+export const checkUserSubscribed = (obj: ISubscription): boolean => {
+    return !_.isEmpty(obj);
 };

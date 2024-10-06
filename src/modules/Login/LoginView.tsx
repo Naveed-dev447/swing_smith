@@ -126,27 +126,27 @@ const LoginScreen: React.FC = (props: any) => {
 
   const handleFacebookLogin = () => {
     console.log('Facebook login initiated');
-  
+
     LoginManager.logInWithPermissions(["public_profile", "email"]).then(
       function (result) {
         console.log('Login result:', result);
-  
+
         if (!result.isCancelled) {
           console.log('Login successful, fetching access token');
-  
+
           AccessToken.getCurrentAccessToken().then(data => {
             const { accessToken } = data;
             console.log('Access token received:', accessToken);
-  
+
             // Prepare the payload for the API call
             const payload = {
               platform: 'facebook',
               accessToken: accessToken,
               // You may also send user profile info if needed
             };
-  
+
             console.log('Payload prepared for API call:', payload);
-  
+
             // Call your onSubmit function to handle the API login with Facebook token
             onSubmit(payload);
           }).catch(error => {
@@ -162,7 +162,7 @@ const LoginScreen: React.FC = (props: any) => {
       }
     );
   };
-  
+
   return (
     <>
       <StatusBar backgroundColor="transparent" translucent={true} barStyle="light-content" />
@@ -185,6 +185,7 @@ const LoginScreen: React.FC = (props: any) => {
                     <TextInput
                       label="Email"
                       placeholder="Email"
+                      autoCapitalize='none'
                       keyboardType='email-address'
                       onBlur={onBlur}
                       onChangeText={onChange}

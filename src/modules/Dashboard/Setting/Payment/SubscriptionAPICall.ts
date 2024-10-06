@@ -12,7 +12,7 @@ export const SubscriptionAPICall = async (payload: ISubscription) => {
     }
     return response.data;
 
-  } catch (error) {
+  } catch (error: any) {
     const errorMessage = error.response?.data?.error?.message || 'An unexpected error occurred';
     ShowToast('error', `${errorMessage}`);
     throw error;
@@ -30,4 +30,35 @@ export const CouponValidationAPICall = async (couponCode: string) => {
     throw error;
   }
 };
+
+export const getSubscriptionInfo = async () => {
+  try {
+    const response = await apiClient.get<any>(`account/subscription/info`);
+
+    return response.data;
+
+  } catch (error: any) {
+    ShowToast('error', `${error}`)
+    const errorMessage = error.response?.data?.error?.message || 'An unexpected error occurred';
+    console.error(error, 'Get Subscription Info API error:', errorMessage);
+    throw error;
+  }
+}
+
+
+export const cancelSubscription = async (customerId: string) => {
+
+  try {
+    const response = await apiClient.post<any>(`account/cancel/subscription`, { customerId });
+    console.log("Reesponseee sd gmslgsks", response.data);
+
+    ShowToast('success', `${response.data.message}`);
+    return response.data;
+  } catch (error: any) {
+    const errorMessage = error.response?.data?.error?.message || 'An unexpected error occurred';
+    ShowToast('error', `${errorMessage}`);
+    console.error('Cancel Subscription API error:', errorMessage);
+    throw error;
+  }
+}
 

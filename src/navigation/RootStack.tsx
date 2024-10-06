@@ -41,6 +41,7 @@ import ForgetPassword from '../modules/ForgetPassword/ForgetPassword.tsx';
 import ForgetResetPassword from '../modules/ForgetPassword/ResetPassword.tsx';
 import SubscriptionOneTimeScreen from '../modules/Dashboard/Setting/Payment/SubscriptionOneTimeScreen.tsx';
 import CancelSubscriptionScreen from '../modules/Dashboard/Setting/Payment/CancelSubscription.tsx';
+import OTPView from '../modules/ForgetPassword/OTPView.tsx';
 
 const Stack = createStackNavigator();
 
@@ -58,16 +59,16 @@ const RootNavigation = () => {
             name="Splash"
             component={SplashView}
           />
-           <Stack.Screen
+           {/* <Stack.Screen
             name="Login"
             options={{ headerShown: false }}
             component={CancelSubscriptionScreen}
-          />
-          {/* <Stack.Screen
+          /> */}
+          <Stack.Screen
             name="Login"
             options={{ headerShown: false }}
             component={LogInView}
-          /> */}
+          />
           <Stack.Screen
             name="RegisterView"
             options={{ headerShown: false }}
@@ -188,6 +189,11 @@ const RootNavigation = () => {
             name="Congratulation"
             component={CongratulationModal}
           />
+            <Stack.Screen
+            options={{ headerShown: false }}
+            name="cancelSubs"
+            component={CancelSubscriptionScreen}
+          />
           <Stack.Screen
             options={{ headerShown: false }}
             name="subscription"
@@ -208,7 +214,11 @@ const RootNavigation = () => {
             name="forgetPassword"
             component={ForgetPassword}
           />
-
+           <Stack.Screen
+            options={{ headerShown: false }}
+            name="otpScreen"
+            component={OTPView}
+          />
         </Stack.Navigator>
         <Toast config={toastConfig} />
       </NavigationContainer>

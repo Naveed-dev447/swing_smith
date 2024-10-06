@@ -12,18 +12,28 @@ import { launchImageLibrary } from 'react-native-image-picker'; // Import the im
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { updateProfilePicture } from './ProfileUpdateAPICall';
 import { heightPercentageToDP } from 'react-native-responsive-screen';
+import { fetchSubscriptionInfo } from '../../../../redux/Slices/SubscriptionInfo';
+import { useIsFocused } from '@react-navigation/native';
+import { checkUserSubscribed } from '../../../../shared/Utils/CommonUtils';
 
 
 const defaultProfileImage = require('../../../../assets/Images/avatar.jpg');
 
 const ProfileScreen: React.FC = (props: any) => {
   const { navigation } = props;
+  const foused = useIsFocused();
   const dispatch = useDispatch<AppDispatch>();
   const { loading, setLoading } = useLoader();
+  const [customerId, setCustomerId] = useState<string | null>(null);
   const { profiles, profileLoading, profileError } = useSelector(
     (state: RootState) => state.profile,
   );
   const [profileImage, setProfileImage] = useState<any>(defaultProfileImage);
+  const { subscriptions, loading: subscriptionLoading, error: subscriptionError } = useSelector(
+    (state: RootState) => state.subscription,
+  );
+
+
 
   const userName = profiles.length > 0 ? profiles[0] : { email: 'Fresslab88@gmail.com', name: 'Mikor Burton' };
 
@@ -78,6 +88,25 @@ const ProfileScreen: React.FC = (props: any) => {
     loadProfileImage();
   }, []);
 
+  useEffect(() => {
+    dispatch(fetchSubscriptionInfo()).unwrap();
+  }, [foused])
+
+  useEffect(() => {
+    const loadCustomerId = async () => {
+      try {
+        const customerId = await AsyncStorage.getItem('customerId');
+
+        if (customerId) {
+          setCustomerId(customerId);
+        }
+      } catch (error) {
+        console.error('Failed to load profile image:', error);
+      }
+    };
+
+    loadCustomerId();
+  }, []);
   return (
     <View style={styles.container}>
       <CustomHeader onBackPress={() => console.log('Back')} title={'Profile'} />
@@ -90,7 +119,9 @@ const ProfileScreen: React.FC = (props: any) => {
 
         <View style={styles.profileContainer}>
           <View>
-            <Image source={{ uri: profileImage }} style={styles.profileImage} />
+            <Image source={{ uri: profileImage }} style={styles.profileImage}
+              onError={() => setProfileImage(defaultProfileImage)} />
+
             <TouchableOpacity style={styles.cameraIconContainer} onPress={handleImagePicker}>
               <Icon name="camera" size={18} color="black" />
             </TouchableOpacity>
@@ -105,8 +136,16 @@ const ProfileScreen: React.FC = (props: any) => {
           <OptionRow
             icon="credit-card"
             text="Subscription"
-            rightText="Get Full Access"
-            onPress={() => navigation.navigate('subscription', userName)}
+            rightText={checkUserSubscribed(subscriptions) ? "Manage Subscription" : "Get Full Access"}
+            onPress={() => {
+              if (checkUserSubscribed(subscriptions)) {
+                // Navigate to 'cancelSubs' if the user is subscribed
+                navigation.navigate('cancelSubs', customerId);
+              } else {
+                // Navigate to 'subscription' if the user is not subscribed
+                navigation.navigate('subscription', userName);
+              }
+            }}
           />
           <OptionRow
             icon="lock"

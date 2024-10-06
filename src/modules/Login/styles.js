@@ -173,15 +173,22 @@ export default function useLoginStyles() {
       zIndex: 1,
     },
     resendButton: {
-      marginTop: 10,
+      marginTop: hp('5%'),
       padding: 10,
-      backgroundColor: '#007bff',
-      borderRadius: 5,
       alignItems: 'center',
     },
+    resendButton: {
+      fontSize: hp('1.8%'),
+      fontFamily: 'Outfit-Regular',
+      fontWeight: '500',
+      color: "#6C7278",
+      textAlign: 'center',
+      marginBottom: 10,
+      marginTop: 10
+    },
     resendButtonText: {
-      color: '#fff',
-      fontWeight: 'bold',
+      color: "#007BFF", // Adjust this color as needed
+      textDecorationLine: 'underline', // Underline the text
     },
   });
 }

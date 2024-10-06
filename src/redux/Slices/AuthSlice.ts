@@ -27,6 +27,7 @@ export const login = createAsyncThunk('auth/login', async (payload: ILogin) => {
 export const logout = createAsyncThunk('auth/logout', async (_, { dispatch }) => {
   await AsyncStorage.removeItem('Token');
   await AsyncStorage.removeItem('profile');
+  await AsyncStorage.removeItem('customerId');
   dispatch({ type: 'RESET' });
 });
 
