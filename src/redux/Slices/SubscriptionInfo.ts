@@ -21,6 +21,10 @@ export const fetchSubscriptionInfo = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await apiClient.get<IInfoSubscriptionResponse>('account/subscription/info');
+      if (response.data?.message) {
+        ShowToast('error', response.data.message);
+        return {};
+      }
       return response.data.subscription;
     } catch (error: any) {
       ShowToast('error', `${error.response.data.message}`);

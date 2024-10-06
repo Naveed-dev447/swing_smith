@@ -44,13 +44,20 @@ const styles = StyleSheet.create({
     width: wp('55%'),
   },
   benefitsContainer: {
+    height: hp('22%'),
+    padding: 10,
     marginTop: hp('2%'),
     marginBottom: hp('2%'),
+    borderColor: '#474D51',
+    borderRadius: 8,
+    borderWidth: 0.3,
+    position: 'relative',
   },
   benefit: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginVertical: hp('0.5%'),
+    marginHorizontal: hp('1.5%'),
+    marginVertical: hp('1%'),
   },
   benefitText: {
     fontSize: wp('4%'),
@@ -59,6 +66,30 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     fontFamily: 'Outfit-Regular',
   },
+  benefitSubText: {
+    marginHorizontal: hp('5%'),
+    color: '#545454',
+    fontWeight: '400',
+    fontFamily: 'Outfit',
+    lineHeight: 22
+  },
+  topCenterLabel: {
+    position: 'absolute',
+    alignSelf: 'center',
+    top: -hp('2%'), // Align near the top border
+    backgroundColor: '#FFC107', // Background color for the label
+    color: '#505254',
+    paddingHorizontal: wp('3%'),
+    paddingVertical: hp('0.5%'),
+    fontSize: wp('3.5%'),
+    fontWeight: '400',
+    fontFamily: 'Outfit',
+    borderRadius: wp('2%'), // Rounded corners
+    overflow: 'hidden', // Prevents text from overflowing
+    borderWidth: 0.3, // Optional border to match the container
+    borderColor: '#474D51',
+  },
+
   plansContainer: {
     marginTop: hp('2%'),
     flexDirection: 'row',
@@ -240,18 +271,154 @@ const styles = StyleSheet.create({
     color: 'red',
   },
   cancelButton: {
-    marginTop: hp('3%'),
-    backgroundColor: '#D9534F',
+    marginTop: hp('10%'),
+    backgroundColor: '#192126',
     borderRadius: 25,
     paddingVertical: hp('1.5%'),
     width: wp('90%'),
     alignSelf: 'center',
-    // paddingHorizontal: wp('31%'),
   },
   cancelButtonText: {
     color: '#fff',
     fontFamily: 'Outfit-SemiBold',
     fontSize: wp('4.2%'),
+  },
+
+
+
+
+
+  cardBackground: {
+    marginTop: wp('5%'),
+    width: wp('90%'),
+    height: hp('25%'),
+    alignSelf: 'center',
+    justifyContent: 'space-between',
+    padding: 20,
+  },
+  chipIconContainer: {
+    width: 50,
+    height: 30,
+    backgroundColor: '#FFD700',
+    borderRadius: 5,
+    marginBottom: 10,
+  },
+  chipIcon: {
+    width: '100%',
+    height: '100%',
+  },
+  cardNumber: {
+    fontSize: 22,
+    fontWeight: '700',
+    color: '#FFFFFF',
+    letterSpacing: 2,
+  },
+  cardInfoContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  cardLabel: {
+    color: '#FFFFFF',
+    fontSize: 12,
+    fontWeight: '400',
+    fontFamily: 'Plus Jakarta Sans'
+  },
+  cardHolderName: {
+    marginTop: hp('0.5%'),
+    color: '#FFFFFF',
+    fontSize: 15,
+    fontWeight: '700',
+    fontFamily: 'Plus Jakarta Sans'
+  },
+  expiryDate: {
+    marginTop: hp('0.5%'),
+    color: '#FFFFFF',
+    fontSize: 15,
+    fontWeight: '700',
+    fontFamily: 'Plus Jakarta Sans'
+  },
+  row: {
+    marginTop: hp('5%'),
+    alignItems: 'center',
+    alignSelf: 'center',
+    width: wp('90%'),
+    flexDirection: 'row',
+    fontFamily: 'Outfit',
+    justifyContent: 'space-between',
+    marginBottom: 15,
+  },
+  infoBox: {
+    width: '48%',
+    padding: 11,
+    borderWidth: 1,
+    borderColor: '#E5E5E5',
+    borderRadius: 8,
+  },
+  label: {
+    fontSize: 12,
+    color: '#8F8F8F',
+  },
+  value: {
+    marginTop: 8,
+    fontSize: 16,
+    fontFamily: 'Outfit',
+    fontWeight: '500',
+    color: '#1C162E',
+  },
+  autoRenewalContainer: {
+    flexDirection: 'row',
+    width: wp('90%'),
+    padding: wp('3%'),
+    borderRadius: 8,
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingVertical: 15,
+    alignSelf: 'center',
+    borderWidth: 1,
+    borderColor: '#E5E5E5',
+    marginBottom: 15,
+  },
+  autoRenewalLabel: {
+    fontSize: 16,
+    fontWeight: '500',
+    fontFamily: 'Outfit',
+    color: '#000000',
+  },
+  paymentContainer: {
+    flexDirection: 'row',
+    width: wp('90%'),
+    justifyContent: 'space-between',
+    alignSelf: 'center',
+    padding: 15,
+    backgroundColor: '#BBF246',
+    borderWidth: 1,
+    borderColor: '#D7F2C7',
+    borderRadius: 8,
+  },
+  paymentLabel: {
+    fontSize: 16,
+    fontWeight: '500',
+    fontFamily: 'Outfit',
+    color: '#192126',
+  },
+  dueText: {
+    fontSize: 14,
+    fontWeight: '400',
+    fontFamily: 'Outfit',
+    color: '#192126',
+  },
+  paymentValue: {
+    fontSize: 20,
+    fontWeight: '600',
+    textAlign: 'right',
+    color: '#1A1A1A',
+  },
+  perMonth: {
+    fontSize: 14,
+    fontWeight: '400',
+    fontFamily: 'Outfit',
+    color: '#192126',
+    textAlign: 'right',
   },
 });
 

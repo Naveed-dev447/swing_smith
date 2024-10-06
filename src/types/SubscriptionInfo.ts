@@ -28,8 +28,8 @@ export interface IInfoSubscription {
   id: string;
   status: string;
   plan: IPlan;
-  current_period_start: number; // Unix timestamp
-  current_period_end: number;   // Unix timestamp
+  current_period_start: number;
+  current_period_end: number;
   cancel_at_period_end: boolean;
   payment: IPayment;
 }
