@@ -51,7 +51,7 @@ const ResetPassword: React.FC = (props: any) => {
   const onSubmit = async (data: any) => {
     Keyboard.dismiss();
     setLoading(true);
-    
+
     const payload = {
       password: data.password,
       confirmPassword: data.confirmPassword,
@@ -93,7 +93,7 @@ const ResetPassword: React.FC = (props: any) => {
         <KeyboardAvoidingView
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
           style={{ flex: 1 }}>
-          <ScrollView contentContainerStyle={updatedStyles.scrollContainer}>
+          <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
             <View style={updatedStyles.topContainer}>
               <Controller
                 control={control}
@@ -159,7 +159,8 @@ const updatedStyles = StyleSheet.create({
     flexGrow: 1,
   },
   topContainer: {
-    marginTop: 50, // Adjust to control the distance from the top
+    marginTop: 50,
+    alignItems: 'center'
   },
   nextButton: {
     padding: 15,

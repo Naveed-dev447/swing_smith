@@ -4,7 +4,7 @@ import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-nat
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // paddingTop: Platform.OS === 'ios' ? hp('5%') : hp('3%'),
+    paddingTop: Platform.OS === 'ios' ? hp('5%') : hp('3%'),
     backgroundColor: '#fff',
   },
   closeButton: {
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
     width: wp('55%'),
   },
   benefitsContainer: {
-    height: hp('22%'),
+    height: hp('25%'),
     padding: 10,
     marginTop: hp('2%'),
     marginBottom: hp('2%'),
@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
   selectedPlan: {
     width: '48%',
     padding: wp('7%'),
-    backgroundColor: '#BBF246',
+    backgroundColor: '#dff5b0',
     borderRadius: 10
   },
   planType: {
@@ -224,6 +224,16 @@ const styles = StyleSheet.create({
     fontFamily: 'Outfit-Medium',
     color: '#FFFFFF',
     fontSize: hp('2%'),
+  },
+  checkMarkContainer: {
+    position: 'absolute',
+    top: -hp('0%'),
+    right: -hp('0%'),
+    width: wp('6%'),
+    height: wp('6%'),
+    borderRadius: wp('3%'),
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 
 
@@ -390,9 +400,9 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignSelf: 'center',
     padding: 15,
-    backgroundColor: '#BBF246',
+    backgroundColor: '#ebfaca',
     borderWidth: 1,
-    borderColor: '#D7F2C7',
+    borderColor: '#BBF246',
     borderRadius: 8,
   },
   paymentLabel: {

@@ -31,10 +31,10 @@ const ProfileScreen: React.FC = (props: any) => {
     (state: RootState) => state.profile,
   );
   const [profileImage, setProfileImage] = useState<any>(defaultProfileImage);
-  const { subscriptions, loading: subscriptionLoading, error: subscriptionError } = useSelector(
-    (state: RootState) => state.subscription,
+  const { subscription, loading: subscriptionLoading, error: subscriptionError } = useSelector(
+    (state: RootState) => state.subscription
   );
-
+  
 
   const userName = profiles.length > 0 ? profiles[0] : { email: 'Fresslab88@gmail.com', name: 'Mikor Burton' };
 
@@ -92,6 +92,7 @@ const ProfileScreen: React.FC = (props: any) => {
   useEffect(() => {
     dispatch(fetchSubscriptionInfo()).unwrap();
   }, [foused])
+  
 
   useEffect(() => {
     const loadCustomerId = async () => {
@@ -135,14 +136,11 @@ const ProfileScreen: React.FC = (props: any) => {
           <OptionRow icon="clock-o" text="Workout Reminder" />
           <OptionRow
             icon="credit-card"
-            text="Subscription"
-            rightText={checkUserSubscribed(subscriptions) ? "Manage Subscription" : "Get Full Access"}
+            text={subscription && checkUserSubscribed(subscription) ? "Manage Subscription" : "Buy Subscription"}
             onPress={() => {
-              if (checkUserSubscribed(subscriptions)) {
-                // Navigate to 'cancelSubs' if the user is subscribed
-                navigation.navigate('cancelSubs', customerId);
+              if (subscription && checkUserSubscribed(subscription)) {
+                 navigation.navigate('cancelSubs', customerId);
               } else {
-                // Navigate to 'subscription' if the user is not subscribed
                 navigation.navigate('subscription', userName);
               }
             }}

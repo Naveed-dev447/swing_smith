@@ -5,8 +5,9 @@ import { ShowToast } from '../../components/ShowToast';
 import useLoginStyles from '../../modules/Login/styles';
 import RequestOTPAPI from './API/RequestOTPAPI';
 import { useLoader } from '../../config/LoaderContext';
-import { navigate } from '../../shared/Utils/navigationRef';
+import { goBack, navigate } from '../../shared/Utils/navigationRef';
 import { ForgotPasswordAPI } from './API/ForgotPasswordAPI';
+import CustomHeader from '../../shared/Component/CustomHeader';
 
 const OTPView = (props: any) => {
   const { navigation, route } = props;
@@ -66,15 +67,16 @@ const OTPView = (props: any) => {
   };
   return (
     <View style={styles.forgetOverlay}>
+      <CustomHeader onBackPress={goBack} title={''} />
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={{ flex: 1 }}>
-        <ScrollView contentContainerStyle={styles.scrollContainer}>
+        <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+          <Text style={styles.title}>OTP Verification</Text>
+          <Text style={styles.forgetSubtitle}>
+            Enter the verification code we just sent on your email address.
+          </Text>
           <View style={styles.loginContainer}>
-            <Text style={styles.title}>Verify OTP number</Text>
-            <Text style={styles.forgetSubtitle}>
-              Enter 5 digit OTP sent to your email.
-            </Text>
             <OTPTextInput
               handleTextChange={(text) => setOtp(text)}
               containerStyle={styles.otpContainer}
@@ -100,7 +102,7 @@ const OTPView = (props: any) => {
                   color={loading ? '#000' : '#192126'}
                 />
               ) : (
-                <Text style={styles.loginButtonText}>Verify OTP</Text>
+                <Text style={styles.loginButtonText}>Verify</Text>
               )}
             </TouchableOpacity>
             <TouchableOpacity

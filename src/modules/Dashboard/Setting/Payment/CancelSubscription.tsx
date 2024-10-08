@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import { View, Text, Image, ImageBackground, Switch, ScrollView } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, ImageBackground, Switch, ScrollView } from 'react-native';
 import styles from './style';
 import CustomHeader from '../../../../shared/Component/CustomHeader';
 import { goBack } from '../../../../shared/Utils/navigationRef';
 import Button from '../../../../components/Button';
-import { cancelSubscription } from './SubscriptionAPICall';
+import { cancelSubscription, updateAutoRenewal } from './SubscriptionAPICall';
 import { ShowToast } from '../../../../components/ShowToast';
 import { AppDispatch, RootState } from '../../../../redux/store';
 import { useLoader } from '../../../../config/LoaderContext';
@@ -19,20 +19,30 @@ const CancelSubscriptionScreen: React.FC = (props: any) => {
     const { params } = route;
     const dispatch = useDispatch<AppDispatch>();
     const { loading, setLoading } = useLoader();
-    const [autoRenewal, setAutoRenewal] = useState(false);
+    const [autoRenewal, setAutoRenewal] = useState(true);
+    const [hasInteractedWithAutoRenewal, setHasInteractedWithAutoRenewal] = useState(false);
     const [isModalVisible, setModalVisible] = useState(false);
-    const { subscriptions, loading: subscriptionLoading, error: subscriptionError } = useSelector(
+    const { subscription, loading: subscriptionLoading, error: subscriptionError } = useSelector(
         (state: RootState) => state.subscription,
     );
-    const { profiles, profileLoading, profileError } = useSelector(
-        (state: RootState) => state.profile,
-    );
+    const { profiles, profileLoading, profileError } = useSelector((state: RootState) => state.profile);
 
-    const { status, plan, payment, current_period_start, current_period_end } = subscriptions;
+    const {
+        billingInfo: { billing_cycle, end_date, name: planName, start_date },
+        nextPaymentInfo: { next_payment_amount, next_payment_date },
+        paymentInfo: {
+            amount_paid,
+            card: { brand, cardholder_name, exp_month, exp_year, last4 },
+            currency,
+        },
+    } = subscription;
+
+    const daysUntilNextPayment = Math.ceil((new Date(end_date).getTime() - Date.now()) / (1000 * 60 * 60 * 24));
+
     const userName = profiles.length > 0 ? profiles[0] : { email: 'Fresslab88@gmail.com', name: 'Mikor Burton' };
 
     const handleCancelSubscription = async () => {
-        setLoading(true)
+        setLoading(true);
         try {
             if (params) {
                 await cancelSubscription(params);
@@ -41,10 +51,10 @@ const CancelSubscriptionScreen: React.FC = (props: any) => {
             }
             setLoading(false);
         } catch (error) {
-            setLoading(false)
+            setLoading(false);
         }
+    };
 
-    }
     const handleConfirm = () => {
         setModalVisible(false);
         goBack();
@@ -54,7 +64,16 @@ const CancelSubscriptionScreen: React.FC = (props: any) => {
         setModalVisible(false);
     };
 
-    const daysUntilNextPayment = Math.ceil((current_period_end - Date.now() / 1000) / (60 * 60 * 24));
+    useEffect(() => {
+        if (hasInteractedWithAutoRenewal) {
+            updateAutoRenewal(autoRenewal);
+        }
+    }, [autoRenewal, hasInteractedWithAutoRenewal]);
+
+    const handleAutoRenewalChange = (value: boolean) => {
+        setAutoRenewal(value);
+        setHasInteractedWithAutoRenewal(true);
+    };
 
     return (
         <View style={styles.container}>
@@ -69,7 +88,7 @@ const CancelSubscriptionScreen: React.FC = (props: any) => {
                     <View style={styles.chipIconContainer}>
                         <View style={styles.chipIcon} />
                     </View>
-                    <Text style={styles.cardNumber}>**** **** **** 0329</Text>
+                    <Text style={styles.cardNumber}>**** **** **** {last4}</Text>
                     <View style={styles.cardInfoContainer}>
                         <View>
                             <Text style={styles.cardLabel}>Card Holder Name</Text>
@@ -77,18 +96,18 @@ const CancelSubscriptionScreen: React.FC = (props: any) => {
                         </View>
                         <View>
                             <Text style={styles.cardLabel}>Expiry Date</Text>
-                            <Text style={styles.expiryDate}>{formatToMMDD(current_period_end)}</Text>
+                            <Text style={styles.expiryDate}>{`${exp_month}/${exp_year}`}</Text>
                         </View>
                     </View>
                 </ImageBackground>
                 <View style={styles.row}>
                     <View style={styles.infoBox}>
                         <Text style={styles.label}>Started On</Text>
-                        <Text style={styles.value}>{formatToDDMMMYYYY(current_period_start)}</Text>
+                        <Text style={styles.value}>{formatToDDMMMYYYY(start_date)}</Text>
                     </View>
                     <View style={styles.infoBox}>
                         <Text style={styles.label}>Billing Cycle</Text>
-                        <Text style={styles.value}>{plan.interval}</Text>
+                        <Text style={styles.value}>{planName}</Text>
                     </View>
                 </View>
 
@@ -96,7 +115,7 @@ const CancelSubscriptionScreen: React.FC = (props: any) => {
                     <Text style={styles.autoRenewalLabel}>Auto Renewal</Text>
                     <Switch
                         value={autoRenewal}
-                        onValueChange={setAutoRenewal}
+                        onValueChange={handleAutoRenewalChange}
                         thumbColor={autoRenewal ? "#fff" : "#fff"}
                         trackColor={{ false: "#ccc", true: "#000" }}
                     />
@@ -105,11 +124,11 @@ const CancelSubscriptionScreen: React.FC = (props: any) => {
                 <View style={styles.paymentContainer}>
                     <View>
                         <Text style={styles.paymentLabel}>Next Payment</Text>
-                        <Text style={styles.dueText}>{daysUntilNextPayment} days remaining</Text>
+                        <Text style={styles.dueText}>Due in {daysUntilNextPayment} days</Text>
                     </View>
                     <View>
-                        <Text style={styles.paymentLabel}>${payment.amount_paid}</Text>
-                        <Text style={styles.perMonth}>/{plan.interval}</Text>
+                        <Text style={styles.paymentLabel}>${next_payment_amount}</Text>
+                        <Text style={styles.perMonth}>/{planName}</Text>
                     </View>
                 </View>
                 <Button
@@ -123,9 +142,9 @@ const CancelSubscriptionScreen: React.FC = (props: any) => {
             </ScrollView>
             <ConfirmationModal
                 visible={isModalVisible}
-                message={`Your access to all premium features will end on ${formatToDDMMYY(current_period_start)}`}
+                message={`Your access to all premium features will end on ${formatToDDMMYY(end_date)}`}
                 onConfirm={handleConfirm}
-                onClose={handleCloseModal}  // Close when clicking the cross icon
+                onClose={handleCloseModal}
             />
         </View>
     );

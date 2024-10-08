@@ -1,7 +1,8 @@
-// SubscriptionScreen.tsx
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { View, Text, TouchableOpacity, ImageBackground, ScrollView, Alert, TextInput, useColorScheme, SafeAreaView, KeyboardAvoidingView, Platform } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { CardField, useStripe } from '@stripe/stripe-react-native';
 import styles from './style';
 import CustomButton from '../../../../shared/Component/CustomButton';
@@ -10,7 +11,6 @@ import { goBack } from '../../../../shared/Utils/navigationRef';
 import { SubscriptionAPICall, CouponValidationAPICall } from './SubscriptionAPICall';
 import { ShowToast } from '../../../../components/ShowToast';
 import { useTheme } from '../../../../theme/theme';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const paymentImage = require('../../../../assets/Images/pay_icon.png');
 
@@ -25,7 +25,23 @@ const SubscriptionScreen: React.FC = (props: any) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [coupon, setCoupon] = useState<string>('');
   const [couponId, setCouponId] = useState<string | null>(null);
-  const [customerId, setCustomerId] = useState<string | null>(null);
+  const [couponData, setCouponData] = useState<any>(null);
+
+
+  const baseValue = selectedPlan === 'monthly' ? 20 : 200;
+
+  const discountedValue = useMemo(() => {
+    if (couponData) {
+      if (couponData.amount_off !== null) {
+        return (baseValue - couponData.amount_off / 100).toFixed(2);
+      } else if (couponData.percent_off !== null) {
+        return (baseValue - (baseValue * couponData.percent_off) / 100).toFixed(2);
+      }
+    }
+    return baseValue.toFixed(2);
+  }, [couponData, baseValue]);
+
+
 
   const handleSubscription = async () => {
     setLoading(true);
@@ -55,44 +71,34 @@ const SubscriptionScreen: React.FC = (props: any) => {
       await SubscriptionAPICall(subscriptionPayload);
       navigation.pop(1);
     } catch (error) {
+      // Handle error if needed
     } finally {
       setLoading(false);
     }
   };
 
-
-  useEffect(() => {
-    const loadCustomerId = async () => {
-      try {
-        const customerId = await AsyncStorage.getItem('customerId');
-
-        if (customerId) {
-          setCustomerId(customerId);
-        }
-      } catch (error) {
-        console.error('Failed to load profile image:', error);
-      }
-    };
-
-    loadCustomerId();
-  }, []);
-
-
   const handleCouponValidation = async () => {
+    if (!coupon) {
+      ShowToast('error', "Please enter a coupon code !");
+      return;
+    }
     try {
       const response = await CouponValidationAPICall(coupon);
+      console.log("COupon =====>", response);
 
       if (response.status === 200 && response.coupon?.id) {
+        setCouponData(response.coupon);
         setCouponId(response.coupon.id);
         ShowToast('success', 'Coupon applied successfully!');
       } else {
-        ShowToast('error', `${response.message}`)
+        ShowToast('error', `${response.message}`);
       }
     } catch (error: any) {
       const errorMessage = error?.response?.data?.error?.message || 'An error occurred';
       ShowToast('error', `${errorMessage}`);
     }
   };
+
   return (
     <View style={styles.container}>
       <KeyboardAvoidingView
@@ -119,20 +125,43 @@ const SubscriptionScreen: React.FC = (props: any) => {
             </ImageBackground>
             <View style={styles.benefitsContainer}>
               <Text style={styles.topCenterLabel}>Included with Plus</Text>
-              <View style={styles.benefit}>
-                <Icon name="check-circle" size={20} color="green" />
+              <View style={[styles.benefit, { paddingTop: 10 }]}>
+                <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+                  <Ionicons name="ellipse" size={wp('7%')} color="#BBF246" />
+                  <FontAwesome
+                    name="check"
+                    size={wp('3.3%')}
+                    color="#192126"
+                    style={{ position: 'absolute' }}
+                  />
+                </View>
                 <Text style={styles.benefitText}> Improve golf by AI generated analysis</Text>
               </View>
               <View style={styles.benefit}>
-                <Icon name="check-circle" size={20} color="green" />
+                <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+                  <Ionicons name="ellipse" size={wp('7%')} color="#BBF246" />
+                  <FontAwesome
+                    name="check"
+                    size={wp('3.3%')}
+                    color="#192126"
+                    style={{ position: 'absolute' }}
+                  />
+                </View>
                 <Text style={styles.benefitText}> Target all your problem areas</Text>
               </View>
               <View style={styles.benefit}>
-                <Icon name="check-circle" size={20} color="green" />
+                <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+                  <Ionicons name="ellipse" size={wp('7%')} color="#BBF246" />
+                  <FontAwesome
+                    name="check"
+                    size={wp('3.3%')}
+                    color="#192126"
+                    style={{ position: 'absolute' }}
+                  />
+                </View>
                 <Text style={styles.benefitText}> Boost your body confidence</Text>
               </View>
               <Text style={styles.benefitSubText}>Get instant access and see how it can change your life.</Text>
-
             </View>
             <View style={styles.plansContainer}>
               <TouchableOpacity
@@ -142,17 +171,45 @@ const SubscriptionScreen: React.FC = (props: any) => {
                 <Text style={styles.planType}>Monthly</Text>
                 <Text style={styles.price}>$20.00</Text>
                 <Text style={styles.billing}>Billed Monthly</Text>
+                {selectedPlan === 'monthly' && (
+                  <View style={styles.checkMarkContainer}>
+                    <Ionicons name="ellipse" size={wp('6.5%')} color="#BBF246" />
+                    <FontAwesome
+                      name="check"
+                      size={wp('3.3%')}
+                      color="#192126"
+                      style={{ position: 'absolute', }}
+                    />
+                  </View>
+                )}
               </TouchableOpacity>
+
               <TouchableOpacity
                 style={[styles.plan, selectedPlan === 'yearly' && styles.selectedPlan]}
                 onPress={() => setSelectedPlan('yearly')}
               >
                 <Text style={styles.planType}>Yearly</Text>
                 <Text style={styles.price}>$200.00</Text>
-                <Text style={[styles.save, { color: selectedPlan === 'yearly' ? '#192126' : '#4CAF50' }]}>Save $40.00</Text>
+                <Text
+                  style={[styles.save, { color: selectedPlan === 'yearly' ? '#192126' : '#4CAF50' }]}
+                >
+                  Save $40.00
+                </Text>
                 <Text style={styles.billing}>Free 1 Week Trial</Text>
+                {selectedPlan === 'yearly' && (
+                  <View style={styles.checkMarkContainer}>
+                    <Ionicons name="ellipse" size={wp('6.5%')} color="#BBF246" />
+                    <FontAwesome
+                      name="check"
+                      size={wp('3.3%')}
+                      color="#192126"
+                      style={{ position: 'absolute', }}
+                    />
+                  </View>
+                )}
               </TouchableOpacity>
             </View>
+
             <SafeAreaView style={styles.cardFieldContainer}>
               <CardField
                 postalCodeEnabled={false}
@@ -183,8 +240,12 @@ const SubscriptionScreen: React.FC = (props: any) => {
                   style={[styles.inputStyle, { color: colors.text }]}
                   placeholderTextColor={colors.placeholder}
                 />
-                <TouchableOpacity style={styles.couponButton} onPress={handleCouponValidation}>
-                  <Text style={styles.couponText}>Verify</Text>
+                <TouchableOpacity
+                  style={styles.couponButton}
+                  onPress={handleCouponValidation}
+                  disabled={!!couponId} // Disable button if coupon is applied
+                >
+                  <Text style={styles.couponText}>{couponId ? `Applied` : "Apply"} </Text>
                 </TouchableOpacity>
               </View>
             </View>
@@ -194,9 +255,11 @@ const SubscriptionScreen: React.FC = (props: any) => {
               and
               <Text style={styles.link}> Terms & Condition</Text>
             </Text>
-          </View>
-          <View style={styles.buttonContainer}>
-            <CustomButton title="Pay" onPress={handleSubscription} loading={loading} />
+            <CustomButton
+              title={discountedValue ? `Continue – $${discountedValue} total` : `Pay`}
+              onPress={handleSubscription}
+              loading={loading}
+            />
           </View>
         </ScrollView>
       </KeyboardAvoidingView>

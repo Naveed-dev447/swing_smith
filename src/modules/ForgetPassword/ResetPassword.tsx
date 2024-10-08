@@ -131,7 +131,8 @@ const updatedStyles = StyleSheet.create({
         flexGrow: 1,
     },
     topContainer: {
-        marginTop: 50, // Adjust to control the distance from the top
+        marginTop: 50,
+        alignItems: 'center',
     },
     nextButton: {
         padding: 15,

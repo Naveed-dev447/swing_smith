@@ -62,13 +62,12 @@
 
 // export default SplashScreen;
 
-
 import React, { useEffect, useRef } from 'react';
 import { View, StatusBar, StyleSheet, Dimensions } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import LottieView from 'lottie-react-native';
 import { useDispatch } from 'react-redux';
-import { AppDispatch } from 'redux/store';
+import { AppDispatch } from '../../redux/store';
 import { fetchFirstLoginStatus } from '../../redux/Slices/FirstLogin';
 import { useLoader } from '../../config/LoaderContext';
 
@@ -106,13 +105,6 @@ const SplashScreen = (props: any) => {
     if (animationRef.current) {
       animationRef.current.play();
     }
-
-    const animationDuration = 3000; 
-    const timer = setTimeout(() => {
-      handleNavigation();
-    }, animationDuration);
-
-    return () => clearTimeout(timer);
   }, []);
 
   return (
@@ -124,6 +116,7 @@ const SplashScreen = (props: any) => {
         autoPlay
         loop={false}
         style={styles.lottie}
+        onAnimationFinish={handleNavigation} // Trigger navigation on animation finish
       />
     </View>
   );
@@ -132,7 +125,7 @@ const SplashScreen = (props: any) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white', 
+    backgroundColor: 'white',
   },
   lottie: {
     width: width,
@@ -141,3 +134,4 @@ const styles = StyleSheet.create({
 });
 
 export default SplashScreen;
+
