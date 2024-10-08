@@ -1,41 +1,43 @@
-import React, { useEffect, useState } from 'react';
-import { useLoader } from '../../../../config/LoaderContext';
-import { View, Text, Image, TouchableOpacity, ScrollView } from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {useLoader} from '../../../../config/LoaderContext';
+import {View, Text, Image, TouchableOpacity, ScrollView} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { styles } from './styles';
+import {styles} from './styles';
 import CustomHeader from '../../../../shared/Component/CustomHeader';
-import { useDispatch, useSelector } from 'react-redux';
-import { logout } from '../../../../redux/Slices/AuthSlice';
-import { AppDispatch, RootState } from '../../../../redux/store';
+import {useDispatch, useSelector} from 'react-redux';
+import {logout} from '../../../../redux/Slices/AuthSlice';
+import {AppDispatch, RootState} from '../../../../redux/store';
 import Progress from 'react-native-progress/Bar';
-import { launchImageLibrary } from 'react-native-image-picker'; // Import the image picker
+import {launchImageLibrary} from 'react-native-image-picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { updateProfilePicture } from './ProfileUpdateAPICall';
-import { heightPercentageToDP } from 'react-native-responsive-screen';
-import { fetchSubscriptionInfo } from '../../../../redux/Slices/SubscriptionInfo';
-import { useIsFocused } from '@react-navigation/native';
-import { checkUserSubscribed } from '../../../../shared/Utils/CommonUtils';
-
+import {updateProfilePicture} from './ProfileUpdateAPICall';
+import {heightPercentageToDP} from 'react-native-responsive-screen';
+import {fetchSubscriptionInfo} from '../../../../redux/Slices/SubscriptionInfo';
+import {useIsFocused} from '@react-navigation/native';
+import {checkUserSubscribed} from '../../../../shared/Utils/CommonUtils';
 
 const defaultProfileImage = require('../../../../assets/Images/avatar.jpg');
 
 const ProfileScreen: React.FC = (props: any) => {
-  const { navigation } = props;
+  const {navigation} = props;
   const foused = useIsFocused();
   const dispatch = useDispatch<AppDispatch>();
-  const { loading, setLoading } = useLoader();
+  const {loading, setLoading} = useLoader();
   const [customerId, setCustomerId] = useState<string | null>(null);
-  const { profiles, profileLoading, profileError } = useSelector(
+  const {profiles, profileLoading, profileError} = useSelector(
     (state: RootState) => state.profile,
   );
   const [profileImage, setProfileImage] = useState<any>(defaultProfileImage);
-  const { subscriptions, loading: subscriptionLoading, error: subscriptionError } = useSelector(
-    (state: RootState) => state.subscription,
-  );
+  const {
+    subscriptions,
+    loading: subscriptionLoading,
+    error: subscriptionError,
+  } = useSelector((state: RootState) => state.subscription);
 
-
-
-  const userName = profiles.length > 0 ? profiles[0] : { email: 'Fresslab88@gmail.com', name: 'Mikor Burton' };
+  const userName =
+    profiles.length > 0
+      ? profiles[0]
+      : {email: 'Fresslab88@gmail.com', name: 'Mikor Burton'};
 
   const handleLogout = () => {
     dispatch(logout()).then(() => {
@@ -44,34 +46,30 @@ const ProfileScreen: React.FC = (props: any) => {
   };
 
   const handleImagePicker = () => {
-    launchImageLibrary(
-      { mediaType: 'photo', quality: 1 },
-      async (response) => {
-        if (response.assets && response.assets.length > 0) {
-          const selectedImage = response.assets[0];
-          const formData = new FormData();
-          formData.append('fileName', {
-            uri: selectedImage.uri,
-            name: selectedImage.fileName || 'profile.jpg',
-            type: selectedImage.type || 'image/jpeg',
-          });
-          setLoading(true);
+    launchImageLibrary({mediaType: 'photo', quality: 1}, async response => {
+      if (response.assets && response.assets.length > 0) {
+        const selectedImage = response.assets[0];
+        const formData = new FormData();
+        formData.append('fileName', {
+          uri: selectedImage.uri,
+          name: selectedImage.fileName || 'profile.jpg',
+          type: selectedImage.type || 'image/jpeg',
+        });
+        setLoading(true);
 
-          try {
-            const result = await updateProfilePicture(formData);
-            if (result) {
-              setProfileImage(result.avatar);
-            }
-          } catch (error) {
-            console.error('Failed to update profile picture:', error);
-          } finally {
-            setLoading(false);
+        try {
+          const result = await updateProfilePicture(formData);
+          if (result) {
+            setProfileImage(result.avatar);
           }
+        } catch (error) {
+          console.error('Failed to update profile picture:', error);
+        } finally {
+          setLoading(false);
         }
       }
-    );
+    });
   };
-
 
   useEffect(() => {
     const loadProfileImage = async () => {
@@ -90,7 +88,7 @@ const ProfileScreen: React.FC = (props: any) => {
 
   useEffect(() => {
     dispatch(fetchSubscriptionInfo()).unwrap();
-  }, [foused])
+  }, [foused]);
 
   useEffect(() => {
     const loadCustomerId = async () => {
@@ -109,20 +107,33 @@ const ProfileScreen: React.FC = (props: any) => {
   }, []);
   return (
     <View style={styles.container}>
-      <CustomHeader onBackPress={() => console.log('Back')} title={'Profile'} />
+      <CustomHeader onBackPress={navigation.goBack} title={'Profile'} />
       {loading && (
-        <View style={{ alignSelf: 'center', marginTop: heightPercentageToDP('1%') }}>
+        <View
+          style={{alignSelf: 'center', marginTop: heightPercentageToDP('1%')}}>
           <Progress width={200} indeterminate={true} />
         </View>
       )}
-      <ScrollView contentContainerStyle={{ flexGrow: 1, paddingBottom: 60 }} showsVerticalScrollIndicator={false}>
-
+      <ScrollView
+        contentContainerStyle={{flexGrow: 1, paddingBottom: 60}}
+        showsVerticalScrollIndicator={false}>
         <View style={styles.profileContainer}>
           <View>
-            <Image source={{ uri: profileImage }} style={styles.profileImage}
-              onError={() => setProfileImage(defaultProfileImage)} />
+            {/* <Image source={{ uri: profileImage }} style={styles.profileImage}
+              onError={() => setProfileImage(defaultProfileImage)} /> */}
+            <Image
+              source={
+                typeof profileImage === 'string' && profileImage
+                  ? {uri: profileImage}
+                  : defaultProfileImage
+              }
+              style={styles.profileImage}
+              onError={() => setProfileImage(defaultProfileImage)}
+            />
 
-            <TouchableOpacity style={styles.cameraIconContainer} onPress={handleImagePicker}>
+            <TouchableOpacity
+              style={styles.cameraIconContainer}
+              onPress={handleImagePicker}>
               <Icon name="camera" size={18} color="black" />
             </TouchableOpacity>
           </View>
@@ -136,7 +147,11 @@ const ProfileScreen: React.FC = (props: any) => {
           <OptionRow
             icon="credit-card"
             text="Subscription"
-            rightText={checkUserSubscribed(subscriptions) ? "Manage Subscription" : "Get Full Access"}
+            rightText={
+              checkUserSubscribed(subscriptions)
+                ? 'Manage Subscription'
+                : 'Get Full Access'
+            }
             onPress={() => {
               if (checkUserSubscribed(subscriptions)) {
                 // Navigate to 'cancelSubs' if the user is subscribed
@@ -154,7 +169,6 @@ const ProfileScreen: React.FC = (props: any) => {
           />
         </View>
         <View style={styles.optionMainContainer}>
-
           <OptionRow icon="envelope" text="Contact Us" />
           <OptionRow icon="file-text" text="Term of Use" />
           <OptionRow icon="shield" text="Privacy Policy" />
@@ -164,8 +178,6 @@ const ProfileScreen: React.FC = (props: any) => {
             <Icon name="sign-out" size={24} color="white" />
           </TouchableOpacity> */}
         </View>
-
-
       </ScrollView>
     </View>
   );
@@ -184,18 +196,20 @@ const OptionRow: React.FC<OptionRowProps> = ({
   text,
   rightText,
   isLast,
-  onPress
+  onPress,
 }) => {
   return (
-    <TouchableOpacity onPress={onPress}
+    <TouchableOpacity
+      onPress={onPress}
       style={[styles.optionContainer, isLast && styles.lastOption]}>
       <View style={styles.optionIcon}>
-        <Icon name={icon} size={16} color='#192126' />
+        <Icon name={icon} size={16} color="#192126" />
       </View>
       <Text style={styles.optionText}>{text}</Text>
       {rightText && <Text style={styles.optionRightText}>{rightText}</Text>}
-      {text !== 'Log out' &&
-        <Icon name="chevron-right" style={styles.arrowIcon} />}
+      {text !== 'Log out' && (
+        <Icon name="chevron-right" style={styles.arrowIcon} />
+      )}
     </TouchableOpacity>
   );
 };

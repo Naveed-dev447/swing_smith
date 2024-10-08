@@ -79,7 +79,7 @@ const HomeView = (props: any) => {
     return <ProgressLoader />;
   }
   // if (tutorialsError || profileError || analysisError || recWorkoutError || drillsError) {
-  //   console.error({ tutorialsError, profileError, analysisError, recWorkoutError, drillsError });
+  //   console.error({ tutorialsrError, profileError, analysisError, recWorkoutError, drillsError });
   // }
 
   return (

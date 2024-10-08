@@ -17,6 +17,10 @@ const SwingLogView: React.FC = (props: any) => {
   const [filteredLogs, setFilteredLogs] = useState<any>([]);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [selectedClub, setSelectedClub] = useState<string | null>(null);
+  const { profiles, profileLoading, profileError } = useSelector(
+    (state: RootState) => state.profile,
+  );
+  const userName = profiles.length > 0 ? profiles[0].name : 'User';
 
   const dispatch = useDispatch<AppDispatch>();
   const { swingLogs, loading } = useSelector(
@@ -39,11 +43,10 @@ const SwingLogView: React.FC = (props: any) => {
     let filtered = swingLogs;
 
     if (selectedDate) {
-      filtered = filtered.filter(log =>
-        util.formatDate(log.created_at) === util.formatDate(selectedDate)
+      filtered = filtered.filter(log => 
+        util.formatDate(new Date(log.created_at)) === util.formatDate(selectedDate)
       );
     }
-
     if (selectedClub) {
       filtered = filtered.filter(log => log.club === selectedClub);
     }
@@ -82,9 +85,8 @@ const SwingLogView: React.FC = (props: any) => {
     <View style={globalStyles.container}>
       <Header
         toggleModal={() => setFilteredLogs(swingLogs)}
-        name={''}
-        address={''}
-      />
+        name={`Hello, ${userName}`}      
+        />
       <View style={globalStyles.swingLogFIlterIconContainer}>
         <Text style={globalStyles.header}>Your Swing Log</Text>
         <TouchableOpacity onPress={toggleModal}>
