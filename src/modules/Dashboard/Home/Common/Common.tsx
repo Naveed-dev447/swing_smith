@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   ScrollView,
   StyleSheet,
@@ -9,46 +8,57 @@ import {
   ImageBackground,
   ImageSourcePropType,
 } from 'react-native';
+import recommandedStyles from '../../../../modules/Dashboard/Recommended/styles';
+import thumbnail from '../../../../assets/Images/recommendedVideoIcon.png'
+
+import React, { useEffect, useState } from 'react';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import globalStyles from '../styles';
 import { useNavigation } from '@react-navigation/native';
-import recommandedStyles from '../../../../modules/Dashboard/Recommended/styles';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import thumbnail from '../../../../assets/Images/recommendedVideoIcon.png'
 
-export const Header: React.FC<{
-  toggleModal: () => void;
-  name: string;
-  address?: string;
-}> = ({ toggleModal, name, address }) => (
-  <View>
-    <View style={globalStyles.headerContainer}>
-      <TouchableOpacity onPress={toggleModal}>
-        <Image
-          source={require('../../../../assets/Images/tiles.png')}
-          style={globalStyles.tiles}
-        />
-      </TouchableOpacity>
+const defaultProfileImage = require('../../../../assets/Images/avatar.jpg'); 
+
+export const Header: React.FC<{ name: string; toggleModal: () => void }> = ({ name, toggleModal }) => {
+  const [profileImage, setProfileImage] = useState<any>(defaultProfileImage); 
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    const loadProfileImage = async () => {
+      try {
+        const storedProfileImage = await AsyncStorage.getItem('profile');
+        if (storedProfileImage && typeof storedProfileImage === 'string') {
+          setProfileImage({ uri: storedProfileImage }); 
+        } else {
+          setProfileImage(defaultProfileImage);
+        }
+      } catch (error) {
+        console.error('Failed to load profile image:', error);
+        setProfileImage(defaultProfileImage); 
+      }
+    };
+
+    loadProfileImage();
+  }, []);
+
+  return (
+    <View style={styles.headerContainer}>
       <Image
-        source={require('../../../../assets/Images/manProfile.png')}
-        style={globalStyles.manProfile}
+        source={profileImage} 
+        style={styles.profileImage}
       />
+      <Text style={styles.headerText}>{name}</Text>
+      <TouchableOpacity onPress={() => navigation.navigate('ProfileScreen')}>
+        <Icon name="account-circle" size={30} color="black" style={styles.profileIcon} />
+      </TouchableOpacity>
     </View>
-    {name && <Text style={globalStyles.headerText}>{name}</Text>}
-    {address && (
-      <View style={globalStyles.addressContainer}>
-        <Image
-          source={require('../../../../assets/Images/gps.png')}
-          style={globalStyles.locationIcon}
-        />
-        <Text style={globalStyles.subHeader}>{address}</Text>
-      </View>
-    )}
-  </View>
-);
+  );
+};
+export default Header;
 
 export const Banner: React.FC = () => (
   <ImageBackground
@@ -407,6 +417,29 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+  },
+  headerContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between', 
+    paddingHorizontal: wp('1%'),
+    paddingVertical: hp('2%'),
+    backgroundColor: '#fff',
+  },
+  profileImage: {
+    width: wp('10%'),
+    height: wp('10%'),
+    borderRadius: wp('5%'), 
+  },
+  headerText: {
+    fontSize: wp('5%'),
+    fontWeight: 'bold',
+    textAlign: 'center',
+    color:'black',
+    flex: 1, 
+  },
+  profileIcon: {
+    marginLeft: wp('3%'),
   },
   section: {
     marginVertical: hp('1%'),
