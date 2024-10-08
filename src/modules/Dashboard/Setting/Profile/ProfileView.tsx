@@ -34,7 +34,7 @@ const ProfileScreen: React.FC = (props: any) => {
   const { subscription, loading: subscriptionLoading, error: subscriptionError } = useSelector(
     (state: RootState) => state.subscription
   );
-  
+
 
   const userName = profiles.length > 0 ? profiles[0] : { email: 'Fresslab88@gmail.com', name: 'Mikor Burton' };
 
@@ -92,7 +92,7 @@ const ProfileScreen: React.FC = (props: any) => {
   useEffect(() => {
     dispatch(fetchSubscriptionInfo()).unwrap();
   }, [foused])
-  
+
 
   useEffect(() => {
     const loadCustomerId = async () => {
@@ -139,7 +139,7 @@ const ProfileScreen: React.FC = (props: any) => {
             text={subscription && checkUserSubscribed(subscription) ? "Manage Subscription" : "Buy Subscription"}
             onPress={() => {
               if (subscription && checkUserSubscribed(subscription)) {
-                 navigation.navigate('cancelSubs', customerId);
+                navigation.navigate('cancelSubs', customerId);
               } else {
                 navigation.navigate('subscription', userName);
               }
