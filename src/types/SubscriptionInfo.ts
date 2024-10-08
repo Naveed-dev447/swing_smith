@@ -1,39 +1,37 @@
-
 export interface ICardDetails {
   brand: string;
-  last4: string;
+  cardholder_name: string | null;
   exp_month: number;
   exp_year: number;
+  last4: string;
 }
 
-export interface IPaymentMethodDetails {
-  card: ICardDetails;
-}
-
-export interface IPayment {
-  status: string;
+export interface IPaymentInfo {
   amount_paid: number;
-  payment_method: string;
-  payment_method_details: IPaymentMethodDetails;
+  card: ICardDetails;
+  currency: string;
 }
 
-export interface IPlan {
+export interface IBillingInfo {
+  billing_cycle: string;
+  end_date: string;
   name: string;
-  amount: number;
-  currency: string;
-  interval: string;
+  start_date: string;
+}
+
+export interface INextPaymentInfo {
+  next_payment_amount: number;
+  next_payment_date: string;
 }
 
 export interface IInfoSubscription {
-  id: string;
-  status: string;
-  plan: IPlan;
-  current_period_start: number; // Unix timestamp
-  current_period_end: number;   // Unix timestamp
-  cancel_at_period_end: boolean;
-  payment: IPayment;
+  billingInfo: IBillingInfo;
+  nextPaymentInfo: INextPaymentInfo;
+  paymentInfo: IPaymentInfo;
 }
 
 export interface IInfoSubscriptionResponse {
-  subscription: IInfoSubscription[];
+  data: IInfoSubscription
+  message?: string;
+  status: number;
 }

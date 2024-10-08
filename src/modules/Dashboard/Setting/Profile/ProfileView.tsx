@@ -1,6 +1,8 @@
-import React, {useEffect, useState} from 'react';
-import {useLoader} from '../../../../config/LoaderContext';
-import {View, Text, Image, TouchableOpacity, ScrollView} from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { useLoader } from '../../../../config/LoaderContext';
+import Image from 'react-native-image-progress';
+import ProgressBar from 'react-native-progress/Pie';
+import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {styles} from './styles';
 import CustomHeader from '../../../../shared/Component/CustomHeader';
@@ -28,16 +30,12 @@ const ProfileScreen: React.FC = (props: any) => {
     (state: RootState) => state.profile,
   );
   const [profileImage, setProfileImage] = useState<any>(defaultProfileImage);
-  const {
-    subscriptions,
-    loading: subscriptionLoading,
-    error: subscriptionError,
-  } = useSelector((state: RootState) => state.subscription);
+  const { subscription, loading: subscriptionLoading, error: subscriptionError } = useSelector(
+    (state: RootState) => state.subscription
+  );
 
-  const userName =
-    profiles.length > 0
-      ? profiles[0]
-      : {email: 'Fresslab88@gmail.com', name: 'Mikor Burton'};
+
+  const userName = profiles.length > 0 ? profiles[0] : { email: 'Fresslab88@gmail.com', name: 'Mikor Burton' };
 
   const handleLogout = () => {
     dispatch(logout()).then(() => {
@@ -90,6 +88,7 @@ const ProfileScreen: React.FC = (props: any) => {
     dispatch(fetchSubscriptionInfo()).unwrap();
   }, [foused]);
 
+
   useEffect(() => {
     const loadCustomerId = async () => {
       try {
@@ -127,7 +126,7 @@ const ProfileScreen: React.FC = (props: any) => {
                   ? {uri: profileImage}
                   : defaultProfileImage
               }
-              style={styles.profileImage}
+              style={styles.profileImage} borderRadius={58}
               onError={() => setProfileImage(defaultProfileImage)}
             />
 
@@ -146,18 +145,11 @@ const ProfileScreen: React.FC = (props: any) => {
           <OptionRow icon="clock-o" text="Workout Reminder" />
           <OptionRow
             icon="credit-card"
-            text="Subscription"
-            rightText={
-              checkUserSubscribed(subscriptions)
-                ? 'Manage Subscription'
-                : 'Get Full Access'
-            }
+            text={subscription && checkUserSubscribed(subscription) ? "Manage Subscription" : "Buy Subscription"}
             onPress={() => {
-              if (checkUserSubscribed(subscriptions)) {
-                // Navigate to 'cancelSubs' if the user is subscribed
+              if (subscription && checkUserSubscribed(subscription)) {
                 navigation.navigate('cancelSubs', customerId);
               } else {
-                // Navigate to 'subscription' if the user is not subscribed
                 navigation.navigate('subscription', userName);
               }
             }}

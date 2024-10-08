@@ -1,66 +1,149 @@
-import React, { useEffect } from 'react';
-import { View, Text, Image } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, ImageBackground, Switch, ScrollView } from 'react-native';
 import styles from './style';
-import PaymentCell from '../../../../components/PaymentCell';
 import CustomHeader from '../../../../shared/Component/CustomHeader';
 import { goBack } from '../../../../shared/Utils/navigationRef';
 import Button from '../../../../components/Button';
-import { cancelSubscription } from './SubscriptionAPICall';
-import { RootState } from '../../../../redux/store';
-import { ShowToast } from '../../../../components/ShowToast';
+import { cancelSubscription, updateAutoRenewal } from './SubscriptionAPICall';
+import { AppDispatch, RootState } from '../../../../redux/store';
 import { useLoader } from '../../../../config/LoaderContext';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import PaymentCard from "../../../../assets/Images/paymentCard.png";
+import { fetchSubscriptionInfo } from '../../../../redux/Slices/SubscriptionInfo';
+import { formatToDDMMMYYYY, formatToDDMMYY, formatToMMDD } from '../../../../shared/Utils/CommonUtils';
+import ConfirmationModal from '../../../../components/ConfirmModal';
 
 const CancelSubscriptionScreen: React.FC = (props: any) => {
     const { route } = props;
     const { params } = route;
+    const dispatch = useDispatch<AppDispatch>();
     const { loading, setLoading } = useLoader();
-    const { subscriptions, loading: subscriptionLoading, error: subscriptionError } = useSelector(
+    const [autoRenewal, setAutoRenewal] = useState(true);
+    const [hasInteractedWithAutoRenewal, setHasInteractedWithAutoRenewal] = useState(false);
+    const [isModalVisible, setModalVisible] = useState(false);
+    const { subscription, loading: subscriptionLoading, error: subscriptionError } = useSelector(
         (state: RootState) => state.subscription,
     );
-    console.log("Subscroptionsd v ,sngklsd", subscriptions);
+    const { profiles, profileLoading, profileError } = useSelector((state: RootState) => state.profile);
 
+    const {
+        billingInfo: { billing_cycle, end_date, name: planName, start_date },
+        nextPaymentInfo: { next_payment_amount, next_payment_date },
+        paymentInfo: {
+            amount_paid,
+            card: { brand, cardholder_name, exp_month, exp_year, last4 },
+            currency,
+        },
+    } = subscription;
+
+    const daysUntilNextPayment = Math.ceil((new Date(end_date).getTime() - Date.now()) / (1000 * 60 * 60 * 24));
+
+    const userName = profiles.length > 0 ? profiles[0] : { email: 'Fresslab88@gmail.com', name: 'Mikor Burton' };
 
     const handleCancelSubscription = async () => {
-        setLoading(true)
+        setLoading(true);
         try {
             if (params) {
                 await cancelSubscription(params);
-                goBack();
+                setModalVisible(true);
+                dispatch(fetchSubscriptionInfo()).unwrap();
             }
             setLoading(false);
         } catch (error) {
-            setLoading(false)
+            setLoading(false);
         }
+    };
 
-    }
+    const handleConfirm = () => {
+        setModalVisible(false);
+        goBack();
+    };
+
+    const handleCloseModal = () => {
+        setModalVisible(false);
+    };
+
+    useEffect(() => {
+        if (hasInteractedWithAutoRenewal) {
+            updateAutoRenewal(autoRenewal);
+        }
+    }, [autoRenewal, hasInteractedWithAutoRenewal]);
+
+    const handleAutoRenewalChange = (value: boolean) => {
+        setAutoRenewal(value);
+        setHasInteractedWithAutoRenewal(true);
+    };
 
     return (
         <View style={styles.container}>
-            <CustomHeader onBackPress={goBack} title='Cancel Subscription' />
-            <View style={styles.card}>
-                <View style={styles.cardHeader}>
-                    <Image source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/7/75/Netflix_icon.svg' }} style={styles.logo} />
-                    <View>
-                        <Text style={styles.planName}>SwingSmith</Text>
-                        <Text style={styles.planDetails}>Monthly • Basic Plan</Text>
-                        <Text style={styles.paymentDue}>
-                            Payment due in <Text style={styles.paymentDueHighlight}>4 days</Text>
-                        </Text>
+            <CustomHeader onBackPress={goBack} title='Manage Subscription' />
+            <ScrollView contentContainerStyle={{ paddingBottom: 60, flexGrow: 1 }}>
+                <ImageBackground
+                    source={PaymentCard}
+                    style={styles.cardBackground}
+                    resizeMode="cover"
+                    imageStyle={{ borderRadius: 15 }}
+                >
+                    <View style={styles.chipIconContainer}>
+                        <View style={styles.chipIcon} />
                     </View>
-                    <Text style={styles.price1}>$8.44</Text>
+                    <Text style={styles.cardNumber}>**** **** **** {last4}</Text>
+                    <View style={styles.cardInfoContainer}>
+                        <View>
+                            <Text style={styles.cardLabel}>Card Holder Name</Text>
+                            <Text style={styles.cardHolderName}>{userName.name}</Text>
+                        </View>
+                        <View>
+                            <Text style={styles.cardLabel}>Expiry Date</Text>
+                            <Text style={styles.expiryDate}>{`${exp_month}/${exp_year}`}</Text>
+                        </View>
+                    </View>
+                </ImageBackground>
+                <View style={styles.row}>
+                    <View style={styles.infoBox}>
+                        <Text style={styles.label}>Started On</Text>
+                        <Text style={styles.value}>{formatToDDMMMYYYY(start_date)}</Text>
+                    </View>
+                    <View style={styles.infoBox}>
+                        <Text style={styles.label}>Billing Cycle</Text>
+                        <Text style={styles.value}>{planName}</Text>
+                    </View>
                 </View>
-            </View>
-            <PaymentCell label="Next Payment due" value="12 Dec 2023" valueStyle={styles.missedPayment} />
-            <PaymentCell label="Started on" value="12 Jan 2023" />
-            <PaymentCell label="Total Amount Paid" value="$346.12" />
-            <PaymentCell label="Payment Method" value="UPI" />
 
-            <Button
-                title="Cancel Subscription"
-                onPress={handleCancelSubscription}
-                buttonStyle={styles.cancelButton}
-                textStyle={styles.cancelButtonText}
+                <View style={styles.autoRenewalContainer}>
+                    <Text style={styles.autoRenewalLabel}>Auto Renewal</Text>
+                    <Switch
+                        value={autoRenewal}
+                        onValueChange={handleAutoRenewalChange}
+                        thumbColor={autoRenewal ? "#fff" : "#fff"}
+                        trackColor={{ false: "#ccc", true: "#000" }}
+                    />
+                </View>
+
+                <View style={styles.paymentContainer}>
+                    <View>
+                        <Text style={styles.paymentLabel}>Next Payment</Text>
+                        <Text style={styles.dueText}>Due in {daysUntilNextPayment} days</Text>
+                    </View>
+                    <View>
+                        <Text style={styles.paymentLabel}>${next_payment_amount}</Text>
+                        <Text style={styles.perMonth}>/{planName}</Text>
+                    </View>
+                </View>
+                <Button
+                    title="Cancel Subscription"
+                    onPress={handleCancelSubscription}
+                    buttonStyle={styles.cancelButton}
+                    textStyle={styles.cancelButtonText}
+                    disabled={loading}
+                    loading={loading}
+                />
+            </ScrollView>
+            <ConfirmationModal
+                visible={isModalVisible}
+                message={`Your access to all premium features will end on ${formatToDDMMYY(end_date)}`}
+                onConfirm={handleConfirm}
+                onClose={handleCloseModal}
             />
         </View>
     );

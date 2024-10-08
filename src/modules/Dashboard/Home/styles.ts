@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Platform } from 'react-native';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -7,6 +7,7 @@ import {
 const globalStyles = StyleSheet.create({
   container: {
     flex: 1,
+    paddingTop: Platform.OS === 'ios' ? hp('5%') : hp('3%'),
     padding: wp('3%'),
     backgroundColor: '#fff',
   },

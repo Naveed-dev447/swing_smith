@@ -1,29 +1,31 @@
-
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import apiClient from '../../config/client';
 import { IInfoSubscription, IInfoSubscriptionResponse } from '../../types/SubscriptionInfo';
 import { ShowToast } from '../../components/ShowToast';
 
+// Redux state and slice
 interface SubscriptionState {
-  subscriptions: IInfoSubscription[];
+  subscription: IInfoSubscription | null;
   loading: boolean;
   error: string | null;
 }
 
 const initialState: SubscriptionState = {
-  subscriptions: [],
+  subscription: null,
   loading: false,
   error: null,
 };
 
 export const fetchSubscriptionInfo = createAsyncThunk(
-  'subscriptions/fetchSubscriptionInfo',
+  'subscription/fetchSubscriptionInfo',
   async (_, { rejectWithValue }) => {
     try {
       const response = await apiClient.get<IInfoSubscriptionResponse>('account/subscription/info');
-      return response.data.subscription;
+      if (response.data?.message) {
+        return rejectWithValue(response.data.message);
+      }
+      return response.data;
     } catch (error: any) {
-      ShowToast('error', `${error.response.data.message}`);
       const errorMessage = error.response?.data?.error?.message || 'An unexpected error occurred';
       console.error('Get Subscription Info API error:', errorMessage);
       return rejectWithValue(errorMessage);
@@ -33,11 +35,11 @@ export const fetchSubscriptionInfo = createAsyncThunk(
 
 // Create the slice
 const subscriptionSlice = createSlice({
-  name: 'subscriptions',
+  name: 'subscription',
   initialState,
   reducers: {
-    clearSubscriptions: (state) => {
-      state.subscriptions = [];
+    clearSubscription: (state) => {
+      state.subscription = null;
       state.loading = false;
       state.error = null;
     },
@@ -50,7 +52,7 @@ const subscriptionSlice = createSlice({
       })
       .addCase(fetchSubscriptionInfo.fulfilled, (state, action) => {
         state.loading = false;
-        state.subscriptions = action.payload;
+        state.subscription = action.payload;
       })
       .addCase(fetchSubscriptionInfo.rejected, (state, action) => {
         state.loading = false;
@@ -60,5 +62,5 @@ const subscriptionSlice = createSlice({
 });
 
 // Export actions and reducer
-export const { clearSubscriptions } = subscriptionSlice.actions;
+export const { clearSubscription } = subscriptionSlice.actions;
 export default subscriptionSlice.reducer;

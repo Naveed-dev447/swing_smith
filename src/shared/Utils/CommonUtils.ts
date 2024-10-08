@@ -46,5 +46,17 @@ export const formatSkillText = (
 };
 
 export const checkUserSubscribed = (obj: ISubscription): boolean => {
-    return !_.isEmpty(obj);
+    return !_.isEmpty(obj) && !_.isUndefined(obj);
+};
+
+export const formatToMMDD = (unixTime: number) => {
+    return format(new Date(unixTime * 1000), 'MM/dd');
+};
+
+export const formatToDDMMMYYYY = (dateString: string) => {
+    return format(new Date(dateString), 'dd MMM yyyy');
+};
+
+export const formatToDDMMYY = (dateString: string) => {
+    return format(new Date(dateString), 'dd/MM/yy');
 };

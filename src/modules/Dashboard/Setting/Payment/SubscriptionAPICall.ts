@@ -8,7 +8,7 @@ export const SubscriptionAPICall = async (payload: ISubscription) => {
   try {
     const response = await apiClient.post<ISubscriptionResponse>('account/subscribe', payload);
     if (response.data) {
-      ShowToast('success', `${response.data.message}`);
+      ShowToast('success', `${response.data?.message}`);
     }
     return response.data;
 
@@ -49,9 +49,7 @@ export const getSubscriptionInfo = async () => {
 export const cancelSubscription = async (customerId: string) => {
 
   try {
-    const response = await apiClient.post<any>(`account/cancel/subscription`, { customerId });
-    console.log("Reesponseee sd gmslgsks", response.data);
-
+    const response = await apiClient.post<any>(`account/cancel/subscription`, { subscriptionId: customerId });
     ShowToast('success', `${response.data.message}`);
     return response.data;
   } catch (error: any) {
@@ -61,4 +59,18 @@ export const cancelSubscription = async (customerId: string) => {
     throw error;
   }
 }
+
+export const updateAutoRenewal = async (autoRenewal: boolean) => {
+  try {
+    const response = await apiClient.post<any>('account/subscription/auto-renewal', { autoRenewal: autoRenewal });
+    ShowToast('success', `${response.data.message}`);
+    return response.data;
+  } catch (error: any) {
+    const errorMessage = error.response?.data?.error?.message || 'An unexpected error occurred';
+    ShowToast('error', `${errorMessage}`);
+    console.error('Update Auto-Renewal API error:', errorMessage);
+    throw error;
+  }
+}
+
 

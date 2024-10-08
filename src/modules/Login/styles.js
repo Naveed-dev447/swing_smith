@@ -18,8 +18,6 @@ export default function useLoginStyles() {
     },
     forgetOverlay: {
       flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
       backgroundColor: 'white',
     },
     ResetPasswordOverlay: {
@@ -46,9 +44,12 @@ export default function useLoginStyles() {
       alignItems: 'center',
     },
     title: {
+      marginVertical: hp('4%'),
+      marginHorizontal: hp('2%'),
       fontSize: hp('3%'),
-      fontFamily: 'Outfit-Bold',
-      color: '#192126',
+      fontFamily: 'Outfit',
+      fontWeight: '600',
+      color: '#282E34',
       marginBottom: hp('1%'),
     },
     subtitleContainer: {
@@ -63,13 +64,12 @@ export default function useLoginStyles() {
       color: "#6C7278"
     },
     forgetSubtitle: {
-      fontSize: hp('1.8%'),
-      fontFamily: 'Outfit-Regular',
-      fontWeight: '500',
-      color: "#6C7278",
-      textAlign: 'center',
+      marginHorizontal: hp('2%'),
+      fontSize: hp('1.7%'),
+      fontFamily: 'Outfit',
+      fontWeight: '400',
+      color: "#282E34",
       marginBottom: 10,
-      marginTop: 10,
     },
 
     signUp: {
@@ -102,8 +102,9 @@ export default function useLoginStyles() {
       marginBottom: hp('1%'),
     },
     loginButtonText: {
-      fontFamily: 'Outfit-Medium',
+      fontFamily: 'Inter',
       color: '#FFFFFF',
+      fontWeight: '600',
       fontSize: hp('2%'),
     },
     orText: {
@@ -158,9 +159,10 @@ export default function useLoginStyles() {
     },
     otpInput: {
       borderWidth: 1,
-      borderColor: '#333',
+      borderColor: '#B0E442',
       backgroundColor: '#fff',
       borderRadius: 10,
+      fontFamily: 'Urbanist',
       width: 50,
       height: 50,
       textAlign: 'center',
@@ -173,22 +175,19 @@ export default function useLoginStyles() {
       zIndex: 1,
     },
     resendButton: {
-      marginTop: hp('5%'),
-      padding: 10,
-      alignItems: 'center',
-    },
-    resendButton: {
       fontSize: hp('1.8%'),
-      fontFamily: 'Outfit-Regular',
-      fontWeight: '500',
-      color: "#6C7278",
+      fontFamily: 'Outfit',
+      fontWeight: '400',
+      color: "#282E34",
       textAlign: 'center',
       marginBottom: 10,
       marginTop: 10
     },
     resendButtonText: {
-      color: "#007BFF", // Adjust this color as needed
-      textDecorationLine: 'underline', // Underline the text
+      fontFamily: 'Outfit',
+      fontWeight: '400',
+      color: "#007BFF",
+      textDecorationLine: 'underline',
     },
   });
 }
