@@ -4,6 +4,7 @@ import Icon from 'react-native-vector-icons/Feather';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { CardField, useStripe } from '@stripe/stripe-react-native';
+import CustomHeader from '../../../../shared/Component/CustomHeader';
 import styles from './style';
 import CustomButton from '../../../../shared/Component/CustomButton';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
@@ -101,16 +102,15 @@ const SubscriptionScreen: React.FC = (props: any) => {
 
   return (
     <View style={styles.container}>
+      <CustomHeader onBackPress={goBack} title='' />
+
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={{ flex: 1 }}
         keyboardVerticalOffset={Platform.select({ ios: 0, android: 20 })}
       >
         <ScrollView contentContainerStyle={{ paddingBottom: 60, flexGrow: 1 }}>
-          <View style={{ padding: wp('5%'), }}>
-            <TouchableOpacity style={styles.closeButton} onPress={goBack}>
-              <Icon name="x" size={24} color="#000" />
-            </TouchableOpacity>
+          <View style={styles.subscriptionView}>
             <ImageBackground
               source={paymentImage}
               style={styles.image}

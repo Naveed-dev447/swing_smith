@@ -11,15 +11,14 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: wp('5%'),
     paddingVertical: hp('5%'),
-    marginVertical: hp('2.5%'),
+    marginVertical: hp('1%'),
     marginHorizontal: wp('5%'),
     borderRadius: 10,
     backgroundColor: '#ffff'
   },
   profileImage: {
     width: wp('30%'),
-    height: wp('30%'),
-    borderRadius: wp('20%'),
+    height: wp('30%')
   },
   cameraIconContainer: {
     position: 'absolute',

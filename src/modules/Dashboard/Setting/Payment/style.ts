@@ -4,8 +4,13 @@ import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-nat
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: Platform.OS === 'ios' ? hp('5%') : hp('3%'),
+    paddingTop: Platform.OS === 'ios' ? hp('1%') : hp('3%'),
     backgroundColor: '#fff',
+  },
+  subscriptionView: {
+    //  padding: wp('3%'),
+    width: wp('90%'),
+    alignSelf: 'center'
   },
   closeButton: {
     alignSelf: 'flex-end',

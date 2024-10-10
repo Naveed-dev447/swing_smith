@@ -10,7 +10,8 @@ import {
 } from 'react-native';
 import recommandedStyles from '../../../../modules/Dashboard/Recommended/styles';
 import thumbnail from '../../../../assets/Images/recommendedVideoIcon.png'
-
+import accountIcon from '../../../../assets/Images/accountIcon.png'
+import ProgressBar from 'react-native-progress/Pie';
 import React, { useEffect, useState } from 'react';
 import {
   widthPercentageToDP as wp,
@@ -20,6 +21,10 @@ import globalStyles from '../styles';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import ImageProgress from 'react-native-image-progress';
+import { format } from 'date-fns';
+
+const formattedDate = format(new Date(), 'dd MMMM yyyy');
 
 const defaultProfileImage = require('../../../../assets/Images/avatar.jpg'); 
 
@@ -47,13 +52,20 @@ export const Header: React.FC<{ name: string; toggleModal: () => void }> = ({ na
 
   return (
     <View style={styles.headerContainer}>
-      <Image
-        source={profileImage} 
+      <ImageProgress
+        indicator={ProgressBar}
+        source={profileImage}
         style={styles.profileImage}
-      />
-      <Text style={styles.headerText}>{name}</Text>
+        borderRadius={50} />
+          <View style={{right: hp('3%')}}>   
+         <Text style={styles.headerText}>{name}</Text>
+         {name &&
+          <Text style={styles.headerFormat}>{formattedDate}</Text> }
+          </View>
       <TouchableOpacity onPress={() => navigation.navigate('ProfileScreen')}>
-        <Icon name="account-circle" size={30} color="black" style={styles.profileIcon} />
+        <Image
+          source={accountIcon}
+          style={styles.profileIcon} />
       </TouchableOpacity>
     </View>
   );
@@ -427,19 +439,26 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   profileImage: {
-    width: wp('10%'),
-    height: wp('10%'),
-    borderRadius: wp('5%'), 
+    width: wp('13%'),
+    height: hp('6%'),
   },
   headerText: {
+    marginTop: hp('1%'),
     fontSize: wp('5%'),
-    fontWeight: 'bold',
-    textAlign: 'center',
-    color:'black',
-    flex: 1, 
+    fontWeight: '500',
+    fontFamily:'Outfit',
+    color:'#192126',
+  },
+  headerFormat:{
+    marginTop: hp('0.5%'),
+    fontWeight:'400',
+    fontFamily:'Outfit',
+    fontSize: wp('3.5%'),
+    color:'#192126'
   },
   profileIcon: {
-    marginLeft: wp('3%'),
+    width: wp('13%'),
+    height: hp('6%'),
   },
   section: {
     marginVertical: hp('1%'),

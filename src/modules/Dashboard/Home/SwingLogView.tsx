@@ -43,7 +43,7 @@ const SwingLogView: React.FC = (props: any) => {
     let filtered = swingLogs;
 
     if (selectedDate) {
-      filtered = filtered.filter(log => 
+      filtered = filtered.filter(log =>
         util.formatDate(new Date(log.created_at)) === util.formatDate(selectedDate)
       );
     }
@@ -85,8 +85,8 @@ const SwingLogView: React.FC = (props: any) => {
     <View style={globalStyles.container}>
       <Header
         toggleModal={() => setFilteredLogs(swingLogs)}
-        name={`Hello, ${userName}`}      
-        />
+        name={``}
+      />
       <View style={globalStyles.swingLogFIlterIconContainer}>
         <Text style={globalStyles.header}>Your Swing Log</Text>
         <TouchableOpacity onPress={toggleModal}>

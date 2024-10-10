@@ -126,7 +126,8 @@ const ProfileScreen: React.FC = (props: any) => {
                   ? {uri: profileImage}
                   : defaultProfileImage
               }
-              style={styles.profileImage} borderRadius={58}
+              indicator={ProgressBar}
+              style={styles.profileImage} borderRadius={63}
               onError={() => setProfileImage(defaultProfileImage)}
             />
 
