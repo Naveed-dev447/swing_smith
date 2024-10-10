@@ -25,8 +25,6 @@ import ProgressLoader from '../../../components/ProgressLoader';
 import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { useIsFocused } from '@react-navigation/native';
 
-
-// Define a fallback image URL
 const FALLBACK_IMAGE_URL = 'https://example.com/path/to/fallback-image.png'; // URL for remote fallback image
 const LOCAL_FALLBACK_IMAGE = require('../../../assets/Images/DashBoard/RecentAna1.png');
 
@@ -55,7 +53,6 @@ const HomeView = (props: any) => {
 
   const { drills, drillsLoading, drillsError } = useSelector((state: RootState) => state.recommendedDrills);
 
-
   useEffect(() => {
     if (focused) {
       dispatch(fetchRecommendedWorkouts()).unwrap();
@@ -78,9 +75,7 @@ const HomeView = (props: any) => {
   if (tutorialsLoading || profileLoading || recentAnalysisLoading || recWorkoutLoading || drillsLoading) {
     return <ProgressLoader />;
   }
-  // if (tutorialsError || profileError || analysisError || recWorkoutError || drillsError) {
-  //   console.error({ tutorialsrError, profileError, analysisError, recWorkoutError, drillsError });
-  // }
+
 
   return (
     <View style={globalStyles.container}>
