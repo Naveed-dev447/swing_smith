@@ -56,7 +56,8 @@ export const Header: React.FC<{ name: string; toggleModal: () => void }> = ({ na
         indicator={ProgressBar}
         source={profileImage}
         style={styles.profileImage}
-        borderRadius={50} />
+        borderRadius={wp('12%')}
+        />
       <View style={{ right: hp('3%') }}>
         <Text style={styles.headerText}>{name}</Text>
         {name &&
@@ -439,8 +440,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   profileImage: {
-    width: wp('13%'),
-    height: hp('6%'),
+    width: wp('12%'), // Responsive width for profile image
+    height: wp('12%'), // Responsive height for profile image
+    borderRadius: wp('12%'), 
   },
   headerText: {
     marginTop: hp('1%'),
