@@ -4,29 +4,29 @@ import Image from 'react-native-image-progress';
 import ProgressBar from 'react-native-progress/Pie';
 import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import {styles} from './styles';
+import { styles } from './styles';
 import CustomHeader from '../../../../shared/Component/CustomHeader';
-import {useDispatch, useSelector} from 'react-redux';
-import {logout} from '../../../../redux/Slices/AuthSlice';
-import {AppDispatch, RootState} from '../../../../redux/store';
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from '../../../../redux/Slices/AuthSlice';
+import { AppDispatch, RootState } from '../../../../redux/store';
 import Progress from 'react-native-progress/Bar';
-import {launchImageLibrary} from 'react-native-image-picker';
+import { launchImageLibrary } from 'react-native-image-picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {updateProfilePicture} from './ProfileUpdateAPICall';
-import {heightPercentageToDP} from 'react-native-responsive-screen';
-import {fetchSubscriptionInfo} from '../../../../redux/Slices/SubscriptionInfo';
-import {useIsFocused} from '@react-navigation/native';
-import {checkUserSubscribed} from '../../../../shared/Utils/CommonUtils';
+import { updateProfilePicture } from './ProfileUpdateAPICall';
+import { heightPercentageToDP } from 'react-native-responsive-screen';
+import { fetchSubscriptionInfo } from '../../../../redux/Slices/SubscriptionInfo';
+import { useIsFocused } from '@react-navigation/native';
+import { checkUserSubscribed } from '../../../../shared/Utils/CommonUtils';
 
 const defaultProfileImage = require('../../../../assets/Images/avatar.jpg');
 
 const ProfileScreen: React.FC = (props: any) => {
-  const {navigation} = props;
+  const { navigation } = props;
   const foused = useIsFocused();
   const dispatch = useDispatch<AppDispatch>();
-  const {loading, setLoading} = useLoader();
+  const { loading, setLoading } = useLoader();
   const [customerId, setCustomerId] = useState<string | null>(null);
-  const {profiles, profileLoading, profileError} = useSelector(
+  const { profiles, profileLoading, profileError } = useSelector(
     (state: RootState) => state.profile,
   );
   const [profileImage, setProfileImage] = useState<any>(defaultProfileImage);
@@ -44,7 +44,7 @@ const ProfileScreen: React.FC = (props: any) => {
   };
 
   const handleImagePicker = () => {
-    launchImageLibrary({mediaType: 'photo', quality: 1}, async response => {
+    launchImageLibrary({ mediaType: 'photo', quality: 1 }, async response => {
       if (response.assets && response.assets.length > 0) {
         const selectedImage = response.assets[0];
         const formData = new FormData();
@@ -109,12 +109,12 @@ const ProfileScreen: React.FC = (props: any) => {
       <CustomHeader onBackPress={navigation.goBack} title={'Profile'} />
       {loading && (
         <View
-          style={{alignSelf: 'center', marginTop: heightPercentageToDP('1%')}}>
+          style={{ alignSelf: 'center', marginTop: heightPercentageToDP('1%') }}>
           <Progress width={200} indeterminate={true} />
         </View>
       )}
       <ScrollView
-        contentContainerStyle={{flexGrow: 1, paddingBottom: 60}}
+        contentContainerStyle={{ flexGrow: 1, paddingBottom: 60 }}
         showsVerticalScrollIndicator={false}>
         <View style={styles.profileContainer}>
           <View>
@@ -123,7 +123,7 @@ const ProfileScreen: React.FC = (props: any) => {
             <Image
               source={
                 typeof profileImage === 'string' && profileImage
-                  ? {uri: profileImage}
+                  ? { uri: profileImage }
                   : defaultProfileImage
               }
               indicator={ProgressBar}

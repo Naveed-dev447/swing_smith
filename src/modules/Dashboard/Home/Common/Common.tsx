@@ -26,10 +26,10 @@ import { format } from 'date-fns';
 
 const formattedDate = format(new Date(), 'dd MMMM yyyy');
 
-const defaultProfileImage = require('../../../../assets/Images/avatar.jpg'); 
+const defaultProfileImage = require('../../../../assets/Images/avatar.jpg');
 
 export const Header: React.FC<{ name: string; toggleModal: () => void }> = ({ name, toggleModal }) => {
-  const [profileImage, setProfileImage] = useState<any>(defaultProfileImage); 
+  const [profileImage, setProfileImage] = useState<any>(defaultProfileImage);
   const navigation = useNavigation();
 
   useEffect(() => {
@@ -37,13 +37,13 @@ export const Header: React.FC<{ name: string; toggleModal: () => void }> = ({ na
       try {
         const storedProfileImage = await AsyncStorage.getItem('profile');
         if (storedProfileImage && typeof storedProfileImage === 'string') {
-          setProfileImage({ uri: storedProfileImage }); 
+          setProfileImage({ uri: storedProfileImage });
         } else {
           setProfileImage(defaultProfileImage);
         }
       } catch (error) {
         console.error('Failed to load profile image:', error);
-        setProfileImage(defaultProfileImage); 
+        setProfileImage(defaultProfileImage);
       }
     };
 
@@ -57,11 +57,11 @@ export const Header: React.FC<{ name: string; toggleModal: () => void }> = ({ na
         source={profileImage}
         style={styles.profileImage}
         borderRadius={50} />
-          <View style={{right: hp('3%')}}>   
-         <Text style={styles.headerText}>{name}</Text>
-         {name &&
-          <Text style={styles.headerFormat}>{formattedDate}</Text> }
-          </View>
+      <View style={{ right: hp('3%') }}>
+        <Text style={styles.headerText}>{name}</Text>
+        {name &&
+          <Text style={styles.headerFormat}>{formattedDate}</Text>}
+      </View>
       <TouchableOpacity onPress={() => navigation.navigate('ProfileScreen')}>
         <Image
           source={accountIcon}
@@ -433,7 +433,7 @@ const styles = StyleSheet.create({
   headerContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between', 
+    justifyContent: 'space-between',
     paddingHorizontal: wp('1%'),
     paddingVertical: hp('2%'),
     backgroundColor: '#fff',
@@ -446,15 +446,15 @@ const styles = StyleSheet.create({
     marginTop: hp('1%'),
     fontSize: wp('5%'),
     fontWeight: '500',
-    fontFamily:'Outfit',
-    color:'#192126',
+    fontFamily: 'Outfit',
+    color: '#192126',
   },
-  headerFormat:{
+  headerFormat: {
     marginTop: hp('0.5%'),
-    fontWeight:'400',
-    fontFamily:'Outfit',
+    fontWeight: '400',
+    fontFamily: 'Outfit',
     fontSize: wp('3.5%'),
-    color:'#192126'
+    color: '#192126'
   },
   profileIcon: {
     width: wp('13%'),
