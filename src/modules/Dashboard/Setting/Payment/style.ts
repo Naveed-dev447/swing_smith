@@ -94,9 +94,21 @@ const styles = StyleSheet.create({
     borderWidth: 0.3, // Optional border to match the container
     borderColor: '#474D51',
   },
-
-  plansContainer: {
+  paymentHeader: {
     marginTop: hp('2%'),
+    fontFamily: 'Outfit',
+    fontWeight: '700',
+    fontSize: wp('5%')
+  },
+  selectPlanText: {
+    marginTop: hp('4%'),
+    color: '#393939',
+    fontWeight: '600',
+    fontSize: wp('3.5%'),
+    fontFamily: 'Outfit'
+  },
+  plansContainer: {
+    marginTop: hp('1%'),
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginBottom: hp('2%'),

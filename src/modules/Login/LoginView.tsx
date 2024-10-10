@@ -29,7 +29,8 @@ import { useLoader } from '../../config/LoaderContext';
 import { ShowToast } from '../../components/ShowToast';
 import { fetchFirstLoginStatus } from '../../redux/Slices/FirstLogin';
 import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin';
-import { LoginManager, AccessToken, AuthenticationToken } from 'react-native-fbsdk-next';
+import { LoginManager, AccessToken } from 'react-native-fbsdk-next';
+import { getFcmToken } from '../../shared/Utils/FcmHelper';
 
 
 
@@ -66,6 +67,8 @@ const LoginScreen: React.FC = (props: any) => {
     data.rememberMe = rememberMe;
     setLoading(true);
     try {
+      const fcmToken = await getFcmToken();
+      data.device_token = fcmToken;
       const res = await LoginAPICall(data);
 
       if (res?.status === 201) {
@@ -104,8 +107,7 @@ const LoginScreen: React.FC = (props: any) => {
       const payload = {
         plateform: 'google',
         email: userInfo.user.email,
-        name: userInfo.user.name,
-        device_token: userInfo.idToken,
+        name: userInfo.user.name
       };
 
       onSubmit(payload);

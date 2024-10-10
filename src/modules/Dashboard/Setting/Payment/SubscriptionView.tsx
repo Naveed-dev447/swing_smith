@@ -111,7 +111,8 @@ const SubscriptionScreen: React.FC = (props: any) => {
       >
         <ScrollView contentContainerStyle={{ paddingBottom: 60, flexGrow: 1 }}>
           <View style={styles.subscriptionView}>
-            <ImageBackground
+            <Text style={styles.paymentHeader}>Unlimited Rewinds. Go back and try again!</Text>
+            {/* <ImageBackground
               source={paymentImage}
               style={styles.image}
               borderRadius={15}
@@ -122,47 +123,9 @@ const SubscriptionScreen: React.FC = (props: any) => {
                   Select body parts and duration, and get a workout just for you
                 </Text>
               </View>
-            </ImageBackground>
-            <View style={styles.benefitsContainer}>
-              <Text style={styles.topCenterLabel}>Included with Plus</Text>
-              <View style={[styles.benefit, { paddingTop: 10 }]}>
-                <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                  <Ionicons name="ellipse" size={wp('7%')} color="#BBF246" />
-                  <FontAwesome
-                    name="check"
-                    size={wp('3.3%')}
-                    color="#192126"
-                    style={{ position: 'absolute' }}
-                  />
-                </View>
-                <Text style={styles.benefitText}> Improve golf by AI generated analysis</Text>
-              </View>
-              <View style={styles.benefit}>
-                <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                  <Ionicons name="ellipse" size={wp('7%')} color="#BBF246" />
-                  <FontAwesome
-                    name="check"
-                    size={wp('3.3%')}
-                    color="#192126"
-                    style={{ position: 'absolute' }}
-                  />
-                </View>
-                <Text style={styles.benefitText}> Target all your problem areas</Text>
-              </View>
-              <View style={styles.benefit}>
-                <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                  <Ionicons name="ellipse" size={wp('7%')} color="#BBF246" />
-                  <FontAwesome
-                    name="check"
-                    size={wp('3.3%')}
-                    color="#192126"
-                    style={{ position: 'absolute' }}
-                  />
-                </View>
-                <Text style={styles.benefitText}> Boost your body confidence</Text>
-              </View>
-              <Text style={styles.benefitSubText}>Get instant access and see how it can change your life.</Text>
-            </View>
+            </ImageBackground> */}
+            <Text style={styles.selectPlanText}>Select a plan</Text>
+
             <View style={styles.plansContainer}>
               <TouchableOpacity
                 style={[styles.plan, selectedPlan === 'monthly' && styles.selectedPlan]}
@@ -208,6 +171,46 @@ const SubscriptionScreen: React.FC = (props: any) => {
                   </View>
                 )}
               </TouchableOpacity>
+            </View>
+            <View style={styles.benefitsContainer}>
+              <Text style={styles.topCenterLabel}>Included with Plus</Text>
+              <View style={[styles.benefit, { paddingTop: 10 }]}>
+                <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+                  <Ionicons name="ellipse" size={wp('7%')} color="#BBF246" />
+                  <FontAwesome
+                    name="check"
+                    size={wp('3.3%')}
+                    color="#192126"
+                    style={{ position: 'absolute' }}
+                  />
+                </View>
+                <Text style={styles.benefitText}> Improve golf by AI generated analysis</Text>
+              </View>
+              <View style={styles.benefit}>
+                <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+                  <Ionicons name="ellipse" size={wp('7%')} color="#BBF246" />
+                  <FontAwesome
+                    name="check"
+                    size={wp('3.3%')}
+                    color="#192126"
+                    style={{ position: 'absolute' }}
+                  />
+                </View>
+                <Text style={styles.benefitText}> Target all your problem areas</Text>
+              </View>
+              <View style={styles.benefit}>
+                <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+                  <Ionicons name="ellipse" size={wp('7%')} color="#BBF246" />
+                  <FontAwesome
+                    name="check"
+                    size={wp('3.3%')}
+                    color="#192126"
+                    style={{ position: 'absolute' }}
+                  />
+                </View>
+                <Text style={styles.benefitText}> Boost your body confidence</Text>
+              </View>
+              <Text style={styles.benefitSubText}>Get instant access and see how it can change your life.</Text>
             </View>
 
             <SafeAreaView style={styles.cardFieldContainer}>
