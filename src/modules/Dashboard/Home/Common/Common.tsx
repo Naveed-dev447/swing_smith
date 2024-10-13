@@ -23,11 +23,12 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import ImageProgress from 'react-native-image-progress';
 import { format } from 'date-fns';
+import FastImage from 'react-native-fast-image';
+
 
 const formattedDate = format(new Date(), 'dd MMMM yyyy');
 
 const defaultProfileImage = require('../../../../assets/Images/avatar.jpg');
-
 export const Header: React.FC<{ name: string; toggleModal: () => void }> = ({ name, toggleModal }) => {
   const [profileImage, setProfileImage] = useState<any>(defaultProfileImage);
   const navigation = useNavigation();
@@ -52,21 +53,19 @@ export const Header: React.FC<{ name: string; toggleModal: () => void }> = ({ na
 
   return (
     <View style={styles.headerContainer}>
-      <ImageProgress
-        indicator={ProgressBar}
-        source={profileImage}
+      <FastImage
+        source={
+          typeof profileImage === 'string' ? { uri: profileImage, priority: FastImage.priority.normal } : profileImage
+        }
         style={styles.profileImage}
-        borderRadius={wp('12%')}
-        />
+        resizeMode={FastImage.resizeMode.cover}
+      />
       <View style={{ right: hp('3%') }}>
         <Text style={styles.headerText}>{name}</Text>
-        {name &&
-          <Text style={styles.headerFormat}>{formattedDate}</Text>}
+        {name && <Text style={styles.headerFormat}>{formattedDate}</Text>}
       </View>
       <TouchableOpacity onPress={() => navigation.navigate('ProfileScreen')}>
-        <Image
-          source={accountIcon}
-          style={styles.profileIcon} />
+        <FastImage source={accountIcon} style={styles.profileIcon} />
       </TouchableOpacity>
     </View>
   );
