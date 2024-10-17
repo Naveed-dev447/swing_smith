@@ -17,6 +17,7 @@ import { heightPercentageToDP } from 'react-native-responsive-screen';
 import { fetchSubscriptionInfo } from '../../../../redux/Slices/SubscriptionInfo';
 import { useIsFocused } from '@react-navigation/native';
 import { checkUserSubscribed } from '../../../../shared/Utils/CommonUtils';
+import FastImage from 'react-native-fast-image';
 
 const defaultProfileImage = require('../../../../assets/Images/avatar.jpg');
 
@@ -29,7 +30,7 @@ const ProfileScreen: React.FC = (props: any) => {
   const { profiles, profileLoading, profileError } = useSelector(
     (state: RootState) => state.profile,
   );
-  const [profileImage, setProfileImage] = useState<any>(defaultProfileImage);
+  const [profileImage, setProfileImage] = useState<any>('');
   const { subscription, loading: subscriptionLoading, error: subscriptionError } = useSelector(
     (state: RootState) => state.subscription
   );
@@ -130,7 +131,6 @@ const ProfileScreen: React.FC = (props: any) => {
               style={styles.profileImage} borderRadius={63}
               onError={() => setProfileImage(defaultProfileImage)}
             />
-
             <TouchableOpacity
               style={styles.cameraIconContainer}
               onPress={handleImagePicker}>

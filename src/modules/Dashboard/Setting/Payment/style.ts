@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     alignSelf: 'center',
     top: -hp('2%'), // Align near the top border
-    backgroundColor: '#FFC107', // Background color for the label
+    backgroundColor: '#FFFFFF', // Background color for the label
     color: '#505254',
     paddingHorizontal: wp('3%'),
     paddingVertical: hp('0.5%'),
@@ -108,35 +108,58 @@ const styles = StyleSheet.create({
     fontFamily: 'Outfit'
   },
   plansContainer: {
-    marginTop: hp('1%'),
     flexDirection: 'row',
+    flexGrow: 1,
     justifyContent: 'space-between',
+    marginTop: hp('1%'),
     marginBottom: hp('2%'),
   },
   plan: {
-    width: '48%',
+    margin: wp('2%'),
+    width: wp('80%'),
+    height: hp('20%'),
     padding: wp('7%'),
-    backgroundColor: '#f0f0f0',
+    backgroundColor: '#FFFFFF',
+    borderColor: '#474D51',
+    borderWidth: 0.3,
     borderRadius: 10
   },
   selectedPlan: {
-    width: '48%',
+    margin: wp('2%'),
+    width: wp('80%'),
+    height: hp('20%'),
     padding: wp('7%'),
-    backgroundColor: '#dff5b0',
+    backgroundColor: '#fdfff5',
+    borderColor: '#BBF246',
+    borderWidth: 1,
     borderRadius: 10
   },
   planType: {
     fontSize: wp('4.5%'),
-    fontWeight: '500',
-    fontFamily: 'Outfit-Regular',
+    fontWeight: '700',
+    fontFamily: 'Outfit',
     color: '#192126'
   },
+  priceContainer: {
+    marginTop: hp('0.5%')
+  },
+  selectedPriceContainer: {
+    marginTop: hp('0.5%'),
+    backgroundColor: '#BBF246',
+    borderRadius: 60,
+    width: wp('25%'),
+    height: hp('2.5%'),
+    right: wp('1%'),
+    marginBottom: wp('2%'),
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   price: {
-    fontSize: wp('6%'),
+    marginTop: hp('0.5%'),
+    marginBottom: hp('0.5%'),
+    fontSize: wp('5%'),
     fontWeight: '500',
-    marginTop: hp('1%'),
-    fontFamily: 'Outfit-Regular',
-    marginBottom: hp('1%'),
+    fontFamily: 'Outfit',
     color: '#192126',
   },
   billing: {
@@ -148,7 +171,6 @@ const styles = StyleSheet.create({
   },
   save: {
     fontSize: wp('3.5%'),
-    marginBottom: hp('1%'),
   },
   trial: {
     fontSize: wp('3.5%'),
@@ -232,7 +254,6 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     paddingVertical: hp('1.2%'),
     paddingHorizontal: wp('3%'),
-    backgroundColor: '#000',
     alignItems: 'center',
     justifyContent: 'center',
     marginLeft: wp('2%'),
@@ -244,10 +265,10 @@ const styles = StyleSheet.create({
   },
   checkMarkContainer: {
     position: 'absolute',
-    top: -hp('0%'),
-    right: -hp('0%'),
-    width: wp('6%'),
-    height: wp('6%'),
+    top: hp('2%'),
+    right: hp('2%'),
+    width: wp('7%'),
+    height: wp('7%'),
     borderRadius: wp('3%'),
     justifyContent: 'center',
     alignItems: 'center',
