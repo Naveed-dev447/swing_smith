@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { View, Text, TouchableOpacity, ImageBackground, ScrollView, Alert, TextInput, useColorScheme, SafeAreaView, KeyboardAvoidingView, Platform } from 'react-native';
-import Icon from 'react-native-vector-icons/Feather';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { CardField, useStripe } from '@stripe/stripe-react-native';
@@ -87,12 +86,12 @@ const SubscriptionScreen: React.FC = (props: any) => {
       const response = await CouponValidationAPICall(coupon);
       console.log("COupon =====>", response);
 
-      if (response.status === 200 && response.coupon?.id) {
+      if (response.status === 200 && response.coupon?.id && response.coupon.valid) {
         setCouponData(response.coupon);
         setCouponId(response.coupon.id);
         ShowToast('success', 'Coupon applied successfully!');
       } else {
-        ShowToast('error', `${response.message}`);
+        ShowToast('error', 'Invalid Coupon');
       }
     } catch (error: any) {
       const errorMessage = error?.response?.data?.error?.message || 'An error occurred';
@@ -100,10 +99,16 @@ const SubscriptionScreen: React.FC = (props: any) => {
     }
   };
 
+  useEffect(() => {
+    if (!coupon) {
+      setCouponData(null);
+      setCouponId(null);
+    }
+  }, [coupon]);
+
   return (
     <View style={styles.container}>
       <CustomHeader onBackPress={goBack} title='' />
-
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={{ flex: 1 }}
@@ -126,7 +131,9 @@ const SubscriptionScreen: React.FC = (props: any) => {
             </ImageBackground> */}
             <Text style={styles.selectPlanText}>Select a plan</Text>
 
-            <View style={styles.plansContainer}>
+            <ScrollView horizontal
+              contentContainerStyle={styles.plansContainer}
+              showsHorizontalScrollIndicator={false}>
               <TouchableOpacity
                 style={[styles.plan, selectedPlan === 'monthly' && styles.selectedPlan]}
                 onPress={() => setSelectedPlan('monthly')}
@@ -153,11 +160,8 @@ const SubscriptionScreen: React.FC = (props: any) => {
               >
                 <Text style={styles.planType}>Yearly</Text>
                 <Text style={styles.price}>$200.00</Text>
-                <Text
-                  style={[styles.save, { color: selectedPlan === 'yearly' ? '#192126' : '#4CAF50' }]}
-                >
-                  Save $40.00
-                </Text>
+                <View style={[styles.priceContainer, selectedPlan === 'yearly' && styles.selectedPriceContainer]}>
+                  <Text style={styles.save}> Save $40.00 </Text></View>
                 <Text style={styles.billing}>Free 1 Week Trial</Text>
                 {selectedPlan === 'yearly' && (
                   <View style={styles.checkMarkContainer}>
@@ -171,7 +175,7 @@ const SubscriptionScreen: React.FC = (props: any) => {
                   </View>
                 )}
               </TouchableOpacity>
-            </View>
+            </ScrollView>
             <View style={styles.benefitsContainer}>
               <Text style={styles.topCenterLabel}>Included with Plus</Text>
               <View style={[styles.benefit, { paddingTop: 10 }]}>
@@ -244,11 +248,16 @@ const SubscriptionScreen: React.FC = (props: any) => {
                   placeholderTextColor={colors.placeholder}
                 />
                 <TouchableOpacity
-                  style={styles.couponButton}
+                  style={[
+                    styles.couponButton,
+                    { backgroundColor: couponId ? '#BBF246' : '#000' }
+                  ]}
                   onPress={handleCouponValidation}
                   disabled={!!couponId} // Disable button if coupon is applied
                 >
-                  <Text style={styles.couponText}>{couponId ? `Applied` : "Apply"} </Text>
+                  <Text style={[styles.couponText, { color: couponId ? '#000' : '#FFFFFF' }]}>
+                    {couponId ? 'Applied' : 'Apply'}
+                  </Text>
                 </TouchableOpacity>
               </View>
             </View>

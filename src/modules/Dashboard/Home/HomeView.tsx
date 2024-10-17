@@ -3,7 +3,6 @@ import { View, Text, ScrollView, FlatList, Image, StyleSheet } from 'react-nativ
 import globalStyles from './styles';
 import {
   DrillCard,
-  HorizontalScroll,
   Section,
   WorkoutCard,
   Header,
@@ -67,10 +66,6 @@ const HomeView = (props: any) => {
     setModalVisible(!modalVisible);
   };
 
-  const handleVideoPress = (uri: string, title: string) => {
-    setSelectedVideo({ uri, title });
-    setModalVisible(true);
-  };
 
   if (tutorialsLoading || profileLoading || recentAnalysisLoading || recWorkoutLoading || drillsLoading) {
     return <ProgressLoader />;

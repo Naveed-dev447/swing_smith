@@ -18,7 +18,8 @@ export const styles = StyleSheet.create({
   },
   profileImage: {
     width: wp('30%'),
-    height: wp('30%')
+    height: wp('30%'),
+    borderRadius: wp('22%'),
   },
   cameraIconContainer: {
     position: 'absolute',

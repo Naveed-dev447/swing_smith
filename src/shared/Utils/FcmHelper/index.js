@@ -1,8 +1,8 @@
 import notifee, { EventType } from '@notifee/react-native';
 import { Alert, Platform } from 'react-native';
 import messaging from '@react-native-firebase/messaging';
-import { request, PERMISSIONS, RESULTS } from 'react-native-permissions';
-//method was called to get FCM tiken for notification
+
+
 export const getFcmToken = async () => {
   let token = null;
   await checkApplicationNotificationPermission();
