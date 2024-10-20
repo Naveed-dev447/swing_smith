@@ -31,6 +31,7 @@ import { fetchFirstLoginStatus } from '../../redux/Slices/FirstLogin';
 import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin';
 import { LoginManager, AccessToken } from 'react-native-fbsdk-next';
 import { getFcmToken } from '../../shared/Utils/FcmHelper';
+import axios from 'axios';
 
 
 
@@ -60,7 +61,6 @@ const LoginScreen: React.FC = (props: any) => {
   const { loading, setLoading } = useLoader();
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
-
 
   const onSubmit = async (data: any) => {
     Keyboard.dismiss();
@@ -126,37 +126,54 @@ const LoginScreen: React.FC = (props: any) => {
     }
   };
 
-  const handleFacebookLogin = () => {
-    LoginManager.logInWithPermissions(["public_profile", "email"]).then(
-      function (result) {
-        console.log('Login result:', result);
-
-        if (!result.isCancelled) {
-          console.log('Login successful, fetching access token');
-
-          AccessToken.getCurrentAccessToken().then(data => {
-            const { accessToken } = data;
-            console.log('Access token received:', accessToken);
-
-            const payload = {
-              platform: 'facebook',
-              accessToken: accessToken,
-              // You may also send user profile info if needed
-            };
-            onSubmit(payload);
-          }).catch(error => {
-            console.error('Error fetching access token:', error);
+  const handleFacebookLogin = async () => {
+    try {
+      console.log('Initiating Facebook login...');
+  
+      const result = await LoginManager.logInWithPermissions(["public_profile", "email"]);
+      console.log('Login result:', result);
+  
+      if (!result.isCancelled) {
+        const data = await AccessToken.getCurrentAccessToken();
+        console.log('Access token received:', data?.accessToken);
+  
+        if (data) {
+          const { accessToken } = data;
+  
+          // Step 2: Fetch profile data with the access token
+          console.log('Fetching profile data using access token...');
+          const profileResponse = await axios.get('https://graph.facebook.com/me', {
+            params: {
+              fields: 'id,name,email',
+              access_token: accessToken,
+            },
           });
-        } else {
-          console.log('Login was cancelled');
+  
+          console.log('Profile data fetched:', profileResponse.data);
+  
+          const profile = profileResponse.data;
+  
+          // Step 3: Build the payload and log the payload data
+          const payload = {
+            platform: 'facebook',
+            email: profile.email,
+            name: profile.name,
+          };
+  
+          console.log('Posting login payload:', payload);
+  
+          // Step 4: Pass the payload to the login function
+          await onSubmit(payload);
         }
-      },
-      function (error) {
-        ShowToast('error', 'Login failed, Please try again');
-        console.error('Login failed with error:', error);
+      } else {
+        console.log('Login was cancelled by the user.');
       }
-    );
+    } catch (error) {
+      ShowToast('error', 'Login failed, Please try again');
+      console.error('Login failed with error:', error);
+    }
   };
+  
 
   return (
     <>
