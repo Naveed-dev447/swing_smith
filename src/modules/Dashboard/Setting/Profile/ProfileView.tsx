@@ -121,15 +121,13 @@ const ProfileScreen: React.FC = (props: any) => {
           <View>
             {/* <Image source={{ uri: profileImage }} style={styles.profileImage}
               onError={() => setProfileImage(defaultProfileImage)} /> */}
-            <Image
+         <FastImage
               source={
-                typeof profileImage === 'string' && profileImage
-                  ? { uri: profileImage }
-                  : defaultProfileImage
+                profileImage ? { uri: profileImage, priority: FastImage.priority.high } : defaultProfileImage
               }
-              indicator={ProgressBar}
-              style={styles.profileImage} borderRadius={63}
-              onError={() => setProfileImage(defaultProfileImage)}
+              style={styles.profileImage}
+              resizeMode={FastImage.resizeMode.cover}
+              // onError={() => setProfileImage(defaultProfileImage)}
             />
             <TouchableOpacity
               style={styles.cameraIconContainer}
@@ -164,12 +162,9 @@ const ProfileScreen: React.FC = (props: any) => {
         </View>
         <View style={styles.optionMainContainer}>
           {/* <OptionRow icon="envelope" text="Contact Us" /> */}
-          <OptionRow icon="file-text" text="Terms of Use" />
-          <OptionRow icon="shield" text="Privacy Policy" />
-          <OptionRow icon="thumbs-o-up" text="Rate us on the App Store" />
-          {/* <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
-            <Icon name="sign-out" size={24} color="white" />
-          </TouchableOpacity> */}
+          <OptionRow icon="file-text" text="Terms of Use" onPress={() => console.log("Terms of use")} />
+          <OptionRow icon="shield" text="Privacy Policy" onPress={() => console.log("Privacy Policy")} />
+          <OptionRow icon="thumbs-o-up" text="Rate us on the App Store" onPress={() => console.log("Rate us on the App Store")}/>
         </View>
       </ScrollView>
     </View>

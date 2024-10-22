@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import {
   View,
   Text,
-  StyleSheet,
   ImageBackground,
   StatusBar,
   TouchableOpacity,
@@ -86,7 +85,7 @@ const LoginScreen: React.FC = (props: any) => {
         ShowToast('error', res?.message || 'Login failed, Please try again');
         return;
       }
-    } catch (error) {
+    } catch (error:any) {
       ShowToast('error', error?.response?.data?.message || 'Login failed, Please try again');
       console.error(error);
     } finally {
@@ -134,7 +133,7 @@ const LoginScreen: React.FC = (props: any) => {
         if (!result.isCancelled) {
           console.log('Login successful, fetching access token');
 
-          AccessToken.getCurrentAccessToken().then(data => {
+          AccessToken.getCurrentAccessToken().then((data:any) => {
             const { accessToken } = data;
             console.log('Access token received:', accessToken);
 
