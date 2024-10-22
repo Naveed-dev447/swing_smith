@@ -128,6 +128,7 @@ const UploadVideo: React.FC = (props: any) => {
           videos from either face on or down the line camera angles at chest
           height.
         </Text>
+        <Text style={globalStyles.extraDetail}>Please clip your video to only include the swing for optimal results</Text>
         <Controller
           control={control}
           name="video"
@@ -207,7 +208,7 @@ const UploadVideo: React.FC = (props: any) => {
 const styles = StyleSheet.create({
   uploadContainer: {
     width: wp('70%'),
-    height: hp('45%'),
+    height: hp('43%'),
     borderWidth: 2,
     borderColor: '#F8F8F8',
     borderRadius: wp('5%'),
@@ -257,6 +258,12 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     fontSize: hp('2%'),
   },
+  extraText: {
+    color: '#282E34',
+    fontFamily: 'Outfit-Bold',
+    fontSize: wp('4.2%'),
+    marginBottom: hp('1%'),
+  }
 });
 
 export default UploadVideo;

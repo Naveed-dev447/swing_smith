@@ -11,6 +11,7 @@ import RecommendedWorkoutsReducer from './Slices/RecommendedWorkouts';
 import AuthSlice from './Slices/AuthSlice';
 import FirstLogin from './Slices/FirstLogin';
 import SubscriptionInfo from './Slices/SubscriptionInfo';
+import SubscriptionPlan from './Slices/SubscriptionPlan';
 
 const appReducer = combineReducers({
   auth: AuthSlice,
@@ -23,7 +24,8 @@ const appReducer = combineReducers({
   recentAnalysis: RecentAnalysisReducer,
   recommendedWorkout: RecommendedWorkoutsReducer,
   firstLogin: FirstLogin,
-  subscription: SubscriptionInfo
+  subscription: SubscriptionInfo,
+  subscriptionPlans: SubscriptionPlan
 });
 
 const RootReducer = (state: ReturnType<typeof appReducer> | undefined, action: AnyAction) => {

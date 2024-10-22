@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -27,6 +27,13 @@ const globalStyles = StyleSheet.create({
     fontSize: wp('4.2%'),
     marginTop: hp('1%'),
     marginBottom: hp('3%'),
+  },
+  extraDetail: {
+    color: '#282E34',
+    fontFamily: 'Outfit-Regular',
+    fontSize: wp('4.2%'),
+    fontWeight: 'bold',
+    marginBottom: hp('2%'),
   },
   levelContainer: {
     flexDirection: 'row',
@@ -168,7 +175,7 @@ const globalStyles = StyleSheet.create({
     bottom: wp('4%'),
     padding: wp('6%'),
   },
-  buttonContainerHome:{
+  buttonContainerHome: {
     bottom: wp('15%'),
     padding: wp('6%'),
   }

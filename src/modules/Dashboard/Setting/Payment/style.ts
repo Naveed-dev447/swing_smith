@@ -4,7 +4,7 @@ import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-nat
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: Platform.OS === 'ios' ? hp('1%') : hp('3%'),
+    paddingTop: Platform.OS === 'ios' ? hp('1%') : hp('2%'),
     backgroundColor: '#fff',
   },
   subscriptionView: {
@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
   },
   plan: {
     margin: wp('2%'),
-    width: wp('80%'),
+    width: wp('48%'),
     height: hp('20%'),
     padding: wp('7%'),
     backgroundColor: '#FFFFFF',
@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
   },
   selectedPlan: {
     margin: wp('2%'),
-    width: wp('80%'),
+    width: wp('48%'),
     height: hp('20%'),
     padding: wp('7%'),
     backgroundColor: '#fdfff5',

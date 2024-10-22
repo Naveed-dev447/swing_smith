@@ -1,26 +1,43 @@
 {
   "project_info": {
-    "project_number": "270328010020",
-    "project_id": "swing-smith",
-    "storage_bucket": "swing-smith.appspot.com"
+    "project_number": "896132567210",
+    "project_id": "swfm-3001c",
+    "storage_bucket": "swfm-3001c.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:270328010020:android:744c21ceac8f21a49a0fb1",
+        "mobilesdk_app_id": "1:896132567210:android:3cae03663a8419a64340d3",
         "android_client_info": {
           "package_name": "com.swing_smith"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "896132567210-7usf2aao9lrjbiuqf4l53t6u3biuoco1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
-          "current_key": "AIzaSyCkk3JZZFJ74qV59UR4jYRI7cWu7oFJYR4"
+          "current_key": "AIzaSyBqe_U9IhpxN5WoIGgjZTUWENhKYaDOvqg"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "896132567210-7usf2aao9lrjbiuqf4l53t6u3biuoco1.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "896132567210-2mt0hitfr17v3mb645l6r14tjlva4l6v.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.company.swfm"
+              }
+            }
+          ]
         }
       }
     }

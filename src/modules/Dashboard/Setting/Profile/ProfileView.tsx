@@ -143,7 +143,7 @@ const ProfileScreen: React.FC = (props: any) => {
           </View>
         </View>
         <View style={styles.optionMainContainer}>
-          <OptionRow icon="clock-o" text="Workout Reminder" />
+          {/* <OptionRow icon="clock-o" text="Workout Reminder" /> */}
           <OptionRow
             icon="credit-card"
             text={subscription && checkUserSubscribed(subscription) ? "Manage Subscription" : "Buy Subscription"}
@@ -160,13 +160,13 @@ const ProfileScreen: React.FC = (props: any) => {
             text="Change Password"
             onPress={() => navigation.navigate('resetPassword')} // Add navigation for Change Password
           />
+          <OptionRow icon="sign-out" text="Log out" onPress={handleLogout} />
         </View>
         <View style={styles.optionMainContainer}>
-          <OptionRow icon="envelope" text="Contact Us" />
-          <OptionRow icon="file-text" text="Term of Use" />
+          {/* <OptionRow icon="envelope" text="Contact Us" /> */}
+          <OptionRow icon="file-text" text="Terms of Use" />
           <OptionRow icon="shield" text="Privacy Policy" />
-          <OptionRow icon="thumbs-o-up" text="Rate on the App Store" />
-          <OptionRow icon="sign-out" text="Log out" onPress={handleLogout} />
+          <OptionRow icon="thumbs-o-up" text="Rate us on the App Store" />
           {/* <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
             <Icon name="sign-out" size={24} color="white" />
           </TouchableOpacity> */}

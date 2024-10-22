@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, ScrollView, FlatList, Image, StyleSheet } from 'react-native';
+import { View, Text, ScrollView, FlatList } from 'react-native';
 import globalStyles from './styles';
 import {
   DrillCard,
@@ -23,9 +23,8 @@ import VideoModal from '../../../components/VideoModal';
 import ProgressLoader from '../../../components/ProgressLoader';
 import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { useIsFocused } from '@react-navigation/native';
+import { fetchSubscriptionPlans } from '../../../redux/Slices/SubscriptionPlan';
 
-const FALLBACK_IMAGE_URL = 'https://example.com/path/to/fallback-image.png'; // URL for remote fallback image
-const LOCAL_FALLBACK_IMAGE = require('../../../assets/Images/DashBoard/RecentAna1.png');
 
 const HomeView = (props: any) => {
   const { route, navigation } = props;
@@ -59,6 +58,7 @@ const HomeView = (props: any) => {
       dispatch(fetchRecommendedDrills()).unwrap();
       dispatch(fetchRecentAnalysis()).unwrap();
       dispatch(fetchTutorials()).unwrap();
+      dispatch(fetchSubscriptionPlans()).unwrap();
     }
   }, [dispatch, focused]);
 
