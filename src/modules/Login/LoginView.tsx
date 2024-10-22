@@ -129,17 +129,15 @@ const LoginScreen: React.FC = (props: any) => {
   const handleFacebookLogin = async () => {
     try {
       console.log('Initiating Facebook login...');
-  
+    
       const result = await LoginManager.logInWithPermissions(["public_profile", "email"]);
-      console.log('Login result:', result);
-  
+    
       if (!result.isCancelled) {
         const data = await AccessToken.getCurrentAccessToken();
-        console.log('Access token received:', data?.accessToken);
-  
+    
         if (data) {
           const { accessToken } = data;
-  
+    
           console.log('Fetching profile data using access token...');
           const profileResponse = await axios.get('https://graph.facebook.com/me', {
             params: {
@@ -147,31 +145,28 @@ const LoginScreen: React.FC = (props: any) => {
               access_token: accessToken,
             },
           });
-  
-          console.log('Profile data fetched:', profileResponse.data);
-  
+    
           const profile = profileResponse.data;
-  
-          // Step 3: Build the payload and log the payload data
           const payload = {
-            platform: 'facebook',
+            plateform: 'facebook',
             email: profile.email,
             name: profile.name,
-          };
-  
-          console.log('Posting login payload:', payload);
-  
-          // Step 4: Pass the payload to the login function
+          };  
           await onSubmit(payload);
         }
       } else {
         console.log('Login was cancelled by the user.');
       }
     } catch (error) {
-      ShowToast('error', 'Login failed, Please try again');
+      if (error instanceof Error) {
+        ShowToast('error', `Login failed: ${error.message}`);
+      } else {
+        ShowToast('error', 'Login failed: Unknown error occurred');
+      }
       console.error('Login failed with error:', error);
     }
   };
+  
 
   return (
     <>

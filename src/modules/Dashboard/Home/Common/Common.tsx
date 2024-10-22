@@ -421,7 +421,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: wp('1%'),
-    paddingVertical: hp('2%'),
+    paddingVertical: hp('3%'),
     backgroundColor: '#fff',
   },
   profileImage: {
@@ -429,17 +429,20 @@ const styles = StyleSheet.create({
     height: wp('12%'),
     borderRadius: wp('12%'),
     overflow: 'hidden',
-    marginRight: 10,
+    marginRight: 0,
   },
   textContainer: {
+    flex: 1, // Allows the container to take available space
+    justifyContent: 'center', // Centers content vertically
+    alignItems: 'center', // Centers content horizontally
     marginLeft: wp('1%'),
-    bottom: hp('0.4%')
+    bottom: hp('0.4%'),
   },
   headerText: {
     marginTop: hp('1%'),
     fontSize: wp('5%'),
     fontWeight: '500',
-    fontFamily: 'Outfit',
+    fontFamily: 'Outfit-Regular',
     color: '#192126',
   },
   headerFormat: {

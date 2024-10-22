@@ -78,7 +78,7 @@ const HomeView = (props: any) => {
       <ScrollView contentContainerStyle={globalStyles.SwingLogScrollView}>
         <Banner />
         <View style={{ width: '100%' }}>
-          <Text style={[globalStyles.sectionTitle, { marginTop: hp('2%') }]}>
+          <Text style={[globalStyles.sectionTitle, { marginTop: hp('2%'),marginBottom: hp('1%') }]}>
             Recent Analysis
           </Text>
           <FlatList
@@ -161,7 +161,7 @@ const HomeView = (props: any) => {
                   }} />
               );
             }}
-            contentContainerStyle={{ marginVertical: hp('1%') }}
+            // contentContainerStyle={{ marginVertical: hp('.5%') }}
           />
 
         </Section>
