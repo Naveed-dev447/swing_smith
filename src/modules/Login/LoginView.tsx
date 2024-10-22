@@ -140,7 +140,6 @@ const LoginScreen: React.FC = (props: any) => {
         if (data) {
           const { accessToken } = data;
   
-          // Step 2: Fetch profile data with the access token
           console.log('Fetching profile data using access token...');
           const profileResponse = await axios.get('https://graph.facebook.com/me', {
             params: {
