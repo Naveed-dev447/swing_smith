@@ -12,3 +12,17 @@ export interface ISubscriptionResponse {
   message: string;
   data?: any;
 }
+
+
+// types/SubscriptionPlan.ts
+export interface ISubscriptionPlan {
+  name: string;
+  interval: string;
+  amount: number;
+  currency: string;
+}
+
+export interface ISubscriptionPlanResponse {
+  status: number;
+  plans: ISubscriptionPlan[];
+}
