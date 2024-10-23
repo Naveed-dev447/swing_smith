@@ -30,6 +30,7 @@ import { fetchFirstLoginStatus } from '../../redux/Slices/FirstLogin';
 import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin';
 import { LoginManager, AccessToken } from 'react-native-fbsdk-next';
 import { getFcmToken } from '../../shared/Utils/FcmHelper';
+import axios from 'axios';
 
 
 
@@ -85,7 +86,7 @@ const LoginScreen: React.FC = (props: any) => {
         ShowToast('error', res?.message || 'Login failed, Please try again');
         return;
       }
-    } catch (error:any) {
+    } catch (error: any) {
       ShowToast('error', error?.response?.data?.message || 'Login failed, Please try again');
       console.error(error);
     } finally {
@@ -125,37 +126,46 @@ const LoginScreen: React.FC = (props: any) => {
     }
   };
 
-  const handleFacebookLogin = () => {
-    LoginManager.logInWithPermissions(["public_profile", "email"]).then(
-      function (result) {
-        console.log('Login result:', result);
+  const handleFacebookLogin = async () => {
+    try {
+      console.log('Initiating Facebook login...');
 
-        if (!result.isCancelled) {
-          console.log('Login successful, fetching access token');
+      const result = await LoginManager.logInWithPermissions(["public_profile", "email"]);
 
-          AccessToken.getCurrentAccessToken().then((data:any) => {
-            const { accessToken } = data;
-            console.log('Access token received:', accessToken);
+      if (!result.isCancelled) {
+        const data = await AccessToken.getCurrentAccessToken();
 
-            const payload = {
-              platform: 'facebook',
-              accessToken: accessToken,
-              // You may also send user profile info if needed
-            };
-            onSubmit(payload);
-          }).catch(error => {
-            console.error('Error fetching access token:', error);
+        if (data) {
+          const { accessToken } = data;
+
+          const profileResponse = await axios.get('https://graph.facebook.com/me', {
+            params: {
+              fields: 'id,name,email',
+              access_token: accessToken,
+            },
           });
-        } else {
-          console.log('Login was cancelled');
+
+          const profile = profileResponse.data;
+          const payload = {
+            plateform: 'facebook',
+            email: profile.email,
+            name: profile.name,
+          };
+          await onSubmit(payload);
         }
-      },
-      function (error) {
-        ShowToast('error', 'Login failed, Please try again');
-        console.error('Login failed with error:', error);
+      } else {
+        console.log('Login was cancelled by the user.');
       }
-    );
+    } catch (error) {
+      if (error instanceof Error) {
+        ShowToast('error', `Login failed: ${error.message}`);
+      } else {
+        ShowToast('error', 'Login failed: Unknown error occurred');
+      }
+      console.error('Login failed with error:', error);
+    }
   };
+
 
   return (
     <>

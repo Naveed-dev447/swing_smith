@@ -133,6 +133,7 @@ const globalStyles = StyleSheet.create({
   },
   uploadSwingImage: {
     marginTop: hp('2%'),
+    marginBottom: hp('2%'),
     width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
