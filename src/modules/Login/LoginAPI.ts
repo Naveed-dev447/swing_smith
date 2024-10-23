@@ -7,8 +7,6 @@ import { ShowToast } from "../../components/ShowToast";
 export const LoginAPICall = async (payload: ILogin) => {
 
   const response = await apiClient.post<ILoginResponse>(`login`, payload);
-  console.log("response while login :", response.data);
-  
   if (response.data.data) {
 
     const { token, avatar, subscriptionInfo } = response.data.data;
@@ -24,7 +22,7 @@ export const LoginAPICall = async (payload: ILogin) => {
       await AsyncStorage.setItem('customerId', customerId);
     }
     return response.data;
-  }else {
+  } else {
     ShowToast('error', response.data.message)
   }
 

@@ -86,7 +86,7 @@ const LoginScreen: React.FC = (props: any) => {
         ShowToast('error', res?.message || 'Login failed, Please try again');
         return;
       }
-    } catch (error:any) {
+    } catch (error: any) {
       ShowToast('error', error?.response?.data?.message || 'Login failed, Please try again');
       console.error(error);
     } finally {
@@ -129,29 +129,28 @@ const LoginScreen: React.FC = (props: any) => {
   const handleFacebookLogin = async () => {
     try {
       console.log('Initiating Facebook login...');
-    
+
       const result = await LoginManager.logInWithPermissions(["public_profile", "email"]);
-    
+
       if (!result.isCancelled) {
         const data = await AccessToken.getCurrentAccessToken();
-    
+
         if (data) {
           const { accessToken } = data;
-    
-          console.log('Fetching profile data using access token...');
+
           const profileResponse = await axios.get('https://graph.facebook.com/me', {
             params: {
               fields: 'id,name,email',
               access_token: accessToken,
             },
           });
-    
+
           const profile = profileResponse.data;
           const payload = {
             plateform: 'facebook',
             email: profile.email,
             name: profile.name,
-          };  
+          };
           await onSubmit(payload);
         }
       } else {
@@ -166,7 +165,7 @@ const LoginScreen: React.FC = (props: any) => {
       console.error('Login failed with error:', error);
     }
   };
-  
+
 
   return (
     <>

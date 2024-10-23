@@ -429,12 +429,9 @@ const styles = StyleSheet.create({
     height: wp('12%'),
     borderRadius: wp('12%'),
     overflow: 'hidden',
-    marginRight: 0,
+    marginRight: 10,
   },
   textContainer: {
-    flex: 1, // Allows the container to take available space
-    justifyContent: 'center', // Centers content vertically
-    alignItems: 'center', // Centers content horizontally
     marginLeft: wp('1%'),
     bottom: hp('0.4%'),
   },
