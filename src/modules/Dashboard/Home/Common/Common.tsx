@@ -83,7 +83,7 @@ export const Banner: React.FC = () => (
       width: '100%',
       height: hp('25%'),
       borderRadius: wp('2%'),
-      marginTop: hp('2%'),
+      marginTop: hp('0.5%'),
       overflow: 'hidden',
     }}
     resizeMode="stretch">

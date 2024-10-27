@@ -158,10 +158,10 @@ export default function useLoginStyles() {
       justifyContent: 'space-between',
     },
     otpInput: {
-      borderWidth: 1,
-      borderColor: '#B0E442',
-      backgroundColor: '#fff',
+      borderWidth: 1.38,
+      backgroundColor: '#FFFFFF',
       borderRadius: 10,
+      borderBottomWidth: 1.38,
       fontFamily: 'Urbanist',
       width: 50,
       height: 50,

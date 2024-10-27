@@ -5,9 +5,10 @@ import { ShowToast } from '../../components/ShowToast';
 import useLoginStyles from '../../modules/Login/styles';
 import RequestOTPAPI from './API/RequestOTPAPI';
 import { useLoader } from '../../config/LoaderContext';
-import { goBack, navigate } from '../../shared/Utils/navigationRef';
+import { goBack } from '../../shared/Utils/navigationRef';
 import { ForgotPasswordAPI } from './API/ForgotPasswordAPI';
 import CustomHeader from '../../shared/Component/CustomHeader';
+import CongratulationModal from '../../components/CongratulationModal';
 
 const OTPView = (props: any) => {
   const { navigation, route } = props;
@@ -17,6 +18,8 @@ const OTPView = (props: any) => {
   const styles = useLoginStyles();
   const { loading, setLoading } = useLoader();
   const [otp, setOtp] = useState('');
+  const [isModalVisible, setModalVisible] = useState(false);
+
 
 
 
@@ -35,8 +38,7 @@ const OTPView = (props: any) => {
         ShowToast('error', response.message)
       }
       else {
-        ShowToast('success', response.message);
-        navigation.pop(3);
+        setModalVisible(true);
       }
       console.log('Password reset successful:', response)
     } catch (error: any) {
@@ -65,6 +67,36 @@ const OTPView = (props: any) => {
       ShowToast('error', 'Please enter a valid OTP.');
     }
   };
+
+  const handleOtpChange = (text: string) => {
+    // Update OTP state based on pasted text
+    if (text.length <= 5) {
+      setOtp(text);
+    }
+  };
+
+  const handleConfirm = () => {
+    setModalVisible(false);
+    navigation.pop(3);
+  };
+
+  const handleCloseModal = () => {
+    setModalVisible(false);
+  };
+
+  if (isModalVisible) {
+    return (
+      <CongratulationModal
+        title='Congratulations!'
+        message={`Password has been changed`}
+        onConfirm={handleConfirm}
+        onClose={handleCloseModal}
+        buttonText='Done'
+      />
+    );
+  }
+
+
   return (
     <View style={styles.forgetOverlay}>
       <CustomHeader onBackPress={goBack} title={''} />
@@ -78,9 +110,11 @@ const OTPView = (props: any) => {
           </Text>
           <View style={styles.loginContainer}>
             <OTPTextInput
-              handleTextChange={(text) => setOtp(text)}
+              handleTextChange={handleOtpChange}
               containerStyle={styles.otpContainer}
               keyboardType="default"
+              tintColor="#B0E442"
+              offTintColor="#E8ECF4"
               textInputStyle={styles.otpInput}
               inputCount={5}
             />
@@ -114,7 +148,6 @@ const OTPView = (props: any) => {
           </View>
         </ScrollView>
       </KeyboardAvoidingView>
-
     </View>
   )
 }

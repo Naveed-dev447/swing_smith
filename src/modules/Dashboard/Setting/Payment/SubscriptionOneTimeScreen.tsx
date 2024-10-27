@@ -121,13 +121,9 @@ const SubscriptionScreen: React.FC = (props: any) => {
     dispatch(fetchSubscriptionPlans()).unwrap();
   }, []);
 
-
-
   if (subscriptionPlanLoader) {
     return <ProgressLoader />;
   }
-
-
 
   const renderPlan = ({ item }) => (
     <TouchableOpacity
@@ -150,13 +146,10 @@ const SubscriptionScreen: React.FC = (props: any) => {
       )}
       {item.interval === 'year' && (
         <Text
-          style={[styles.save, { color: selectedPlan === 'yearly' ? '#192126' : '#4CAF50' }]}
+          style={[styles.save, { color: selectedPlan === 'year' ? '#192126' : '#4CAF50' }]}
         >
           Save $40.00
         </Text>
-      )}
-      {item.interval === 'year' && (
-        <Text style={styles.billing}>Free 4 Analysis</Text>
       )}
     </TouchableOpacity>
   );
@@ -294,7 +287,7 @@ const SubscriptionScreen: React.FC = (props: any) => {
               />
             </View>
             <View style={{ paddingTop: '7%' }}>
-              <CustomButton title="Skip" onPress={() => navigation.navigate('OnboardHome12')} />
+              <CustomButton title="Skip-4 free analysis" onPress={() => navigation.navigate('OnboardHome12')} />
             </View>
           </View>
         </ScrollView>

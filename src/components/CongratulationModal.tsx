@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import React from 'react';
 import LottieView from 'lottie-react-native';
 import { useTheme } from '../theme/theme';
@@ -8,37 +8,45 @@ import {
 } from 'react-native-responsive-screen';
 import Button from './Button';
 
-const CongratulationModal: React.FC = (props: any) => {
-  const { route, navigation } = props;
-  const { colors } = useTheme();
-  const handlePress = () => {
-    navigation.goBack();
-  };
+interface CongratulationScreenProps {
+  title: string;
+  message: string;
+  onConfirm: () => void;
+  onClose: () => void;
+  buttonText: string;
+}
 
-  const handleClose = () => {
-    navigation.goBack();
-  };
+const CongratulationModal: React.FC<CongratulationScreenProps> = ({
+  title,
+  message,
+  onConfirm,
+  onClose,
+  buttonText,
+}) => {
+  const { colors } = useTheme();
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.closeButton} onPress={handleClose}>
+      <TouchableOpacity style={styles.closeButton} onPress={onClose}>
         <Text style={styles.closeButtonText}>×</Text>
       </TouchableOpacity>
+
       <View style={styles.imageView}>
         <LottieView
           style={styles.image}
           source={require('../assets/animations/Drum1.json')}
           autoPlay
-          loop
+          loop={true}
         />
       </View>
 
-      <Text style={styles.congratsText}>Congratulations!</Text>
-      <Text style={styles.taskText}>Your task has been completed</Text>
+      <Text style={styles.congratsText}>{title}</Text>
+      <Text style={styles.taskText}>{message}</Text>
+
       <View style={styles.buttonContainer}>
         <Button
-          title="Thanks"
-          onPress={handlePress}
+          title={buttonText}
+          onPress={onConfirm}
           buttonStyle={styles.button}
           textStyle={styles.buttonText}
         />
@@ -52,8 +60,9 @@ export default CongratulationModal;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    padding: 20,
+    // padding: 20,
+    // Removed justifyContent: 'space-between'
+    // Instead, use padding to keep the button at the bottom
   },
   closeButton: {
     position: 'absolute',
@@ -66,10 +75,8 @@ const styles = StyleSheet.create({
     color: '#192126',
   },
   imageView: {
-    flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
-    marginTop: hp('20%'),
+    marginTop: hp('25%'),
   },
   image: {
     width: wp('90%'),
@@ -79,26 +86,31 @@ const styles = StyleSheet.create({
     fontSize: wp('6%'),
     fontFamily: 'Outfit-Bold',
     color: '#192126',
+    textAlign: 'center',
+    marginTop: hp('2%'),
   },
   taskText: {
     fontSize: wp('4%'),
     fontFamily: 'Outfit-Regular',
-    marginVertical: 10,
+    marginVertical: 15,
     color: '#192126',
+    alignSelf: 'center',
+    width: wp('80%'),
+    textAlign: 'center',
   },
   buttonContainer: {
-    flex: 1,
+    alignSelf: 'center',
     width: '100%',
-    justifyContent: 'flex-end',
     alignItems: 'center',
-
+    paddingBottom: hp('5%'), // Add padding to the bottom for spacing
+    position: 'absolute', // Position the button container at the bottom
+    bottom: 20, // Adjust this value as needed for spacing from the bottom
   },
   button: {
     backgroundColor: '#C8FF49',
     paddingVertical: hp('1.8%'),
-    paddingHorizontal: wp('35%'),
+    width: '90%', // Set width to 90%
     borderRadius: wp('8%'),
-    marginBottom: wp('4%')
   },
   buttonText: {
     color: '#192126',

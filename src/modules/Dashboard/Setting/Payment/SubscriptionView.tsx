@@ -120,7 +120,6 @@ const SubscriptionScreen: React.FC = (props: any) => {
     return <ProgressLoader />;
   }
 
-
   const renderPlan = ({ item }) => (
     <TouchableOpacity
       style={[styles.plan, selectedPlan === item.interval && styles.selectedPlan]}
@@ -142,17 +141,13 @@ const SubscriptionScreen: React.FC = (props: any) => {
       )}
       {item.interval === 'year' && (
         <Text
-          style={[styles.save, { color: selectedPlan === 'yearly' ? '#192126' : '#4CAF50' }]}
+          style={[styles.save, { color: selectedPlan === 'year' ? '#192126' : '#4CAF50' }]}
         >
           Save $40.00
         </Text>
       )}
-      {item.interval === 'year' && (
-        <Text style={styles.billing}>Free 4 Analysis</Text>
-      )}
     </TouchableOpacity>
   );
-
 
   return (
     <View style={styles.container}>
@@ -165,20 +160,7 @@ const SubscriptionScreen: React.FC = (props: any) => {
         <ScrollView contentContainerStyle={{ paddingBottom: 60, flexGrow: 1 }}>
           <View style={styles.subscriptionView}>
             <Text style={styles.paymentHeader}>Unlimited Rewinds. Go back and try again!</Text>
-            {/* <ImageBackground
-              source={paymentImage}
-              style={styles.image}
-              borderRadius={15}
-            >
-              <View style={styles.textContainer}>
-                <Text style={styles.title}>Get Your Best <Text style={styles.highlight}>Body!</Text></Text>
-                <Text style={styles.subtitle}>
-                  Select body parts and duration, and get a workout just for you
-                </Text>
-              </View>
-            </ImageBackground> */}
             <Text style={styles.selectPlanText}>Select a plan</Text>
-
             <FlatList
               data={plans}
               renderItem={renderPlan}
@@ -187,6 +169,7 @@ const SubscriptionScreen: React.FC = (props: any) => {
               contentContainerStyle={styles.plansContainer}
               showsHorizontalScrollIndicator={false}
             />
+
             <View style={styles.benefitsContainer}>
               <Text style={styles.topCenterLabel}>Included with Plus</Text>
               <View style={[styles.benefit, { paddingTop: 10 }]}>

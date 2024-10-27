@@ -1,17 +1,19 @@
 import React from 'react';
-import { Modal, View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { Modal, View, Text, StyleSheet, TouchableOpacity, Image, ImageSourcePropType } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-import goodByeImage from "../assets/Images/goodbye.png"
 
 interface ConfirmationModalProps {
     visible: boolean;
     message: string;
     onConfirm: () => void;
     onClose: () => void;
+    image: ImageSourcePropType;
+    title: string;
+    buttonText: string;
 }
 
-const ConfirmationModal: React.FC<ConfirmationModalProps> = ({ visible, message, onConfirm, onClose }) => {
+const ConfirmationModal: React.FC<ConfirmationModalProps> = ({ visible, message, onConfirm, onClose, image, title, buttonText }) => {
     return (
         <Modal
             visible={visible}
@@ -25,13 +27,13 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({ visible, message,
                         <Icon name="close" size={wp('6%')} color="#000" />
                     </TouchableOpacity>
 
-                    <Image source={goodByeImage} style={styles.goodbyeText} />
-                    <Text style={styles.header}> Subscription Cancelled</Text>
+                    <Image source={image} style={styles.goodbyeText} />
+                    <Text style={styles.header}>{title}</Text>
 
                     <Text style={styles.message}>{message}</Text>
 
                     <TouchableOpacity style={styles.confirmButton} onPress={onConfirm}>
-                        <Text style={styles.confirmButtonText}>Confirm</Text>
+                        <Text style={styles.confirmButtonText}>{buttonText}</Text>
                     </TouchableOpacity>
                 </View>
             </View>

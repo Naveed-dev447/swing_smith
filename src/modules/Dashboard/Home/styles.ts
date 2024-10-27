@@ -71,7 +71,7 @@ const globalStyles = StyleSheet.create({
     alignItems: 'center',
   },
   SwingLogScrollView: {
-    paddingVertical: 10,
+    // paddingVertical: 10,
     paddingBottom: hp('10%'),
   },
   swinglogGolfIcon: {

@@ -18,13 +18,14 @@ import * as EmailValidator from 'email-validator';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import TextInput from '../../components/TextInput';
-import Button from '../../components/Button';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
 import { RootStackParamList } from '../../navigation/types';
 import { RegisterAPICall } from './RegisterAPI';
 import { useLoader } from '../../config/LoaderContext';
 import { ShowToast } from '../../components/ShowToast';
+import CongratulationModal from '../../components/CongratulationModal';
+
 
 const registerSchema = yup.object().shape({
   name: yup.string().required('Name is required'),
@@ -48,6 +49,7 @@ const RegisterView: React.FC = (props: any) => {
 
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
+  const [isModalVisible, setModalVisible] = useState(false);
 
   const onSubmit = async (data: any) => {
     Keyboard.dismiss();
@@ -56,17 +58,34 @@ const RegisterView: React.FC = (props: any) => {
     try {
       const res = await RegisterAPICall(data);
       if (res.status === 201) {
-        ShowToast('success', res.message);
-        navigation.navigate('Login');
+        setModalVisible(true);
       } else {
         ShowToast('error', `${res.message}`)
       }
-    } catch (error) {
+    } catch (error: any) {
       ShowToast('error', `${error?.response?.data?.message}|| ${error?.message}`);
     } finally {
       setLoading(false);
     }
   };
+
+  const handleConfirm = () => {
+    setModalVisible(false);
+    navigation.navigate('Login');
+  };
+
+
+  if (isModalVisible) {
+    return (
+      <CongratulationModal
+        title='Congratulations!'
+        message={`User account has been created. A verification code has been sent to your email address`}
+        onConfirm={handleConfirm}
+        onClose={() => setModalVisible(false)}
+        buttonText='Done'
+      />
+    );
+  }
 
   return (
     <>
@@ -157,7 +176,7 @@ const RegisterView: React.FC = (props: any) => {
                     <Text style={styles.loginButtonText}>Register</Text>
                   )}
                 </TouchableOpacity>
-                <Text style={styles.orText}>Or Register with</Text>
+                {/* <Text style={styles.orText}>Or Register with</Text>
                 <View style={styles.socialButtonsContainer}>
                   <TouchableOpacity
                     style={styles.socialButton}
@@ -183,7 +202,7 @@ const RegisterView: React.FC = (props: any) => {
                       style={styles.socialIcon}
                     />
                   </TouchableOpacity>
-                </View>
+                </View> */}
               </View>
             </ScrollView>
           </KeyboardAvoidingView>
@@ -214,7 +233,7 @@ const styles = StyleSheet.create({
     width: '95%',
     backgroundColor: 'rgba(255, 255, 255, 0.8)',
     borderRadius: 10,
-    padding: hp('5%'),
+    padding: hp('8%'),
     alignItems: 'center',
   },
   title: {
@@ -241,6 +260,7 @@ const styles = StyleSheet.create({
     marginLeft: 4,
   },
   loginButton: {
+    marginTop: hp('3%'),
     backgroundColor: '#000',
     paddingVertical: hp('1.8%'),
     width: wp('80%'),

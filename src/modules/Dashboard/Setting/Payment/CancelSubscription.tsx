@@ -12,6 +12,7 @@ import PaymentCard from "../../../../assets/Images/paymentCard.png";
 import { fetchSubscriptionInfo } from '../../../../redux/Slices/SubscriptionInfo';
 import { formatToDDMMMYYYY, formatToDDMMYY, formatToMMDD } from '../../../../shared/Utils/CommonUtils';
 import ConfirmationModal from '../../../../components/ConfirmModal';
+import goodByeImage from "../../../../assets/Images/goodbye.png"
 
 const CancelSubscriptionScreen: React.FC = (props: any) => {
     const { route } = props;
@@ -141,9 +142,12 @@ const CancelSubscriptionScreen: React.FC = (props: any) => {
             </ScrollView>
             <ConfirmationModal
                 visible={isModalVisible}
+                title='Subscription Cancelled'
+                image={goodByeImage}
                 message={`Your access to all premium features will end on ${formatToDDMMYY(end_date)}`}
                 onConfirm={handleConfirm}
                 onClose={handleCloseModal}
+                buttonText='Confirm'
             />
         </View>
     );
