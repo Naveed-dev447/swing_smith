@@ -1,7 +1,6 @@
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import React from 'react';
 import LottieView from 'lottie-react-native';
-import { useTheme } from '../theme/theme';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -23,7 +22,6 @@ const CongratulationModal: React.FC<CongratulationScreenProps> = ({
   onClose,
   buttonText,
 }) => {
-  const { colors } = useTheme();
 
   return (
     <View style={styles.container}>
@@ -75,24 +73,25 @@ const styles = StyleSheet.create({
     color: '#192126',
   },
   imageView: {
-    alignItems: 'center',
-    marginTop: hp('25%'),
+    alignSelf: 'center',
+    marginTop: hp('31%'),
+    width: wp('90%'),
+    height: hp('24%'),
   },
   image: {
     width: wp('90%'),
-    height: wp('60%'),
+    height: hp('28%'),
   },
   congratsText: {
     fontSize: wp('6%'),
     fontFamily: 'Outfit-Bold',
     color: '#192126',
-    textAlign: 'center',
-    marginTop: hp('2%'),
+    textAlign: 'center'
   },
   taskText: {
     fontSize: wp('4%'),
     fontFamily: 'Outfit-Regular',
-    marginVertical: 15,
+    marginVertical: 12,
     color: '#192126',
     alignSelf: 'center',
     width: wp('80%'),
@@ -102,14 +101,14 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     width: '100%',
     alignItems: 'center',
-    paddingBottom: hp('5%'), // Add padding to the bottom for spacing
-    position: 'absolute', // Position the button container at the bottom
-    bottom: 20, // Adjust this value as needed for spacing from the bottom
+    paddingBottom: hp('5%'),
+    position: 'absolute',
+    bottom: 20,
   },
   button: {
-    backgroundColor: '#C8FF49',
+    backgroundColor: '#BBF246',
     paddingVertical: hp('1.8%'),
-    width: '90%', // Set width to 90%
+    width: wp('90%'),
     borderRadius: wp('8%'),
   },
   buttonText: {
