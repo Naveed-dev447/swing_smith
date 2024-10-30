@@ -8,7 +8,7 @@ export const ShowToast = (type: ToastType, message: string) => {
         type: 'customToast',
         text1: message,
         position: 'top',
-        visibilityTime: 3000,
+        visibilityTime: 4500,
         autoHide: true,
         topOffset: 30,
         props: { type },

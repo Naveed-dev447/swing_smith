@@ -71,7 +71,7 @@ const RegisterView: React.FC = (props: any) => {
 
   const handleConfirm = () => {
     setModalVisible(false);
-    navigation.navigate('Login');
+    navigation.goBack();
   };
 
 

@@ -6,7 +6,6 @@ import {
   TouchableOpacity,
   Image,
   Platform,
-  ActivityIndicator,
 } from 'react-native';
 import {
   widthPercentageToDP as wp,
@@ -116,14 +115,14 @@ const UploadVideo: React.FC = (props: any) => {
       <CustomHeader onBackPress={navigation.goBack} />
       {loading && (
         <View style={{ alignSelf: 'center', marginTop: hp('1%') }}>
-          <Progress width={200} indeterminate={true} />
+          <Progress width={200} indeterminate={true} color='#9bde0b' />
         </View>
       )}
       <View style={globalStyles.contentContainer}>
         <Text style={globalStyles.title}>
           Upload your golf video to get an analysis 🪪
         </Text>
-        <Text style={globalStyles.subTitle}>
+        <Text style={[globalStyles.subTitle, { marginBottom: hp('1.8%') }]}>
           In order to achieve the best results, please upload high-quality
           videos from either face on or down the line camera angles at chest
           height.

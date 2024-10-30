@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useLoader } from '../../../../config/LoaderContext';
-import Image from 'react-native-image-progress';
-import ProgressBar from 'react-native-progress/Pie';
 import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { styles } from './styles';
@@ -111,7 +109,7 @@ const ProfileScreen: React.FC = (props: any) => {
       {loading && (
         <View
           style={{ alignSelf: 'center', marginTop: heightPercentageToDP('1%') }}>
-          <Progress width={200} indeterminate={true} />
+          <Progress width={200} indeterminate={true} color='#9bde0b' />
         </View>
       )}
       <ScrollView
@@ -121,13 +119,13 @@ const ProfileScreen: React.FC = (props: any) => {
           <View>
             {/* <Image source={{ uri: profileImage }} style={styles.profileImage}
               onError={() => setProfileImage(defaultProfileImage)} /> */}
-         <FastImage
+            <FastImage
               source={
                 profileImage ? { uri: profileImage, priority: FastImage.priority.high } : defaultProfileImage
               }
               style={styles.profileImage}
               resizeMode={FastImage.resizeMode.cover}
-              // onError={() => setProfileImage(defaultProfileImage)}
+            // onError={() => setProfileImage(defaultProfileImage)}
             />
             <TouchableOpacity
               style={styles.cameraIconContainer}
@@ -164,7 +162,7 @@ const ProfileScreen: React.FC = (props: any) => {
           {/* <OptionRow icon="envelope" text="Contact Us" /> */}
           <OptionRow icon="file-text" text="Terms of Use" onPress={() => console.log("Terms of use")} />
           <OptionRow icon="shield" text="Privacy Policy" onPress={() => console.log("Privacy Policy")} />
-          <OptionRow icon="thumbs-o-up" text="Rate us on the App Store" onPress={() => console.log("Rate us on the App Store")}/>
+          <OptionRow icon="thumbs-o-up" text="Rate us on the App Store" onPress={() => console.log("Rate us on the App Store")} />
         </View>
       </ScrollView>
     </View>

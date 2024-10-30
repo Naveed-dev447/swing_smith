@@ -54,7 +54,7 @@ const TutorialCard: React.FC<TutorialCardProps> = ({ key, onPress, isPlay, data,
           />
           {isLoading && (
             <View style={{ alignSelf: 'center' }}>
-              <Progress.Bar width={200} indeterminate={true} />
+              <Progress.Bar width={200} indeterminate={true} color='#9bde0b' />
             </View>
           )}
           {!isLoading && (
