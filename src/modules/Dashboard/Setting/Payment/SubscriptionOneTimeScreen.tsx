@@ -78,7 +78,7 @@ const SubscriptionScreen: React.FC = (props: any) => {
 
     try {
       const subscriptionPayload: any = {
-        plan: selectedPlan,
+        plan: selectedPlan === 'month' ? 'monthly' : 'yearly',
         email: userName.email,
         paymentMethodId: paymentMethodId,
       };

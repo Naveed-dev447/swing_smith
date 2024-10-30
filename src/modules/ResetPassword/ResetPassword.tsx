@@ -14,14 +14,15 @@ import {
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { useTheme } from '@react-navigation/native';
-import { useDispatch } from 'react-redux';
-import { AppDispatch } from 'redux/store';
+import { useSelector } from 'react-redux';
+import { RootState } from 'redux/store';
 import TextInput from '../../components/TextInput';
 import { useLoader } from '../../config/LoaderContext';
 import CustomHeader from '../../shared/Component/CustomHeader';
 import { goBack } from '../../shared/Utils/navigationRef';
-import useLoginStyles from '../../modules/Login/styles';
+import { ResetPasswordAPI } from './ResetPasswordAPI';
+import { ShowToast } from '../../components/ShowToast';
+
 const loginSchema = yup.object().shape({
   password: yup
     .string()
@@ -29,13 +30,11 @@ const loginSchema = yup.object().shape({
     .required('Password is required'),
   confirmPassword: yup
     .string()
-    .oneOf([yup.ref('password'), null], 'Passwords must match')
+    .oneOf([yup.ref('password')], 'Passwords must match')
     .required('Confirm Password is required'),
 });
 
 const ResetPassword: React.FC = (props: any) => {
-  const { navigation } = props;
-  const dispatch = useDispatch<AppDispatch>();
   const {
     control,
     handleSubmit,
@@ -43,10 +42,11 @@ const ResetPassword: React.FC = (props: any) => {
   } = useForm({
     resolver: yupResolver(loginSchema),
   });
-  const { colors } = useTheme();
-  const styles = useLoginStyles();
   const { loading, setLoading } = useLoader();
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const { profiles, profileLoading, profileError } = useSelector(
+    (state: RootState) => state.profile,
+  );
 
   const onSubmit = async (data: any) => {
     Keyboard.dismiss();
@@ -55,29 +55,25 @@ const ResetPassword: React.FC = (props: any) => {
     const payload = {
       password: data.password,
       confirmPassword: data.confirmPassword,
+      email: profiles[0]?.email
     };
 
     try {
-      const response = await fetch('https://geminibe.swingsmithpro.com/api/v1/reset-password-request', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(payload),
-      });
-
-      const result = await response.json();
-
-      if (response.ok) {
+      const response = await ResetPasswordAPI(payload);
+      if (response.status === 200) {
         setLoading(false);
-        console.log('Password reset successful:', result);
+        ShowToast('success', response.message);
+        goBack();
+        return;
       } else {
         setLoading(false);
-        console.error('Password reset failed:', result);
+        ShowToast('error', response.message);
+        return;
       }
-    } catch (error) {
+    } catch (err: any) {
       setLoading(false);
-      console.error('Network error:', error);
+      const error = err?.response?.data?.message;
+      ShowToast('error', `${error}`)
     }
   };
 
