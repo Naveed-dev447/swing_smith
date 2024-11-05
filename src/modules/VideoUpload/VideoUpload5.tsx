@@ -104,7 +104,7 @@ const VideoUpload5: React.FC = (props: any) => {
             width={wp('90%')}
             height={20}
             style={styles.progressBar}
-            color="#BBF246"
+            color='#9bde0b'
             indeterminate={true}
             unfilledColor="#ffff"
             borderWidth={0.5}

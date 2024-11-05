@@ -16,7 +16,7 @@ const App: React.FC = () => {
     return unsubscribe;
   }, []);
   return (
-    <StripeProvider publishableKey="pk_test_51PttZGCNNJb7RDVDRYqLCUO1xWSeld5kVHmi9zklui0tW8Invk3E6xOwSTMLF65PzJrhRDhv9fVi0dbxvaLaK0i100bbzlqHjA">
+    <StripeProvider publishableKey="pk_test_51PuUKpByYkg6b0mSdkQatWHIXskQcksk7d1O0YNFx4YryNNLZwfOQ3S3oYs9bZFDQVZ7OzLlfdiYNt3ynKRO5D3Q00ab7aMsV0">
     <Provider store={Store}>
       <RootStackNavigation />
     </Provider>

@@ -76,7 +76,7 @@ const CancelSubscriptionScreen: React.FC = (props: any) => {
     };
 
     return (
-        <View style={[styles.container, { marginTop: 40 }]}>
+        <View style={styles.container}>
             <CustomHeader onBackPress={goBack} title='Manage Subscription' />
             <ScrollView contentContainerStyle={{ paddingBottom: 60, flexGrow: 1 }}>
                 <ImageBackground

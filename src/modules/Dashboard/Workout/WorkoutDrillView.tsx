@@ -14,16 +14,15 @@ import {
 } from 'react-native-responsive-screen';
 import CustomHeader from '../../../shared/Component/CustomHeader';
 import { goBack } from '../../../shared/Utils/navigationRef';
-import LottieView from 'lottie-react-native';
-import { GetWorkoutDrillAPICall, UpdateWorkoutDrillAPICall, UpdateWorkoutListAPICall } from './APICalls/WorkoutAPI';
+import { UpdateWorkoutDrillAPICall, UpdateWorkoutListAPICall } from './APICalls/WorkoutAPI';
 import { ShowToast } from '../../../components/ShowToast';
 import Button from '../../../components/Button';
-import ProgressLoader from '../../../components/ProgressLoader';
 import { useLoader } from '../../../config/LoaderContext';
 import { IWorkoutDrill } from 'types/Workout';
 import debounce from 'lodash/debounce';
 import VideoModal from '../../../components/VideoModal';
 import TutorialCard from '../../../shared/Component/TutorialCard/TutorialCard';
+import CongratulationModal from '../../../components/CongratulationModal';
 
 const checkIconSelected = require('../../../assets/Images/selectedCheckIcon.png');
 const headerIcon = require('../../../assets/Images/vector.png');
@@ -32,13 +31,13 @@ const WorkoutDrillView = (props: any) => {
     const { route } = props;
     const { id, type, description, title, file_name, status, screen } = route.params;
 
-    const [workouts, setWorkouts] = useState<IWorkoutDrill[] | null>(null);
     const { loading, setLoading } = useLoader();
     const [modalVisible, setModalVisible] = useState(false);
     const [selectedVideo, setSelectedVideo] = useState<{
         uri: string;
         title: string;
     } | null>(null);
+    const [isModalVisible, setIsModalVisible] = useState(false);
     const isCompleted = status === 1 ? true : false;
     const buttonTitle = isCompleted ? "Completed" : "Mark as Done";
     const buttonIcon = isCompleted ? checkIconSelected : null;
@@ -52,12 +51,11 @@ const WorkoutDrillView = (props: any) => {
             const response = await updateFunction(payload);
 
             if (response.status === 200 && response.message !== 'Unable to update workout.') {
-                ShowToast('success', response.message);
-                goBack();
+                setIsModalVisible(true);
             } else {
                 handleError(response.message);
             }
-        } catch (error) {
+        } catch (error: any) {
             handleError(error.message);
         } finally {
             setLoading(false)
@@ -74,6 +72,23 @@ const WorkoutDrillView = (props: any) => {
         setSelectedVideo({ uri, title });
         setModalVisible(true);
     };
+
+    const handleConfirm = () => {
+        setIsModalVisible(false);
+        goBack();
+    };
+
+    if (isModalVisible) {
+        return (
+            <CongratulationModal
+                title='Congratulations!'
+                message={`Your task has been completed`}
+                onConfirm={handleConfirm}
+                onClose={() => setIsModalVisible(false)}
+                buttonText='Thanks'
+            />
+        );
+    }
 
     return (
         <View style={styles.container}>

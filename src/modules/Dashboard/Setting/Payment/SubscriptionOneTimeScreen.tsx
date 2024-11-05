@@ -78,7 +78,7 @@ const SubscriptionScreen: React.FC = (props: any) => {
 
     try {
       const subscriptionPayload: any = {
-        plan: selectedPlan,
+        plan: selectedPlan === 'month' ? 'monthly' : 'yearly',
         email: userName.email,
         paymentMethodId: paymentMethodId,
       };
@@ -103,7 +103,6 @@ const SubscriptionScreen: React.FC = (props: any) => {
     }
     try {
       const response = await CouponValidationAPICall(coupon);
-      console.log("COupon =====>", response);
 
       if (response.status === 200 && response.coupon?.id) {
         setCouponData(response.coupon);
@@ -166,18 +165,6 @@ const SubscriptionScreen: React.FC = (props: any) => {
         <ScrollView contentContainerStyle={{ paddingBottom: 60, flexGrow: 1 }}>
           <View style={styles.subscriptionView}>
             <Text style={styles.paymentHeader}>Unlimited Rewinds. Go back and try again!</Text>
-            {/* <ImageBackground
-              source={paymentImage}
-              style={styles.image}
-              borderRadius={15}
-            >
-              <View style={styles.textContainer}>
-                <Text style={styles.title}>Get Your Best <Text style={styles.highlight}>Body!</Text></Text>
-                <Text style={styles.subtitle}>
-                  Select body parts and duration, and get a workout just for you
-                </Text>
-              </View>
-            </ImageBackground> */}
             <Text style={styles.selectPlanText}>Select a plan</Text>
             <FlatList
               data={plans}
@@ -199,7 +186,7 @@ const SubscriptionScreen: React.FC = (props: any) => {
                     style={{ position: 'absolute' }}
                   />
                 </View>
-                <Text style={styles.benefitText}> Improve golf by AI generated analysis</Text>
+                <Text style={styles.benefitText}>Unlock Your Best Swing, Every Time.</Text>
               </View>
               <View style={styles.benefit}>
                 <View style={{ justifyContent: 'center', alignItems: 'center' }}>
@@ -211,7 +198,7 @@ const SubscriptionScreen: React.FC = (props: any) => {
                     style={{ position: 'absolute' }}
                   />
                 </View>
-                <Text style={styles.benefitText}> Target all your problem areas</Text>
+                <Text style={styles.benefitText}>Precision Feedback, Real Results.</Text>
               </View>
               <View style={styles.benefit}>
                 <View style={{ justifyContent: 'center', alignItems: 'center' }}>
@@ -223,9 +210,9 @@ const SubscriptionScreen: React.FC = (props: any) => {
                     style={{ position: 'absolute' }}
                   />
                 </View>
-                <Text style={styles.benefitText}> Boost your body confidence</Text>
+                <Text style={styles.benefitText}>Effortless Improvement on Your Schedule.</Text>
               </View>
-              <Text style={styles.benefitSubText}>Get instant access and see how it can change your life.</Text>
+              <Text style={styles.benefitSubText}>Get instant access and shave YEARS off your golf swing.</Text>
             </View>
 
 

@@ -7,7 +7,7 @@ import * as Progress from 'react-native-progress';
 const ProgressLoader: React.FC = () => {
     return (
         <View style={styles.loaderContainer}>
-            <Progress.Circle size={50} indeterminate={true} />
+            <Progress.Circle size={50} indeterminate={true} color='#9bde0b' />
             <Text style={styles.loadingText}>Loading...</Text>
         </View>
     );

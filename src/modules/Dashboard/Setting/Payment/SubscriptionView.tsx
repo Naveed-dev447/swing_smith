@@ -69,7 +69,7 @@ const SubscriptionScreen: React.FC = (props: any) => {
 
     try {
       const subscriptionPayload: any = {
-        plan: selectedPlan,
+        plan: selectedPlan === 'month' ? 'monthly' : 'yearly',
         email: params.email,
         paymentMethodId: paymentMethodId,
       };
@@ -77,6 +77,7 @@ const SubscriptionScreen: React.FC = (props: any) => {
       if (couponId) {
         subscriptionPayload.couponCode = couponId;
       }
+
       await SubscriptionAPICall(subscriptionPayload);
       navigation.pop(1);
     } catch (error) {
@@ -182,7 +183,7 @@ const SubscriptionScreen: React.FC = (props: any) => {
                     style={{ position: 'absolute' }}
                   />
                 </View>
-                <Text style={styles.benefitText}> Improve golf by AI generated analysis</Text>
+                <Text style={styles.benefitText}>Unlock Your Best Swing, Every Time.</Text>
               </View>
               <View style={styles.benefit}>
                 <View style={{ justifyContent: 'center', alignItems: 'center' }}>
@@ -194,7 +195,7 @@ const SubscriptionScreen: React.FC = (props: any) => {
                     style={{ position: 'absolute' }}
                   />
                 </View>
-                <Text style={styles.benefitText}> Target all your problem areas</Text>
+                <Text style={styles.benefitText}>Precision Feedback, Real Results.</Text>
               </View>
               <View style={styles.benefit}>
                 <View style={{ justifyContent: 'center', alignItems: 'center' }}>
@@ -206,9 +207,9 @@ const SubscriptionScreen: React.FC = (props: any) => {
                     style={{ position: 'absolute' }}
                   />
                 </View>
-                <Text style={styles.benefitText}> Boost your body confidence</Text>
+                <Text style={styles.benefitText}>Effortless Improvement on Your Schedule.</Text>
               </View>
-              <Text style={styles.benefitSubText}>Get instant access and see how it can change your life.</Text>
+              <Text style={styles.benefitSubText}>Get instant access and shave YEARS off your golf swing.</Text>
             </View>
 
             <SafeAreaView style={styles.cardFieldContainer}>
