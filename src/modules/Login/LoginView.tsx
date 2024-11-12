@@ -32,8 +32,6 @@ import { LoginManager, AccessToken } from 'react-native-fbsdk-next';
 import { getFcmToken } from '../../shared/Utils/FcmHelper';
 import axios from 'axios';
 
-
-
 const loginSchema = yup.object().shape({
   email: yup
     .string()

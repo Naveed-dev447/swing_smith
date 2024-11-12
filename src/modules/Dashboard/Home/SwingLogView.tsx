@@ -17,7 +17,7 @@ const SwingLogView: React.FC = (props: any) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [filteredLogs, setFilteredLogs] = useState<any>([]);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
-  const [selectedClub, setSelectedClub] = useState<string | null>(null);
+  const [selectedClubs, setSelectedClubs] = useState<string[]>([]); // Multiple clubs as an array
   const {profiles, profileLoading, profileError} = useSelector(
     (state: RootState) => state.profile,
   );
@@ -53,8 +53,8 @@ const SwingLogView: React.FC = (props: any) => {
       });
     }
 
-    if (selectedClub) {
-      filtered = filtered.filter(log => log.club === selectedClub);
+    if (selectedClubs.length > 0) {
+      filtered = filtered.filter(log => selectedClubs.includes(log.club)); // Filter by multiple clubs
     }
 
     console.log('Filtered Logs based on date:', filtered);
@@ -65,7 +65,7 @@ const SwingLogView: React.FC = (props: any) => {
 
   const resetFilters = () => {
     setSelectedDate(null); 
-    setSelectedClub(null); 
+    setSelectedClubs([]); // Reset selected clubs
     setFilteredLogs(swingLogs);
   };
 
@@ -176,8 +176,8 @@ const SwingLogView: React.FC = (props: any) => {
           closeModal={applyFilters}
           selectedDate={selectedDate}
           setSelectedDate={setSelectedDate}
-          selectedClub={selectedClub}
-          setSelectedClub={setSelectedClub}
+          selectedClubs={selectedClubs}
+          setSelectedClubs={setSelectedClubs} // Pass setSelectedClubs here
         />
       </Modal>
     </View>
