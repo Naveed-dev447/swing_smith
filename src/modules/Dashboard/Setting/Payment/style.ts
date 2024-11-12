@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
   benefit: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginHorizontal: hp('1.5%'),
+    marginHorizontal: hp('1%'),
     marginVertical: hp('1%'),
   },
   benefitText: {

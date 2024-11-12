@@ -169,7 +169,6 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginBottom: 20,
     marginLeft: wp('1%'),
-
   },
   imageContainer: {
     marginTop: 10,
