@@ -49,8 +49,12 @@ const ForgetPassword: React.FC = (props: any) => {
     setLoading(true);
     try {
       const response = await RequestOTPAPI({ email: data.email });
-      ShowToast('success', response.message);
-      handleOTPVerification(data.email);
+      if (response.status === 200) {
+        ShowToast('success', response.message);
+        handleOTPVerification(data.email);
+      } else {
+        ShowToast('error', response.message);
+      }
     } catch (error: any) {
       ShowToast('error', error?.response?.data?.message || 'An error occurred while requesting the OTP.')
     } finally {

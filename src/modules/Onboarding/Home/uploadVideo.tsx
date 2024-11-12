@@ -118,7 +118,7 @@ const UploadVideo: React.FC = (props: any) => {
           <Progress width={200} indeterminate={true} color='#9bde0b' />
         </View>
       )}
-      <View style={globalStyles.contentContainer}>
+      <View style={[globalStyles.contentContainer, {marginTop: hp('0.5%')}]}>
         <Text style={globalStyles.title}>
           Upload your golf video to get an analysis 🪪
         </Text>

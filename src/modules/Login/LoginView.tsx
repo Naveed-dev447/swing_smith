@@ -31,6 +31,7 @@ import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-si
 import { LoginManager, AccessToken } from 'react-native-fbsdk-next';
 import { getFcmToken } from '../../shared/Utils/FcmHelper';
 import axios from 'axios';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 
 
@@ -172,7 +173,9 @@ const LoginScreen: React.FC = (props: any) => {
       <StatusBar backgroundColor="transparent" translucent={true} barStyle="light-content" />
       <ImageBackground source={require('../../assets/Images/onBoarding.jpg')} style={styles.background}>
         <View style={styles.overlay}>
-          <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={{ flex: 1 }}>
+          <KeyboardAwareScrollView style={{ flex: 1 }}
+            contentContainerStyle={{ flexGrow: 1, justifyContent: 'center', alignItems: 'center' }}
+          >
             <ScrollView contentContainerStyle={styles.scrollContainer}>
               <View style={styles.loginContainer}>
                 <Text style={styles.title}>Login</Text>
@@ -254,7 +257,7 @@ const LoginScreen: React.FC = (props: any) => {
                 />
               </View>
             </ScrollView>
-          </KeyboardAvoidingView>
+          </KeyboardAwareScrollView>
         </View>
       </ImageBackground>
     </>
