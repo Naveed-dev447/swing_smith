@@ -153,7 +153,7 @@ const LoginScreen: React.FC = (props: any) => {
           await onSubmit(payload);
         }
       } else {
-        console.log('Login was cancelled by the user.');
+        console.log('Login was cancelled by the user..');
       }
     } catch (error) {
       if (error instanceof Error) {
