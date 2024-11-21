@@ -33,8 +33,6 @@ import { getFcmToken } from '../../shared/Utils/FcmHelper';
 import axios from 'axios';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
-
-
 const loginSchema = yup.object().shape({
   email: yup
     .string()
@@ -98,8 +96,8 @@ const LoginScreen: React.FC = (props: any) => {
   const handleGoogleLogin = async () => {
     try {
       GoogleSignin.configure({
-        iosClientId: '320360764204-77apiqhigrdi7dnkmdae7829m8kjil43.apps.googleusercontent.com',
-        webClientId: '320360764204-u87tan1oqdsphl0vug9vv1eqohq5kq4e.apps.googleusercontent.com',
+        webClientId: "424596278372-79j8tl5bbvlpj7hrg1qi8otnurppqrmi.apps.googleusercontent.com",
+        iosClientId: "424596278372-nmheo3ujbtrcsbmdugd8t4iji3ehvpm0.apps.googleusercontent.com",
         offlineAccess: true,
       });
       await GoogleSignin.hasPlayServices();
@@ -155,7 +153,7 @@ const LoginScreen: React.FC = (props: any) => {
           await onSubmit(payload);
         }
       } else {
-        console.log('Login was cancelled by the user.');
+        console.log('Login was cancelled by the user..');
       }
     } catch (error) {
       if (error instanceof Error) {
