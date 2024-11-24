@@ -244,7 +244,8 @@ export const WorkoutCard: React.FC<WorkoutCardProps> = ({
   navigateTo,
 }) => {
   const navigation = useNavigation();
-
+  console.log("skdjgljdsjlgksdg", title, "naviaate to", navigateTo);
+  
   const onPress = () => {
     navigation.navigate(navigateTo?.routeName, navigateTo.params);
   };

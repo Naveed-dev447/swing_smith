@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ScrollView, View, Text, Image, TouchableOpacity } from 'react-native';
+import { ScrollView, View, Text, Image, TouchableOpacity, FlatList } from 'react-native';
 import { styles } from './AnalysingScreenStyle';
 import CustomHeader from '../../../shared/Component/CustomHeader';
 import {
@@ -126,6 +126,7 @@ const AnalysisView: React.FC = (props: any) => {
       return null;
     });
   };
+console.log("dsalkjlkjgdsalg", swingAnalysis?.data?.recomended_tutorials)
 
   const renderHeaderContent = (header: string) => {
     try {
@@ -180,34 +181,35 @@ const AnalysisView: React.FC = (props: any) => {
             );
           }
           return null;
-
+       
         case 'Tutorials':
           if (swingAnalysis?.data?.recomended_tutorials && Array.isArray(swingAnalysis.data.recomended_tutorials) && swingAnalysis.data.recomended_tutorials.length) {
             return (
               <View style={styles.workOutContainer} key={header}>
                 <Section title="Recommended Tutorials">
-                  <HorizontalScroll>
-                    {swingAnalysis.data.recomended_tutorials.map((item, index) => (
-                      <TutorialCard
-                        key={index}
-                        data={item}
-                        onPress={() => console.log("Test")}
-                        navigateTo={{
-                          routeName: 'Golf Drill',
-                          params: {
-                            id: item.id,
-                            type: item.drill_name || item.name,
-                            description: item.description || '',
-                            title: item.title,
-                            status: item.status,
-                            file_name: item.file_name,
-                            duration: item.duration || '',
-                          },
-                        }} 
-                        isPlay={false}
-                      />
-                    ))}
-                  </HorizontalScroll>
+            <FlatList
+              data={swingAnalysis.data.recomended_tutorials}
+              keyExtractor={(item) => item.id.toString()}
+              horizontal
+              renderItem={({ item, index }) => (
+                <WorkoutCard
+                  key={index}
+                  title={item.title}
+                  description={item.short_des}
+                  navigateTo={{
+                    routeName: 'Golf Drill',
+                    params: {
+                      id: item.id,
+                      type: item.drill_name || item.name,
+                      description: item.short_des || '',
+                      title: item?.title,
+                      file_name: item.file_url,
+                      status: item.status,
+                      duration: item.duration || '',
+                    },
+                  }} />
+              )}
+            />
                 </Section>
               </View>
             );
