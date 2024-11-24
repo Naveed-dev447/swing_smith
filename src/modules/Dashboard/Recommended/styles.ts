@@ -147,6 +147,12 @@ const recommandedStyles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingHorizontal: wp('5%'),
   },
+  noDataText: {
+    textAlign: 'center',
+    fontSize: 16,
+    color: '#888',
+    marginVertical: 20,
+  },
 });
 
 export default recommandedStyles;

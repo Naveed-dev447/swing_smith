@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   View,
   Text,
@@ -11,8 +11,8 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import { launchImageLibrary } from 'react-native-image-picker';
-import Video from 'react-native-video';
+import { launchImageLibrary, Asset, ImagePickerResponse, ImageLibraryOptions } from 'react-native-image-picker';
+import Video, { VideoRef } from 'react-native-video';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm, Controller } from 'react-hook-form';
 import * as yup from 'yup';
@@ -50,23 +50,25 @@ const UploadVideo: React.FC = (props: any) => {
   });
   const [videoUri, setVideoUri] = useState<Video | null>(null);
   const { loading, setLoading } = useLoader();
+  const videoRef = useRef<VideoRef>(null);
   const { profiles, profileLoading, profileError } = useSelector(
     (state: RootState) => state.profile,
   );
   const userName = profiles.length > 0 ? profiles[0] : { email: 'Fresslab88@gmail.com', name: 'Mikor Burton' };
+  
   const handleUploadPress = () => {
-    const options = {
+    const options: ImageLibraryOptions = {
       mediaType: 'video',
       includeBase64: false,
     };
-
-    launchImageLibrary(options, response => {
+  
+    launchImageLibrary(options, (response: ImagePickerResponse) => {
       if (response.didCancel) {
         console.log('User cancelled video picker');
       } else if (response.errorCode) {
         console.log('ImagePicker Error: ', response.errorMessage);
       } else if (response.assets && response.assets.length > 0) {
-        const asset = response.assets[0];
+        const asset: Asset = response.assets[0];
         setVideoUri(asset);
         setValue('video', asset.uri);
       }
@@ -109,7 +111,16 @@ const UploadVideo: React.FC = (props: any) => {
     }
   };
 
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('blur', () => {
+      if (videoRef.current) {
+        videoRef.current.pause();
+      }
+    });
 
+    return unsubscribe;
+  }, [navigation]);
+  
   return (
     <View style={globalStyles.container}>
       <CustomHeader onBackPress={navigation.goBack} />
@@ -140,6 +151,7 @@ const UploadVideo: React.FC = (props: any) => {
               onPress={handleUploadPress}>
               {videoUri ? (
                 <Video
+                  ref={videoRef}
                   source={{ uri: videoUri.uri }}
                   style={styles.videoPlayer}
                   controls={true}
@@ -173,33 +185,6 @@ const UploadVideo: React.FC = (props: any) => {
           onPress={handleSubmit(handleNextPress)}
         />
       </View>
-      {/* <View
-        style={
-          route?.params === 'HomeUpload'
-            ? globalStyles.buttonContainerHome
-            : globalStyles.buttonContainer
-        }>
-        <TouchableOpacity
-          style={[
-            styles.nextButton,
-            {
-              backgroundColor: loading ? '#fff' : '#000',
-              borderColor: loading ? '#000' : 'transparent',
-              borderWidth: 1,
-            },
-          ]}
-          onPress={handleSubmit(handleNextPress)}
-          disabled={loading}>
-          {loading ? (
-            <ActivityIndicator
-              size="small"
-              color={loading ? '#000' : '#192126'}
-            />
-          ) : (
-            <Text style={styles.nextButtonText}>Next</Text>
-          )}
-        </TouchableOpacity>
-      </View> */}
     </View>
   );
 };

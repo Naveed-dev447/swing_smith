@@ -10,7 +10,6 @@ import {
   UploadSwing,
   AnalysisCard,
 } from './Common/Common';
-import TutorialCard from '../../../shared/Component/TutorialCard/TutorialCard';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../../redux/Store';
 import { fetchTutorials } from '../../../redux/Slices/TutorialSlice';
@@ -19,7 +18,6 @@ import { fetchRecommendedDrills } from '../../../redux/Slices/RecommendedDrillsS
 import { fetchRecentAnalysis } from '../../../redux/Slices/RecentAnalysisSlice';
 import { fetchRecommendedWorkouts } from '../../../redux/Slices/RecommendedWorkouts';
 
-import VideoModal from '../../../components/VideoModal';
 import ProgressLoader from '../../../components/ProgressLoader';
 import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { useIsFocused } from '@react-navigation/native';
@@ -31,10 +29,6 @@ const HomeView = (props: any) => {
   const dispatch = useDispatch<AppDispatch>();
   const focused = useIsFocused();
   const [modalVisible, setModalVisible] = useState(false);
-  const [selectedVideo, setSelectedVideo] = useState<{
-    uri: string;
-    title: string;
-  } | null>(null);
   const { tutorials, loading: tutorialsLoading, error: tutorialsError } = useSelector(
     (state: RootState) => state.tutorials,
   );
@@ -71,14 +65,13 @@ const HomeView = (props: any) => {
     return <ProgressLoader />;
   }
 
-
   return (
     <View style={globalStyles.container}>
       <Header toggleModal={toggleModal} name={`Hello, ${userName}`} />
       <ScrollView contentContainerStyle={globalStyles.SwingLogScrollView}>
         <Banner />
         <View style={{ width: '100%' }}>
-          <Text style={[globalStyles.sectionTitle, { marginTop: hp('2%'),marginBottom: hp('1%') }]}>
+          <Text style={[globalStyles.sectionTitle, { marginTop: hp('2%'), marginBottom: hp('1%') }]}>
             Recent Analysis
           </Text>
           <FlatList
@@ -107,41 +100,45 @@ const HomeView = (props: any) => {
             )
           }
         />
-        <Section title="Recommended Swing Drills">
-          <FlatList
-            data={drills}
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            keyExtractor={(item) => item.id.toString()}
-            renderItem={({ item, index }) => (
-              <DrillCard
-                key={index}
-                title={item.name}
-                description={item.description}
-                navigateTo={{
-                  routeName: 'Golf Drill',
-                  params: {
-                    id: item.id,
-                    type: item.drill_name || item.name,
-                    description: item.description || '',
-                    title: item?.title,
-                    file_name: item.file_url,
-                    screen: 'drill',
-                    status: item.status,
-                    duration: item.duration || '',
-                  },
-                }} />
-            )}
-          />
-        </Section>
-        <Section title="Recommended Exercise Drills">
-          <FlatList
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            data={workouts}
-            keyExtractor={(item) => item.id.toString()}
-            renderItem={({ item, index }) => {
-              return (
+        {drills.length > 0 && (
+          <Section title="Recommended Swing Drills">
+            <FlatList
+              data={drills}
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              keyExtractor={(item) => item.id.toString()}
+              renderItem={({ item, index }) => (
+                <DrillCard
+                  key={index}
+                  title={item.name}
+                  description={item.description}
+                  navigateTo={{
+                    routeName: 'Golf Drill',
+                    params: {
+                      id: item.id,
+                      type: item.drill_name || item.name,
+                      description: item.description || '',
+                      title: item?.title,
+                      file_name: item.file_url,
+                      screen: 'drill',
+                      status: item.status,
+                      duration: item.duration || '',
+                    },
+                  }}
+                />
+              )}
+            />
+          </Section>
+        )}
+
+        {workouts.length > 0 && (
+          <Section title="Recommended Exercise Drills">
+            <FlatList
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              data={workouts}
+              keyExtractor={(item) => item.id.toString()}
+              renderItem={({ item, index }) => (
                 <WorkoutCard
                   key={index}
                   title={item.name}
@@ -158,49 +155,44 @@ const HomeView = (props: any) => {
                       status: item.status,
                       duration: item.duration || '',
                     },
-                  }} />
-              );
-            }}
-            // contentContainerStyle={{ marginVertical: hp('.5%') }}
-          />
+                  }}
+                />
+              )}
+            />
+          </Section>
+        )}
+        {tutorials.length > 0 && (
+          <Section title="Recommended Tutorials">
+            <FlatList
+              data={tutorials}
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              keyExtractor={(item) => item.id.toString()}
+              renderItem={({ item, index }) => (
+                <WorkoutCard
+                  key={index}
+                  title={item.title}
+                  description={item.description}
+                  navigateTo={{
+                    routeName: 'Golf Drill',
+                    params: {
+                      id: item.id,
+                      type: item.drill_name || item.name,
+                      description: item.description || '',
+                      title: item?.title,
+                      file_name: item.file_url,
+                      // screen: 'workout',
+                      status: item.status,
+                      duration: item.duration || '',
+                    },
+                  }}
+                />
+              )}
+            />
 
-        </Section>
-        <Section title="Recommended Tutorials">
-          <FlatList
-            data={tutorials}
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            keyExtractor={(item) => item.id.toString()}
-            renderItem={({ item, index }) => (
-              <TutorialCard
-                key={index}
-                data={item}
-                onPress={() => console.log("Test")}
-                navigateTo={{
-                  routeName: 'Golf Drill',
-                  params: {
-                    id: item.id,
-                    type: item.drill_name || item.name,
-                    description: item.description || '',
-                    title: item.title,
-                    status: item.status,
-                    file_name: item.file_name,
-                    duration: item.duration || '',
-                  },
-                }} isPlay={false}
-              />
-            )}
-          />
-        </Section>
+          </Section>
+        )}
       </ScrollView>
-      {selectedVideo && (
-        <VideoModal
-          visible={modalVisible}
-          onClose={() => setModalVisible(false)}
-          videoUri={selectedVideo.uri}
-          title={selectedVideo.title}
-        />
-      )}
     </View>
   );
 };
