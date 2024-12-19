@@ -60,3 +60,12 @@ export const formatToDDMMMYYYY = (dateString: string) => {
 export const formatToDDMMYY = (dateString: string) => {
     return format(new Date(dateString), 'dd/MM/yy');
 };
+
+export const extractYoutubeID = (url: string): string | undefined => {
+    if(url){
+    const regex = /(?:youtube\.com\/(?:.*[?&]v=|(?:shorts\/|embed\/|v\/|e\/)|.*?\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+    const match = url.match(regex);
+    return match ? match[1] : undefined;
+    }
+};
+

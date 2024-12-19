@@ -64,7 +64,8 @@ const HomeView = (props: any) => {
   if (tutorialsLoading || profileLoading || recentAnalysisLoading || recWorkoutLoading || drillsLoading) {
     return <ProgressLoader />;
   }
-
+ console.log("Tutorilas ===>", tutorials);
+ 
   return (
     <View style={globalStyles.container}>
       <Header toggleModal={toggleModal} name={`Hello, ${userName}`} />
@@ -180,7 +181,7 @@ const HomeView = (props: any) => {
                       type: item.drill_name || item.name,
                       description: item.description || '',
                       title: item?.title,
-                      file_name: item.file_url,
+                      file_name: item.video_url,
                       // screen: 'workout',
                       status: item.status,
                       duration: item.duration || '',

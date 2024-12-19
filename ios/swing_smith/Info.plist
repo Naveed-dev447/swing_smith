@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>Swing Smith</string>
+	<string>SwingSmith</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIconName</key>
@@ -34,15 +34,15 @@
 		<true/>
 	</dict>
 	<key>NSAppleMusicUsageDescription</key>
-	<string>Enable Swing Smith to access your Apple Music library to enhance your music experience by allowing you to play, manage, and browse your music within the app.</string>
+	<string>Enable SwingSmith to access your Apple Music library to enhance your music experience by allowing you to play, manage, and browse your music within the app.</string>
 	<key>NSCameraUsageDescription</key>
-	<string>Enable Swing Smith to access your Camera to upload your photos/Video and save ones you have taken with the app</string>
+	<string>Enable SwingSmith to access your Camera to upload your photos/Video and save ones you have taken with the app</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Enable Smith Smith to access the microphone for notifications.</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>Enable Swing Smith to access your Photo Library roll to upload your photos/Video and save ones you have taken with the app</string>
+	<string>Enable SwingSmith to access your Photo Library roll to upload your photos/Video and save ones you have taken with the app</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Enable Smith Smith to access your Photo Library roll to upload your photos/Video and save ones you have taken with the app</string>
+	<string>Enable SwingSmith to access your Photo Library roll to upload your photos/Video and save ones you have taken with the app</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>AntDesign.ttf</string>
@@ -127,7 +127,7 @@
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>fb923580829801495</string> <!-- Facebook URL scheme -->
-				<string>com.googleusercontent.apps.320360764204-77apiqhigrdi7dnkmdae7829m8kjil43</string>
+				<string>com.googleusercontent.apps.424596278372-nmheo3ujbtrcsbmdugd8t4iji3ehvpm0</string>
 			</array>
 		</dict>
 	</array>
@@ -136,7 +136,7 @@
 	<key>FacebookClientToken</key>
 	<string>5642951ba62bca4e751a19ce437793c7</string>
 	<key>FacebookDisplayName</key>
-	<string>Swing Smith</string>
+	<string>SwingSmith</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>google</string>

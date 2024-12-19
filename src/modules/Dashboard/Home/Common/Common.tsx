@@ -11,6 +11,7 @@ import {
 import recommandedStyles from '../../../../modules/Dashboard/Recommended/styles';
 import thumbnail from '../../../../assets/Images/recommendedVideoIcon.png';
 import accountIcon from '../../../../assets/Images/accountIcon.png';
+import swingSmithIcon from '../../../../assets/Images/swingsmithIcon.png';
 import ProgressBar from 'react-native-progress/Pie';
 import React, { useEffect, useState } from 'react';
 import {
@@ -56,20 +57,21 @@ export const Header: React.FC<{ name: string; toggleModal: () => void }> = ({
 
   return (
     <View style={styles.headerContainer}>
-      <FastImage
-        source={
-          typeof profileImage === 'string' ? { uri: profileImage, priority: FastImage.priority.normal } : profileImage
-        }
-        style={styles.profileImage}
-        resizeMode={FastImage.resizeMode.cover}
-      />
+      <TouchableOpacity style={{marginLeft: 5}} onPress={() => navigation.navigate('ProfileScreen')}>
+        <FastImage
+          source={
+            typeof profileImage === 'string' ? { uri: swingSmithIcon, priority: FastImage.priority.normal } : swingSmithIcon
+          }
+          style={styles.profileIcon}
+          resizeMode={FastImage.resizeMode.cover}
+        />
+      </TouchableOpacity>
+
       <View style={styles.textContainer}>
         <Text style={styles.headerText}>{name}</Text>
         {name && <Text style={styles.headerFormat}>{formattedDate}</Text>}
       </View>
-      <TouchableOpacity style={{ marginLeft: 'auto' }} onPress={() => navigation.navigate('ProfileScreen')}>
-        <FastImage source={accountIcon} style={styles.profileIcon} />
-      </TouchableOpacity>
+      <FastImage source={profileImage} style={styles.profileImage} />
     </View>
   );
 };
@@ -244,8 +246,7 @@ export const WorkoutCard: React.FC<WorkoutCardProps> = ({
   navigateTo,
 }) => {
   const navigation = useNavigation();
-  console.log("skdjgljdsjlgksdg", title, "naviaate to", navigateTo);
-  
+
   const onPress = () => {
     navigation.navigate(navigateTo?.routeName, navigateTo.params);
   };
@@ -421,6 +422,7 @@ const styles = StyleSheet.create({
   headerContainer: {
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent:'space-between',
     paddingHorizontal: wp('1%'),
     paddingVertical: hp('3%'),
     backgroundColor: '#fff',
@@ -431,9 +433,10 @@ const styles = StyleSheet.create({
     borderRadius: wp('12%'),
     overflow: 'hidden',
     marginRight: 10,
+    // marginLeft: 'auto'
   },
   textContainer: {
-    marginLeft: wp('1%'),
+    // marginLeft: wp('6%'),
     bottom: hp('0.4%'),
   },
   headerText: {
@@ -451,8 +454,9 @@ const styles = StyleSheet.create({
     color: '#192126',
   },
   profileIcon: {
-    width: wp('13%'),
-    height: hp('6%'),
+    width: wp('6%'),
+    height: hp('5.5%'),
+    resizeMode: 'cover'
   },
   section: {
     marginVertical: hp('1%'),

@@ -18,11 +18,11 @@ import { UpdateWorkoutDrillAPICall, UpdateWorkoutListAPICall } from './APICalls/
 import { ShowToast } from '../../../components/ShowToast';
 import Button from '../../../components/Button';
 import { useLoader } from '../../../config/LoaderContext';
-import { IWorkoutDrill } from 'types/Workout';
+import YoutubeIframe from 'react-native-youtube-iframe';
 import debounce from 'lodash/debounce';
-import VideoModal from '../../../components/VideoModal';
-import TutorialCard from '../../../shared/Component/TutorialCard/TutorialCard';
+import * as Progress from 'react-native-progress';
 import CongratulationModal from '../../../components/CongratulationModal';
+import { extractYoutubeID } from '../../../shared/Utils/CommonUtils';
 
 const checkIconSelected = require('../../../assets/Images/selectedCheckIcon.png');
 const headerIcon = require('../../../assets/Images/vector.png');
@@ -32,11 +32,7 @@ const WorkoutDrillView = (props: any) => {
     const { id, type, description, title, file_name, status, screen } = route.params;
 
     const { loading, setLoading } = useLoader();
-    const [modalVisible, setModalVisible] = useState(false);
-    const [selectedVideo, setSelectedVideo] = useState<{
-        uri: string;
-        title: string;
-    } | null>(null);
+    const [isLoading, setIsLoading] = useState(true);
     const [isModalVisible, setIsModalVisible] = useState(false);
     const isCompleted = status === 1 ? true : false;
     const buttonTitle = isCompleted ? "Completed" : "Mark as Done";
@@ -68,10 +64,6 @@ const WorkoutDrillView = (props: any) => {
 
     const debouncedHandleMarkAsDone = debounce(handleMarkAsDone, 300);
 
-    const handleVideoPress = (uri: string, title: string) => {
-        setSelectedVideo({ uri, title });
-        setModalVisible(true);
-    };
 
     const handleConfirm = () => {
         setIsModalVisible(false);
@@ -89,18 +81,27 @@ const WorkoutDrillView = (props: any) => {
             />
         );
     }
-
     return (
         <View style={styles.container}>
             <CustomHeader onBackPress={goBack} title={title || type} />
 
             <ScrollView contentContainerStyle={styles.contentContainer}
                 scrollIndicatorInsets={{ right: 1 }}>
-                <TutorialCard
-                    data={route.params}
-                    onPress={() => handleVideoPress(file_name, description, modalVisible)}
-                    navigateTo={null}
+            <YoutubeIframe
+                    height={hp(25)}
+                    videoId={extractYoutubeID(file_name)} 
+                    onReady={() => setIsLoading(false)}
+                        onError={(error) => {
+                            setIsLoading(false);
+                            ShowToast('error', 'Video loading failed.');
+                            console.error(error);
+                        }}
                 />
+                       {isLoading && (
+                        <View style={{ alignSelf: 'center' }}>
+                            <Progress.Bar width={200} indeterminate={true} color='#9bde0b' />
+                        </View>
+                    )}
                 <View style={styles.shadowBox}>
                     <View style={styles.headerStyle}>
                         <Text style={styles.header}>{screen === 'workout' ? 'Workout' : screen === 'drill' ? 'Drill' : 'Tutorial'} Instructions</Text>
@@ -124,14 +125,6 @@ const WorkoutDrillView = (props: any) => {
                     </View>
                 }
             </ScrollView>
-            {selectedVideo && (
-                <VideoModal
-                    visible={modalVisible}
-                    onClose={() => setModalVisible(false)}
-                    videoUri={selectedVideo.uri}
-                    title={selectedVideo.title}
-                />
-            )}
         </View>
     );
 };

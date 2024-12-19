@@ -223,7 +223,7 @@ const RecommendedView: React.FC = (props: any) => {
                       type: item.drill_name || item.name,
                       description: item.description || '',
                       title: item?.title,
-                      file_name: item.file_url,
+                      file_name: item.video_url,
                       status: item.status,
                       duration: item.duration || '',
                     },

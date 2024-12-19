@@ -1,4 +1,5 @@
 export interface ITutorial {
+  video_url: any;
   status: any;
   fileURL: string;
   drill_name: any;

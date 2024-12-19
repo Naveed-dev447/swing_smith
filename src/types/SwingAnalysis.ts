@@ -32,6 +32,7 @@ interface Swing {
 }
 
 interface RecommendedTutorial {
+  video_url: any;
   file_url: any;
   description: string;
   name: any;
